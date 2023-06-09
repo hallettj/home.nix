@@ -15,6 +15,9 @@
   # release notes.
   home.stateVersion = "23.05"; # Please read the comment before changing.
 
+  # Workaround to allow non-free packages from nixpkgs
+  nixpkgs.config.allowUnfreePredicate = pkg: true;
+
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
@@ -35,6 +38,7 @@
     #   echo "Hello, ${config.home.username}!"
     # '')
 
+    enpass
     neovim
   ];
 
