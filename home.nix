@@ -39,6 +39,7 @@
     #   echo "Hello, ${config.home.username}!"
     # '')
 
+    authy
     enpass
   ];
 
