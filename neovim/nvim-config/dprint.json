@@ -1,0 +1,12 @@
+{
+  "incremental": true,
+  "json": {
+  },
+  "includes": ["**/*.{json}"],
+  "excludes": [
+    "**/*-lock.json"
+  ],
+  "plugins": [
+    "https://plugins.dprint.dev/json-0.15.2.wasm"
+  ]
+}

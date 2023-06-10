@@ -14,6 +14,7 @@
   # want to update the value, then make sure to first check the Home Manager
   # release notes.
   home.stateVersion = "23.05"; # Please read the comment before changing.
+  home.enableNixpkgsReleaseCheck = true;
 
   # Workaround to allow non-free packages from nixpkgs
   nixpkgs.config.allowUnfreePredicate = pkg: true;
@@ -80,11 +81,6 @@
       };
     };
     ignores = [ "*.swo" "*.swp" ];
-  };
-
-  programs.neovim = {
-    enable = true;
-    defaultEditor = true;
   };
 
   programs.zsh = {
