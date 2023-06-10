@@ -39,7 +39,6 @@
     # '')
 
     enpass
-    neovim
   ];
 
   programs.firefox = {
@@ -55,11 +54,37 @@
     enable = true;
     userName = "Jesse Hallett";
     userEmail = "jesse@sitr.us";
+    signing.key = "A5CC2BE3";
+    aliases = {
+      di = "diff --cached";
+      lg = "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit";
+      commend = "commit --amend --no-edit";
+      up = "git fetch origin main:main";
+    };
     extraConfig = {
+      user.useConfigOnly = true;
+      push.default = "simple";
+      pull.ff = "only";
+      core = {
+        pager = "less -FR";
+        autocrlf = "input";
+        editor = "nvim";
+      };
+      rebase.autosquash = true;
+      rerere = {
+        enabled = true;
+        autoupdate = true;
+      };
       init = {
         defaultBranch = "main";
       };
     };
+    ignores = [ "*.swo" "*.swp" ];
+  };
+
+  programs.neovim = {
+    enable = true;
+    defaultEditor = true;
   };
 
   programs.zsh = {
