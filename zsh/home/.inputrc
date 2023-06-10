@@ -1,0 +1,18 @@
+set editing-mode vi
+set blink-matching-paren on
+$if mode=vi
+    set keymap vi-command
+    ")": beginning-of-line                 # For use with inverted number row
+    "\e[A": history-search-backward        # arrow up
+    "\e[B": history-search-forward         # arrow down
+    Control-p: history-search-backward
+    Control-n: history-search-forward
+    Control-l: clear-screen
+
+    set keymap vi-insert
+    "\e[A": history-search-backward
+    "\e[B": history-search-forward
+    Control-p: history-search-backward
+    Control-n: history-search-forward
+    Control-l: clear-screen
+$endif

@@ -33,11 +33,6 @@ in
     NVIM_GTK_NO_HEADERBAR = "1";
   };
 
-  programs.direnv = {
-    enable = true;
-    nix-direnv.enable = true;
-  };
-
   home.packages = with pkgs; [
     fd
     gh # for github integration

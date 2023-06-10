@@ -1,0 +1,12 @@
+[character]
+success_symbol = "[❯](bold green)"
+error_symbol = "[❯](bold red)"
+vicmd_symbol = "[❮](bold yellow)"
+
+[env_var]
+format = 'with 🐚[FOO=$env_value]($style)'
+variable = 'FOO'
+style = 'bright-green bold'
+
+[status]
+disabled = false

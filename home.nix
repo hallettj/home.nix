@@ -43,6 +43,12 @@
     enpass
   ];
 
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
+    enableZshIntegration = true;
+  };
+
   programs.firefox = {
     enable = true;
     profiles.default.settings = {
@@ -82,12 +88,6 @@
       };
     };
     ignores = [ "*.swo" "*.swp" ];
-  };
-
-  programs.zsh = {
-    enable = true;
-    enableAutosuggestions = true;
-    enableSyntaxHighlighting = true;
   };
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage

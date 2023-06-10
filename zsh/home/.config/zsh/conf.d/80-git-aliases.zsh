@@ -1,0 +1,13 @@
+abbrev-alias -c add='git add -p'
+abbrev-alias -c sw='git switch'
+abbrev-alias -c ci='git commit'
+alias lg="git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+abbrev-alias -c pull='git pull'
+abbrev-alias -c push='git push'
+abbrev-alias -c show='git show'
+abbrev-alias -c st='git status'
+abbrev-alias -c re='git restore'
+abbrev-alias -c rh='git reset HEAD'
+abbrev-alias -c fix='git commit --fixup'
+abbrev-alias -g -e B='git symbolic-ref --short HEAD'
+abbrev-alias -c pr='gh pr checkout'
