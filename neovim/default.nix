@@ -46,5 +46,9 @@ in
     # needed to compile fzf-native for telescope-fzf-native.nvim
     gcc
     gnumake
+
+    # language servers
+    rnix-lsp
+    lua-language-server
   ];
 }

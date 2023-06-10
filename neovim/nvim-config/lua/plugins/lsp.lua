@@ -33,6 +33,16 @@ return {
       info = '»'
     })
 
+    -- Language servers that are not installed through mason must be started
+    -- explicitly. The exceptions are:
+    -- - lua_ls (maps to pkgs.lua-language-server)
+    -- - hls
+    -- - rust-analyzer
+    -- which are set up specially below.
+    lsp.setup_servers({
+      'rnix' -- pkgs.rnix-lsp for .nix files
+    })
+
     -- Configure lua language server for neovim
     require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
 
@@ -86,7 +96,7 @@ return {
       sources = {
         { name = 'path' },
         { name = 'nvim_lsp' },
-        { name = 'buffer', keyword_length = 3 },
+        { name = 'buffer',  keyword_length = 3 },
         { name = 'luasnip', keyword_length = 2 },
       },
       mapping = {
