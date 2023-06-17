@@ -41,6 +41,7 @@
 
     authy
     enpass
+    jq
   ];
 
   programs.direnv = {
