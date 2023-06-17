@@ -15,7 +15,6 @@ return {
 
   -- Show input prompts in floating window; make selections with Telescope
   { 'stevearc/dressing.nvim', event = 'VeryLazy', config = true },
-  { 'lotabout/skim', build = './install', event = 'VeryLazy' }, -- Install skim for zsh integration
 
   'tpope/vim-unimpaired', -- shortcuts for cycling/toggling different things
   'tpope/vim-characterize', -- show information about character under cursor
