@@ -24,6 +24,7 @@
         modules = [
           ./home.nix
           ./gnome
+          ./kitty
           ./neovim
           ./zsh
         ];
