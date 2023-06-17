@@ -205,7 +205,5 @@ in
         paperwmWorkspaces)
   );
 
-  # TODO: gnome key bindings
-
   home.packages = enabledExtensionPackages;
 }
