@@ -50,7 +50,11 @@ in
 {
   dconf.settings = {
     "org/gnome/desktop/calendar".show-weekdate = true;
-    "org/gnome/desktop/interface".color-scheme = "prefer-dark";
+    "org/gnome/desktop/interface" = {
+      color-scheme = "prefer-dark";
+      font-antialiasing = "grayscale";
+      font-hinting = "slight";
+    };
 
     # Settings that PaperWM prefers
     "org/gnome/mutter" = {
@@ -59,9 +63,23 @@ in
       attach-modal-dialogs = false;
     };
 
+    # Fractional scaling
+    "org/gnome/mutter" = {
+      experimental-features = [ "scale-monitor-framebuffer" ]; # fractional scaling
+    };
+
     "org/gnome/shell" = {
       disable-user-extensions = false;
       enabled-extensions = enabledExtensions;
+      favorite-apps = [
+        "org.gnome.Nautilus.desktop"
+        "org.gnome.Software.desktop"
+        "firefox.desktop"
+        "neovide.desktop"
+        "md.obsidian.Obsidian.desktop"
+        "kitty.desktop"
+        "chrome-cinhimbnkkaeohfgghhklpknlkffjgod-Default.desktop" # TODO: match up with chrome apps in home-manager config
+      ];
     };
 
     "org/gnome/shell/extensions/paperwm" = {
@@ -110,6 +128,51 @@ in
       toggle-scratch = [ "<Shift><Super>quotedbl" ]; # move window into or out of scratch layer
       toggle-scratch-layer = [ "<Control><Super>apostrophe" ];
       toggle-scratch-window = [ "<Super>apostrophe" ];
+    };
+
+
+    "org/gnome/shell/keybindings" = {
+      focus-active-notification = [ "<Control><Super>n" ];
+      switch-to-application-1 = [ "" ];
+      switch-to-application-2 = [ "" ];
+      switch-to-application-3 = [ "" ];
+      switch-to-application-4 = [ "" ];
+      switch-to-application-5 = [ "" ];
+      switch-to-application-6 = [ "" ];
+      switch-to-application-7 = [ "" ];
+      switch-to-application-8 = [ "" ];
+      switch-to-application-9 = [ "" ];
+      toggle-overview = [ "<Super>w" ];
+    };
+
+
+    "org/gnome/shell/extensions/advanced-alt-tab-window-switcher" = {
+      app-switcher-popup-fav-apps = false;
+      app-switcher-popup-filter = 2;
+      app-switcher-popup-include-show-apps-icon = false;
+      app-switcher-popup-search-pref-running = true;
+      enable-super = false;
+      hot-edge-position = 0;
+      super-double-press-action = 3;
+      super-key-mode = 3;
+      switcher-popup-hot-keys = false;
+      switcher-popup-interactive-indicators = true;
+      switcher-popup-position = 3;
+      switcher-popup-timeout = 0;
+      switcher-ws-thumbnails = 2;
+      win-switcher-popup-filter = 2;
+      win-switcher-popup-order = 1;
+    };
+
+
+    "org/gnome/shell/extensions/gtktitlebar" = {
+      hide-window-titlebars = "always";
+      restrict-to-primary-screen = false;
+    };
+
+
+    "org/gnome/shell/extensions/horizontal-workspace-indicator" = {
+      icons-style = "lines";
     };
 
     "org/gnome/shell/extensions/runcat" = {
