@@ -42,4 +42,10 @@ in
     # I just don't want extra UI anywhere
     NVIM_GTK_NO_HEADERBAR = "1";
   };
+
+  home.packages = with pkgs; [
+    (neovide.overrideAttrs (oldAttrs: {
+      patches = oldAttrs.patches ++ [ ./neovide-font-customization.patch ];
+    }))
+  ];
 }

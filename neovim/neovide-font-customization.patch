@@ -1,0 +1,35 @@
+From 2fe151d9fc02d40c380a56e6d6b6ce3c37c56b6f Mon Sep 17 00:00:00 2001
+From: Jesse Hallett <jesse@sitr.us>
+Date: Wed, 10 Aug 2022 15:52:53 -0400
+Subject: [PATCH] adjustments for Cartograph CF: shrink line height, bump up
+ baseline
+
+---
+ src/renderer/fonts/caching_shaper.rs | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/src/renderer/fonts/caching_shaper.rs b/src/renderer/fonts/caching_shaper.rs
+index ac77f77..5e75c4b 100644
+--- a/src/renderer/fonts/caching_shaper.rs
++++ b/src/renderer/fonts/caching_shaper.rs
+@@ -177,7 +177,7 @@ impl CachingShaper {
+         let (metrics, glyph_advance) = self.info();
+         let font_width = (glyph_advance + 0.5).floor() as u64;
+ 
+-        let bare_font_height = (metrics.ascent + metrics.descent + metrics.leading).ceil();
++        let bare_font_height = ((metrics.ascent + metrics.descent + metrics.leading) * 0.83).ceil();
+         let font_height = bare_font_height as i64 + self.linespace;
+ 
+         (
+@@ -365,7 +365,7 @@ impl CachingShaper {
+ 
+             shaper.shape_with(|glyph_cluster| {
+                 for glyph in glyph_cluster.glyphs {
+-                    let position = ((glyph.data as u64 * glyph_width) as f32, glyph.y);
++                    let position = ((glyph.data as u64 * glyph_width) as f32, glyph.y - 5.0);
+                     glyph_data.push((glyph.id, position));
+                 }
+             });
+-- 
+2.39.2
+
