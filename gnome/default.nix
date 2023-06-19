@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   paperwmWorkspaces =
@@ -30,6 +30,13 @@ in
       color-scheme = "prefer-dark";
       font-antialiasing = "grayscale";
       font-hinting = "slight";
+    };
+
+    "org/gnome/desktop/input-sources" = {
+      sources = [
+        (lib.hm.gvariant.mkTuple [ "xkb" "us" ])
+        (lib.hm.gvariant.mkTuple [ "xkb" "us+dvorak" ])
+      ];
     };
 
     # Settings that PaperWM prefers
