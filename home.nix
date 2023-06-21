@@ -51,11 +51,6 @@
     jq
     fd
     ripgrep
-
-    # Games
-    lutris
-    steam
-    vulkan-tools # just to check that vulkan is set up
   ];
 
   programs.direnv = {
