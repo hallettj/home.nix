@@ -44,6 +44,7 @@
     discord
     enpass
     google-chrome
+    obsidian
     slack
     write_stylus
 
