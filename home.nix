@@ -48,6 +48,13 @@
     slack
     write_stylus
 
+    # Programming
+    cargo
+    rustc
+    rust-analyzer
+    clang
+    nodejs_20
+
     # CLI
     jq
     fd
