@@ -59,6 +59,10 @@
     jq
     fd
     ripgrep
+
+    # Backups
+    borgbackup
+    vorta
   ];
 
   programs.direnv = {
