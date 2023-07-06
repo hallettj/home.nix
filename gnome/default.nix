@@ -12,6 +12,10 @@ in
 {
   imports = [ ./gnome-extensions.nix ];
 
+  config.home.packages = with pkgs; [
+    gnome.gnome-tweaks
+  ];
+
   config.gnomeExtensions = {
     enable = true;
     enabledExtensionUuids = [
