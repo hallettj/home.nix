@@ -1,5 +1,10 @@
 return {
   'lvimuser/lsp-inlayhints.nvim',
+
+  -- There is a new API for enabling inlay hints in neovim 0.10 which I have
+  -- configured in plugins/lsp.lua
+  enabled = function() return vim.fn.has('nvim-0.10') ~= 1 end,
+
   config = function()
     local autocmd = vim.api.nvim_create_autocmd
     local augroup = vim.api.nvim_create_augroup

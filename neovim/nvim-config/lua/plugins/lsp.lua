@@ -33,6 +33,19 @@ return {
       info = '»'
     })
 
+    -- New inlay hints in nvim-0.10!
+    if vim.fn.has('nvim-0.10') == 1 then
+      vim.api.nvim_create_autocmd('LspAttach', {
+        group = vim.api.nvim_create_augroup('EnableInlayHints', { clear = true }),
+        callback = function(args)
+          local client = vim.lsp.get_client_by_id(args.data.client_id)
+          if client.server_capabilities.inlayHintProvider then
+            vim.lsp.inlay_hint(args.buf, true)
+          end
+        end
+      })
+    end
+
     -- Language servers that are not installed through mason must be started
     -- explicitly. The exceptions are:
     -- - lua_ls (maps to pkgs.lua-language-server)
