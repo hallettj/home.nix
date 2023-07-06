@@ -37,6 +37,10 @@ in
         (lib.hm.gvariant.mkTuple [ "xkb" "us" ])
         (lib.hm.gvariant.mkTuple [ "xkb" "us+dvorak" ])
       ];
+      xkb-options = [
+        "caps:ctrl_modifier"
+        "terminate:ctrl_alt_bksp"
+      ];
     };
 
     # Settings that PaperWM prefers
