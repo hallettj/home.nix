@@ -40,3 +40,7 @@ abbrev-alias -c stop='docker-compose stop'
 abbrev-alias -c res='docker-compose restart'
 abbrev-alias -c clean='docker-compose rm'
 abbrev-alias -c ds='docker-compose ps'
+
+# Nix
+abbrev-alias -c pkg='nix search nixpkgs'
+abbrev-alias -c run='nix run nixpkgs#'
