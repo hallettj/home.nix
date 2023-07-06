@@ -123,7 +123,7 @@ in
       switch-to-application-7 = [ "" ];
       switch-to-application-8 = [ "" ];
       switch-to-application-9 = [ "" ];
-      toggle-overview = [ "<Super>w" ];
+      toggle-overview = [ "<Super>v" ];
     };
 
 
