@@ -34,6 +34,7 @@
     # Programming
     cargo
     docker
+    docker-compose
     rustc
     rust-analyzer
     clang
