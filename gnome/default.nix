@@ -23,7 +23,7 @@ in
       "appindicatorsupport@rgcjonas.gmail.com"
       "gtktitlebar@velitasali.github.io"
       "horizontal-workspace-indicator@tty2.io"
-      "paperwm@hedning:matrix.org"
+      "paperwm@hedning:matrix.org" # will soon change to paperwm@paperwm.github.com
       "runcat@kolesnikov.se"
     ];
   };
