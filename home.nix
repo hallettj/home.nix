@@ -32,6 +32,7 @@
     write_stylus
 
     # Programming
+    cachix
     cargo
     docker
     docker-compose
