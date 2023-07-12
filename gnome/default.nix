@@ -168,6 +168,7 @@ in
 
     "org/gnome/shell/extensions/runcat" = {
       displaying-items = "character-only";
+      idle-threshold = 10;
     };
 
     "org/gnome/GWeather" = {
