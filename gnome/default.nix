@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ lib, pkgs, ... }:
 
 let
   paperwmWorkspaces =
@@ -23,8 +23,11 @@ in
       "appindicatorsupport@rgcjonas.gmail.com"
       "gtktitlebar@velitasali.github.io"
       "horizontal-workspace-indicator@tty2.io"
-      "paperwm@hedning:matrix.org" # will soon change to paperwm@paperwm.github.com
+      "paperwm@paperwm.github.com"
       "runcat@kolesnikov.se"
+    ];
+    packages = [
+      (pkgs.callPackage ./paperwm.nix { })
     ];
   };
 
@@ -122,7 +125,6 @@ in
       toggle-scratch-window = [ "<Super>apostrophe" ];
     };
 
-
     "org/gnome/shell/keybindings" = {
       focus-active-notification = [ "<Control><Super>n" ];
       switch-to-application-1 = [ "" ];
@@ -136,7 +138,6 @@ in
       switch-to-application-9 = [ "" ];
       toggle-overview = [ "<Super>v" ];
     };
-
 
     "org/gnome/shell/extensions/advanced-alt-tab-window-switcher" = {
       app-switcher-popup-fav-apps = false;
@@ -156,12 +157,10 @@ in
       win-switcher-popup-order = 1;
     };
 
-
     "org/gnome/shell/extensions/gtktitlebar" = {
       hide-window-titlebars = "always";
       restrict-to-primary-screen = false;
     };
-
 
     "org/gnome/shell/extensions/horizontal-workspace-indicator" = {
       icons-style = "lines";
