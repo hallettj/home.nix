@@ -25,8 +25,10 @@ in
       gnumake
 
       # language servers
-      rnix-lsp
+      nil # Nix LSP
       lua-language-server
+
+      nixpkgs-fmt # I have nil configured to call this for formatting
     ];
   };
 

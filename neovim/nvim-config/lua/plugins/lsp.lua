@@ -46,18 +46,19 @@ return {
       })
     end
 
-    -- Language servers that are not installed through mason must be started
-    -- explicitly. The exceptions are:
-    -- - lua_ls (maps to pkgs.lua-language-server)
-    -- - hls
-    -- - rust-analyzer
-    -- which are set up specially below.
-    lsp.setup_servers({
-      'rnix' -- pkgs.rnix-lsp for .nix files
-    })
-
     -- Configure lua language server for neovim
-    require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
+    local lspconfig = require('lspconfig')
+    lspconfig.lua_ls.setup(lsp.nvim_lua_ls())
+
+    lspconfig.nil_ls.setup {
+      settings = {
+        ['nil'] = {
+          formatting = {
+            command = { 'nixpkgs-fmt' }
+          }
+        }
+      }
+    }
 
     -- Rust analyzer is set up by rust-tools (see lua/plugins/rust-tools.lua).
     -- We want to use the system version of hls.
