@@ -1,4 +1,5 @@
 {
+  "Comment.nvim": { "branch": "master", "commit": "176e85eeb63f1a5970d6b88f1725039d85ca0055" },
   "LuaSnip": { "branch": "master", "commit": "a658ae2906344a1d2b9c507738e585cf68e685c7" },
   "cmp-buffer": { "branch": "main", "commit": "3022dbc9166796b644a841a02de8dd1cc1d311fa" },
   "cmp-nvim-lsp": { "branch": "main", "commit": "44b16d11215dce86f253ce0c30949813c0a90765" },
@@ -52,7 +53,6 @@
   "trouble.nvim": { "branch": "main", "commit": "d99e2abd10808ef91738ce98a5c767e6a51df449" },
   "vim-auto-save": { "branch": "master", "commit": "2e3e54ea4c0fc946c21b0a4ee4c1c295ba736ee8" },
   "vim-characterize": { "branch": "master", "commit": "1ba0fcf208464647e2df2e9f693247a2207f22a4" },
-  "vim-commentary": { "branch": "master", "commit": "e87cd90dc09c2a203e13af9704bd0ef79303d755" },
   "vim-dirvish": { "branch": "master", "commit": "bbf53b30ca1e718625b9b84b1d32379e470ddad7" },
   "vim-dirvish-git": { "branch": "master", "commit": "1d938c826503059660d89f186d2e8affc686a0e8" },
   "vim-eunuch": { "branch": "master", "commit": "67f3dd32b4dcd1c427085f42ff5f29c7adc645c6" },

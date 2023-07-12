@@ -18,7 +18,6 @@ return {
 
   'tpope/vim-unimpaired', -- shortcuts for cycling/toggling different things
   'tpope/vim-characterize', -- show information about character under cursor
-  'tpope/vim-commentary', -- manipulate code comments
   'tpope/vim-eunuch', -- commands for manipulating files and directories
   'tpope/vim-repeat', -- makes the `.` command work with third-party actions
   'tpope/vim-rsi', -- add Emacs-like shortcuts to command mode
