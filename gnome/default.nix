@@ -126,7 +126,7 @@ in
     };
 
     "org/gnome/shell/keybindings" = {
-      focus-active-notification = [ "<Control><Super>n" ];
+      focus-active-notification = [ "<Control><Super>n" ]; # the default conflicts with my switch-right paperwm binding
       switch-to-application-1 = [ "" ];
       switch-to-application-2 = [ "" ];
       switch-to-application-3 = [ "" ];
@@ -136,7 +136,11 @@ in
       switch-to-application-7 = [ "" ];
       switch-to-application-8 = [ "" ];
       switch-to-application-9 = [ "" ];
-      toggle-overview = [ "<Super>v" ];
+      toggle-overview = [ "<Super>v" ]; # <Super> is taken by AATS
+    };
+
+    "org/gnome/desktop/wm/keybindings" = {
+      minimize = [ ]; # The default conflicts with my switch-left paperwm binding
     };
 
     "org/gnome/shell/extensions/advanced-alt-tab-window-switcher" = {
