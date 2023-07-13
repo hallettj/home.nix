@@ -49,6 +49,7 @@ in
       ];
       xkb-options = [
         "caps:ctrl_modifier"
+        "compose:menu"
         "terminate:ctrl_alt_bksp"
       ];
     };
