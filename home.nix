@@ -28,6 +28,7 @@
     enpass
     google-chrome
     obsidian
+    pavucontrol
     slack
     write_stylus
 
