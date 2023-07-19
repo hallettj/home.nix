@@ -46,6 +46,7 @@
     jq
     fd
     ripgrep
+    unzip
 
     # Backups
     borgbackup
