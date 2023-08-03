@@ -27,8 +27,10 @@
     discord
     enpass
     google-chrome
+    masterpdfeditor
     obsidian
     pavucontrol
+    signal-desktop
     slack
     write_stylus
 
