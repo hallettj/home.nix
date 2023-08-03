@@ -32,8 +32,8 @@ in
   };
 
   config.dconf.settings = {
-    "org/gnome/desktop/datetime" = { automatic-timezone = true; };
-    "org/gnome/system/location" = { enabled = true; }; # Location required for automatic time zone
+    "org/gnome/desktop/datetime" = { automatic-timezone = false; };
+    "org/gnome/system/location" = { enabled = false; }; # Location required for automatic time zone
 
     "org/gnome/desktop/calendar".show-weekdate = true;
     "org/gnome/desktop/interface" = {
