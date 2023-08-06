@@ -3,8 +3,12 @@ return {
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
     config = function()
+      -- Set compiler to get grammar installation working in NixOS. See
+      -- https://github.com/nvim-treesitter/nvim-treesitter/issues/1449
+      require('nvim-treesitter.install').compilers = { 'gcc' }
       require('nvim-treesitter.configs').setup {
-        ensure_installed = 'all', -- "all", "maintained", or list of languages
+        ensure_installed = 'all', -- "all", or list of languages
+        ignore_install = { 't32' }, -- t32 is failing to download for me
         highlight = {
           enable = true,          -- false will disable the whole extension
           disable = {},           -- list of languages that will be disabled
