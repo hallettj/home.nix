@@ -7,7 +7,6 @@
         wine-staging
       ];
     })
-    steam
     vulkan-tools # just to check that vulkan is set up
   ];
 }
