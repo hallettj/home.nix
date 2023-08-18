@@ -33,6 +33,7 @@
     signal-desktop
     slack
     write_stylus
+    xorg.xev # used by my `keycode` alias
 
     # Programming
     cachix
