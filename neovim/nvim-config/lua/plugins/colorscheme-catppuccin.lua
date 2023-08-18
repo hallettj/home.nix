@@ -15,7 +15,8 @@ return {
   -- The main colorscheme must be loaded synchronously - otherwise neovim does
   -- some automatic highlight group aliasing that messes things up. So we
   -- disable lazy loading, and set a high priority.
-  lazy = false, priority = 1000,
+  lazy = false,
+  priority = 1000,
 
   build = function() require('catppuccin').compile() end,
   config = function()
@@ -85,21 +86,25 @@ return {
       --
       -- This whole system might change again before nvim 0.8 is stabilized. See
       -- https://github.com/nvim-treesitter/nvim-treesitter/pull/3365
-      custom_highlights = {
-        ['Boolean'] = { style = { 'italic' } },
-        ['@function.builtin'] = { style = { 'italic' } },
-        ['@keyword.operator'] = { style = { 'italic' } },
-        -- disable italic for parameters
-        ['@parameter'] = { style = {} },
-        ['@namespace'] = { style = {} },
-        -- italic for `for` in `impl X for Y` in Rust
-        ['@repeat'] = { style = { 'italic' } },
-        -- italic for `self` in Rust
-        ['@variable.builtin'] = { style = { 'italic' } },
-        -- messages from vim.notify
-        ['ErrorMsg'] = { style = {} },
-        ['WarningMsg'] = { style = {} },
-      },
+      custom_highlights = function(colors)
+        return {
+          ['Boolean'] = { style = { 'italic' } },
+          ['@function.builtin'] = { style = { 'italic' } },
+          ['@keyword.operator'] = { style = { 'italic' } },
+          -- disable italic for parameters
+          ['@parameter'] = { style = {} },
+          ['@namespace'] = { style = {} },
+          -- italic for `for` in `impl X for Y` in Rust
+          ['@repeat'] = { style = { 'italic' } },
+          -- italic for `self` in Rust
+          ['@variable.builtin'] = { style = { 'italic' } },
+          -- italic for `mut` and `ref` in Rust
+          ['@type.qualifier'] = { fg = colors.yellow, style = { 'italic' } },
+          -- messages from vim.notify
+          ['ErrorMsg'] = { style = {} },
+          ['WarningMsg'] = { style = {} },
+        }
+      end,
     })
 
     local autocmd = vim.api.nvim_create_autocmd
