@@ -42,5 +42,7 @@ abbrev-alias -c clean='docker-compose rm'
 abbrev-alias -c ds='docker-compose ps'
 
 # Nix
+abbrev-alias -c rebuild="sudo nixos-rebuild switch --flake ~/Documents/NixConfig#$HOST"
+abbrev-alias -c switch="home-manager switch --flake ~/Documents/NixConfig#$USER@$HOST"
 abbrev-alias -c pkg='nix search nixpkgs'
 abbrev-alias -c run='nix run nixpkgs#'
