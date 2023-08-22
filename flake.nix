@@ -57,6 +57,10 @@
             ./nixos/yu/configuration.nix
           ];
         };
+        battuta = nixpkgs.lib.nixosSystem {
+          specialArgs = { inherit inputs outputs; };
+          modules = [ ./nixos/battuta/configuration.nix ];
+        };
       };
 
       # Standalone home-manager configuration entrypoint
@@ -69,6 +73,11 @@
             # > Our main home-manager configuration file <
             ./home-manager/jesse/yu.nix
           ];
+        };
+        "jesse@battuta" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.x86_64-linux;
+          extraSpecialArgs = { inherit flakePath inputs outputs; };
+          modules = [ ./home-manager/jesse/battuta.nix ];
         };
       };
     };

@@ -10,6 +10,7 @@
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ../common
+      ../features/nixbuild
     ];
 
   networking.hostName = "yu"; # Define your hostname.

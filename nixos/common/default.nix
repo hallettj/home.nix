@@ -44,7 +44,7 @@
   networking.networkmanager.enable = true;
 
   # Set your time zone.
-  time.timeZone = "America/Los_Angeles";
+  time.timeZone = pkgs.lib.mkForce null; # allow TZ to be set by desktop user
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
@@ -119,8 +119,6 @@
     git
     neovim
   ];
-
-  environment.shells = with pkgs; [ zsh ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
