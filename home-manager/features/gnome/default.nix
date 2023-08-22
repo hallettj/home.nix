@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ lib, outputs, pkgs, ... }:
 
 let
   paperwmWorkspaces =
@@ -10,13 +10,11 @@ let
     ];
 in
 {
-  imports = [ ./gnome-extensions.nix ];
-
-  config.home.packages = with pkgs; [
+  home.packages = with pkgs; [
     gnome.gnome-tweaks
   ];
 
-  config.gnomeExtensions = {
+  gnomeExtensions = {
     enable = true;
     enabledExtensionUuids = [
       "advanced-alt-tab@G-dH.github.com"
@@ -27,11 +25,11 @@ in
       "runcat@kolesnikov.se"
     ];
     packages = [
-      (pkgs.callPackage ./paperwm.nix { })
+      outputs.packages.${pkgs.system}.paperwm
     ];
   };
 
-  config.dconf.settings = {
+  dconf.settings = {
     "org/gnome/desktop/datetime" = { automatic-timezone = false; };
     "org/gnome/system/location" = { enabled = false; }; # Location required for automatic time zone
 
@@ -79,15 +77,12 @@ in
     };
 
     "org/gnome/shell/extensions/paperwm" = {
-      cycle-width-steps = [ 0.25 0.33329999999999999 0.5 0.66659999999999997 0.75 ];
       horizontal-margin = 8;
       show-window-position-bar = true;
       topbar-follow-focus = true;
       vertical-margin-bottom = 2;
       window-gap = 8;
       winprops = [
-        ''{"wm_class":"kitty","preferredWidth":"25%"}''
-        ''{"wm_class":"neovide","preferredWidth":"75%"}''
         ''{"wm_class":"Slack","scratch_layer":true}''
         ''{"wm_class":"chrome-cinhimbnkkaeohfgghhklpknlkffjgod-Default","scratch_layer":true}''
       ];

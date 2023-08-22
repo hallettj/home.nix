@@ -1,8 +1,7 @@
-{ config, pkgs, ... }:
+{ config, flakePath, pkgs, ... }:
 
 let
-  dir = "${config.xdg.configHome}/home-manager/zsh";
-  link = path: config.lib.file.mkOutOfStoreSymlink "${config.xdg.configHome}/home-manager/zsh/${path}";
+  link = path: config.lib.file.mkOutOfStoreSymlink "${flakePath config}/home-manager/features/zsh/${path}";
 in
 {
   programs.zsh = {

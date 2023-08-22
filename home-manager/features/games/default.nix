@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   home.packages = with pkgs; [
@@ -10,3 +10,4 @@
     vulkan-tools # just to check that vulkan is set up
   ];
 }
+

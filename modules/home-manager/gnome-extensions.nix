@@ -95,3 +95,4 @@ in
     home.packages = checkForMissing (enabledExtensionPackages ++ checkForExtensionUuids cfg.packages);
   };
 }
+

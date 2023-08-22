@@ -1,23 +1,27 @@
-{ config, pkgs, ... }:
+{ config, flakePath, lib, outputs, pkgs, ... }:
 
 {
-  # Home Manager needs a bit of information about you and the paths it should
-  # manage.
-  home.username = "jesse";
-  home.homeDirectory = "/home/jesse";
+  imports = [
+  ] ++ (builtins.attrValues outputs.homeManagerModules);
 
-  # This value determines the Home Manager release that your configuration is
-  # compatible with. This helps avoid breakage when a new Home Manager release
-  # introduces backwards incompatible changes.
-  #
-  # You should not change this value, even if you update Home Manager. If you do
-  # want to update the value, then make sure to first check the Home Manager
-  # release notes.
-  home.stateVersion = "23.05"; # Please read the comment before changing.
-  home.enableNixpkgsReleaseCheck = true;
+  nixpkgs = {
+    overlays = builtins.attrValues outputs.overlays;
+    config = {
+      allowUnfree = true;
+      # Workaround for https://github.com/nix-community/home-manager/issues/2942
+      allowUnfreePredicate = (_: true);
+    };
+  };
 
-  # Workaround to allow non-free packages from nixpkgs
-  nixpkgs.config.allowUnfreePredicate = pkg: true;
+  home = {
+    username = lib.mkDefault "jesse";
+    homeDirectory = lib.mkDefault "/home/jesse";
+    sessionVariables = {
+      FLAKE = flakePath config;
+    };
+    stateVersion = "23.05"; # Please read the comment before changing.
+    enableNixpkgsReleaseCheck = true;
+  };
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
@@ -104,24 +108,13 @@
     ignores = [ "*.swo" "*.swp" ];
   };
 
+  # Let Home Manager install and manage itself.
+  programs.home-manager.enable = true;
+
   home.file = {
     ".XCompose".source = dotfiles/XCompose;
   };
 
-  # You can also manage environment variables but you will have to manually
-  # source
-  #
-  #  ~/.nix-profile/etc/profile.d/hm-session-vars.sh
-  #
-  # or
-  #
-  #  /etc/profiles/per-user/jesse/etc/profile.d/hm-session-vars.sh
-  #
-  # if you don't want to manage your shell through Home Manager.
-  home.sessionVariables = {
-    # EDITOR = "emacs";
-  };
-
-  # Let Home Manager install and manage itself.
-  programs.home-manager.enable = true;
+  # Nicely reload system units when changing configs
+  systemd.user.startServices = "sd-switch";
 }
