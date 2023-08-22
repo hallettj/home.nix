@@ -26,6 +26,7 @@
     authy
     discord
     enpass
+    foliate
     google-chrome
     masterpdfeditor
     obsidian
