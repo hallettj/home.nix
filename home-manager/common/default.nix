@@ -54,6 +54,7 @@
     # CLI
     jq
     fd
+    gnupg
     ripgrep
     unzip
 
