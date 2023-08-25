@@ -51,6 +51,9 @@
     clang
     nodejs_20
 
+    # Nix utilities
+    nurl
+
     # CLI
     jq
     fd
