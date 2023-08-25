@@ -1,7 +1,8 @@
-{ config, flakePath, lib, outputs, pkgs, ... }:
+{ config, flakePath, lib, inputs, outputs, pkgs, ... }:
 
 {
   imports = [
+    inputs.nix-index-database.hmModules.nix-index
   ] ++ (builtins.attrValues outputs.homeManagerModules);
 
   nixpkgs = {
@@ -110,6 +111,10 @@
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
+
+  # Install comma to run programs without installing them. Requires
+  # nix-index-database flake
+  programs.nix-index-database.comma.enable = true;
 
   home.file = {
     ".XCompose".source = dotfiles/XCompose;
