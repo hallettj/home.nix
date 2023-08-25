@@ -1,6 +1,10 @@
 { inputs, outputs, lib, config, pkgs, ... }:
 
 {
+  imports = [
+    ./openssh.nix
+  ];
+
   nixpkgs = {
     # You can add overlays here
     overlays = builtins.attrValues outputs.overlays;
@@ -137,9 +141,6 @@
 
   # Avahi is enabled by default, but nssmdns is not
   services.avahi.nssmdns = true;
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
