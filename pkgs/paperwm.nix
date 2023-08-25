@@ -15,8 +15,8 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "paperwm";
     repo = "PaperWM";
-    rev = "ac10f71f866a25b5c3aaa2d02ae5054303a81f24"; # branch submission-to-extensions.gnome.org, pr #556
-    hash = "sha256-UgACJrUmn1iKNP3E2dvhWVi65BblpbGtvz2PKM0cJWc=";
+    rev = "v44.7.2";
+    hash = "sha256-8GUxUnF8uHTcpryN0pTs/ZvqSXWq24h3iOzxGq6aZD0=";
   };
 
   dontConfigure = true;
