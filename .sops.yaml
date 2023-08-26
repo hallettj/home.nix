@@ -3,10 +3,12 @@ keys:
     - &jesse A378B0799F0593C0B499DD028FB4E35FE86B913B
   - &hosts:
     - &yu age1ukxx3kscch4e3tasyf28aamwdacsu7m3c2gqvyev0rvxsuvrydfsfxe44y
+    - &battuta age1esn577ww0eaw6z6c43unf94m6t8rxvjhhf0dupj7w0v4vynnzv8qsq9ghj
 creation_rules:
   - path_regex: nixos/(common|features)/.*/secrets.ya?ml$
     key_groups:
       - age:
         - *yu
+        - *battuta
         pgp:
         - *jesse
