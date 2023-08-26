@@ -3,6 +3,7 @@
 {
   imports = [
     ./openssh.nix
+    ./sops.nix
   ];
 
   nixpkgs = {

@@ -53,6 +53,7 @@
 
     # Nix utilities
     nurl
+    sops
 
     # CLI
     jq
@@ -119,6 +120,11 @@
   # Install comma to run programs without installing them. Requires
   # nix-index-database flake
   programs.nix-index-database.comma.enable = true;
+
+  services.gpg-agent = {
+    enable = true;
+    pinentryFlavor = "gnome3";
+  };
 
   home.file = {
     ".XCompose".source = dotfiles/XCompose;

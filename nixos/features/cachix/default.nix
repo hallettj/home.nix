@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ config, lib, ... }:
 
 let
   folder = ./caches;
@@ -7,5 +7,22 @@ let
 in
 {
   imports = lib.mapAttrsToList toImport (lib.filterAttrs filterCaches (builtins.readDir folder));
-  nix.settings.substituters = [ "https://cache.nixos.org/" ];
+
+  nix.settings = {
+    substituters = [ "https://cache.nixos.org/" ];
+
+    # netrc contains passwords to access private binary caches - see the line
+    # below that sets content for that file from sops secrets
+    netrc-file = [ "/etc/nix/netrc" ];
+  };
+
+  environment.etc = {
+    "nix/netrc" = {
+      source = config.sops.secrets.netrc.path;
+    };
+  };
+
+  sops.secrets = {
+    netrc.sopsFile = ./secrets.yaml;
+  };
 }
