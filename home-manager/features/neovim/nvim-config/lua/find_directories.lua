@@ -73,7 +73,7 @@ exports.find_projects = function(opts)
     exports.find_directories {
         prompt_title = "Find Projects",
         cwd = "~",
-        search_dirs = {"projects", ".config", ".homesick"},
+        search_dirs = {"projects", ".config", "Documents"},
         exclude = {".git", "node_modules"},
         fd_args = {"--max-depth=2"},
         unpack(opts or {})
