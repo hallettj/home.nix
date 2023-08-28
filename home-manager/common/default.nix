@@ -3,6 +3,7 @@
 {
   imports = [
     inputs.nix-index-database.hmModules.nix-index
+    ./ssh
   ] ++ (builtins.attrValues outputs.homeManagerModules);
 
   nixpkgs = {
