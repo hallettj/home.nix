@@ -33,6 +33,7 @@
     discord
     enpass
     foliate
+    gimp-with-plugins
     google-chrome
     masterpdfeditor
     obsidian
