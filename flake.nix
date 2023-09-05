@@ -60,19 +60,23 @@
       inherit (self) outputs;
       forAllSystems = nixpkgs.lib.genAttrs [ "x86_64-linux" ];
       flakePath = config: "${config.home.homeDirectory}/Documents/NixConfig";
+      pkgs = forAllSystems (system:
+        import nixpkgs {
+          inherit system;
+          overlays = builtins.attrValues self.overlays;
+        }
+      );
     in
     {
       # Your custom packages
       # Acessible through 'nix build', 'nix shell', etc
       packages = forAllSystems (system:
-        let pkgs = nixpkgs.legacyPackages.${system};
-        in import ./pkgs { inherit inputs pkgs; }
+        import ./pkgs { inherit inputs; pkgs = pkgs.${system}; }
       );
       # Devshell for bootstrapping
       # Acessible through 'nix develop' or 'nix-shell' (legacy)
       devShells = forAllSystems (system:
-        let pkgs = nixpkgs.legacyPackages.${system};
-        in import ./shell.nix { inherit pkgs; }
+        import ./shell.nix { pkgs = pkgs.${system}; }
       );
 
       # Your custom packages and modifications, exported as overlays
@@ -104,7 +108,7 @@
       # Available through 'home-manager --flake .#your-username@your-hostname'
       homeConfigurations = {
         "jesse@yu" = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
+          pkgs = pkgs.x86_64-linux; # Home-manager requires 'pkgs' instance
           extraSpecialArgs = { inherit flakePath inputs outputs; };
           modules = [
             # > Our main home-manager configuration file <
@@ -112,7 +116,7 @@
           ];
         };
         "jesse@battuta" = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.x86_64-linux;
+          pkgs = pkgs.x86_64-linux;
           extraSpecialArgs = { inherit flakePath inputs outputs; };
           modules = [ ./home-manager/jesse/battuta.nix ];
         };
