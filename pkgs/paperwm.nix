@@ -2,9 +2,9 @@
 # https://github.com/NixOS/nixpkgs/blob/master/pkgs/desktops/gnome/extensions/paperwm/default.nix
 #
 # I use this to test pre-release branches
-{ lib
+{ inputs
+, lib
 , stdenv
-, fetchFromGitHub
 , gitUpdater
 }:
 
@@ -12,12 +12,7 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "gnome-shell-extension-paperwm";
   version = "44.3.1";
 
-  src = fetchFromGitHub {
-    owner = "paperwm";
-    repo = "PaperWM";
-    rev = "v44.7.2";
-    hash = "sha256-8GUxUnF8uHTcpryN0pTs/ZvqSXWq24h3iOzxGq6aZD0=";
-  };
+  src = inputs.paperwm-source;
 
   dontConfigure = true;
   dontBuild = true;

@@ -399,6 +399,23 @@
         "type": "github"
       }
     },
+    "paperwm-source": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1693926025,
+        "narHash": "sha256-VjRt64Luf8zdWuSXqBf+ISJSNPKr1nADMUP0/IMS0dw=",
+        "owner": "paperwm",
+        "repo": "PaperWM",
+        "rev": "6366778696bc8d05b8f9802942d6ebd5e341f5eb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "paperwm",
+        "ref": "v44.9.2",
+        "repo": "PaperWM",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "crane": "crane",
@@ -409,6 +426,7 @@
         "nix-index-database": "nix-index-database",
         "nixpkgs": "nixpkgs_3",
         "nixpkgs-unstable": "nixpkgs-unstable",
+        "paperwm-source": "paperwm-source",
         "rust-overlay": "rust-overlay",
         "sops-nix": "sops-nix"
       }

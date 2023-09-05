@@ -15,6 +15,11 @@
     home-manager.url = "github:nix-community/home-manager/release-23.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
+    paperwm-source = {
+      url = "github:paperwm/PaperWM/v44.9.2";
+      flake = false;
+    };
+
     crane = {
       url = "github:ipetkov/crane";
       inputs = {
