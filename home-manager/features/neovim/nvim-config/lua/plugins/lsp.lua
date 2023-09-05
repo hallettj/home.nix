@@ -27,7 +27,7 @@ return {
     local lsp = require('lsp-zero').preset {}
 
     lsp.set_sign_icons({
-      error = '✘',
+      error = '◈',
       warn = '▲',
       hint = '⚑',
       info = '»'
