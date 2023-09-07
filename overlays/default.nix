@@ -17,7 +17,7 @@ in
     # ...
     # });
 
-    neovide = addPatches prev.neovide [ ./neovide-font-customization.patch ];
+    neovide = addPatches inputs.nixpkgs-unstable.legacyPackages.${prev.system}.neovide [ ./neovide-font-customization.patch ];
   };
 
   # When applied, the unstable nixpkgs set (declared in the flake inputs) will
