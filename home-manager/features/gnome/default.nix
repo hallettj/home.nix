@@ -59,11 +59,6 @@ in
       attach-modal-dialogs = false;
     };
 
-    # Fractional scaling
-    "org/gnome/mutter" = {
-      experimental-features = [ "scale-monitor-framebuffer" ]; # fractional scaling
-    };
-
     "org/gnome/shell" = {
       favorite-apps = [
         "org.gnome.Nautilus.desktop"
