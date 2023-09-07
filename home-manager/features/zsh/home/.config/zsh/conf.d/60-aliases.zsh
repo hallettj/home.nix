@@ -6,9 +6,9 @@ alias bell="echo '\a'"
 alias beep=bell
 alias pg="pgrep -fa"
 
-# Alias ls to exa if it's installed
-if (( $+commands[exa] )); then
-	alias ls="exa"
+# Alias ls to eza if it's installed
+if (( $+commands[eza] )); then
+	alias ls="eza"
 fi
 
 # Changes to top-level directory of git repository.

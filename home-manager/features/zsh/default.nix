@@ -1,4 +1,4 @@
-{ config, flakePath, pkgs, ... }:
+{ config, flakePath, inputs, pkgs, ... }:
 
 let
   link = path: config.lib.file.mkOutOfStoreSymlink "${flakePath config}/home-manager/features/zsh/${path}";
@@ -42,7 +42,7 @@ in
 
   home.packages = with pkgs; [
     bat
-    exa # replacement for ls
+    inputs.eza.packages.${pkgs.system}.default # replacement for ls
     fd
     fzf
     ripgrep

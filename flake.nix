@@ -15,6 +15,15 @@
     home-manager.url = "github:nix-community/home-manager/release-23.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
+    # Replacement for ls
+    eza = {
+      url = "github:eza-community/eza";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        rust-overlay.follows = "rust-overlay";
+      };
+    };
+
     paperwm-source = {
       url = "github:paperwm/PaperWM/v44.9.2";
       flake = false;
