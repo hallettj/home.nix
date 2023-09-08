@@ -28,6 +28,7 @@ return {
       return parsed_mapping.notation[1] == '<Plug>'
     end
 
+    -- Populate commander with key mappings that have descriptions
     for _, mapping in ipairs(vim.api.nvim_get_keymap('n')) do
       if mapping.desc and
           mapping.desc ~= 'Nvim builtin' and
@@ -41,6 +42,14 @@ return {
           show = true,
         } }
       end
+    end
+
+    -- Populate commander with user commands
+    for _, command in ipairs(vim.api.nvim_get_commands({})) do
+      commander.add {
+        desc = command.desc,
+        cmd = command.definition,
+      }
     end
   end,
 }
