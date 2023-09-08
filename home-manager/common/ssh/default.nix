@@ -10,6 +10,5 @@ in
 {
   home.file = {
     ".ssh/config".source = symlink "config";
-    ".ssh/known_hosts".source = symlink "known_hosts";
   };
 }
