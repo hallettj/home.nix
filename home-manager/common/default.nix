@@ -39,6 +39,7 @@
     pavucontrol
     signal-desktop
     slack
+    transmission-gtk
     write_stylus
     xorg.xev # used by my `keycode` alias
 
