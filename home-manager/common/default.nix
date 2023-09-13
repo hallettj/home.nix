@@ -60,6 +60,7 @@
     # CLI
     jq
     fd
+    killall
     gnupg
     ripgrep
     unzip
