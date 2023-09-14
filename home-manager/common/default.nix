@@ -63,6 +63,7 @@
     killall
     gnupg
     ripgrep
+    lm_sensors
     unzip
 
     # Backups
