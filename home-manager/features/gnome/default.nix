@@ -1,6 +1,7 @@
-{ lib, outputs, pkgs, ... }:
+{ config, flakePath, lib, outputs, pkgs, ... }:
 
 let
+  dir = "${flakePath config}/home-manager/features/gnome";
   paperwmWorkspaces =
     [
       { name = "Home"; id = "f7bf4f04-df01-49d4-90d9-ac80b7e9d3b2"; }
@@ -28,6 +29,8 @@ in
       outputs.packages.${pkgs.system}.paperwm
     ];
   };
+
+  xdg.configFile."mimeapps.list".source = config.lib.file.mkOutOfStoreSymlink "${dir}/mimeapps.list";
 
   dconf.settings = {
     "org/gnome/desktop/datetime" = { automatic-timezone = false; };
