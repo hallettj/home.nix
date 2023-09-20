@@ -60,6 +60,8 @@ return {
       }
     }
 
+    lspconfig.tsserver.setup {}
+
     -- Rust analyzer is set up by rust-tools (see lua/plugins/rust-tools.lua).
     -- We want to use the system version of hls.
     lsp.skip_server_setup { 'hls', 'rust_analyzer' }

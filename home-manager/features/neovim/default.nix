@@ -27,6 +27,7 @@ in
       # language servers
       nil # Nix LSP
       lua-language-server
+      nodePackages.typescript-language-server
 
       nixpkgs-fmt # I have nil configured to call this for formatting
     ];
