@@ -37,6 +37,16 @@ alias pkg = nix search nixpkgs
 
 alias grep = grep --color=auto
 
+# Kill processes whose names contain the given pattern. This is basically
+# `killall -r`, but done the nushell way. It's handy on NixOS where process
+# names are often store paths so that it's not practical to type out the entire
+# process name.
+#
+# Returns a list of processes that were killed.
+def nkill [name_substring] {
+  ps | where name =~ $name_substring | each { |p| kill $p.pid; $p }
+}
+
 def mkpass [] {
   grep -v '[^a-z]' $env.WORDLIST | shuf --random-source=/dev/urandom | head -n5 | paste -sd ' '
 }
