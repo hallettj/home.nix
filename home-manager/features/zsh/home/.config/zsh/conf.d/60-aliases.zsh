@@ -19,8 +19,9 @@ abbrev-alias -c nm="nmcli nm"
 abbrev-alias -c con="nmcli con"
 abbrev-alias -c wifi="nmcli device wifi"
 
-# Generate a password
-alias mkpass="grep -v '[^a-z]' /usr/share/dict/words | shuf --random-source=/dev/urandom | head -n5 | paste -sd ' '"
+# Generate a password - the WORDLIST variable is provided by the
+# environment.wordlist NixOS module
+alias mkpass="grep -v '[^a-z]' $WORDLIST | shuf --random-source=/dev/urandom | head -n5 | paste -sd ' '"
 
 # Sends stdin to system clipboard
 alias clip="xclip -i -selection clipboard"
