@@ -33,11 +33,24 @@ in
     fileWidgetOptions = [ "--preview='bat --color=always {}'" ];
   };
 
+  programs.starship.enable = true;
+  programs.starship.settings = {
+    character = {
+      success_symbol = "[❯](bold green)";
+      error_symbol = "[❯](bold red)";
+      vimcmd_symbol = "[❮](bold yellow)";
+    };
+    nix_shell.symbol = "❄️ ";
+    status.disabled = false;
+  };
+
   home.file = {
-    zsh-config = { source = link "home/.config/zsh"; target = ".config/zsh"; };
+    zsh-config = {
+      source = link "home/.config/zsh";
+      target = ".config/zsh";
+    };
     dircolors = { source = link "home/.dircolors"; target = ".dircolors"; };
     inputrc = { source = link "home/.inputrc"; target = ".inputrc"; };
-    starship = { source = link "home/.config/starship.toml"; target = ".config/starship.toml"; };
   };
 
   home.packages = with pkgs; [
@@ -46,7 +59,6 @@ in
     fd
     fzf
     ripgrep
-    starship # defines prompt
     xclip
   ];
 }
