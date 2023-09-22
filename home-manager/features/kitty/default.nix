@@ -7,16 +7,17 @@ let
   dir = "${flakePath config}/home-manager/features/kitty";
 in
 {
-  home.file.kitty-config = {
-    source = config.lib.file.mkOutOfStoreSymlink "${dir}/kitty-config";
-    target = ".config/kitty";
+  programs.kitty = {
+    enable = true;
+    settings = {
+      include = "${dir}/kitty.conf";
+    };
   };
 
   home.packages = with pkgs; [
-    kitty
     kitty-themes
 
-    # Need a nerdfont to get icons. Another option could be "NerdFontsSymbolsOnly".
-    (nerdfonts.override { fonts = [ "FiraCode" ]; })
+    # Need a nerdfont to get icons
+    (nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; })
   ];
 }
