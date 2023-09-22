@@ -16,4 +16,7 @@ in
   programs.kitty.extraConfig = ''
     shell nu
   '';
+
+  # Change directories with fuzzy search
+  programs.zoxide.enable = true;
 }

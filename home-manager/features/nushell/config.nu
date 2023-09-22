@@ -1,6 +1,19 @@
 $env.config = {
-  edit_mode: vi,
-  show_banner: false,
+  edit_mode: vi
+  show_banner: false
+
+  keybindings: [
+    {
+      name: cd_with_fuzzy_search
+      modifier: control
+      keycode: char_g
+      mode: vi_insert
+      event: {
+        send: executehostcommand
+        cmd: zi # installed by the programs.zoxide home manager module
+      }
+    }
+  ]
 }
 
 # git aliases
