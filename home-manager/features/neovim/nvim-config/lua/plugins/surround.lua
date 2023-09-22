@@ -6,8 +6,6 @@ local dict = require 'dict'
 -- added on new lines. If the key ends in "_cur", the surround is performed
 -- around the current line.
 local keymaps = {
-  insert          = '<C-g>z',
-  insert_line     = '<C-g>Z',
   normal          = 'gz',
   normal_cur      = 'gzz',
   normal_line     = 'gZ',
