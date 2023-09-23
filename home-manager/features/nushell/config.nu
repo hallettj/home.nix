@@ -14,6 +14,13 @@ $env.config = {
       }
     }
   ]
+
+  hooks: {
+    # The atuin home manager module has a bug where it assumes that these hook
+    # lists already exist.
+    pre_execution: []
+    pre_prompt: []
+  }
 }
 
 # git aliases

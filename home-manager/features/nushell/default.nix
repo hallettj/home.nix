@@ -1,4 +1,4 @@
-{ config, flakePath, ... }:
+{ config, flakePath, pkgs, ... }:
 
 let
   dir = "${flakePath config}/home-manager/features/nushell";
@@ -16,6 +16,18 @@ in
   programs.kitty.extraConfig = ''
     shell nu
   '';
+
+  # Manages and synchronizes shell history
+  programs.atuin = {
+    enable = true;
+    package = pkgs.unstable.atuin;
+    settings = {
+      inline_height = 16;
+      show_help = false;
+      update_check = false;
+      workspaces = true;
+    };
+  };
 
   # Change directories with fuzzy search
   programs.zoxide.enable = true;
