@@ -21,7 +21,6 @@ in
         "cargo"
         "git"
         "make"
-        "man" 
         "nix"
         "npm"
       ]}
