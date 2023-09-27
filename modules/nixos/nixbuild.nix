@@ -28,7 +28,7 @@ in
     identityFile = mkOption {
       type = types.path;
       description = ''
-        Path to a public SSH key that has been registered with nixbuild.net
+        Path to a private SSH key which matches a public key that has been registered with nixbuild.net
       '';
     };
 
@@ -47,6 +47,8 @@ in
     programs.ssh.extraConfig = ''
       Host eu.nixbuild.net
         PubkeyAcceptedKeyTypes ssh-ed25519
+        ServerAliveInterval 60
+        IPQoS throughput
         IdentityFile ${cfg.identityFile}
     '';
 
@@ -58,9 +60,9 @@ in
     };
 
     nix = {
-      settings.builders-use-substitutes = true;
       distributedBuilds = true;
       buildMachines = builtins.map buildMachine cfg.systems;
+      settings.builders-use-substitutes = true;
     };
   };
 }

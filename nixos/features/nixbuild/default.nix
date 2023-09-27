@@ -1,4 +1,4 @@
-{ outputs, ... }:
+{ config, outputs, ... }:
 
 {
   imports = [
@@ -7,10 +7,9 @@
 
   # Configure remote builds on nixbuild.net
   services.nixbuild = {
-    enable = false;
-    identityFile = "/root/nixbuild-key";
+    enable = true;
+    identityFile = "/etc/ssh/ssh_host_ed25519_key";
     systems = [
-      # "x86_64-linux"
       "i686-linux"
       "aarch64-linux"
       "armv7l-linux"
