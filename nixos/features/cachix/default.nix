@@ -22,6 +22,10 @@ in
     };
   };
 
+  # Edit secrets file by running:
+  #
+  #     $ sops path/to/secrets.yaml
+  #
   sops.secrets = {
     netrc.sopsFile = ./secrets.yaml;
   };

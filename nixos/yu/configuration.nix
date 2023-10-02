@@ -11,6 +11,7 @@
       ./hardware-configuration.nix
       ../common
       ../features/nixbuild
+      ../features/vpn
     ];
 
   networking.hostName = "yu"; # Define your hostname.
