@@ -25,7 +25,7 @@ $env.config = {
   ]
 
   table: {
-    mode: light
+    mode: rounded
   }
 
   shell_integration: true
@@ -84,4 +84,75 @@ def pg [name_pattern: string@process_names] {
 
 def process_names [] {
   ps | get name
+}
+
+## Docker
+
+# List containers
+def "docker ps" [
+  --all (-a)            # Show all containers (default shows just running)
+  --filter (-f): string # Filter output based on conditions provided (format: name=value)
+  --format: string      # Pretty-print containers using a Go template
+  --last (-n): int      # Show n last-created containers (includes all states) (default -1)
+  --latest (-l)         # Show the latest-created container (includes all states)
+  --no-trunc            # Don't truncate output
+] {
+  let flags = [
+    (if ($all) { [--all] } else { [] })
+    (if ($filter != null) { [--filter $filter] } else { [] })
+    [--size --no-trunc]
+  ] | flatten
+  ^docker ps $flags
+    | lines
+    | skip 1  # skip column headings
+    | parse -r '^(?<id>.+?)\s\s\s+(?<image>.+?)\s\s\s+(?<command>.+?)\s\s\s+(?<created>.+?)\s\s\s+(?<status>.+?)\s\s\s+(?<ports>(?:\S+->\S+,?\s?)*)\s\s\s+(?<names>.*?)\s\s\s+(?:(?<size>\S+) \(virtual (?<virtual>\S+)\))$'
+    | update id { |it| if ($no_trunc) { $it.id } else { $it.id | str substring 0..12 } }
+    | update command { |it| $it.command | str replace -r '^"(.*)"$' '$1' }  # remove quotes from command
+    | update command { |it| if ($no_trunc) { $it.command } else { $it.command | str substring 0..19 } }
+    | update status { |it| $it.status | parse_docker_status }
+    | update ports { |it| $it.ports | split row ", " | each { |it| $it | str trim } }
+    | update size { |it| $it.size | into filesize }
+    | update virtual { |it| $it.virtual | into filesize }
+}
+
+def parse_docker_status [] {
+  parse -r '^(?<state>Up|Exited \((?<code>\d+)\)) (?<since>.*?)(?: (?<healthy>\(healthy\)))?$'
+    | update state { |it| $it.state | split words | first }
+    | update code { |it| if (not ($it.code | is-empty)) { $it.code | into int } else { $it.code } }
+    | update healthy { |it| if (not ($it.healthy | is-empty)) { true } else { null } }
+}
+
+## Working with Arion
+
+# Get log output from Arion services with JSON parsing. If an argument is given
+# filters to logs from the given service
+# 
+# Produces a list of records (not a table unfortunately) with the fields:
+# service, timestamp, level, fields, target, span, spans
+def logs [service?: string@arion_services] {
+  let input = if ($service == null) { arion logs } else { arion logs $service }
+  $input |
+    lines |
+    parse -r '^(?<service>\S+)\s*\|\s*(?<log>.*)$' |
+    where {|it| is_json $it.log} |
+    update log {|it| $it.log | from json } |
+    flatten
+}
+
+def arion_services [] {
+  arion cat | from json | get services | columns
+}
+
+def is_json [input: string] {
+  ($input | from json | describe) =~ '^(record|table|list)'
+}
+
+## MongoDB Agent
+
+# Get inferred collection schemas from agent log output
+def schemas [] {
+  logs agent |
+    where fields.table_info? != null |
+    get fields |
+    each {|it| { validator: ($it.validator | from json), table_info: ($it.table_info | from json) } }
 }
