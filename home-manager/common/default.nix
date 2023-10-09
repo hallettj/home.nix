@@ -61,9 +61,10 @@
     jq
     fd
     killall
+    lm_sensors
     gnupg
     ripgrep
-    lm_sensors
+    tree
     unzip
 
     # Backups
