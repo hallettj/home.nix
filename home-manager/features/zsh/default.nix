@@ -40,7 +40,13 @@ in
       error_symbol = "[❯](bold red)";
       vimcmd_symbol = "[❮](bold yellow)";
     };
-    nix_shell.symbol = "❄️ ";
+    package.disabled = true;
+    nix_shell = {
+      format = "via [$symbol$state]($style) ";
+      symbol = "❄️";
+      impure_msg = "";
+      pure_msg = "pure";
+    };
     status.disabled = false;
   };
 
