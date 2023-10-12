@@ -124,32 +124,43 @@ def parse_docker_status [] {
 
 ## Working with Arion
 
-# Get log output from Arion services with JSON parsing. If an argument is given
-# filters to logs from the given service
+# Get log output from Arion/docker-compose services with JSON parsing. If an
+# argument is given filters to logs from the given service
 # 
 # Produces a list of records (not a table unfortunately) with the fields:
 # service, timestamp, level, fields, target, span, spans
-def logs [service?: string@arion_services] {
-  let input = if ($service == null) { arion logs } else { arion logs $service }
-  $input |
-    lines |
-    parse -r '^(?<service>\S+)\s*\|\s*(?<log>.*)$' |
-    where {|it| is_json $it.log} |
-    update log {|it| $it.log | from json } |
-    flatten
+def logs [service?: string@docker_compose_services] {
+  let args = [$service] | compact
+  let input = if ("arion-compose.nix" | path exists) { arion logs $args } else { docker-compose logs $args }
+  $input
+    | lines
+    | parse -r '^(?<service>\S+)\s*\|\s*(?<log>.*)$'
+    | where {|it| is_json $it.log}
+    | update log {|it| $it.log | from json }
+    | flatten
 }
 
-def arion_services [] {
-  arion cat | from json | get services | columns
+# Helper to provide autocompletion for inputs to the logs command
+def docker_compose_services [] {
+  let compose_file = if ("arion-compose.nix" | path exists) {
+    arion cat | from json
+  } else if ("docker-compose.yaml" | path exists) {
+    open docker-compose.yaml
+  } else {
+    return []
+  }
+  $compose_file | get services | columns
 }
 
+# Helper for the logs command
 def is_json [input: string] {
   ($input | from json | describe) =~ '^(record|table|list)'
 }
 
 ## MongoDB Agent
 
-# Get inferred collection schemas from agent log output
+# Get collection schemas from mongodb agent log output.
+# Builds on the logs command defined above
 def schemas [] {
   logs agent |
     where fields.table_info? != null |
