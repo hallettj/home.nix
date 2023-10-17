@@ -66,6 +66,12 @@ in
       attach-modal-dialogs = false;
     };
 
+
+    "org/gnome/settings-daemon/plugins/media-keys" = {
+      # Makes media keys change volume by a smaller increment
+      "volume-step" = 2;
+    };
+
     "org/gnome/shell" = {
       favorite-apps = [
         "org.gnome.Nautilus.desktop"
