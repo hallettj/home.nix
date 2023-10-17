@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ../features/garnix
     ./openssh.nix
     ./sops.nix
   ];
