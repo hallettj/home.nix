@@ -7,11 +7,11 @@ return {
       -- https://github.com/nvim-treesitter/nvim-treesitter/issues/1449
       require('nvim-treesitter.install').compilers = { 'gcc' }
       require('nvim-treesitter.configs').setup {
-        ensure_installed = 'all', -- "all", or list of languages
+        ensure_installed = 'all',   -- "all", or list of languages
         ignore_install = { 't32' }, -- t32 is failing to download for me
         highlight = {
-          enable = true,          -- false will disable the whole extension
-          disable = {},           -- list of languages that will be disabled
+          enable = true,            -- false will disable the whole extension
+          disable = {},             -- list of languages that will be disabled
         },
         indent = { enable = true },
       }
@@ -116,5 +116,11 @@ return {
   },
   -- Shows lines with containing function, struct, etc. if that would otherwise
   -- be scrolled off the top of the screen.
-  { 'nvim-treesitter/nvim-treesitter-context', dependencies = { 'nvim-treesitter/nvim-treesitter' } },
+  {
+    'nvim-treesitter/nvim-treesitter-context',
+    dependencies = { 'nvim-treesitter/nvim-treesitter' },
+    opts = {
+      max_lines = 4,
+    },
+  },
 }
