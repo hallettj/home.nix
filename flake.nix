@@ -24,18 +24,9 @@
       };
     };
 
-    paperwm-source = {
-      url = "github:paperwm/PaperWM/v44.9.2";
-      flake = false;
-    };
-
     crane = {
       url = "github:ipetkov/crane";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "flake-utils";
-        rust-overlay.follows = "rust-overlay";
-      };
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     rust-overlay = {
