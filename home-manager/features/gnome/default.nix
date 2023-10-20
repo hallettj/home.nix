@@ -88,11 +88,14 @@ in
       horizontal-margin = 8;
       show-window-position-bar = true;
       topbar-follow-focus = true;
+      vertical-margin = 2;
       vertical-margin-bottom = 2;
       window-gap = 8;
       winprops = [
         ''{"wm_class":"Slack","scratch_layer":true}''
         ''{"wm_class":"chrome-cinhimbnkkaeohfgghhklpknlkffjgod-Default","scratch_layer":true}''
+        ''{"wm_class":"kitty","preferredWidth":"25%"}''
+        ''{"wm_class":"neovide","preferredWidth":"75%"}''
       ];
     };
 
