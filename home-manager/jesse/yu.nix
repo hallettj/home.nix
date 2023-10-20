@@ -10,6 +10,7 @@
     ../features/neovim
     ../features/nushell
     ../features/ultrawide
+    ../features/wezterm
     ../features/zsh
   ];
 }

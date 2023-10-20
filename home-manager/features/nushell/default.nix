@@ -40,6 +40,15 @@ in
     shell nu
   '';
 
+  # and do the same for wezterm
+  xdg.configFile."wezterm/autoload/default_prog_nu.lua".text = ''
+    local module = {}
+    function module.configure(config)
+      config.default_prog = { '/home/jesse/.nix-profile/bin/nu' }
+    end
+    return module
+  '';
+
   # Manages and synchronizes shell history
   programs.atuin = {
     enable = true;
