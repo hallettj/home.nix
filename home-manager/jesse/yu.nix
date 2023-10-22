@@ -9,8 +9,9 @@
     ../features/kitty
     ../features/neovim
     ../features/nushell
-    ../features/ultrawide
     ../features/wezterm
     ../features/zsh
   ];
+
+  screen-type.aspect-ratio = "ultrawide";
 }

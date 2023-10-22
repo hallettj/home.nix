@@ -4,4 +4,6 @@
 {
   # List your module files here
   gnomeExtensions = import ./gnome-extensions.nix;
+  paperwm = import ./paperwm.nix;
+  screen-type = import ./screen-type.nix;
 }
