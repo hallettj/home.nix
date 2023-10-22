@@ -1,3 +1,9 @@
+# Enables and configures the PaperWM Gnome extensions.
+#
+# This module depends on my Gnome extensions module which you can find in
+# modules/home-manager/gnome-extensions.nix
+#
+# For a usage example see home-manager/features/gnome/paperwm.nix
 { config, lib, ... }:
 
 with lib;

@@ -1,3 +1,9 @@
+# Enables Gnome extensions identified by UUID. Automatically loads packages for
+# each extension from nixpkgs, but you may provide custom packages for specific
+# extensions.
+#
+# For usage examples see home-manager/features/gnome/default.nix and
+# modules/home-manager/paperwm.nix
 { config, lib, pkgs, ... }:
 
 with lib;
