@@ -16,7 +16,7 @@ in
     enable = true;
     package = inputs.nushell.packages.${pkgs.system}.default;
     envFile.text = "source ${dir}/env.nu";
-    configFile.text = let nu_scripts = pkgs.unstable.nu_scripts; in "
+    configFile.text = "
       ${use_completions [
         "cargo"
         "git"
@@ -44,7 +44,7 @@ in
   xdg.configFile."wezterm/autoload/default_prog_nu.lua".text = ''
     local module = {}
     function module.configure(config)
-      config.default_prog = { '/home/jesse/.nix-profile/bin/nu' }
+      config.default_prog = { '${config.programs.nushell.package}/bin/nu' }
     end
     return module
   '';
