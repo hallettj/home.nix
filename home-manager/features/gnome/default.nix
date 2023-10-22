@@ -94,8 +94,6 @@ in
       winprops = [
         ''{"wm_class":"Slack","scratch_layer":true}''
         ''{"wm_class":"chrome-cinhimbnkkaeohfgghhklpknlkffjgod-Default","scratch_layer":true}''
-        ''{"wm_class":"kitty","preferredWidth":"25%"}''
-        ''{"wm_class":"neovide","preferredWidth":"75%"}''
       ];
     };
 
