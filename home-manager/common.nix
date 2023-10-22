@@ -3,7 +3,7 @@
 {
   imports = [
     inputs.nix-index-database.hmModules.nix-index
-    ./ssh
+    ./features/ssh
   ] ++ (builtins.attrValues outputs.homeManagerModules);
 
   nixpkgs = {
@@ -129,10 +129,6 @@
   services.gpg-agent = {
     enable = true;
     pinentryFlavor = "gnome3";
-  };
-
-  home.file = {
-    ".XCompose".source = dotfiles/XCompose;
   };
 
   # Nicely reload system units when changing configs

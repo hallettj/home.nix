@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ../common
+    ../common.nix
     ../features/games
     ../features/gnome
     ../features/kitty
