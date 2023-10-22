@@ -2,9 +2,9 @@
 
 {
   imports = [
-    ../features/garnix
-    ./openssh.nix
-    ./sops.nix
+    ./features/garnix
+    ./features/openssh.nix
+    ./features/sops.nix
   ];
 
   nixpkgs = {
