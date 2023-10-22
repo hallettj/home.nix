@@ -43,7 +43,7 @@
     };
 
     # Fetch source to provide to nushell flake
-    nu = {
+    nushell-source = {
       url = "github:nushell/nushell";
       flake = false;
     };
@@ -53,7 +53,7 @@
       inputs = {
         crane.follows = "crane";
         nixpkgs.follows = "nixpkgs-unstable";
-        nu.follows = "nu";
+        nu.follows = "nushell-source";
         rust-overlay.follows = "rust-overlay";
         utils.follows = "flake-utils";
       };
