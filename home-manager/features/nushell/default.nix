@@ -41,20 +41,6 @@ in
     package = pkgs.unstable.carapace;
   };
 
-  # Manages and synchronizes shell history
-  programs.atuin = {
-    enable = true;
-    flags = [ "--disable-up-arrow" ];
-    package = pkgs.unstable.atuin;
-    settings = {
-      inline_height = 16;
-      search_mode = "skim";
-      show_help = false;
-      update_check = false;
-      workspaces = true;
-    };
-  };
-
   # Get newer version of starship with an init script that is compatible with
   # the latest nushell
   programs.starship.package = pkgs.unstable.starship;

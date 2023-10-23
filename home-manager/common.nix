@@ -3,7 +3,13 @@
 {
   imports = [
     inputs.nix-index-database.hmModules.nix-index
+    ./features/gnome
+    ./features/kitty
+    ./features/neovim
+    ./features/nushell
+    ./features/shell-common
     ./features/ssh
+    ./features/zsh
   ] ++ (builtins.attrValues outputs.homeManagerModules);
 
   nixpkgs = {

@@ -26,30 +26,6 @@ in
     '';
   };
 
-  programs.skim = {
-    enable = true;
-    enableZshIntegration = true;
-    fileWidgetCommand = "fd --type f";
-    fileWidgetOptions = [ "--preview='bat --color=always {}'" ];
-  };
-
-  programs.starship.enable = true;
-  programs.starship.settings = {
-    character = {
-      success_symbol = "[❯](bold green)";
-      error_symbol = "[❯](bold red)";
-      vimcmd_symbol = "[❮](bold yellow)";
-    };
-    package.disabled = true;
-    nix_shell = {
-      format = "via [$symbol$state]($style) ";
-      symbol = "❄️";
-      impure_msg = "";
-      pure_msg = "pure";
-    };
-    status.disabled = false;
-  };
-
   home.file = {
     zsh-config = {
       source = link "home/.config/zsh";
