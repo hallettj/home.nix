@@ -294,6 +294,27 @@
         "type": "github"
       }
     },
+    "home-manager-unstable": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs-unstable"
+        ]
+      },
+      "locked": {
+        "lastModified": 1698069042,
+        "narHash": "sha256-L6U8qNhQ3KjQ04voQ+QLQCnFbD5NuIlqC9DO9T7jIZY=",
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "rev": "f540f30f1f3c76b68922550dcf5f78f42732fd37",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "ref": "master",
+        "repo": "home-manager",
+        "type": "github"
+      }
+    },
     "naersk": {
       "inputs": {
         "nixpkgs": "nixpkgs"
@@ -608,6 +629,7 @@
         "eza": "eza",
         "flake-utils": "flake-utils_2",
         "home-manager": "home-manager",
+        "home-manager-unstable": "home-manager-unstable",
         "neovim-nightly-overlay": "neovim-nightly-overlay",
         "niri-source": "niri-source",
         "nix-index-database": "nix-index-database",

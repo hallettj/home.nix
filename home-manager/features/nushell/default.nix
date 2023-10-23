@@ -16,7 +16,7 @@ in
     enable = true;
     package = inputs.nushell.packages.${pkgs.system}.default;
     envFile.text = "source ${dir}/env.nu";
-    configFile.text = "
+    configFile.text = ''
       ${use_completions [
         "cargo"
         "git"
@@ -30,24 +30,16 @@ in
       use ${nu_scripts}/share/nu_scripts/modules/nix/nix.nu *
 
       source ${dir}/config.nu
-    ";
+    '';
   };
 
-  # I'm not setting nushell as my login shell because it is not Posix, and it is
-  # not super stable. Instead I'm configuring kitty to run nushell instead of my
-  # login shell.
-  programs.kitty.extraConfig = ''
-    shell nu
-  '';
-
-  # and do the same for wezterm
-  xdg.configFile."wezterm/autoload/default_prog_nu.lua".text = ''
-    local module = {}
-    function module.configure(config)
-      config.default_prog = { '${config.programs.nushell.package}/bin/nu' }
-    end
-    return module
-  '';
+  # Carapace provides command completions
+  programs.carapace = {
+    enable = true;
+    # Get newer version of carapace with an init script that is compatible with
+    # the latest nushell
+    package = pkgs.unstable.carapace;
+  };
 
   # Manages and synchronizes shell history
   programs.atuin = {
@@ -61,6 +53,18 @@ in
       update_check = false;
       workspaces = true;
     };
+  };
+
+  # Get newer version of starship with an init script that is compatible with
+  # the latest nushell
+  programs.starship.package = pkgs.unstable.starship;
+
+  # Change directories with fuzzy search
+  programs.zoxide = {
+    enable = true;
+    # Get newer version of zoxide with an init script that is compatible with
+    # the latest nushell
+    package = pkgs.unstable.zoxide;
   };
 
   # The direnv nushell integration in Hame Manager 23.05 is not updated for the
@@ -82,15 +86,19 @@ in
       }))
     '';
 
-  # Get newer version of starship with an init script that is compatible with
-  # the latest nushell
-  programs.starship.package = pkgs.unstable.starship;
+  # I'm not setting nushell as my login shell because it is not Posix, and it is
+  # not super stable. Instead I'm configuring kitty to run nushell instead of my
+  # login shell.
+  programs.kitty.extraConfig = ''
+    shell nu
+  '';
 
-  # Change directories with fuzzy search
-  programs.zoxide = {
-    enable = true;
-    # Get newer version of zoxide with an init script that is compatible with
-    # the latest nushell
-    package = pkgs.unstable.zoxide;
-  };
+  # and do the same for wezterm
+  xdg.configFile."wezterm/autoload/default_prog_nu.lua".text = ''
+    local module = {}
+    function module.configure(config)
+      config.default_prog = { '${config.programs.nushell.package}/bin/nu' }
+    end
+    return module
+  '';
 }
