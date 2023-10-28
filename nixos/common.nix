@@ -5,7 +5,7 @@
     ./features/garnix
     ./features/openssh.nix
     ./features/sops.nix
-  ];
+  ] ++ (builtins.attrValues outputs.nixosModules);
 
   nixpkgs = {
     # You can add overlays here

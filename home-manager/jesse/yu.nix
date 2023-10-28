@@ -5,6 +5,7 @@
     ../common.nix
     ../features/games
     ../features/godot
+    ../features/niri
     ../features/wezterm
   ];
 

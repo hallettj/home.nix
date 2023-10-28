@@ -4,4 +4,5 @@
 {
   # List your module files here
   nixbuild = import ./nixbuild.nix;
+  niri = import ./niri.nix;
 }
