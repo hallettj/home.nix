@@ -1,4 +1,4 @@
-{ inputs, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   # Manages and synchronizes shell history
@@ -40,7 +40,6 @@
 
   home.packages = with pkgs; [
     bat
-    inputs.eza.packages.${pkgs.system}.default # replacement for ls
     fd
     fzf
     ripgrep
