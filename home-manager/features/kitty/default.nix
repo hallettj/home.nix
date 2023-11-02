@@ -18,6 +18,6 @@ in
     kitty-themes
 
     # Need a nerdfont to get icons
-    (nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; })
+   nerdfonts
   ];
 }
