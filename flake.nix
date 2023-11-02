@@ -31,6 +31,11 @@
       };
     };
 
+    garn = {
+      url = "github:garnix-io/garn";
+      inputs.flake-utils.follows = "flake-utils";
+    };
+
     crane = {
       url = "github:ipetkov/crane";
       inputs.nixpkgs.follows = "nixpkgs";
