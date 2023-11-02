@@ -1,7 +1,7 @@
 -- file browser to replace netrw
 return {
   'stevearc/oil.nvim',
-  dependencies = { 'kyazdani42/nvim-web-devicons' },
+  dependencies = { 'nvim-tree/nvim-web-devicons' },
   lazy = false, -- ssh connections do not initialize properly when loaded lazily
   keys = {
     { '-', function() require('oil').open() end,                desc = 'Browse parent directory' },

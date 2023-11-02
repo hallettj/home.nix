@@ -46,7 +46,7 @@ return {
   'junegunn/gv.vim',
   {
     'sindrets/diffview.nvim',
-    dependencies = { 'kyazdani42/nvim-web-devicons' },
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
     opts = { use_icons = true },
   },
 }
