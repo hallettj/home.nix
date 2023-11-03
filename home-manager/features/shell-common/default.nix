@@ -8,7 +8,7 @@
     package = pkgs.unstable.atuin;
     settings = {
       inline_height = 16;
-      search_mode = "skim";
+      search_mode = "fuzzy";
       show_help = false;
       update_check = false;
       workspaces = true;
