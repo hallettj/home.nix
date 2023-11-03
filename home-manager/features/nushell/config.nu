@@ -110,16 +110,24 @@ def "docker ps" [
     | update command { |it| $it.command | str replace -r '^"(.*)"$' '$1' }  # remove quotes from command
     | update command { |it| if ($no_trunc) { $it.command } else { $it.command | str substring 0..19 } }
     | update status { |it| $it.status | parse_docker_status }
-    | update ports { |it| $it.ports | split row ", " | each { |it| $it | str trim } }
+    | update ports { |it| $it.ports | split row ", " | each { |it| $it | str trim } | filter { |it| not ($it | is-empty) } }
     | update size { |it| $it.size | into filesize }
     | update virtual { |it| $it.virtual | into filesize }
 }
 
 def parse_docker_status [] {
-  parse -r '^(?<state>Up|Exited \((?<code>\d+)\)) (?<since>.*?)(?: (?<healthy>\(healthy\)))?$'
+  parse -r '^(?<state>Created|Up|Exited \((?<code>\d+)\))(?: (?<since>.*?))(?: (?<healthy>\(healthy\)))?$'
     | update state { |it| $it.state | split words | first }
     | update code { |it| if (not ($it.code | is-empty)) { $it.code | into int } else { $it.code } }
     | update healthy { |it| if (not ($it.healthy | is-empty)) { true } else { null } }
+}
+
+## General commands
+
+# Like `from json` except that it does not fail on non-string inputs. If the
+# input is not a string it is passed through unchanged.
+def "from maybe-json" [] {
+  if ($in | describe) == string { $in | from json } else { $in }
 }
 
 ## Working with Arion
