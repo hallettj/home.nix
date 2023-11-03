@@ -4,6 +4,7 @@
   imports = [
     inputs.nix-index-database.hmModules.nix-index
     ./features/eza
+    ./features/git
     ./features/gnome
     ./features/kitty
     ./features/neovim
@@ -92,38 +93,6 @@
       # setting to abuse full-screen mode to hide the navigation and tab bars.
       "full-screen-api.ignore-widgets" = true;
     };
-  };
-
-  programs.git = {
-    enable = true;
-    userName = "Jesse Hallett";
-    userEmail = "jesse@sitr.us";
-    signing.key = "A5CC2BE3";
-    aliases = {
-      di = "diff --cached";
-      lg = "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit";
-      commend = "commit --amend --no-edit";
-      up = "git fetch origin main:main";
-    };
-    extraConfig = {
-      user.useConfigOnly = true;
-      push.default = "simple";
-      pull.ff = "only";
-      core = {
-        pager = "less -FR";
-        autocrlf = "input";
-        editor = "nvim";
-      };
-      rebase.autosquash = true;
-      rerere = {
-        enabled = true;
-        autoupdate = true;
-      };
-      init = {
-        defaultBranch = "main";
-      };
-    };
-    ignores = [ "*.swo" "*.swp" ];
   };
 
   # Let Home Manager install and manage itself.
