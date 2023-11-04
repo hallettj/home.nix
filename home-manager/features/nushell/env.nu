@@ -55,4 +55,6 @@ $env.NU_PLUGIN_DIRS = [
 
 ## Jesse's custom stuff
 
+$env.EDITOR = "nvim"
+$env.VISUAL = $env.EDITOR
 $env.MANPAGER = "nvim +Man!"
