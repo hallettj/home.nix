@@ -32,9 +32,6 @@ return {
   -- more from kana
   'kana/vim-niceblock', -- makes `I` and `A` work in line-wise visual mode
 
-  -- Debugging
-  { 'mfussenegger/nvim-dap' },
-
   -- Language support
   { 'DeltaWhy/vim-mcfunction', ft = 'mcfunction' },
   { 'vmchale/dhall-vim', ft = 'dhall' },
