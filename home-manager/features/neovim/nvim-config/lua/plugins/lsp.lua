@@ -2,15 +2,12 @@ return {
   'VonHeikemen/lsp-zero.nvim',
   branch = 'v2.x',
   dependencies = {
+    -- Special LSP support for neovim API and for plugin APIs for plugins loaded
+    -- through lazy
+    'folke/neodev.nvim',
+
     -- LSP Support
     'neovim/nvim-lspconfig',
-    {
-      'williamboman/mason.nvim',
-      build = function()
-        pcall(vim.cmd, 'MasonUpdate')
-      end,
-    },
-    'williamboman/mason-lspconfig.nvim',
 
     -- Autocompletion
     'hrsh7th/nvim-cmp',
@@ -39,7 +36,7 @@ return {
         group = vim.api.nvim_create_augroup('EnableInlayHints', { clear = true }),
         callback = function(args)
           local client = vim.lsp.get_client_by_id(args.data.client_id)
-          if client.server_capabilities.inlayHintProvider then
+          if client ~= nil and client.server_capabilities.inlayHintProvider then
             vim.lsp.inlay_hint(args.buf, true)
           end
         end
@@ -50,7 +47,15 @@ return {
 
     lspconfig.bashls.setup {}
 
-    lspconfig.lua_ls.setup(lsp.nvim_lua_ls())
+    lspconfig.lua_ls.setup {
+      settings = {
+        Lua = {
+          completion = {
+            callSnippet = "Replace",
+          },
+        },
+      },
+    }
 
     lspconfig.nil_ls.setup {
       settings = {
