@@ -167,48 +167,6 @@ return {
       c = { '<cmd>TroubleClose<cr>', 'close Trouble' },
     }, { prefix = '<leader>x', silent = true })
 
-    -- Debugging
-    local dap = fmt('<cmd>lua require("dap").%s<cr>')
-    wk.register({
-      name = '+debug',
-      s = {
-        name = '+step',
-        c = { dap 'continue()', 'Continue' },
-        v = { dap 'step_over()', 'Step Over' },
-        i = { dap 'step_into()', 'Step Into' },
-        o = { dap 'step_out()', 'Step Out' },
-      },
-      h = {
-        name = '+hover',
-        h = { "<cmd>lua require('dap.ui.variables').hover()<CR>", 'Hover' },
-        v = { "<cmd>lua require('dap.ui.variables').visual_hover()<CR>", 'Visual Hover' },
-      },
-      u = {
-        name = '+UI',
-        h = { "<cmd>lua require('dap.ui.widgets').hover()<CR>", 'Hover' },
-        f = { "local widgets=require('dap.ui.widgets');widgets.centered_float(widgets.scopes)<CR>", 'Float' },
-      },
-      r = {
-        name = '+repl',
-        o = { dap 'repl.open()', 'Open' },
-        l = { dap 'repl.run_last()', 'Run Last' },
-      },
-      b = {
-        name = '+breakpoints',
-        c = {
-          dap 'set_breakpoint(vim.fn.input("Breakpoint condition: "))',
-          'Breakpoint Condition',
-        },
-        m = {
-          dap 'set_breakpoint({ nil, nil, vim.fn.input("Log point message: ") })',
-          'Log Point Message',
-        },
-        t = { dap 'toggle_breakpoint()', 'Create' },
-      },
-      c = { dap 'scopes()', 'Scopes' },
-      i = { dap 'toggle()', 'Toggle' },
-    }, { prefix = '<leader>d' })
-
     -- tpope/vim-fugitive
     wk.register({
       name = '+git',
