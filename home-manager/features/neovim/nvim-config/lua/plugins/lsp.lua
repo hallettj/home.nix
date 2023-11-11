@@ -67,6 +67,8 @@ return {
       }
     }
 
+    lspconfig.nushell.setup {}
+
     lspconfig.tsserver.setup {}
 
     -- Rust analyzer is set up by rust-tools (see lua/plugins/rust-tools.lua).
