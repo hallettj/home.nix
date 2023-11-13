@@ -55,6 +55,5 @@ in
 
   home.packages = with pkgs; [
     neovide
-    nerdfonts # Need a nerdfont to get icons
   ];
 }

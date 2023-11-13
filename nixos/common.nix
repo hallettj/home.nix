@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ./features/fonts
     ./features/garnix
     ./features/openssh.nix
     ./features/sops.nix

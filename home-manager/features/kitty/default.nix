@@ -17,8 +17,5 @@ in
 
   home.packages = with pkgs; [
     kitty-themes
-
-    # Need a nerdfont to get icons
-   nerdfonts
   ];
 }
