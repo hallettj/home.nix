@@ -49,6 +49,11 @@
       };
     };
 
+    monaspace-source = {
+      url = "github:githubnext/monaspace";
+      flake = false;
+    };
+
     niri-source = {
       url = "github:YaLTeR/niri";
       flake = false;

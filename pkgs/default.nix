@@ -3,6 +3,7 @@
 
 { inputs, pkgs }: {
   eza = inputs.eza.packages.${pkgs.system}.default; # replacement for ls
+  monaspace = pkgs.callPackage ./monaspace.nix { src = inputs.monaspace-source; };
   niri = pkgs.callPackage ./niri.nix { inherit inputs; };
   paperwm = pkgs.callPackage ./paperwm.nix { };
 }

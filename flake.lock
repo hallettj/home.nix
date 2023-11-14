@@ -354,6 +354,22 @@
         "type": "github"
       }
     },
+    "monaspace-source": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1699851702,
+        "narHash": "sha256-YgpK+a66s8YiJg481uFlRKUvu006Z2sMOpuvPFcDJH4=",
+        "owner": "githubnext",
+        "repo": "monaspace",
+        "rev": "2bddc16670ec9cf00435a1725033f241184dedd1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "githubnext",
+        "repo": "monaspace",
+        "type": "github"
+      }
+    },
     "naersk": {
       "inputs": {
         "nixpkgs": "nixpkgs"
@@ -701,6 +717,7 @@
         "garn": "garn",
         "home-manager": "home-manager",
         "home-manager-unstable": "home-manager-unstable",
+        "monaspace-source": "monaspace-source",
         "neovim-nightly-overlay": "neovim-nightly-overlay",
         "niri-source": "niri-source",
         "nix-index-database": "nix-index-database",
