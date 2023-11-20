@@ -7,6 +7,7 @@
     ../features/garn
     ../features/godot
     ../features/niri
+    ../features/obs
     ../features/wezterm
   ];
 
