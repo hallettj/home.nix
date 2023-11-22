@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ./features/cachix
     ./features/fonts
     ./features/garnix
     ./features/openssh.nix
