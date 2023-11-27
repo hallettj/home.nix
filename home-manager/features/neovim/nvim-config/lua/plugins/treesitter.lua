@@ -1,6 +1,9 @@
 return {
   {
     'nvim-treesitter/nvim-treesitter',
+    dependencies = {
+      { 'IndianBoy42/tree-sitter-just', opts = {} }
+    },
     build = ':TSUpdate',
     config = function()
       -- Set compiler to get grammar installation working in NixOS. See
