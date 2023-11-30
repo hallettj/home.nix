@@ -10,13 +10,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "gnome-shell-extension-paperwm";
-  version = "44.12.4";
+  version = "45.6.0";
 
   src = fetchFromGitHub {
     owner = "paperwm";
     repo = "PaperWM";
     rev = "v${finalAttrs.version}";
-    sha256 = "sha256-T64vEW9Bt2J9xpyXN9OxlO+Y1502jcjF93y9BkmHMic=";
+    sha256 = "sha256-QEqWZU7FEhAtLvmd2TWUEhGhY4QHHymrS6E6KaNtKBg=";
   };
 
   dontConfigure = true;
