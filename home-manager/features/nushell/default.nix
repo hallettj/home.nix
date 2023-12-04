@@ -1,4 +1,4 @@
-{ config, flakePath, inputs, pkgs, ... }:
+{ config, flakePath, pkgs, ... }:
 
 let
   dir = "${flakePath config}/home-manager/features/nushell";
@@ -14,7 +14,7 @@ in
 {
   programs.nushell = {
     enable = true;
-    package = inputs.nushell.packages.${pkgs.system}.default;
+    package = pkgs.unstable.nushell;
     envFile.text = "source ${dir}/env.nu";
     configFile.text = ''
       ${use_completions [

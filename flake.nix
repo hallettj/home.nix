@@ -54,23 +54,6 @@
       flake = false;
     };
 
-    # Fetch source to provide to nushell flake
-    nushell-source = {
-      url = "github:nushell/nushell";
-      flake = false;
-    };
-
-    nushell = {
-      url = "sourcehut:~mangoiv/nu-shell.nix";
-      inputs = {
-        crane.follows = "crane";
-        nixpkgs.follows = "nixpkgs-unstable";
-        nu.follows = "nushell-source";
-        rust-overlay.follows = "rust-overlay";
-        utils.follows = "flake-utils";
-      };
-    };
-
     # Manages version-controlled, encrypted secrets
     sops-nix = {
       url = "github:mic92/sops-nix";

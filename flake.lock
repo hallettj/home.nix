@@ -153,22 +153,6 @@
         "type": "github"
       }
     },
-    "flake-compat_3": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1673956053,
-        "narHash": "sha256-4gtG9iQuiKITOjNQQeQIpoIB6b16fm+504Ch3sNKLd8=",
-        "owner": "edolstra",
-        "repo": "flake-compat",
-        "rev": "35bb57c0c8d8b62bbfd284272c928ceb64ddbde9",
-        "type": "github"
-      },
-      "original": {
-        "owner": "edolstra",
-        "repo": "flake-compat",
-        "type": "github"
-      }
-    },
     "flake-parts": {
       "inputs": {
         "nixpkgs-lib": [
@@ -362,28 +346,6 @@
       "inputs": {
         "nixpkgs": [
           "eza",
-          "pre-commit-hooks",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1660459072,
-        "narHash": "sha256-8DFJjXG8zqoONA1vXtgeKXy68KdJL5UaXR8NtVMUbx8=",
-        "owner": "hercules-ci",
-        "repo": "gitignore.nix",
-        "rev": "a20de23b925fd8264fd7fad6454652e142fd7f73",
-        "type": "github"
-      },
-      "original": {
-        "owner": "hercules-ci",
-        "repo": "gitignore.nix",
-        "type": "github"
-      }
-    },
-    "gitignore_2": {
-      "inputs": {
-        "nixpkgs": [
-          "nushell",
           "pre-commit-hooks",
           "nixpkgs"
         ]
@@ -609,22 +571,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-stable_2": {
-      "locked": {
-        "lastModified": 1678872516,
-        "narHash": "sha256-/E1YwtMtFAu2KUQKV/1+KFuReYPANM2Rzehk84VxVoc=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "9b8e5abb18324c7fe9f07cb100c3cd4a29cda8b8",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "nixos-22.11",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "nixpkgs-unstable": {
       "locked": {
         "lastModified": 1701436327,
@@ -705,56 +651,6 @@
         "type": "github"
       }
     },
-    "nushell": {
-      "inputs": {
-        "crane": [
-          "crane"
-        ],
-        "flake-compat": "flake-compat_3",
-        "nixpkgs": [
-          "nixpkgs-unstable"
-        ],
-        "nu": [
-          "nushell-source"
-        ],
-        "pre-commit-hooks": "pre-commit-hooks_2",
-        "rust-overlay": [
-          "rust-overlay"
-        ],
-        "utils": [
-          "flake-utils"
-        ]
-      },
-      "locked": {
-        "lastModified": 1683298059,
-        "narHash": "sha256-6jt4YZLMYPVo6CKlII5vehjf8UX/i9z7cUSoeDwT1fA=",
-        "owner": "~mangoiv",
-        "repo": "nu-shell.nix",
-        "rev": "836a0e379db1b9f9fb64fae4c89668ca2ef5af58",
-        "type": "sourcehut"
-      },
-      "original": {
-        "owner": "~mangoiv",
-        "repo": "nu-shell.nix",
-        "type": "sourcehut"
-      }
-    },
-    "nushell-source": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1699719377,
-        "narHash": "sha256-ZLE2UxAV3uKg7ssyX4m7ocIKui2tq4lkrx64PqswW5g=",
-        "owner": "nushell",
-        "repo": "nushell",
-        "rev": "415b1273b401fd14742d28db2a91d4a8766316eb",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nushell",
-        "repo": "nushell",
-        "type": "github"
-      }
-    },
     "powertest": {
       "inputs": {
         "flake-utils": "flake-utils_2",
@@ -809,37 +705,6 @@
         "url": "http://rime.cx/v1/github/semnix/pre-commit-hooks.nix.tar.gz"
       }
     },
-    "pre-commit-hooks_2": {
-      "inputs": {
-        "flake-compat": [
-          "nushell",
-          "flake-compat"
-        ],
-        "flake-utils": [
-          "nushell",
-          "utils"
-        ],
-        "gitignore": "gitignore_2",
-        "nixpkgs": [
-          "nushell",
-          "nixpkgs"
-        ],
-        "nixpkgs-stable": "nixpkgs-stable_2"
-      },
-      "locked": {
-        "lastModified": 1682596858,
-        "narHash": "sha256-Hf9XVpqaGqe/4oDGr30W8HlsWvJXtMsEPHDqHZA6dDg=",
-        "owner": "cachix",
-        "repo": "pre-commit-hooks.nix",
-        "rev": "fb58866e20af98779017134319b5663b8215d912",
-        "type": "github"
-      },
-      "original": {
-        "owner": "cachix",
-        "repo": "pre-commit-hooks.nix",
-        "type": "github"
-      }
-    },
     "root": {
       "inputs": {
         "crane": "crane",
@@ -853,8 +718,6 @@
         "nix-index-database": "nix-index-database",
         "nixpkgs": "nixpkgs_5",
         "nixpkgs-unstable": "nixpkgs-unstable",
-        "nushell": "nushell",
-        "nushell-source": "nushell-source",
         "rust-overlay": "rust-overlay",
         "sops-nix": "sops-nix"
       }
