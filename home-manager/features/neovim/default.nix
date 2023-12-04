@@ -25,8 +25,9 @@ in
       gnumake
 
       # language servers
-      nil # Nix LSP
+      deno
       lua-language-server
+      nil # Nix LSP
       nodePackages.bash-language-server
       nodePackages.typescript-language-server
       shellcheck # called by bash-language-server

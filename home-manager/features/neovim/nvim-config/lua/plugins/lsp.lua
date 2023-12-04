@@ -69,7 +69,11 @@ return {
 
     lspconfig.nushell.setup {}
 
-    lspconfig.tsserver.setup {}
+    -- The simplest way to switch between denols and tsserver is to disable
+    -- autostart, and start them manually. Run `:LspStart denols` or `:LspStart
+    -- tsserver`
+    lspconfig.denols.setup { autostart = false }
+    lspconfig.tsserver.setup { autostart = false }
 
     -- Rust analyzer is set up by rust-tools (see lua/plugins/rust-tools.lua).
     -- We want to use the system version of hls.
