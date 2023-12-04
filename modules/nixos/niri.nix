@@ -36,7 +36,7 @@ in
 
     # security.polkit.enable = true;
     hardware.opengl.enable = mkDefault true;
-    fonts.enableDefaultFonts = mkDefault true;
+    fonts.enableDefaultPackages = mkDefault true;
     programs.xwayland.enable = mkDefault true;
 
     # To make a Niri session available if a display manager like SDDM is enabled:

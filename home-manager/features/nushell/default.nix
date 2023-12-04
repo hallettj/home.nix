@@ -1,4 +1,4 @@
-{ config, flakePath, inputs, lib, pkgs, ... }:
+{ config, flakePath, inputs, pkgs, ... }:
 
 let
   dir = "${flakePath config}/home-manager/features/nushell";
@@ -34,43 +34,10 @@ in
   };
 
   # Carapace provides command completions
-  programs.carapace = {
-    enable = true;
-    # Get newer version of carapace with an init script that is compatible with
-    # the latest nushell
-    package = pkgs.unstable.carapace;
-  };
-
-  # Get newer version of starship with an init script that is compatible with
-  # the latest nushell
-  programs.starship.package = pkgs.unstable.starship;
+  programs.carapace.enable = true;
 
   # Change directories with fuzzy search
-  programs.zoxide = {
-    enable = true;
-    # Get newer version of zoxide with an init script that is compatible with
-    # the latest nushell
-    package = pkgs.unstable.zoxide;
-  };
-
-  # The direnv nushell integration in Hame Manager 23.05 is not updated for the
-  # latest nushell. So we're doing it ourselves.
-  programs.direnv.enableNushellIntegration = false;
-  programs.nushell.extraConfig =
-    # Using mkAfter to make it more likely to appear after other
-    # manipulations of the prompt.
-    lib.mkAfter ''
-      $env.config = ($env | default {} config).config
-      $env.config = ($env.config | default {} hooks)
-      $env.config = ($env.config | update hooks ($env.config.hooks | default [] pre_prompt))
-      $env.config = ($env.config | update hooks.pre_prompt ($env.config.hooks.pre_prompt | append {
-        code: "
-          let direnv = (${pkgs.direnv}/bin/direnv export json | from json)
-          let direnv = if not ($direnv | is-empty) { $direnv } else { {} }
-          $direnv | load-env
-          "
-      }))
-    '';
+  programs.zoxide.enable = true;
 
   # I'm not setting nushell as my login shell because it is not Posix, and it is
   # not super stable. Instead I'm configuring kitty to run nushell instead of my
