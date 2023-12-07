@@ -137,7 +137,10 @@ def "from maybe-json" [] {
 # 
 # Produces a list of records (not a table unfortunately) with the fields:
 # service, timestamp, level, fields, target, span, spans
-def logs [service?: string@docker_compose_services] {
+def logs [
+  service?: string@docker_compose_services
+  --file (-f): string # Use FILE instead of the default ./arion-compose.nix
+] {
   let args = [$service] | compact
   let input = if ("arion-compose.nix" | path exists) { arion logs $args } else { docker-compose logs $args }
   $input
