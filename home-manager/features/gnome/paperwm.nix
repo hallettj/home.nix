@@ -32,7 +32,6 @@ in
       { wm-class = "chrome-cinhimbnkkaeohfgghhklpknlkffjgod-Default"; scratch-layer = true; }
       { wm-class = "kitty"; preferred-width = kitty-width; }
       { wm-class = "neovide"; preferred-width = neovide-width; }
-      { wm-class = "overwatch.exe"; scratch-layer = true; }
     ];
 
     workspaces = [
