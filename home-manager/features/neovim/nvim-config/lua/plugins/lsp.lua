@@ -1,29 +1,15 @@
 return {
   'VonHeikemen/lsp-zero.nvim',
-  branch = 'v2.x',
+  branch = 'v3.x',
   dependencies = {
     -- Special LSP support for neovim API and for plugin APIs for plugins loaded
     -- through lazy
     'folke/neodev.nvim',
-
-    -- LSP Support
-    'neovim/nvim-lspconfig',
-
-    -- Autocompletion
-    'hrsh7th/nvim-cmp',
-    'hrsh7th/cmp-buffer',
-    'hrsh7th/cmp-path',
-    'saadparwaiz1/cmp_luasnip',
-    'hrsh7th/cmp-nvim-lsp',
-    'hrsh7th/cmp-nvim-lua',
-
-    -- Snippets - this dependency is required according to the lsp-zero docs
-    'L3MON4D3/LuaSnip',
   },
   config = function()
-    local lsp = require('lsp-zero').preset {}
+    local lsp_zero = require('lsp-zero')
 
-    lsp.set_sign_icons({
+    lsp_zero.set_sign_icons({
       error = '◈',
       warn = '▲',
       hint = '⚑',
@@ -45,13 +31,30 @@ return {
 
     local lspconfig = require('lspconfig')
 
-    lspconfig.bashls.setup {}
+    -- To set up servers without any custom configuration add them to this list.
+    lsp_zero.setup_servers {
+      'bashls',
+      'nushell',
+    };
+
+    -- To set up with custom configuration, use `lspconfig` as seen below.
+    -- We don't set up rust_analyzer in any of these steps because it is set up
+    -- by rust_tools instead.
+
+    lspconfig.hls.setup {
+      -- Disable formatting for hls - we want to be able to specify a specific
+      -- version of ormolu which is easier to do with null-ls.
+      on_attach = function(client)
+        client.server_capabilities.documentFormattingProvider = false
+        client.server_capabilities.documentRangeFormattingProvider = false
+      end,
+    }
 
     lspconfig.lua_ls.setup {
       settings = {
         Lua = {
           completion = {
-            callSnippet = "Replace",
+            callSnippet = 'Replace',
           },
         },
       },
@@ -67,31 +70,6 @@ return {
       }
     }
 
-    lspconfig.nushell.setup {}
-
-    -- The simplest way to switch between denols and tsserver is to disable
-    -- autostart, and start them manually. Run `:LspStart denols` or `:LspStart
-    -- tsserver`
-    lspconfig.denols.setup { autostart = false }
-    lspconfig.tsserver.setup { autostart = false }
-
-    -- Rust analyzer is set up by rust-tools (see lua/plugins/rust-tools.lua).
-    -- We want to use the system version of hls.
-    lsp.skip_server_setup { 'hls', 'rust_analyzer' }
-
-    -- We want to use the system version of hls. Lsp-zero automatically starts
-    -- language servers installed by Mason, but does not automatically start other
-    -- servers. This line gets configuration options from lsp-zero to provide when
-    -- explicitly starting hls.
-    local haskell_lsp = lsp.build_options('hls', {
-      -- Disable formatting for hls - we want to be able to specify a specific
-      -- version of ormolu which is easier to do with null-ls.
-      on_attach = function(client)
-        client.server_capabilities.documentFormattingProvider = false
-        client.server_capabilities.documentRangeFormattingProvider = false
-      end,
-    })
-
     -- Configuration to make lsp-inlayhints.nvim work with TypeScript
     local tsserver_config = {
       inlayHints = {
@@ -104,37 +82,16 @@ return {
         includeInlayEnumMemberValueHints = true,
       }
     }
-    lsp.configure('tsserver', {
+
+    -- The simplest way to switch between denols and tsserver is to disable
+    -- autostart, and start them manually. Run `:LspStart denols` or `:LspStart
+    -- tsserver`
+    lspconfig.denols.setup { autostart = false }
+    lspconfig.tsserver.setup {
+      autostart = false,
       settings = {
         typescript = tsserver_config,
         javascript = tsserver_config,
-      },
-    })
-
-    -- Sets managed LSP servers running.
-    lsp.setup()
-
-    -- Language servers that are excluded from automatic startup by calling
-    -- `build_options` need to be started explicitly.
-    require('lspconfig').hls.setup(haskell_lsp)
-
-    local cmp = require('cmp')
-    local cmp_action = require('lsp-zero').cmp_action()
-
-    cmp.setup {
-      sources = {
-        { name = 'path' },
-        { name = 'nvim_lsp' },
-        { name = 'buffer',  keyword_length = 3 },
-        { name = 'luasnip', keyword_length = 2 },
-      },
-      mapping = {
-        -- `Enter` key to confirm completion
-        ['<CR>'] = cmp.mapping.confirm({ select = false }),
-        --
-        -- Navigate between snippet placeholders
-        ['<C-f>'] = cmp_action.luasnip_jump_forward(),
-        ['<C-b>'] = cmp_action.luasnip_jump_backward(),
       },
     }
 
