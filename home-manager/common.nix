@@ -11,6 +11,7 @@
     ./features/nushell
     ./features/shell-common
     ./features/ssh
+    ./features/xcompose
     ./features/zsh
   ] ++ (builtins.attrValues outputs.homeManagerModules);
 
