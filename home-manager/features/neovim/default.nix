@@ -45,11 +45,6 @@ in
     # Disable the top window bar in Neovide
     NEOVIDE_FRAME = "none";
 
-    # Enable Neovim's multigrid functionality for EXTREME FANCINESS.
-    # Specifically transparency for floating windows, window animations, and
-    # smooth scrolling.
-    NEOVIDE_MULTIGRID = "true";
-
     # I just don't want extra UI anywhere
     NVIM_GTK_NO_HEADERBAR = "1";
   };
