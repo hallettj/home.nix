@@ -59,6 +59,25 @@ alias pkg = nix search nixpkgs
 
 alias grep = grep --color=auto
 
+# Create a directory, and immediately cd into it.
+# The --env flag propagates the PWD environment variable to the caller, which is
+# necessary to make the directory change stick.
+def --env dir [dirname: string] {
+  mkdir $dirname
+  cd $dirname
+}
+
+# Create a temporary directory, and cd into it.
+def --env tmp [
+  dirname?: string # the name of the directory - if omitted the directory is named randomly
+] {
+  if ($dirname != null) {
+    dir $"/tmp/($dirname)"
+  } else {
+    cd (mktemp -d)
+  }
+}
+
 def keycode [] {
   xev | grep -A2 --line-buffered '^KeyRelease' | sed -n '/keycode /s/^.*keycode \([0-9]*\).* (.*, \(.*\)).*$/\1 \2/p'
 }
