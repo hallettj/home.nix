@@ -26,6 +26,9 @@ in
     unstable = import inputs.nixpkgs-unstable {
       system = final.system;
       config.allowUnfree = true;
+      config.permittedInsecurePackages = [
+        "electron-25.9.0" # used by obsidian, but is past its EOL
+      ];
     };
   };
 

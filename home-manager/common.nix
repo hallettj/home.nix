@@ -44,7 +44,7 @@
     gimp-with-plugins
     google-chrome
     masterpdfeditor
-    obsidian
+    unstable.obsidian # see permittedInsecurePackages setting in overlays
     pavucontrol
     signal-desktop
     slack
