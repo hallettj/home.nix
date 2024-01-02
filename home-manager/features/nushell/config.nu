@@ -3,7 +3,7 @@ $env.config = {
   show_banner: false
 
   completions: {
-    algorithm: fuzzy
+    algorithm: prefix
   }
 
   cursor_shape: {
