@@ -39,6 +39,7 @@
     # GUI apps
     authy
     discord
+    element-desktop
     enpass
     foliate
     gimp-with-plugins
