@@ -124,7 +124,7 @@ def "docker ps" [
   ^docker ps $flags
     | lines
     | skip 1  # skip column headings
-    | parse -r '^(?<id>.+?)\s\s\s+(?<image>.+?)\s\s\s+(?<command>.+?)\s\s\s+(?<created>.+?)\s\s\s+(?<status>.+?)\s\s\s+(?<ports>(?:\S+->\S+,?\s?)*)\s\s\s+(?<names>.*?)\s\s\s+(?:(?<size>\S+) \(virtual (?<virtual>\S+)\))$'
+    | parse -r '^(?<id>.+?)\s\s\s+(?<image>.+?)\s\s\s+(?<command>.+?)\s\s\s+(?<created>.+?)\s\s\s+(?<status>.+?)\s\s\s+(?<ports>(?:\S+/(?:tcp|udp)(?:,\s)?)*)\s\s\s+(?<names>.*?)\s\s\s+(?:(?<size>\S+) \(virtual (?<virtual>\S+)\))$'
     | update id { |it| if ($no_trunc) { $it.id } else { $it.id | str substring 0..12 } }
     | update command { |it| $it.command | str replace -r '^"(.*)"$' '$1' }  # remove quotes from command
     | update command { |it| if ($no_trunc) { $it.command } else { $it.command | str substring 0..19 } }
