@@ -158,10 +158,14 @@ def "from maybe-json" [] {
 # service, timestamp, level, fields, target, span, spans
 def logs [
   service?: string@docker_compose_services
-  --file (-f): string # Use FILE instead of the default ./arion-compose.nix
+  --file (-f): string = "./arion-compose.nix" # Use FILE instead of the default ./arion-compose.nix
 ] {
   let args = [$service] | compact
-  let input = if ("arion-compose.nix" | path exists) { arion logs $args } else { docker-compose logs $args }
+  let input = if ($file | path exists) {
+    arion --file $file logs $args 
+  } else {
+    docker-compose logs $args 
+  }
   $input
     | lines
     | parse -r '^(?<service>\S+)\s*\|\s*(?<log>.*)$'
