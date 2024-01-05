@@ -21,6 +21,4 @@
   ];
 
   virtualisation.docker.enable = true;
-
-  programs.niri.enable = true;
 }

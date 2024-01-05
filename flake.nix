@@ -49,11 +49,6 @@
       flake = false;
     };
 
-    niri-source = {
-      url = "github:YaLTeR/niri";
-      flake = false;
-    };
-
     # Manages version-controlled, encrypted secrets
     sops-nix = {
       url = "github:mic92/sops-nix";

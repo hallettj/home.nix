@@ -486,22 +486,6 @@
         "type": "github"
       }
     },
-    "niri-source": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1701699132,
-        "narHash": "sha256-sBUk83nIam5Q32twHxxA/mBEq4AMYcmbGSGwzSrSMw0=",
-        "owner": "YaLTeR",
-        "repo": "niri",
-        "rev": "40b633be5c100a592ba9186777ff4f495f895131",
-        "type": "github"
-      },
-      "original": {
-        "owner": "YaLTeR",
-        "repo": "niri",
-        "type": "github"
-      }
-    },
     "nix-index-database": {
       "inputs": {
         "nixpkgs": [
@@ -714,7 +698,6 @@
         "home-manager": "home-manager",
         "monaspace-source": "monaspace-source",
         "neovim-nightly-overlay": "neovim-nightly-overlay",
-        "niri-source": "niri-source",
         "nix-index-database": "nix-index-database",
         "nixpkgs": "nixpkgs_5",
         "nixpkgs-unstable": "nixpkgs-unstable",
