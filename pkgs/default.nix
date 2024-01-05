@@ -3,5 +3,6 @@
 
 { inputs, pkgs }: {
   eza = inputs.eza.packages.${pkgs.system}.default; # replacement for ls
-  monaspace = pkgs.callPackage ./monaspace.nix { src = inputs.monaspace-source; };
+  # The typical pattern for local packages is:
+  # my-package = pkgs.callPackage ./my-package.nix { src = inputs.my-package-source; };
 }

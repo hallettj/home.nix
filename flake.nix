@@ -44,11 +44,6 @@
       };
     };
 
-    monaspace-source = {
-      url = "github:githubnext/monaspace";
-      flake = false;
-    };
-
     # Manages version-controlled, encrypted secrets
     sops-nix = {
       url = "github:mic92/sops-nix";

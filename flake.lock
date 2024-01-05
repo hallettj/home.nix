@@ -407,22 +407,6 @@
         "type": "github"
       }
     },
-    "monaspace-source": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1701311598,
-        "narHash": "sha256-3GgbsL4hBwyZFp06GThn3knHapLpRu7TSNmgtTfod8Y=",
-        "owner": "githubnext",
-        "repo": "monaspace",
-        "rev": "380f29b3277ff46b8bd8577bdd7d1b60358e6c6c",
-        "type": "github"
-      },
-      "original": {
-        "owner": "githubnext",
-        "repo": "monaspace",
-        "type": "github"
-      }
-    },
     "naersk": {
       "inputs": {
         "nixpkgs": [
@@ -696,7 +680,6 @@
         "flake-utils": "flake-utils_3",
         "garn": "garn",
         "home-manager": "home-manager",
-        "monaspace-source": "monaspace-source",
         "neovim-nightly-overlay": "neovim-nightly-overlay",
         "nix-index-database": "nix-index-database",
         "nixpkgs": "nixpkgs_5",
