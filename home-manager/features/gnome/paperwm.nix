@@ -1,4 +1,4 @@
-{ config, outputs, pkgs, ... }:
+{ config, ... }:
 
 let
   kitty-width = if config.screen-type.aspect-ratio == "ultrawide" then "25%" else "33%";
@@ -17,7 +17,6 @@ in
 {
   gnomeExtensions.paperwm = {
     enable = true;
-    package = outputs.packages.${pkgs.system}.paperwm;
 
     inherit cycle-width-steps;
     horizontal-margin = 8;
