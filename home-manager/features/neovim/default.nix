@@ -18,7 +18,8 @@ in
     extraPackages = with pkgs; [
       fd
       gh # for github integration
-      ripgrep
+      ripgrep # used by obsidian.nvim and other plugins
+      wl-wayland # used by obsidian.nvim to interact with clipboard
 
       # needed to compile fzf-native for telescope-fzf-native.nvim
       gcc
