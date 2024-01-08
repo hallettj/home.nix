@@ -1,5 +1,6 @@
 local autocmd = vim.api.nvim_create_autocmd
 local augroup = vim.api.nvim_create_augroup
+local command = vim.api.nvim_create_user_command
 
 local workspaces = {
   { name = 'Personal', path = '~/Documents/Personal' },
@@ -40,6 +41,32 @@ return {
       prepend_note_id = false,
     }
 
+    -- Custom commands
+
+    command('Note', function(opts)
+      local client = require('obsidian').get_client()
+      local note = client:resolve_note(opts.args)
+      if note ~= nil then
+        vim.cmd.edit(note.path.filename)
+      else
+        local new_note_path = opts.args
+        local workspace_path = client.current_workspace.path
+        local file_path = workspace_path .. '/Inbox/' .. new_note_path .. '.md'
+        vim.cmd.edit(file_path)
+      end
+    end, {
+      nargs = 1,
+      desc = 'open an Obsidian note, or create a new one with the given name',
+      complete = function(arg_lead, cmd_line, cursor_pos)
+        print(vim.inspect(cmd_line))
+        local client = require('obsidian').get_client()
+        local partial_arg, _ = string.gsub(cmd_line, '^%S+ ', '')
+        return require('obsidian.commands').complete_args_search(client, arg_lead, partial_arg, cursor_pos)
+      end,
+    })
+
+    -- Sync active workspace to working directory
+
     local is_file_in_directory = function(file_path, directory_path)
       local file = vim.fn.fnamemodify(file_path, ':p')
       local dir = vim.fn.fnamemodify(directory_path, ':p')
@@ -79,6 +106,8 @@ return {
     -- If the editor was started in a workspace directory, switch to that
     -- workspace immediately.
     update_workspace(vim.fn.getcwd())
+
+    -- Enable conceallevel conditionally
 
     local is_file_in_a_workspace = function(file_path)
       for _, workspace in ipairs(workspaces) do
