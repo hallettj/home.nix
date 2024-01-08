@@ -32,13 +32,19 @@ return {
         date_format = '%Y-%m-%d %a',
       },
 
-      new_notes_location = 'Inbox',
+      -- This config applies to `ObsidianNew`, but currently not to
+      -- `ObsidianLinkNew`
+      new_notes_location = 'notes_subdir',
+      notes_subdir = 'Inbox',
 
       attachments = {
         img_folder = 'Attachments',
       },
 
       prepend_note_id = false,
+
+      -- I just want to use titles as file names
+      note_id_func = function(title) return title end,
     }
 
     -- Custom commands
@@ -50,7 +56,6 @@ return {
       local nargs = tonumber(cmd.nargs)
       command(short_name, def, {
         bang = cmd.bang,
-        complete = cmd.complete,
         desc = desc,
         nargs = nargs ~= nil and nargs or cmd.nargs,
         range = cmd.range ~= nil and true or nil,
@@ -58,7 +63,6 @@ return {
     end
 
     alias('Backlinks', 'ObsidianBacklinks', 'show backlinks to the open note')
-    alias('Link', 'ObsidianLink', 'turn visual selection into a link to a note')
     alias('Today', 'ObsidianToday', "open today's daily note")
 
     local obsidian_completer = function(callback)
@@ -68,6 +72,62 @@ return {
         return callback(client, arg_lead, cmd_line_without_command, cursor_pos)
       end
     end
+
+    -- My version of `LinkNew` avoids a redundant [[title|tite]] if possible,
+    -- and combines the functionality of `ObsidianLink` and `ObsidianLinkNew`
+    command('Link', function(data)
+      local log = require 'obsidian.log'
+      local client = require('obsidian').get_client()
+      local _, csrow, cscol, _ = unpack(vim.fn.getpos "'<")
+      local _, cerow, cecol, _ = unpack(vim.fn.getpos "'>")
+
+      if data.line1 ~= csrow or data.line2 ~= cerow then
+        log.err 'Link must be called with visual selection'
+        return
+      end
+
+      local lines = vim.fn.getline(csrow, cerow)
+      if #lines ~= 1 then
+        log.err 'Only in-line visual selections allowed'
+        return
+      end
+
+      local line = lines[1]
+      if line == nil then return end
+
+      local link_text = string.sub(line, cscol, cecol)
+      local title
+      if string.len(data.args) > 0 then
+        title = data.args
+      else
+        title = link_text
+      end
+      local note = client:resolve_note(title)
+      local note_id = note ~= nil and tostring(note.id) or title
+
+      local updated_line
+      if note_id ~= link_text then
+        updated_line = string.sub(line, 1, cscol - 1)
+            .. '[['
+            .. note_id
+            .. '|'
+            .. link_text
+            .. ']]'
+            .. string.sub(line, cecol + 1)
+      else
+        updated_line = string.sub(line, 1, cscol - 1)
+            .. '[['
+            .. link_text
+            .. ']]'
+            .. string.sub(line, cecol + 1)
+      end
+      vim.api.nvim_buf_set_lines(0, csrow - 1, csrow, false, { updated_line })
+    end, {
+      complete = obsidian_completer(require('obsidian.commands').complete_args_search),
+      desc = 'turn visual selection into a link to a new or existing note',
+      nargs = '?',
+      range = true,
+    })
 
     command('Note', function(opts)
       local client = require('obsidian').get_client()
@@ -81,9 +141,9 @@ return {
         vim.cmd.edit(file_path)
       end
     end, {
-      nargs = 1,
-      desc = 'open an Obsidian note, or create a new one with the given name',
       complete = obsidian_completer(require('obsidian.commands').complete_args_search),
+      desc = 'open an Obsidian note, or create a new one with the given name',
+      nargs = 1,
     })
 
     -- Sync active workspace to working directory
