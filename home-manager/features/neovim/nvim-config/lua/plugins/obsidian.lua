@@ -43,6 +43,32 @@ return {
 
     -- Custom commands
 
+    -- Create an alias of another command with an added description
+    local alias = function(short_name, name, desc)
+      local cmd = vim.api.nvim_get_commands({})[name]
+      local def = function(data) vim.cmd { cmd = name, args = data.fargs } end
+      local nargs = tonumber(cmd.nargs)
+      command(short_name, def, {
+        bang = cmd.bang,
+        complete = cmd.complete,
+        desc = desc,
+        nargs = nargs ~= nil and nargs or cmd.nargs,
+        range = cmd.range ~= nil and true or nil,
+      })
+    end
+
+    alias('Backlinks', 'ObsidianBacklinks', 'show backlinks to the open note')
+    alias('Link', 'ObsidianLink', 'turn visual selection into a link to a note')
+    alias('Today', 'ObsidianToday', "open today's daily note")
+
+    local obsidian_completer = function(callback)
+      local client = require('obsidian').get_client()
+      return function(arg_lead, cmd_line, cursor_pos)
+        local cmd_line_without_command, _ = string.gsub(cmd_line, '^%S+ ', '')
+        return callback(client, arg_lead, cmd_line_without_command, cursor_pos)
+      end
+    end
+
     command('Note', function(opts)
       local client = require('obsidian').get_client()
       local note = client:resolve_note(opts.args)
@@ -57,12 +83,7 @@ return {
     end, {
       nargs = 1,
       desc = 'open an Obsidian note, or create a new one with the given name',
-      complete = function(arg_lead, cmd_line, cursor_pos)
-        print(vim.inspect(cmd_line))
-        local client = require('obsidian').get_client()
-        local partial_arg, _ = string.gsub(cmd_line, '^%S+ ', '')
-        return require('obsidian.commands').complete_args_search(client, arg_lead, partial_arg, cursor_pos)
-      end,
+      complete = obsidian_completer(require('obsidian.commands').complete_args_search),
     })
 
     -- Sync active workspace to working directory
