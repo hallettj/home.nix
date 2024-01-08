@@ -16,6 +16,10 @@ return {
     'hrsh7th/nvim-cmp',
     'nvim-telescope/telescope.nvim',
   },
+  lazy = false,
+  keys = {
+    { '<leader>fn', vim.cmd.ObsidianQuickSwitch, desc = 'open an Obsidian note' },
+  },
   config = function()
     require('obsidian').setup {
       workspaces = workspaces,
