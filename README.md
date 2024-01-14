@@ -32,11 +32,11 @@ Then from the devshell run the switch commands below.
 
 To install the NixOS config,
 
-    $ sudo nixos-rebuild switch --flake ~/Documents/NixConfig#hostname
+    $ sudo nixos-rebuild switch --flake ~/Documents/NixConfig
 
 To install the Home Manager config,
 
-    $ home-manager switch --flake ~/Documents/NixConfig#username@hostname
+    $ home-manager switch --flake ~/Documents/NixConfig
 
 ## Highlights
 
