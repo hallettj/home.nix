@@ -35,6 +35,7 @@ return {
     lsp_zero.setup_servers {
       'bashls',
       'nushell',
+      'uiua',
     };
 
     -- To set up with custom configuration, use `lspconfig` as seen below.

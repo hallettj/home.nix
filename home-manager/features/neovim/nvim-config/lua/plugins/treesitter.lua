@@ -6,6 +6,17 @@ return {
     },
     build = ':TSUpdate',
     config = function()
+      -- Install uiua grammar
+      local parser_config = require('nvim-treesitter.parsers').get_parser_configs()
+      parser_config.uiua = {
+        install_info = {
+          url = 'https://github.com/shnarazk/tree-sitter-uiua.git',
+          branch = 'main',
+          -- url = '~/projects/vim/tree-sitter-uiua',
+          files = { 'src/parser.c' },
+        },
+      }
+
       -- Set compiler to get grammar installation working in NixOS. See
       -- https://github.com/nvim-treesitter/nvim-treesitter/issues/1449
       require('nvim-treesitter.install').compilers = { 'gcc' }
