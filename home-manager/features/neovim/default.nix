@@ -19,7 +19,7 @@ in
       fd
       gh # for github integration
       ripgrep # used by obsidian.nvim and other plugins
-      wl-wayland # used by obsidian.nvim to interact with clipboard
+      wl-clipboard # used by obsidian.nvim to interact with clipboard
 
       # needed to compile fzf-native for telescope-fzf-native.nvim
       gcc
