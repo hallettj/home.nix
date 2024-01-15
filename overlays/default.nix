@@ -1,11 +1,11 @@
 # This file defines overlays
 { inputs, ... }:
 let
-  addPatches = pkg: patches: pkg.overrideAttrs (oldAttrs: {
+  patch = pkg: patches: pkg.overrideAttrs (oldAttrs: {
     patches = (oldAttrs.patches or [ ]) ++ patches;
   });
 in
-{
+rec {
   # This one brings our custom packages from the 'pkgs' directory
   additions = final: _prev: import ../pkgs { inherit inputs; pkgs = final; };
 
@@ -13,22 +13,18 @@ in
   # You can change versions, add patches, set compilation flags, anything really.
   # https://nixos.wiki/wiki/Overlays
   modifications = final: prev: {
-    # example = prev.example.overrideAttrs (oldAttrs: rec {
-    # ...
-    # });
-
-    neovide = addPatches inputs.nixpkgs-unstable.legacyPackages.${prev.system}.neovide [ ./neovide-font-customization.patch ];
+    neovide = patch prev.neovide [ ./neovide-font-customization.patch ];
   };
 
   # When applied, the unstable nixpkgs set (declared in the flake inputs) will
   # be accessible through 'pkgs.unstable'
   unstable-packages = final: _prev: {
     unstable = import inputs.nixpkgs-unstable {
+      # Apply the same system, config, and overlays to 'pkgs.unstable' that are
+      # applied to 'pkgs'
       system = final.system;
-      config.allowUnfree = true;
-      config.permittedInsecurePackages = [
-        "electron-25.9.0" # used by obsidian, but is past its EOL
-      ];
+      config = final.config;
+      overlays = [additions modifications];
     };
   };
 
