@@ -21,4 +21,25 @@
   ];
 
   virtualisation.docker.enable = true;
+
+  # Samba server to share files over local network
+  services.samba = {
+    enable = true;
+    securityType = "user";
+    extraConfig = ''
+      guest account = nobody
+      map to guest = bad user
+    '';
+    shares = {
+      public = {
+        path = "/srv/public";
+        browseable = "yes";
+        "read only" = true;
+        "guest ok" = "yes";
+      };
+    };
+  };
+
+  # Allows browsing Samba shares in Gnome
+  services.gvfs.enable = true;
 }
