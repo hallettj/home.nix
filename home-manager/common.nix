@@ -73,6 +73,7 @@
     # CLI
     jq
     fd
+    hasura3
     killall
     lm_sensors
     gnupg
