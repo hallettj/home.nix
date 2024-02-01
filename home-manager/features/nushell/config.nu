@@ -141,6 +141,24 @@ def parse_docker_status [] {
     | update healthy { |it| if (not ($it.healthy | is-empty)) { true } else { null } }
 }
 
+# List images
+def "docker image list" [
+  --all (-a)            # Show all images (default hides intermediate images)
+  --digests             # Show digests
+  --filter (-f): string # Filter output based on conditions provided
+  --no-trunc            # Don't truncate output
+] {
+  let flags = [
+    (if ($all) { [--all] } else { [] })
+    (if ($digests) { [--digests] } else { [] })
+    (if ($no_trunc) { [--no-trunc] } else { [] })
+    [--format json]
+  ] | flatten
+  ^docker image list $flags
+   | from json --objects
+   | move Repository Tag ID CreatedSince Size --before Containers
+}
+
 ## General commands
 
 # Like `from json` except that it does not fail on non-string inputs. If the
