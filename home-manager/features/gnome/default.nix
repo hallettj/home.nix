@@ -53,7 +53,7 @@ in
     };
 
     "org/gnome/settings-daemon/plugins/media-keys" = {
-      "screensaver" = [ "<Control><Super>l" ];
+      "screensaver" = [ "<Control><Super>l" ]; # lock screen
       # Makes media keys change volume by a smaller increment
       "volume-step" = 2;
     };
