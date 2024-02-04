@@ -188,26 +188,12 @@ return {
     -- workspace immediately.
     update_workspace(vim.fn.getcwd())
 
-    -- Enable conceallevel conditionally
-
-    local is_file_in_a_workspace = function(file_path)
-      for _, workspace in ipairs(workspaces) do
-        if is_file_in_directory(file_path, workspace.path) then
-          return true
-        end
-      end
-      return false
-    end
-
-    -- The plugin wants conceallevel to be set to 1 or 2. I only want to apply
-    -- this to files in Obsidian workspaces.
+    -- The plugin wants conceallevel to be set to 1 or 2
     autocmd('FileType', {
       group = group,
       pattern = 'markdown',
-      callback = function(event)
-        if is_file_in_a_workspace(event.file) then
-          vim.opt_local.conceallevel = 1
-        end
+      callback = function()
+        vim.opt_local.conceallevel = 2
       end,
     })
   end,
