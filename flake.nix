@@ -2,16 +2,12 @@
   description = "NixOS and Home Manager configuration for Jesse Hallett";
 
   inputs = {
-    # Nixpkgs
     nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
-    # You can access packages and modules from different nixpkgs revs
-    # at the same time. Here's an working example:
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     # Also see the 'unstable-packages' overlay at 'overlays/default.nix'.
 
     flake-utils.url = "github:numtide/flake-utils";
 
-    # Home manager
     home-manager = {
       url = "github:nix-community/home-manager/release-23.11";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -34,6 +30,15 @@
     crane = {
       url = "github:ipetkov/crane";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Scrolling window manager
+    niri = {
+      url = "github:sodiboo/niri-flake";
+      inputs = {
+        niri-src.url = "github:YaLTeR/niri";
+        nixpkgs.follows = "nixpkgs-unstable";
+      };
     };
 
     rust-overlay = {
