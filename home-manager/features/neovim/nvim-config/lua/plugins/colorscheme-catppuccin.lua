@@ -50,9 +50,7 @@ return {
       integrations = {
         -- For various plugins integrations see https://github.com/catppuccin/nvim#integrations
         cmp = true,
-        dap = {
-          enabled = true,
-        },
+        dap = true,
         fidget = true,
         gitsigns = true,
         leap = true,
@@ -92,10 +90,12 @@ return {
           ['@function.builtin'] = { style = { 'italic' } },
           ['@keyword.operator'] = { style = { 'italic' } },
           -- disable italic for parameters
-          ['@parameter'] = { style = {} },
-          ['@namespace'] = { style = {} },
+          ['@variable.parameter'] = { style = {} },
+          ['@parameter'] = { style = {} }, -- new name is @variable.parameter, but catppuccin links @lsp.type.parameter to this name
+          ['@module'] = { style = {} },
+          ['@namespace'] = { style = {} }, -- new name is @module, but catppuccin links @lsp.type.nampespace to this name
           -- italic for `for` in `impl X for Y` in Rust
-          ['@repeat'] = { style = { 'italic' } },
+          ['@keyword.repeat'] = { style = { 'italic' } },
           -- italic for `self` in Rust
           ['@variable.builtin'] = { style = { 'italic' } },
           -- italic for `mut` and `ref` in Rust
