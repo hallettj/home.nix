@@ -75,6 +75,7 @@ return {
             information = { 'underline' },
           },
         },
+        neogit = true,
       },
       -- Treesitter recently introduced highlight group names of the form
       -- `@namespace` as opposed to the previously-used form `TSNamespace`. The old

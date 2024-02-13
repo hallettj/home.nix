@@ -167,10 +167,9 @@ return {
       c = { '<cmd>TroubleClose<cr>', 'close Trouble' },
     }, { prefix = '<leader>x', silent = true })
 
-    -- tpope/vim-fugitive
+    -- git
     wk.register({
       name = '+git',
-      s = { '<cmd>vert Git<CR>', 'git status' },
       d = { '<cmd>Gvdiffsplit<CR>', 'git diff current file' },
       D = { ':vert Git diff<space>', 'git diff prompting for refs' },
       c = { '<cmd>Git commit<CR>', 'git commit' },
