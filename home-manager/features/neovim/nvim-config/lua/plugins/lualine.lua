@@ -39,6 +39,7 @@ return {
     end
 
     require('lualine').setup {
+      theme = "catppuccin",
       sections = {
         lualine_a = { 'mode' },
         lualine_b = {
