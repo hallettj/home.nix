@@ -20,11 +20,12 @@ in
       ${use_completions [
         "cargo"
         "git"
+        "just"
         "make"
         "nix"
         "npm"
       ]}
-      use ${nu_scripts}/share/nu_scripts/custom-completions/yarn/yarn-completion.nu *
+      use ${nu_scripts}/share/nu_scripts/custom-completions/yarn/yarn-v4-completions.nu *
 
       use ${nu_scripts}/share/nu_scripts/modules/filesystem/expand.nu
       use ${nu_scripts}/share/nu_scripts/modules/nix/nix.nu *
