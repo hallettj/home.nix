@@ -36,14 +36,4 @@ return {
   { 'DeltaWhy/vim-mcfunction', ft = 'mcfunction' },
   { 'vmchale/dhall-vim', ft = 'dhall' },
   'xasopheno/weresocool_vim',
-
-  -- git integration
-  'tpope/vim-fugitive',
-  'tpope/vim-rhubarb',
-  'junegunn/gv.vim',
-  {
-    'sindrets/diffview.nvim',
-    dependencies = { 'nvim-tree/nvim-web-devicons' },
-    opts = { use_icons = true },
-  },
 }

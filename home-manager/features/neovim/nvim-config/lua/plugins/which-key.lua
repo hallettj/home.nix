@@ -167,28 +167,6 @@ return {
       c = { '<cmd>TroubleClose<cr>', 'close Trouble' },
     }, { prefix = '<leader>x', silent = true })
 
-    -- git
-    wk.register({
-      name = '+git',
-      d = { '<cmd>Gvdiffsplit<CR>', 'git diff current file' },
-      D = { ':vert Git diff<space>', 'git diff prompting for refs' },
-      c = { '<cmd>Git commit<CR>', 'git commit' },
-      b = { '<cmd>Git blame<CR>', 'git blame' },
-      l = { '<cmd>GV<cr>', 'log graph for branch' },
-      L = { '<cmd>GV --all<cr>', 'log graph for all branches' },
-      e = { ':Gedit<space>', 'open file from history, e.g. :Gedit HEAD^:%' },
-      p = { '<cmd>Git push<CR>', 'push' },
-      w = { '<cmd>Gwrite<CR>', 'write file and stage' },
-      r = { ':GRename<space>', 'rename file - enter path relative to current file' },
-      R = { '<cmd>GDelete<CR>', 'git rm current file and delete buffer' }
-    }, { prefix = '<leader>g' })
-
-    -- See gitsigns bindings in config/gitsigns.lua for:
-    -- - <leader>h
-    -- - <leader>tb, <leader>td
-    -- - ]c, [c
-    -- - ih
-
     -- gh.nvim bindings
     wk.register({
       name = '+Github',
