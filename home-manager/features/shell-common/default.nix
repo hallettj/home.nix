@@ -28,6 +28,7 @@
       error_symbol = "[❯](bold red)";
       vimcmd_symbol = "[❮](bold yellow)";
     };
+    gcloud.disabled = true;
     package.disabled = true;
     nix_shell = {
       format = "via [$symbol$state]($style) ";
