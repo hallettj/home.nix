@@ -57,7 +57,12 @@ autocmd('BufReadPost', {
     local last_position = vim.api.nvim_buf_get_mark(opts.buf, '"')
     local line, _ = unpack(last_position)
     local total_lines = vim.api.nvim_buf_line_count(opts.buf)
-    if line ~= 0 and line <= total_lines and vim.bo.filetype ~= 'gitcommit' then
+    if line ~= 0 and line <= total_lines
+        and vim.bo.filetype ~= 'fugitive'
+        and vim.bo.filetype ~= 'gitcommit'
+        and vim.bo.filetype ~= 'gitrebase'
+    then
+      print(vim.bo.filetype)
       vim.api.nvim_feedkeys([[g`"]], 'nx', false)
     end
   end
