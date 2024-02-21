@@ -4,6 +4,7 @@
   imports = [
     inputs.nix-index-database.hmModules.nix-index
     ./features/eza
+    ./features/firefox
     ./features/git
     ./features/gnome
     ./features/kitty
@@ -90,15 +91,6 @@
     enable = true;
     nix-direnv.enable = true;
     enableZshIntegration = true;
-  };
-
-  programs.firefox = {
-    enable = true;
-    profiles.default.settings = {
-      # Full-screen does not actually make the window full screen. I use this
-      # setting to abuse full-screen mode to hide the navigation and tab bars.
-      "full-screen-api.ignore-widgets" = true;
-    };
   };
 
   # Let Home Manager install and manage itself.
