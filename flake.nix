@@ -36,7 +36,9 @@
     niri = {
       url = "github:sodiboo/niri-flake";
       inputs = {
-        niri-src.url = "github:YaLTeR/niri";
+        # For some reason flake.lock gets automatically updated with the latest
+        # niri-src revision every time I build unless I fix a revision here.
+        niri-src.url = "github:YaLTeR/niri/2b5eeb61620363a325a5c76c4a5d25e45f2a6054";
         nixpkgs.follows = "nixpkgs-unstable";
       };
     };
