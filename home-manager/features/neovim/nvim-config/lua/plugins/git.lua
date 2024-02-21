@@ -27,6 +27,16 @@ return {
     config = function()
       vim.cmd [[Lazy load vim-rhubarb]]
     end,
+    init = function()
+      -- Shortcuts for git operations to match some of the shell aliases I have.
+      -- For example, `:sw ` expands to `:Git switch `
+      vim.cmd 'cnoreabbrev sw Git switch'
+      vim.cmd 'cnoreabbrev ci Git commit'
+      vim.cmd 'cnoreabbrev pull Git pull'
+      vim.cmd 'cnoreabbrev push Git push'
+      vim.cmd 'cnoreabbrev show Git show'
+      vim.cmd 'cnoreabbrev re Git restore'
+    end,
   },
 
   -- Adds autocompletion in fugitive's commit editor for stuff like Github PRs,
@@ -45,6 +55,9 @@ return {
       { '<leader>gl', '<cmd>GV<cr>',       desc = 'log graph for branch' },
       { '<leader>gL', '<cmd>GV --all<cr>', desc = 'log graph for all branches' },
     },
+    init = function()
+      vim.cmd 'cnoreabbrev lg GV'
+    end,
   },
 
   {
