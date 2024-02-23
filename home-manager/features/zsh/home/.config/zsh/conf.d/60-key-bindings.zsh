@@ -9,21 +9,23 @@ export KEYTIMEOUT=1
 # ctrl-w removed word backwards
 bindkey '^w' backward-kill-word
 
-# zsh-users/zsh-autosuggestions
-zvm_bindkey viins '^ ' autosuggest-accept
-zvm_bindkey viins '^_' autosuggest-clear
+if whence -w zvm_bindkey > /dev/null; then
+  # zsh-users/zsh-autosuggestions
+  zvm_bindkey viins '^ ' autosuggest-accept
+  zvm_bindkey viins '^_' autosuggest-clear
 
-# zvm_bindkey comes from jeffreytse/zsh-vi-mode - bindings added with the native
-# `bindkey` that conflict with bindings from the zsh-vi-mode plugin will be
-# overwritten by the plugin. But using `zvm_bindkey` preserves the custom
-# binding.
+  # zvm_bindkey comes from jeffreytse/zsh-vi-mode - bindings added with the native
+  # `bindkey` that conflict with bindings from the zsh-vi-mode plugin will be
+  # overwritten by the plugin. But using `zvm_bindkey` preserves the custom
+  # binding.
 
-# skim
-zvm_bindkey viins '^p' skim-edit-project-file
+  # skim
+  zvm_bindkey viins '^p' skim-edit-project-file
 
-# zsh-users/zsh-history-substring-search
-zvm_bindkey vicmd 'k' history-substring-search-up
-zvm_bindkey vicmd 'j' history-substring-search-down
+  # zsh-users/zsh-history-substring-search
+  zvm_bindkey vicmd 'k' history-substring-search-up
+  zvm_bindkey vicmd 'j' history-substring-search-down
+fi
 
 # expand history references and abbreviations on space or enter using the
 # abbrev-alias plugin
