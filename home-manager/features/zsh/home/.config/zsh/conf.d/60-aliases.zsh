@@ -41,3 +41,20 @@ abbrev-alias -c ds='docker-compose ps'
 abbrev-alias -c rebuild="sudo nixos-rebuild switch --flake ~/Documents/NixConfig#$HOST"
 abbrev-alias -c switch="home-manager switch --flake ~/Documents/NixConfig#$USER@$HOST"
 abbrev-alias -c pkg='nix search nixpkgs'
+
+# Create a directory, and cd into it in one command
+function dir {
+  local dirname="$1"
+  mkdir -p "$dirname"
+  cd "$dirname"
+}
+
+# Create a temporary directory and cd into it
+function tmp {
+  local dirname="$1"
+  if [ -n "$dirname" ]; then
+    dir "/tmp/$dirname" 
+  else
+    cd $(mktemp -d)
+  fi
+}
