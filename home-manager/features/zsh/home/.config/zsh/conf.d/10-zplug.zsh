@@ -1,11 +1,5 @@
-# Options for lukechilds/zsh-nvm
-export NVM_DIR="$HOME/.nvm"
-export NVM_AUTO_USE=true # automatically set node version from .nvmrc files
-
 zplug "lib/completion", from:oh-my-zsh
 zplug "lib/history", from:oh-my-zsh
-zplug "chrisands/zsh-yarn-completions", defer:2
-zplug "lukechilds/zsh-nvm"
 zplug "jeffreytse/zsh-vi-mode"
 zplug "momo-lab/zsh-abbrev-alias"
 zplug "zsh-users/zsh-autosuggestions", at:develop
