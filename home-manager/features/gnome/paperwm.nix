@@ -1,7 +1,7 @@
 { config, ... }:
 
 let
-  kitty-width = if config.screen-type.aspect-ratio == "ultrawide" then "25%" else "33%";
+  terminal-width = if config.screen-type.aspect-ratio == "ultrawide" then "25%" else "33%";
   neovide-width = if config.screen-type.aspect-ratio == "ultrawide" then "75%" else "66%";
 
   cycle-width-steps =
@@ -29,7 +29,8 @@ in
     winprops = [
       { wm-class = "Slack"; scratch-layer = true; }
       { wm-class = "chrome-cinhimbnkkaeohfgghhklpknlkffjgod-Default"; scratch-layer = true; }
-      { wm-class = "kitty"; preferred-width = kitty-width; }
+      { wm-class = "kitty"; preferred-width = terminal-width; }
+      { wm-class = "dev.warp.Warp"; preferred-width = terminal-width; }
       { wm-class = "neovide"; preferred-width = neovide-width; }
     ];
 
