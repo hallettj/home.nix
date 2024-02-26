@@ -180,9 +180,9 @@ def logs [
 ] {
   let args = [$service] | compact
   let input = if ($file | path exists) {
-    arion --file $file logs $args 
+    arion --file $file logs ...$args 
   } else {
-    docker-compose logs $args 
+    docker-compose logs ...$args 
   }
   $input
     | lines
@@ -190,6 +190,15 @@ def logs [
     | where {|it| is_json $it.log}
     | update log {|it| $it.log | from json }
     | flatten
+}
+
+# Gets log output from a given docker-compose service, and extracts and formats
+# relevant opentelemetry data
+def otel [
+  service: string@docker_compose_services
+  --file (-f): string = "./arion-compose.nix" # Use FILE instead of the default ./arion-compose.nix
+] {
+  logs $service | get resourceSpans | each {|it| $it.scopeSpans.0.spans.0 | select name attributes status }
 }
 
 # Helper to provide autocompletion for inputs to the logs command
