@@ -171,7 +171,7 @@ def "from maybe-json" [] {
 
 # Get log output from Arion/docker-compose services with JSON parsing. If an
 # argument is given filters to logs from the given service
-# 
+#
 # Produces a list of records (not a table unfortunately) with the fields:
 # service, timestamp, level, fields, target, span, spans
 def logs [
@@ -180,9 +180,9 @@ def logs [
 ] {
   let args = [$service] | compact
   let input = if ($file | path exists) {
-    arion --file $file logs ...$args 
+    arion --file $file logs ...$args
   } else {
-    docker-compose logs ...$args 
+    docker-compose logs ...$args
   }
   $input
     | lines
@@ -198,7 +198,9 @@ def otel [
   service: string@docker_compose_services
   --file (-f): string = "./arion-compose.nix" # Use FILE instead of the default ./arion-compose.nix
 ] {
-  logs $service | get resourceSpans | each {|it| $it.scopeSpans.0.spans.0 | select name attributes status }
+  logs --file $file $service
+    | get resourceSpans
+    | each {|it| $it.scopeSpans.0.spans.0 | select name attributes status }
 }
 
 # Helper to provide autocompletion for inputs to the logs command
