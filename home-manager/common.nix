@@ -72,6 +72,7 @@
     sops
 
     # CLI
+    file
     jq
     fd
     hasura3
