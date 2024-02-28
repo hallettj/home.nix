@@ -40,6 +40,7 @@ return {
   -- Got log viewer
   {
     'junegunn/gv.vim',
+    dependencies = { 'tpope/vim-fugitive' },
     cmd = 'GV',
     keys = {
       { '<leader>gl', '<cmd>GV<cr>',       desc = 'log graph for branch' },
