@@ -46,9 +46,6 @@ return {
       { '<leader>gl', '<cmd>GV<cr>',       desc = 'log graph for branch' },
       { '<leader>gL', '<cmd>GV --all<cr>', desc = 'log graph for all branches' },
     },
-    init = function()
-      vim.cmd 'cnoreabbrev lg GV'
-    end,
   },
 
   {

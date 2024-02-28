@@ -9,5 +9,6 @@ return {
     vim.cmd [[Alias push Git\ push]]
     vim.cmd [[Alias show Git\ show]]
     vim.cmd [[Alias re Git\ restore]]
+    vim.cmd [[Alias lg GV]]
   end,
 }
