@@ -56,6 +56,7 @@ return {
         gitsigns = true,
         leap = true,
         lsp_trouble = true,
+        mini = { enabled = true },
         telescope = { enabled = true },
         treesitter = true,
         treesitter_context = true,

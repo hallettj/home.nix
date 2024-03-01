@@ -1,19 +1,19 @@
 return {
   -- `s`/`S` command jumps forward/backward to occurrence of a pair of characters
-  -- `gs` jumps to pair of characters in another window
+  -- `gw` jumps to pair of characters in another window
   {
     'ggandor/leap.nvim',
     dependencies = { 'tpope/vim-repeat' },
+    keys = {
+      -- default mappings, except that I changed 'gs' to 'gw', and 's' and 'S' are inclusive motions
+      { 's',  mode = { 'n', 'x', 'o' }, '<Plug>(leap-forward-to)',    desc = 'Leap forward' },
+      { 'S',  mode = { 'n', 'x', 'o' }, '<Plug>(leap-backward-to)',   desc = 'Leap backward' },
+      { 'x',  mode = { 'x', 'o' },      '<Plug>(leap-forward-till)',  desc = 'eXclusive leap motion forward' },
+      { 'X',  mode = { 'x', 'o' },      '<Plug>(leap-backward-till)', desc = 'eXclusive leap motion backward' },
+      { 'gw', mode = { 'n', 'x', 'o' }, '<Plug>(leap-from-window)',   desc = 'Leap to another window' },
+    },
     config = function()
       local leap = require('leap')
-
-      -- `s{char1}{char2}`  leap forward,              modes = { 'x', 'o', 'n' }
-      -- `S{char1}{char2}`  leap backward,             modes = { 'x', 'o', 'n' }
-      -- `gs{char1}{char2}` leap to another window,    modes = { 'x', 'o', 'n' }
-      -- `x{char1}{char2}`  eXclusive motion forward,  modes = { 'x', 'o', } 
-      -- `X{char1}{char2}`  eXclusive motion backward, modes = { 'x', 'o', } 
-      leap.add_default_mappings(true)
-
       leap.opts.labels = 'uhetonaspgcrkmjwqvlzidyfxb/UHETONASPGCRKMJWQVLZIDYFXB?' -- dvorak!
     end,
 
@@ -24,7 +24,7 @@ return {
     'ggandor/leap-ast.nvim',
     dependencies = { 'ggandor/leap.nvim' },
     keys = {
-      { '-', function() require 'leap-ast'.leap() end, mode = { 'n', 'x', 'o' }, desc = 'leap to, or operate on a higher AST node' },
+      { '-', mode = { 'n', 'x', 'o' }, function() require 'leap-ast'.leap() end, desc = 'leap to, or operate on a higher AST node' },
     },
   },
 
