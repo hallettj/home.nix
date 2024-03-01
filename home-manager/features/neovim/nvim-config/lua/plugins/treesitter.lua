@@ -88,25 +88,12 @@ return {
               ['[]'] = '@class.outer',
             },
           },
-          select = {
-            enable = true,
-            keymaps = {
-              -- You can use the capture groups defined in textobjects.scm
-              ['af'] = { query = '@function.outer', desc = '@function.outer' },
-              ['if'] = { query = '@function.inner', desc = '@function.inner' },
-              ['ac'] = { query = '@class.outer', desc = '@class.outer' },
-              ['ic'] = { query = '@class.inner', desc = '@class.inner' },
-              ['aC'] = { query = '@comment.outer', desc = '@comment.outer' },
-              ['iC'] = { query = '@comment.inner', desc = '@comment.inner' },
-              ['aP'] = { query = '@parameter.outer', desc = '@parameter.outer' },
-              ['iP'] = { query = '@parameter.inner', desc = '@parameter.inner' },
-            },
-          },
         },
       }
     end,
   },
   {
+    -- https://google.com/
     'nvim-treesitter/nvim-treesitter-refactor',
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
     config = function()

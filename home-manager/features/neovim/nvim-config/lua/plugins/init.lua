@@ -21,9 +21,6 @@ return {
   'tpope/vim-repeat', -- makes the `.` command work with third-party actions
   'tpope/vim-rsi', -- add Emacs-like shortcuts to command mode
 
-  -- Movements
-  'wellle/targets.vim', -- more options for movements like `i` and `a`
-
   -- Text objects
   { 'kana/vim-textobj-entire', dependencies = { 'kana/vim-textobj-user' } }, -- `ae`: entire buffer, `ie`: excludes empty lines
   { 'kana/vim-textobj-line', dependencies = { 'kana/vim-textobj-user' } }, -- `al`: entire line, `il` excludes whitespace
