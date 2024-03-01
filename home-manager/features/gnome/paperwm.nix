@@ -30,7 +30,6 @@ in
       { wm-class = "Slack"; scratch-layer = true; }
       { wm-class = "chrome-cinhimbnkkaeohfgghhklpknlkffjgod-Default"; scratch-layer = true; }
       { wm-class = "kitty"; preferred-width = terminal-width; }
-      { wm-class = "dev.warp.Warp"; preferred-width = terminal-width; }
       { wm-class = "neovide"; preferred-width = neovide-width; }
     ];
 
