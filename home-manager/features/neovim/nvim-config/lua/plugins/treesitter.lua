@@ -100,7 +100,6 @@ return {
               ['iC'] = { query = '@comment.inner', desc = '@comment.inner' },
               ['aP'] = { query = '@parameter.outer', desc = '@parameter.outer' },
               ['iP'] = { query = '@parameter.inner', desc = '@parameter.inner' },
-              ['S'] = { query = '@statement.outer', desc = '@statement' },
             },
           },
         },

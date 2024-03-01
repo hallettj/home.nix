@@ -4,8 +4,7 @@ return {
   dependencies = { 'nvim-tree/nvim-web-devicons' },
   lazy = false, -- ssh connections do not initialize properly when loaded lazily
   keys = {
-    { '-', function() require('oil').open() end,                desc = 'Browse parent directory' },
-    { '_', function() require('oil').open(vim.fn.getcwd()) end, desc = 'Browse current working directory' },
+    { '_', function() require('oil').open() end, desc = 'Browse parent directory' },
   },
   opts = {
     keymaps = {
@@ -17,8 +16,7 @@ return {
       -- ['<C-p>'] = 'actions.preview', -- conflicts with my file picker
       ['<C-c>'] = 'actions.close',
       ['<C-l>'] = 'actions.refresh',
-      ['-'] = 'actions.parent',
-      ['_'] = 'actions.open_cwd',
+      ['_'] = 'actions.parent',
       ['`'] = 'actions.cd',
       ['~'] = 'actions.tcd',
       ['g.'] = 'actions.toggle_hidden',
