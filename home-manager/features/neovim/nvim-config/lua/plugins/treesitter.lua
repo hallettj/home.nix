@@ -105,20 +105,6 @@ return {
       }
     end,
   },
-  {
-    'nvim-treesitter/playground',
-    dependencies = { 'nvim-treesitter/nvim-treesitter' },
-    config = function()
-      require('nvim-treesitter.configs').setup {
-        playground = {
-          enable = true,
-          disable = {},
-          updateTime = 25,
-          persist_queries = false,
-        },
-      }
-    end,
-  },
   -- Shows lines with containing function, struct, etc. if that would otherwise
   -- be scrolled off the top of the screen.
   {
