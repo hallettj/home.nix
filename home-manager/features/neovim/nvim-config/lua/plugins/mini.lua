@@ -7,12 +7,15 @@ return {
   config = function()
     local treesitter = require('mini.ai').gen_spec.treesitter
     require('mini.ai').setup {
+      -- Some of these captures use custom queries defined in this repo in
+      -- `after/queries/<language>/textobjects.scm`
       custom_textobjects = {
         a = treesitter { a = '@parameter.outer', i = '@parameter.inner' },
         B = treesitter { a = '@block.outer', i = '@block.inner' },
-        c = treesitter { a = '@comment.outer', i = '@comment.inner' },               -- only 'ac' works in Rust
+        c = treesitter { a = '@comment.outer', i = '@comment.inner' },      -- only 'ac' works in Rust
+        d = treesitter { a = '@class.outer', i = '@class.inner' }, -- 'd' for "declaration"
         f = treesitter { a = '@call.outer', i = '@call.inner' },
-        d = treesitter { a = '@class.outer', i = '@class.inner' },                   -- 'd' for "declaration"
+        i = treesitter { a = '@import.outer', i = '@import.inner' },
         t = treesitter { a = '@custom_capture.outer', i = '@custom_capture.inner' }, -- 'd' for "declaration"
         m = treesitter { a = '@function.outer', i = '@function.inner' },             -- 'm' for "method"
         o = treesitter {
