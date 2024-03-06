@@ -25,6 +25,17 @@ return {
       -- - ih
     },
     config = function()
+      vim.api.nvim_create_autocmd('User', {
+        group = vim.api.nvim_create_augroup('fugitive-custom-mappings', { clear = true }),
+        pattern = 'FugitiveIndex',
+        callback = function(opts)
+          vim.keymap.set('n', '<right>', '>', { desc = 'show diff under cursor', buffer = opts.buf, remap = true })
+          vim.keymap.set('n', '<left>', '<', { desc = 'hide diff under cursor', buffer = opts.buf, remap = true })
+          vim.keymap.set('n', '<tab>', '=', { desc = 'toggle diff under cursor', buffer = opts.buf, remap = true })
+        end,
+      })
+
+      -- Load rhubarb whenever fugitive is loaded
       vim.cmd [[Lazy load vim-rhubarb]]
     end,
   },
