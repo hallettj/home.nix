@@ -6,7 +6,13 @@
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     # Also see the 'unstable-packages' overlay at 'overlays/default.nix'.
 
-    flake-utils.url = "github:numtide/flake-utils";
+    systems.url = "github:nix-systems/default";
+
+    # I have this just to get other inputs to follow the above "systems" input.
+    flake-utils = {
+      url = "github:numtide/flake-utils";
+      inputs.systems.follows = "systems";
+    };
 
     home-manager = {
       url = "github:nix-community/home-manager/release-23.11";
@@ -17,6 +23,7 @@
     eza = {
       url = "github:eza-community/eza";
       inputs = {
+        flake-utils.follows = "flake-utils";
         nixpkgs.follows = "nixpkgs";
         rust-overlay.follows = "rust-overlay";
       };
@@ -62,28 +69,26 @@
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, systems, ... }@inputs:
     let
       inherit (self) outputs;
-      forAllSystems = nixpkgs.lib.genAttrs [ "x86_64-linux" ];
+      eachSystem = callback: nixpkgs.lib.genAttrs (import systems) (system: callback (pkgs system));
       flakePath = config: "${config.home.homeDirectory}/Documents/NixConfig";
-      pkgs = forAllSystems (system:
-        import nixpkgs {
-          inherit system;
-          overlays = builtins.attrValues self.overlays;
-        }
-      );
+      pkgs = system: import nixpkgs {
+        inherit system;
+        overlays = builtins.attrValues self.overlays;
+      };
     in
     {
       # Your custom packages
       # Acessible through 'nix build', 'nix shell', etc
-      packages = forAllSystems (system:
-        import ./pkgs { inherit inputs; pkgs = pkgs.${system}; }
+      packages = eachSystem (pkgs:
+        import ./pkgs { inherit inputs pkgs; }
       );
       # Devshell for bootstrapping
       # Acessible through 'nix develop' or 'nix-shell' (legacy)
-      devShells = forAllSystems (system:
-        import ./shell.nix { pkgs = pkgs.${system}; }
+      devShells = eachSystem (pkgs:
+        import ./shell.nix { inherit pkgs; }
       );
 
       # Your custom packages and modifications, exported as overlays
@@ -115,7 +120,7 @@
       # Available through 'home-manager --flake .#your-username@your-hostname'
       homeConfigurations = {
         "jesse@yu" = home-manager.lib.homeManagerConfiguration {
-          pkgs = pkgs.x86_64-linux; # Home-manager requires 'pkgs' instance
+          pkgs = pkgs "x86_64-linux"; # Home-manager requires 'pkgs' instance
           extraSpecialArgs = { inherit flakePath inputs outputs; };
           modules = [
             # > Our main home-manager configuration file <
@@ -123,7 +128,7 @@
           ];
         };
         "jesse@battuta" = home-manager.lib.homeManagerConfiguration {
-          pkgs = pkgs.x86_64-linux;
+          pkgs = pkgs "x86_64-linux";
           extraSpecialArgs = { inherit flakePath inputs outputs; };
           modules = [ ./home-manager/jesse/battuta.nix ];
         };
