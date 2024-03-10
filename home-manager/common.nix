@@ -58,7 +58,6 @@
     xorg.xev # used by my `keycode` alias
 
     # Programming
-    cachix
     cargo
     docker
     docker-compose
