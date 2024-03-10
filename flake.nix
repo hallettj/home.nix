@@ -19,16 +19,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Replacement for ls
-    eza = {
-      url = "github:eza-community/eza";
-      inputs = {
-        flake-utils.follows = "flake-utils";
-        nixpkgs.follows = "nixpkgs";
-        rust-overlay.follows = "rust-overlay";
-      };
-    };
-
     crane = {
       url = "github:ipetkov/crane";
       inputs.nixpkgs.follows = "nixpkgs";
