@@ -16,16 +16,7 @@
     ./features/zsh
   ] ++ (builtins.attrValues outputs.homeManagerModules);
 
-  nixpkgs = {
-    config = {
-      allowUnfree = true;
-      # Workaround for https://github.com/nix-community/home-manager/issues/2942
-      allowUnfreePredicate = (_: true);
-      permittedInsecurePackages = [
-        "electron-25.9.0" # used by obsidian, but is past its EOL
-      ];
-    };
-  };
+  nixpkgs.config.allowUnfree = true;
 
   home = {
     username = lib.mkDefault "jesse";
@@ -49,7 +40,7 @@
     gimp-with-plugins
     google-chrome
     masterpdfeditor
-    unstable.obsidian # see permittedInsecurePackages setting in overlays
+    unstable.obsidian
     pavucontrol
     signal-desktop
     slack
