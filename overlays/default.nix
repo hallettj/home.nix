@@ -29,5 +29,4 @@ rec {
   };
 
   neovim-nightly = inputs.neovim-nightly-overlay.overlay;
-  rust-overlay = import inputs.rust-overlay;
 }

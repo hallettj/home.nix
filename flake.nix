@@ -8,19 +8,8 @@
 
     systems.url = "github:nix-systems/default";
 
-    # I have this just to get other inputs to follow the above "systems" input.
-    flake-utils = {
-      url = "github:numtide/flake-utils";
-      inputs.systems.follows = "systems";
-    };
-
     home-manager = {
       url = "github:nix-community/home-manager/release-23.11";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    crane = {
-      url = "github:ipetkov/crane";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -32,14 +21,6 @@
         # niri-src revision every time I build unless I fix a revision here.
         niri-src.url = "github:YaLTeR/niri/2b5eeb61620363a325a5c76c4a5d25e45f2a6054";
         nixpkgs.follows = "nixpkgs-unstable";
-      };
-    };
-
-    rust-overlay = {
-      url = "github:oxalica/rust-overlay";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "flake-utils";
       };
     };
 
