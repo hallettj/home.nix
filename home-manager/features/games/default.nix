@@ -2,6 +2,9 @@
 
 {
   home.packages = with pkgs; [
+    bottles
+    gamescope
+
     (lutris.override {
       extraPkgs = pkgs: [
         wine-staging
