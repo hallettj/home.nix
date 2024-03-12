@@ -47,6 +47,13 @@ input {
         map-to-output "eDP-1"
     }
 
+    touch {
+        // Set the name of the output (see below) which touch input will map to.
+        // If this is unset or the output doesn't exist, touch input maps to one of the
+        // existing outputs.
+        map-to-output "eDP-1"
+    }
+
     // By default, niri will take over the power button to make it sleep
     // instead of power off.
     // Uncomment this if you would like to configure the power button elsewhere
@@ -92,7 +99,7 @@ input {
 layout {
     // By default focus ring and border are rendered as a solid background rectangle
     // behind windows. That is, they will show up through semitransparent windows.
-    // This is because windows using client-side decoratins can have an arbitrary shape.
+    // This is because windows using client-side decorations can have an arbitrary shape.
     //
     // If you don't like that, you should uncomment `prefer-no-csd` below.
     // Niri will draw focus ring and border *around* windows that agree to omit their
@@ -106,11 +113,30 @@ layout {
         // How many logical pixels the ring extends out from the windows.
         width 4
 
-        // Color of the ring on the active monitor: red, green, blue, alpha.
-        active-color 127 200 255 255
+        // Colors can be set in a variety of ways:
+        // - CSS named colors: "red"
+        // - RGB hex: "#rgb", "#rgba", "#rrggbb", "#rrggbbaa"
+        // - CSS-like notation: "rgb(255, 127, 0)", rgba(), hsl() and a few others.
 
-        // Color of the ring on inactive monitors: red, green, blue, alpha.
-        inactive-color 80 80 80 255
+        // Color of the ring on the active monitor.
+        active-color "#b7bdf8" // Lavender from Catppuccin Macchiato theme
+
+        // Color of the ring on inactive monitors.
+        inactive-color "#6e738d" // Overlay0 from Catppuccin Macchiato theme
+
+        // You can also use gradients. They take precedence over solid colors.
+        // Gradients are rendered the same as CSS linear-gradient(angle, from, to).
+        // The angle is the same as in linear-gradient, and is optional,
+        // defaulting to 180 (top-to-bottom gradient).
+        // You can use any CSS linear-gradient tool on the web to set these up.
+        //
+        // active-gradient from="#80c8ff" to="#bbddff" angle=45
+
+        // You can also color the gradient relative to the entire view
+        // of the workspace, rather than relative to just the window itself.
+        // To do that, set relative-to="workspace-view".
+        //
+        // inactive-gradient from="#505050" to="#808080" angle=45 relative-to="workspace-view"
     }
 
     // You can also add a border. It's similar to the focus ring, but always visible.
@@ -118,10 +144,6 @@ layout {
         // The settings are the same as for the focus ring.
         // If you enable the border, you probably want to disable the focus ring.
         off
-
-        width 4
-        active-color 255 200 127 255
-        inactive-color 80 80 80 255
     }
 
     // You can customize the widths that "switch-preset-column-width" (Mod+R) toggles between.
@@ -145,7 +167,7 @@ layout {
     // default-column-width {}
 
     // Set gaps around windows in logical pixels.
-    gaps 16
+    gaps 8
 
     // Struts shrink the area occupied by windows, similarly to layer-shell panels.
     // You can think of them as a kind of outer gaps. They are set in logical pixels.
@@ -173,6 +195,17 @@ layout {
 // which may be more convenient to use.
 // spawn-at-startup "alacritty" "-e" "fish"
 
+// - lock screen after 5 minutes of inactivity
+// - lock screen before suspend
+spawn-at-startup "swayidle" \
+    "timeout" "300" "niri msg action power-off-monitors" \
+    "timeout" "315" "swaylock -f" \
+    "timeout" "2700" "systemctl suspend" \
+    "before-sleep" "playerctl pause" \
+    "before-sleep" "swaylock -f"
+
+spawn-at-startup "waybar"
+
 cursor {
     // Change the theme and size of the cursor as well as set the
     // `XCURSOR_THEME` and `XCURSOR_SIZE` env variables.
@@ -196,7 +229,17 @@ screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 // Settings for the "Important Hotkeys" overlay.
 hotkey-overlay {
     // Uncomment this line if you don't want to see the hotkey help at niri startup.
-    // skip-at-startup
+    skip-at-startup
+}
+
+window-rule {
+    match app-id="kitty"
+    default-column-width { proportion 0.25; }
+}
+
+window-rule {
+    match app-id="neovide"
+    default-column-width { proportion 0.75; }
 }
 
 binds {
@@ -219,9 +262,9 @@ binds {
     // You can also use a shell:
     // Mod+T { spawn "bash" "-c" "notify-send hello && exec alacritty"; }
 
-    // Example volume keys mappings for PipeWire & WirePlumber.
-    XF86AudioRaiseVolume { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1+"; }
-    XF86AudioLowerVolume { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1-"; }
+    XF86AudioPlay        { spawn "playerctl" "play-pause"; }
+    XF86AudioRaiseVolume { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.01+"; }
+    XF86AudioLowerVolume { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.01-"; }
 
     Mod+Backspace { close-window; }
 

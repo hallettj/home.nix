@@ -1,4 +1,4 @@
-{ config, flakePath, ... }:
+{ config, flakePath, pkgs, ... }:
 
 let
   # Out-of-store symlinks require absolute paths when using a flake config. This
@@ -7,6 +7,13 @@ let
   dir = "${flakePath config}/home-manager/features/niri";
 in
 {
+  home.packages = with pkgs; [
+    playerctl # for play-pause key bind
+    wireplumber # provides wpctl for volume key binds
+    swayidle
+    swaylock
+  ];
+
   xdg.configFile.niri = {
     source = config.lib.file.mkOutOfStoreSymlink "${dir}/niri-config";
   };
@@ -41,9 +48,12 @@ in
         #   "eDP-1"
         #   "HDMI-A-1"
         # ];
-        modules-left = [ "sway/workspaces" "sway/mode" "wlr/taskbar" ];
-        modules-center = [ "sway/window" "custom/hello-from-waybar" ];
+        modules-left = [ "wlr/taskbar" ];
+        modules-center = [ "clock" ];
         modules-right = [ "mpd" "custom/mymodule#with-css-id" "temperature" ];
+        clock = {
+          format-alt = "{:%a, $m %d  %H:%M}";
+        };
 
         # "sway/workspaces" = {
         #   disable-scroll = true;
