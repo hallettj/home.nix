@@ -34,9 +34,6 @@ in
     '';
   };
 
-  # Carapace provides command completions
-  programs.carapace.enable = true;
-
   # Change directories with fuzzy search
   programs.zoxide.enable = true;
 
