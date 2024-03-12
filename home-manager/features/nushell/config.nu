@@ -121,7 +121,7 @@ def "docker ps" [
     (if ($filter != null) { [--filter $filter] } else { [] })
     [--size --no-trunc]
   ] | flatten
-  ^docker ps $flags
+  ^docker ps ...$flags
     | lines
     | skip 1  # skip column headings
     | parse -r '^(?<id>.+?)\s\s\s+(?<image>.+?)\s\s\s+(?<command>.+?)\s\s\s+(?<created>.+?)\s\s\s+(?<status>.+?)\s\s\s+(?<ports>(?:\S+/(?:tcp|udp)(?:,\s)?)*)\s\s\s+(?<names>.*?)\s\s\s+(?:(?<size>\S+) \(virtual (?<virtual>\S+)\))$'
@@ -154,7 +154,7 @@ def "docker image list" [
     (if ($no_trunc) { [--no-trunc] } else { [] })
     [--format json]
   ] | flatten
-  ^docker image list $flags
+  ^docker image list ...$flags
    | from json --objects
    | move Repository Tag ID CreatedSince Size --before Containers
 }
