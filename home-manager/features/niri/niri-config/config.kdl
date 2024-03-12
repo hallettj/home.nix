@@ -263,8 +263,8 @@ binds {
     // Mod+T { spawn "bash" "-c" "notify-send hello && exec alacritty"; }
 
     XF86AudioPlay        { spawn "playerctl" "play-pause"; }
-    XF86AudioRaiseVolume { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.01+"; }
-    XF86AudioLowerVolume { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.01-"; }
+    XF86AudioRaiseVolume { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.03+"; }
+    XF86AudioLowerVolume { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.03-"; }
 
     Mod+Backspace { close-window; }
 
