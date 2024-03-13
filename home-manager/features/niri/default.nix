@@ -54,6 +54,13 @@ in
     };
   };
 
+  # Run programs or switch to open windows
+  programs.rofi = {
+    enable = true;
+    package = pkgs.rofi-wayland;
+    terminal = "${config.programs.kitty.package}/bin/kitty";
+  };
+
   programs.swaylock = {
     enable = true;
     settings = with catppuccin-macchiato; {
@@ -115,5 +122,9 @@ in
     };
   };
 
+  # OSD for volume, brightness changes
   services.swayosd.enable = true;
+
+  # Notifications
+  services.dunst.enable = true;
 }
