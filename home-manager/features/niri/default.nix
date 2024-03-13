@@ -100,21 +100,12 @@ in
         layer = "top";
         position = "top";
         height = 30;
-        # output = [
-        #   "eDP-1"
-        #   "HDMI-A-1"
-        # ];
         modules-left = [ "wlr/taskbar" ];
         modules-center = [ "clock" ];
         modules-right = [ "mpd" "custom/mymodule#with-css-id" "temperature" ];
         clock = {
           format-alt = "{:%a, $m %d  %H:%M}";
         };
-
-        # "sway/workspaces" = {
-        #   disable-scroll = true;
-        #   all-outputs = true;
-        # };
       };
     };
     style = ./waybar.css;
@@ -123,4 +114,6 @@ in
       target = "niri.target";
     };
   };
+
+  services.swayosd.enable = true;
 }
