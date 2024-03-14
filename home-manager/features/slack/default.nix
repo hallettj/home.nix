@@ -1,7 +1,10 @@
 { pkgs, ... }:
 
+let
+  package = pkgs.slack;
+in
 {
-  home.packages = with pkgs; [ slack ];
+  home.packages = [ package ];
 
   # Custom desktop entry enables Ozone for Wayland support, and sets
   # XDG_CURRENT_DESKTOP to work with Waybar's system tray

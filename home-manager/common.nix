@@ -10,6 +10,7 @@
     ./features/kitty
     ./features/neovim
     ./features/nushell
+    ./features/obsidian
     ./features/shell-common
     ./features/slack
     ./features/ssh
@@ -41,7 +42,6 @@
     gimp-with-plugins
     google-chrome
     masterpdfeditor
-    unstable.obsidian
     pavucontrol
     signal-desktop
     transmission-gtk
