@@ -11,6 +11,7 @@
     ./features/neovim
     ./features/nushell
     ./features/shell-common
+    ./features/slack
     ./features/ssh
     ./features/xcompose
     ./features/zsh
@@ -43,7 +44,6 @@
     unstable.obsidian
     pavucontrol
     signal-desktop
-    slack
     transmission-gtk
     write_stylus
     xorg.xev # used by my `keycode` alias
