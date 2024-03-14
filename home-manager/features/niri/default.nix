@@ -106,53 +106,57 @@ in
     };
   };
 
-  programs.waybar = {
-    enable = true;
-    settings = {
-      mainBar = {
-        layer = "top";
-        position = "top";
-        height = 30;
+  programs.waybar =
+    let
+      notification-click-actions = {
+        on-click = "swaync-client -t -sw";
+        on-click-right = "swaync-client -d -sw";
+      };
+    in
+    {
+      enable = true;
+      settings = {
+        mainBar = {
+          layer = "top";
+          position = "top";
+          height = 30;
 
-        modules-left = [ ];
-        modules-center = [ "clock" ];
-        modules-right = [ "tray" "custom/notification" ];
+          modules-left = [ ];
+          modules-center = [ "clock" "custom/notification" ];
+          modules-right = [ "tray" ];
 
-        clock = {
-          format = "{:%H:%M}";
-          format-alt = "{:%a, %b %d  %H:%M}";
+          clock = {
+            format = "{:%a, %b %d  %H:%M}";
+          } // notification-click-actions;
+
+          "custom/notification" = {
+            tooltip = false;
+            format = "{icon}";
+            format-icons = with catppuccin-macchiato; {
+              notification = "<span foreground='#${maroon}'></span>";
+              none = "";
+              dnd-notification = "<span foreground='#${maroon}'></span>";
+              dnd-none = "";
+              inhibited-notification = "<span foreground='#${maroon}'></span>";
+              inhibited-none = "";
+              dnd-inhibited-notification = "<span foreground='#${maroon}'></span>";
+              dnd-inhibited-none = "";
+            };
+            return-type = "json";
+            exec-if = "which swaync-client";
+            exec = "swaync-client -swb";
+            escape = true;
+          } // notification-click-actions;
+
+          tray.icon-size = 20;
         };
-
-        "custom/notification" = {
-          tooltip = false;
-          format = "{icon}";
-          format-icons = with catppuccin-macchiato; {
-            notification = "<span foreground='#${red}'><sup></sup></span>";
-            none = "";
-            dnd-notification = "<span foreground='#${red}'><sup></sup></span>";
-            dnd-none = "";
-            inhibited-notification = "<span foreground='#${red}'><sup></sup></span>";
-            inhibited-none = "";
-            dnd-inhibited-notification = "<span foreground='#${red}'><sup></sup></span>";
-            dnd-inhibited-none = "";
-          };
-          return-type = "json";
-          exec-if = "which swaync-client";
-          exec = "swaync-client -swb";
-          on-click = "swaync-client -t -sw";
-          on-click-right = "swaync-client -d -sw";
-          escape = true;
-        };
-
-        tray.icon-size = 20;
+      };
+      style = ./waybar.css;
+      systemd = {
+        enable = true;
+        target = "niri.target";
       };
     };
-    style = ./waybar.css;
-    systemd = {
-      enable = true;
-      target = "niri.target";
-    };
-  };
 
   # OSD for volume, brightness changes
   services.swayosd.enable = true;

@@ -259,6 +259,7 @@ binds {
     Mod+W { spawn "fuzzel"; }
     Mod+V { spawn "rofi" "-show" "window"; }
     Mod+Ctrl+L { spawn "swaylock"; }
+    Mod+Slash { spawn "swaync-client" "-t"; }
 
     // You can also use a shell:
     // Mod+T { spawn "bash" "-c" "notify-send hello && exec alacritty"; }

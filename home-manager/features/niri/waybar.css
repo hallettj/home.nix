@@ -37,15 +37,14 @@ window#waybar {
   color: @text;
 }
 
-.modules-right * {
-  margin-left: 1em;
+.modules-right {
+  margin-right: 0.5em;
+}
+
+.modules-center *, .modules-right * {
+  margin-left: 0.5em;
 }
 
 #custom-notification {
   font-family: "Symbols Nerd Font";
-  margin-right: 0.5em;
-}
-
-#custom-notification span {
-  color: @red;
 }
