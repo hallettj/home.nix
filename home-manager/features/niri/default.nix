@@ -36,6 +36,10 @@ let
   };
 in
 {
+  # Nix packages configure Chrome and Electron apps to run in native Wayland
+  # mode if this environment variable is set.
+  home.sessionVariables.NIXOS_OZONE_WL = "1";
+
   # Increase font sizes - it's cleaner than applying a display scaling factor.
   dconf.settings."org/gnome/desktop/interface" = {
     text-scaling-factor = 1.25;

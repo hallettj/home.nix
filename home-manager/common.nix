@@ -10,9 +10,7 @@
     ./features/kitty
     ./features/neovim
     ./features/nushell
-    ./features/obsidian
     ./features/shell-common
-    ./features/slack
     ./features/ssh
     ./features/xcompose
     ./features/zsh
@@ -42,8 +40,10 @@
     gimp-with-plugins
     google-chrome
     masterpdfeditor
+    unstable.obsidian
     pavucontrol
     signal-desktop
+    slack
     transmission-gtk
     write_stylus
     xorg.xev # used by my `keycode` alias
