@@ -114,7 +114,8 @@ in
         modules-right = [ "tray" "custom/notification" ];
 
         clock = {
-          format-alt = "{:%a, $m %d  %H:%M}";
+          format = "{:%H:%M}";
+          format-alt = "{:%a, %b %d  %H:%M}";
         };
 
         "custom/notification" = {
