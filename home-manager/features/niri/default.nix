@@ -108,12 +108,15 @@ in
         layer = "top";
         position = "top";
         height = 30;
+
         modules-left = [ ];
         modules-center = [ "clock" ];
         modules-right = [ "tray" "custom/notification" ];
+
         clock = {
           format-alt = "{:%a, $m %d  %H:%M}";
         };
+
         "custom/notification" = {
           tooltip = false;
           format = "{icon}";
@@ -134,6 +137,8 @@ in
           on-click-right = "swaync-client -d -sw";
           escape = true;
         };
+
+        tray.icon-size = 20;
       };
     };
     style = ./waybar.css;

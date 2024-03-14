@@ -37,6 +37,10 @@ window#waybar {
   color: @text;
 }
 
+.modules-right * {
+  margin-left: 1em;
+}
+
 #custom-notification {
   font-family: "Symbols Nerd Font";
   margin-right: 0.5em;
