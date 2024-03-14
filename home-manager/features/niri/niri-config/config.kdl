@@ -256,8 +256,8 @@ binds {
 
     // Suggested binds for running programs: terminal, app launcher, screen locker.
     Mod+T { spawn "kitty"; }
-    Mod+V { spawn "fuzzel"; }
-    Mod+W { spawn "rofi" "-show" "window"; }
+    Mod+W { spawn "fuzzel"; }
+    Mod+V { spawn "rofi" "-show" "window"; }
     Mod+Ctrl+L { spawn "swaylock"; }
 
     // You can also use a shell:
