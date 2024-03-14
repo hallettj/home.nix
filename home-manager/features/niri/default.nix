@@ -36,6 +36,11 @@ let
   };
 in
 {
+  # Increase font sizes - it's cleaner than applying a display scaling factor.
+  dconf.settings."org/gnome/desktop/interface" = {
+    text-scaling-factor = 1.25;
+  };
+
   home.packages = with pkgs; [
     playerctl # for play-pause key bind
     swayidle
