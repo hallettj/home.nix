@@ -38,9 +38,10 @@ in
 {
   home.packages = with pkgs; [
     playerctl # for play-pause key bind
-    wireplumber # provides wpctl for volume key binds
     swayidle
     swaylock
+    swaynotificationcenter
+    wireplumber # provides wpctl for volume key binds
   ];
 
   xdg.configFile.niri = {
@@ -107,11 +108,31 @@ in
         layer = "top";
         position = "top";
         height = 30;
-        modules-left = [ "wlr/taskbar" ];
+        modules-left = [ ];
         modules-center = [ "clock" ];
-        modules-right = [ "mpd" "custom/mymodule#with-css-id" "temperature" ];
+        modules-right = [ "tray" "custom/notification" ];
         clock = {
           format-alt = "{:%a, $m %d  %H:%M}";
+        };
+        "custom/notification" = {
+          tooltip = false;
+          format = "{icon}";
+          format-icons = with catppuccin-macchiato; {
+            notification = "<span foreground='#${red}'><sup></sup></span>";
+            none = "";
+            dnd-notification = "<span foreground='#${red}'><sup></sup></span>";
+            dnd-none = "";
+            inhibited-notification = "<span foreground='#${red}'><sup></sup></span>";
+            inhibited-none = "";
+            dnd-inhibited-notification = "<span foreground='#${red}'><sup></sup></span>";
+            dnd-inhibited-none = "";
+          };
+          return-type = "json";
+          exec-if = "which swaync-client";
+          exec = "swaync-client -swb";
+          on-click = "swaync-client -t -sw";
+          on-click-right = "swaync-client -d -sw";
+          escape = true;
         };
       };
     };
@@ -124,7 +145,4 @@ in
 
   # OSD for volume, brightness changes
   services.swayosd.enable = true;
-
-  # Notifications
-  services.dunst.enable = true;
 }
