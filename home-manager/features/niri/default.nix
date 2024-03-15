@@ -53,8 +53,9 @@ in
     swaynotificationcenter
   ];
 
-  xdg.configFile.niri = {
-    source = config.lib.file.mkOutOfStoreSymlink "${dir}/niri-config";
+  xdg.configFile = {
+    niri.source = config.lib.file.mkOutOfStoreSymlink "${dir}/niri-config";
+    swaync.source = config.lib.file.mkOutOfStoreSymlink "${dir}/swaync";
   };
 
   # Run programs or switch to open windows
