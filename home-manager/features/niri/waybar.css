@@ -45,6 +45,10 @@ window#waybar {
   margin-left: 0.5em;
 }
 
+#clock {
+  font-weight: 600;
+}
+
 #custom-notification {
   font-family: "Symbols Nerd Font";
 }
