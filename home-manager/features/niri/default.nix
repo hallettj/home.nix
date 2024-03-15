@@ -57,18 +57,15 @@ in
     source = config.lib.file.mkOutOfStoreSymlink "${dir}/niri-config";
   };
 
-  programs.fuzzel = {
-    enable = true;
-    settings.main = {
-      terminal = "${config.programs.kitty.package}/bin/kitty";
-    };
-  };
-
   # Run programs or switch to open windows
   programs.rofi = {
     enable = true;
     package = pkgs.rofi-wayland;
+    font = "mono 18"; # columns don't align with proportional fonts
     terminal = "${config.programs.kitty.package}/bin/kitty";
+    extraConfig = {
+      show-icons = true;
+    };
   };
 
   programs.swaylock = {
