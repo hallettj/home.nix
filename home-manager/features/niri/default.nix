@@ -47,10 +47,10 @@ in
 
   home.packages = with pkgs; [
     playerctl # for play-pause key bind
+    swaybg # set background
     swayidle
     swaylock
     swaynotificationcenter
-    wireplumber # provides wpctl for volume key binds
   ];
 
   xdg.configFile.niri = {
