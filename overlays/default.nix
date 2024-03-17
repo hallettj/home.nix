@@ -29,4 +29,5 @@ rec {
   };
 
   neovim-nightly = inputs.neovim-nightly-overlay.overlay;
+  niri = inputs.niri.overlays.niri;
 }

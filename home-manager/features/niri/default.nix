@@ -47,9 +47,6 @@ in
 
   home.packages = with pkgs; [
     playerctl # for play-pause key bind
-    swaybg # set background
-    swayidle
-    swaylock
     swaynotificationcenter
   ];
 
@@ -156,7 +153,7 @@ in
       style = ./waybar.css;
       systemd = {
         enable = true;
-        target = "niri.target";
+        target = "niri.service";
       };
     };
 
@@ -167,6 +164,59 @@ in
   };
   home.sessionVariables.SSH_AUTH_SOCK = "$XDG_RUNTIME_DIR/keyring/ssh";
 
+  services.swayidle =
+    let
+      screen-blank-timeout = 5 * minutes;
+      lock-after-blank-timeout = 15 * seconds;
+      sleep-timeout = 45 * minutes;
+
+      seconds = 1;
+      minutes = 60 * seconds;
+
+      niri = "${pkgs.niri-stable}/bin/niri";
+      loginctl = "${pkgs.systemd}/bin/loginctl";
+      systemctl = "${pkgs.systemd}/bin/systemctl";
+      playerctl = "${pkgs.playerctl}/bin/playerctl";
+      swaylock = "${config.programs.swaylock.package}/bin/swaylock";
+
+      lock-session = pkgs.writeShellScript "lock-session" ''
+        ${swaylock} -f
+        ${niri} msg action power-off-monitors
+        ${playerctl} pause
+      '';
+
+      before-sleep = pkgs.writeShellScript "before-sleep" ''
+        ${loginctl} lock-session
+        ${playerctl} pause
+      '';
+    in
+    {
+      enable = true;
+      timeouts = [
+        { timeout = screen-blank-timeout; command = "${niri} msg action power-off-monitors"; }
+        { timeout = screen-blank-timeout + lock-after-blank-timeout; command = "${loginctl} lock-session"; }
+        { timeout = sleep-timeout; command = "${systemctl} suspend"; }
+      ];
+      events = [
+        { event = "lock"; command = lock-session.outPath; }
+        { event = "before-sleep"; command = before-sleep.outPath; }
+      ];
+      systemdTarget = "niri.service";
+    };
+
   # OSD for volume, brightness changes
   services.swayosd.enable = true;
+
+  systemd.user.services.swaybg = {
+    Unit = {
+      Description = "Sets background color or image for Wayland compositors";
+      PartOf = [ "graphical-session.target" ];
+    };
+    Service = {
+      Type = "simple";
+      Restart = "always";
+      ExecStart = "${pkgs.swaybg}/bin/swaybg --color #363a4f"; # "Surface0" from Catppuccin Macchiato theme
+    };
+    Install.WantedBy = [ "niri.service" ];
+  };
 }

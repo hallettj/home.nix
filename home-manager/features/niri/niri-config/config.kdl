@@ -195,19 +195,6 @@ layout {
 // which may be more convenient to use.
 // spawn-at-startup "alacritty" "-e" "fish"
 
-spawn-at-startup "swaybg" "--color" "#363a4f" // "Surface0" from Catppuccin Macchiato theme
-
-// - lock screen after 5 minutes of inactivity
-// - lock screen before suspend
-spawn-at-startup "swayidle" \
-    "timeout" "300" "niri msg action power-off-monitors" \
-    "timeout" "315" "swaylock -f" \
-    "timeout" "2700" "systemctl suspend" \
-    "before-sleep" "playerctl pause" \
-    "before-sleep" "swaylock -f"
-
-spawn-at-startup "waybar"
-
 cursor {
     // Change the theme and size of the cursor as well as set the
     // `XCURSOR_THEME` and `XCURSOR_SIZE` env variables.
@@ -260,7 +247,7 @@ binds {
     Mod+T { spawn "kitty"; }
     Mod+W { spawn "rofi" "-show" "drun"; }
     Mod+V { spawn "rofi" "-show" "window"; }
-    Mod+Ctrl+L { spawn "swaylock"; }
+    Mod+Ctrl+L { spawn "loginctl" "lock-session"; }
     Mod+Slash { spawn "swaync-client" "-t"; }
 
     // You can also use a shell:
