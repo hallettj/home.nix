@@ -3,11 +3,11 @@
 }:
 
 let
-  version = "0.10.17";
-  build = "665";
+  version = "0.10.24";
+  build = "718";
   tar_content = fetchzip {
     url = "https://releases.gitbutler.com/releases/release/${version}-${build}/linux/x86_64/git-butler_${version}_amd64.AppImage.tar.gz";
-    hash = "sha256-BuONrcIx/LNbcsSFjrb/Lr0+NPY18NUTvdiUevBP9gA=";
+    hash = "sha256-3kNEOlp9aBrA/4VldIgz2lcsSTTynxfRj2Rchv4Dkyg=";
   };
   name = "git-butler";
   src = "${tar_content}/git-butler_${version}_amd64.AppImage";
