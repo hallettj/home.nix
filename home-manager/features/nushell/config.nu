@@ -82,8 +82,11 @@ def keycode [] {
   xev | grep -A2 --line-buffered '^KeyRelease' | sed -n '/keycode /s/^.*keycode \([0-9]*\).* (.*, \(.*\)).*$/\1 \2/p'
 }
 
-def mkpass [] {
-  grep -v '[^a-z]' $env.WORDLIST | shuf --random-source=/dev/urandom | head -n5 | paste -sd ' '
+# Generate a random secure passphrase
+def mkpass [
+  word_count: int = 5
+] {
+  grep -v '[^a-z]' $env.WORDLIST | shuf --random-source=/dev/urandom | head -n $word_count | paste -sd ' '
 }
 
 # Kill processes whose names contain the given pattern. This is basically
