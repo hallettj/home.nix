@@ -4,7 +4,6 @@
   imports = [
     ../common.nix
     ../features/games
-    ../features/git-butler
     ../features/godot
     ../features/helix
     ../features/niri
