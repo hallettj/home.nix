@@ -4,6 +4,7 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-gitbutler.url = "github:hallettj/nixpkgs?ref=package/gitbutler";
     # Also see the 'unstable-packages' overlay at 'overlays/default.nix'.
 
     systems.url = "github:nix-systems/default";

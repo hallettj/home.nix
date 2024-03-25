@@ -52,6 +52,7 @@
     cargo
     docker
     docker-compose
+    gitbutler
     rustc
     rust-analyzer
     clang

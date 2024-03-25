@@ -13,6 +13,11 @@ rec {
   # You can change versions, add patches, set compilation flags, anything really.
   # https://nixos.wiki/wiki/Overlays
   modifications = final: prev: {
+    gitbutler = (import inputs.nixpkgs-gitbutler {
+      localSystem = final.buildPlatform.system;
+      crossSystem = final.hostPlatform.system;
+      config = final.config;
+    }).gitbutler;
     neovide = patch prev.neovide [ ./neovide-font-customization.patch ];
   };
 
@@ -22,7 +27,8 @@ rec {
     unstable = import inputs.nixpkgs-unstable {
       # Apply the same system, config, and overlays to 'pkgs.unstable' that are
       # applied to 'pkgs'
-      system = final.system;
+      localSystem = final.buildPlatform.system;
+      crossSystem = final.hostPlatform.system;
       config = final.config;
       overlays = [additions modifications];
     };
