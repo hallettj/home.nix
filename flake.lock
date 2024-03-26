@@ -505,11 +505,11 @@
     },
     "nixpkgs-gitbutler": {
       "locked": {
-        "lastModified": 1711328715,
-        "narHash": "sha256-DctEoYEyEK2qKJSqXZp8oqiDvijwW3iWia0M2FteLaM=",
+        "lastModified": 1711475683,
+        "narHash": "sha256-LYJ7L+iZwviqkqUm+G4Cieqdt5wpQ0voE+p+68/uYfw=",
         "owner": "hallettj",
         "repo": "nixpkgs",
-        "rev": "dd5c34605cd9f851e5d9f11f2376a0c09b3388bc",
+        "rev": "c8cf58da04a3ee7dfc7473ff1512e03df6f8fa23",
         "type": "github"
       },
       "original": {
