@@ -122,7 +122,7 @@ in
 
           modules-left = [ ];
           modules-center = [ "clock" "custom/notification" ];
-          modules-right = [ "tray" ];
+          modules-right = [ "tray" "network" ];
 
           clock = {
             format = "{:%a, %b %d  %H:%M}";
@@ -148,6 +148,32 @@ in
           } // notification-click-actions;
 
           tray.icon-size = 20;
+
+          network = {
+            interface = "wlp4s0"; # TODO: set this dynamically
+            format = "{ifname}";
+            format-wifi = "󰤯";
+            format-ethernet = "󰈀";
+            format-disconnected = "󰤮"; # An empty format will hide the module.
+            tooltip-format = "{ifname} via {gwaddr} 󰊗";
+            tooltip-format-wifi = "{essid} ({signalStrength}%) ";
+            tooltip-format-ethernet = "{ipaddr}/{cidr} ";
+            tooltip-format-disconnected = "Disconnected";
+            max-length = 50;
+          } // (
+            let
+              rofi-wifi-menu = pkgs.fetchFromGitHub {
+                owner = "ericmurphyxyz";
+                repo = "rofi-wifi-menu";
+                rev = "d6debde6e302f68d8235ced690d12719124ff18e";
+                hash = "sha256-H+vBRdGcSDMKGLHhPB7imV148O8GRTMj1tZ+PLQUVG4=";
+              };
+            in
+            {
+              on-click = "${pkgs.bash}/bin/bash ${rofi-wifi-menu}/rofi-wifi-menu.sh";
+              on-click-right = "${pkgs.networkmanagerapplet}/bin/nm-connection-editor";
+            }
+          );
         };
       };
       style = ./waybar.css;
