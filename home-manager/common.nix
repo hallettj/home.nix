@@ -9,6 +9,7 @@
     ./features/gnome
     ./features/kitty
     ./features/neovim
+    ./features/niri
     ./features/nushell
     ./features/shell-common
     ./features/ssh
