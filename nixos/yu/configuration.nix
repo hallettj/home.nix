@@ -10,7 +10,6 @@
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ../common.nix
-      ../features/niri.nix
       ../features/vpn
     ];
 
