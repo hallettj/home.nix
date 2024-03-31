@@ -40,11 +40,6 @@ in
   # mode if this environment variable is set.
   home.sessionVariables.NIXOS_OZONE_WL = "1";
 
-  # Increase font sizes - it's cleaner than applying a display scaling factor.
-  dconf.settings."org/gnome/desktop/interface" = {
-    text-scaling-factor = 1.25;
-  };
-
   home.packages = with pkgs; [
     playerctl # for play-pause key bind
     swaynotificationcenter
@@ -150,7 +145,6 @@ in
           tray.icon-size = 20;
 
           network = {
-            interface = "wlp4s0"; # TODO: set this dynamically
             format = "{ifname}";
             format-wifi = "󰤯";
             format-ethernet = "󰈀";
