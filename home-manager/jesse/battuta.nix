@@ -11,6 +11,10 @@
     text-scaling-factor = 2.0;
   };
 
+  programs.kitty.extraConfig = ''
+    font_size 20.0
+  '';
+
   programs.waybar.settings.mainBar = {
     # Add battery module to waybar to show charge
     #
