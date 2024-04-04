@@ -37,6 +37,10 @@ window#waybar {
   color: @text;
 }
 
+.modules-left {
+  margin-left: 0.5em;
+}
+
 .modules-right {
   margin-right: 0.5em;
 }

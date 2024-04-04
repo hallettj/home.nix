@@ -6,6 +6,8 @@ let
   # a store path which would get us read-only store paths.
   dir = "${flakePath config}/home-manager/features/niri";
 
+  niri-bin = "${pkgs.niri-stable}/bin/niri";
+
   catppuccin-macchiato = {
     rosewater = "f4dbd6";
     flamingo = "f0c6c6";
@@ -115,13 +117,28 @@ in
           position = "top";
           height = 30;
 
-          modules-left = [ ];
+          modules-left = [ "custom/niri-focused-window" ];
           modules-center = [ "clock" "custom/notification" ];
           modules-right = [ "tray" "network" ];
 
           clock = {
             format = "{:%a, %b %d  %H:%M}";
           } // notification-click-actions;
+
+          "custom/niri-focused-window" =
+            let
+              jq-filter = ''{ text: "\(.app_id) — \(.title)", alt: .app_id, class: ["focused-window"] }'';
+              jq = "${pkgs.jq}/bin/jq";
+              script = pkgs.writeShellScript "niri-focused-window" ''
+                ${niri-bin} msg --json focused-window | ${jq} --unbuffered --compact-output '${jq-filter}'
+              '';
+            in
+            {
+              tooltip = false;
+              return-type = "json";
+              exec = script.outPath;
+              interval = 1;
+            };
 
           "custom/notification" = {
             tooltip = false;
@@ -193,7 +210,6 @@ in
       seconds = 1;
       minutes = 60 * seconds;
 
-      niri = "${pkgs.niri-stable}/bin/niri";
       loginctl = "${pkgs.systemd}/bin/loginctl";
       systemctl = "${pkgs.systemd}/bin/systemctl";
       playerctl = "${pkgs.playerctl}/bin/playerctl";
@@ -201,7 +217,7 @@ in
 
       lock-session = pkgs.writeShellScript "lock-session" ''
         ${swaylock} -f
-        ${niri} msg action power-off-monitors
+        ${niri-bin} msg action power-off-monitors
         ${playerctl} pause
       '';
 
@@ -213,7 +229,7 @@ in
     {
       enable = true;
       timeouts = [
-        { timeout = screen-blank-timeout; command = "${niri} msg action power-off-monitors"; }
+        { timeout = screen-blank-timeout; command = "${niri-bin} msg action power-off-monitors"; }
         { timeout = screen-blank-timeout + lock-after-blank-timeout; command = "${loginctl} lock-session"; }
         { timeout = sleep-timeout; command = "${systemctl} suspend"; }
       ];
