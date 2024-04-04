@@ -55,7 +55,7 @@
     docker-compose
     gitbutler
     rustc
-    rust-analyzer
+    unstable.rust-analyzer
     clang
     nodejs_20
 
