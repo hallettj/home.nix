@@ -162,14 +162,13 @@ in
           tray.icon-size = 20;
 
           network = {
-            format = "{ifname}";
-            format-wifi = "󰤯";
+            format-wifi = "{icon}";
             format-ethernet = "󰈀";
             format-disconnected = "󰤮"; # An empty format will hide the module.
-            tooltip-format = "{ifname} via {gwaddr} 󰊗";
-            tooltip-format-wifi = "{essid} ({signalStrength}%) ";
-            tooltip-format-ethernet = "{ipaddr}/{cidr} ";
-            tooltip-format-disconnected = "Disconnected";
+            tooltip-format-wifi = "{ifname} [{essid}] {ipaddr}/{cidr} ({signalStrength}%)";
+            tooltip-format-ethernet = "{ifname} {ipaddr}/{cidr}";
+            tooltip-format-disconnected = "{ifname} disconnected";
+            format-icons = ["󰤯" "󰤟" "󰤢" "󰤥" "󰤨"];
             max-length = 50;
           } // (
             let

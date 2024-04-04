@@ -56,3 +56,9 @@ window#waybar {
 #custom-notification {
   font-family: "Symbols Nerd Font";
 }
+
+#network {
+  color: @teal;
+  font-family: "Symbols Nerd Font";
+  font-size: 20px; /* matches tray.icon-size setting in ./default.nix */
+}
