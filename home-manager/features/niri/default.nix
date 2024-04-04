@@ -127,7 +127,13 @@ in
 
           "custom/niri-focused-window" =
             let
-              jq-filter = ''{ text: "\(.app_id) — \(.title)", alt: .app_id, class: ["focused-window"] }'';
+              jq-filter = ''
+                if . then
+                  { text: "\(.app_id) — \(.title)", alt: .app_id, class: ["focused-window"] }
+                else
+                  { text: "", alt: "", class: ["focused-window"] }
+                end
+              '';
               jq = "${pkgs.jq}/bin/jq";
               script = pkgs.writeShellScript "niri-focused-window" ''
                 ${niri-bin} msg --json focused-window | ${jq} --unbuffered --compact-output '${jq-filter}'
