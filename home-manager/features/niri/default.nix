@@ -43,6 +43,7 @@ in
   home.sessionVariables.NIXOS_OZONE_WL = "1";
 
   home.packages = with pkgs; [
+    cage # run X11 apps
     playerctl # for play-pause key bind
     swaynotificationcenter
   ];
