@@ -44,6 +44,7 @@ in
 
   home.packages = with pkgs; [
     cage # run X11 apps
+    (pkgs.callPackage ./enpass-in-xwayland.nix { })
     playerctl # for play-pause key bind
     swaynotificationcenter
   ];
@@ -175,7 +176,7 @@ in
             tooltip-format-wifi = "{ifname} [{essid}] {ipaddr}/{cidr} ({signalStrength}%)";
             tooltip-format-ethernet = "{ifname} {ipaddr}/{cidr}";
             tooltip-format-disconnected = "{ifname} disconnected";
-            format-icons = ["󰤯" "󰤟" "󰤢" "󰤥" "󰤨"];
+            format-icons = [ "󰤯" "󰤟" "󰤢" "󰤥" "󰤨" ];
             max-length = 50;
           } // (
             let
