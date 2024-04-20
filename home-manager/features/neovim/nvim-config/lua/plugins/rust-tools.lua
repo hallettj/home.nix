@@ -10,7 +10,13 @@ return {
     local lsp = require('lsp-zero').preset {}
 
     -- Get lsp settings from lsp-zero
-    local rust_lsp = lsp.build_options('rust_analyzer', {})
+    local rust_lsp = lsp.build_options('rust_analyzer', {
+      settings = {
+        ['rust-analyzer'] = {
+          cargo = { allFeatures = true },
+        },
+      },
+    })
 
     local dap = {}
     local extension_path = vim.env.VSCODE_LLDB_PATH -- this variable set in neovim/default.nix
