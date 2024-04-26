@@ -232,8 +232,15 @@ window-rule {
 }
 
 window-rule {
+    match app-id="1Password"
+    default-column-width { proportion 0.33; }
+    block-out-from "screen-capture"
+}
+
+window-rule {
     match app-id="org.freedesktop.Xwayland"
     default-column-width { proportion 0.33; }
+    block-out-from "screen-capture"
 }
 
 binds {

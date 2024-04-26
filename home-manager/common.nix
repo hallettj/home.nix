@@ -33,6 +33,7 @@
   # environment.
   home.packages = with pkgs; [
     # GUI apps
+    _1password-gui
     authy
     discord
     element-desktop
