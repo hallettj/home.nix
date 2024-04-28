@@ -13,6 +13,10 @@ rec {
   # You can change versions, add patches, set compilation flags, anything really.
   # https://nixos.wiki/wiki/Overlays
   modifications = final: prev: {
+    # Need to patch 1password package to set native wayland mode until this
+    # issue is resolved:
+    # https://github.com/NixOS/nixpkgs/pull/232718#issuecomment-1582123406
+    _1password-gui = patch prev._1password-gui [ ./1password-native-wayland.patch ];
     gitbutler = (import inputs.nixpkgs-gitbutler {
       localSystem = final.buildPlatform.system;
       crossSystem = final.hostPlatform.system;
