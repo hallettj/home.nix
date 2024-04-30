@@ -224,13 +224,13 @@ in
 
       lock-session = pkgs.writeShellScript "lock-session" ''
         ${swaylock} -f
+        ${pkgs._1password-gui}/bin/1password --lock
         ${niri-bin} msg action power-off-monitors
         ${playerctl} pause
       '';
 
       before-sleep = pkgs.writeShellScript "before-sleep" ''
         ${loginctl} lock-session
-        ${playerctl} pause
       '';
     in
     {
