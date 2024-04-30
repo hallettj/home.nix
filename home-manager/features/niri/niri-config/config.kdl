@@ -265,7 +265,7 @@ binds {
     // You can also use a shell:
     // Mod+T { spawn "bash" "-c" "notify-send hello && exec alacritty"; }
 
-    XF86AudioPlay         { spawn "playerctl" "play-pause"; }
+    XF86AudioPlay         allow-when-locked=true { spawn "playerctl" "play-pause"; }
     XF86AudioNext         { spawn "playerctl" "next"; }
     XF86AudioPrev         { spawn "playerctl" "previous"; }
     XF86AudioRaiseVolume  { spawn "swayosd" "--output-volume" "1"; }
