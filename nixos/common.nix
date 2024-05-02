@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ./features/_1password.nix
     ./features/cachix
     ./features/fonts
     ./features/garnix
