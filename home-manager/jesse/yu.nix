@@ -3,7 +3,6 @@
 {
   imports = [
     ../common.nix
-    ../features/games
     ../features/godot
     ../features/obs
     ../features/vscode

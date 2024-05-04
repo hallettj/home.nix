@@ -3,7 +3,6 @@
 {
   imports = [
     ../common.nix
-    ../features/games
   ];
 
   # Increase font sizes - it's cleaner than applying a display scaling factor.

@@ -141,10 +141,7 @@
   #   enableSSHSupport = true;
   # };
 
-  programs = {
-    steam.enable = true; # configures game-related hardware settings
-    zsh.enable = true; # for login shell
-  };
+  programs.zsh.enable = true; # for login shell
 
   # List services that you want to enable:
 
