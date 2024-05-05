@@ -17,10 +17,6 @@
   networking.hostName = "yu"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
-  services.printing.drivers = with pkgs; [
-    cups-brother-hll2350dw
-  ];
-
   virtualisation.docker.enable = true;
 
   services.clamav = {
