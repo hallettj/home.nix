@@ -40,6 +40,7 @@
     foliate
     gimp-with-plugins
     google-chrome
+    inkscape-with-extensions
     masterpdfeditor
     unstable.obsidian
     pavucontrol
@@ -74,6 +75,9 @@
     ripgrep
     tree
     unzip
+
+    # Fonts
+    lexend
 
     # Backups
     borgbackup
