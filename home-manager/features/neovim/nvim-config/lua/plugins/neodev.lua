@@ -3,5 +3,12 @@ return {
   dependencies = {
     'neovim/nvim-lspconfig',
   },
-  opts = {},
+  opts = {
+    library = {
+      plugins = {
+        'neotest',
+      },
+      types = true,
+    }
+  },
 }
