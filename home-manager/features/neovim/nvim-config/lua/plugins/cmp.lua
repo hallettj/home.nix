@@ -19,7 +19,9 @@ return {
     local cmp_action = lsp_zero.cmp_action()
 
     cmp.setup {
-      formatting = lsp_zero.cmp_format(),
+      formatting = lsp_zero.cmp_format {
+        details = true,
+      },
       snippet = {
         expand = function(args)
           require('luasnip').lsp_expand(args.body)
