@@ -34,16 +34,15 @@ in
       nodePackages.typescript-language-server
       shellcheck # called by bash-language-server
 
+      # Rust support
+      lldb # debug adapter
+      graphviz # to render crate graphs from rustaceanvim
+
       nixpkgs-fmt # I have nil configured to call this for formatting
     ];
   };
 
   home.sessionVariables = {
-    # This is used to get lldb for debugging Rust code. Install lldb via this
-    # vscode extension that apparently does something special, and pass the
-    # extension path to neovim via environment variable.
-    VSCODE_LLDB_PATH = "${pkgs.vscode-extensions.vadimcn.vscode-lldb}/share/vscode/extensions/vadimcn.vscode-lldb";
-
     # Disable the top window bar in Neovide
     NEOVIDE_FRAME = "none";
 

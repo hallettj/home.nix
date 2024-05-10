@@ -41,7 +41,7 @@ return {
 
     -- To set up with custom configuration, use `lspconfig` as seen below.
     -- We don't set up rust_analyzer in any of these steps because it is set up
-    -- by rust_tools instead.
+    -- by rustaceanvim instead.
 
     lspconfig.hls.setup {
       -- Disable formatting for hls - we want to be able to specify a specific
