@@ -93,13 +93,12 @@ return {
     end,
   },
   {
-    -- https://google.com/
     'nvim-treesitter/nvim-treesitter-refactor',
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
     config = function()
       require('nvim-treesitter.configs').setup {
         refactor = {
-          highlight_definitions = { enable = false },
+          highlight_definitions = { enable = true },
           highlight_current_scope = { enable = false },
         },
       }
