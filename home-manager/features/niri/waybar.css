@@ -41,6 +41,10 @@ window#waybar {
   margin-left: 0.5em;
 }
 
+.modules-left * {
+  margin-right: 2.5em;
+}
+
 .modules-right {
   margin-right: 0.5em;
 }
@@ -61,4 +65,8 @@ window#waybar {
   color: @teal;
   font-family: "Symbols Nerd Font";
   font-size: 20px; /* matches tray.icon-size setting in ./default.nix */
+}
+
+.workspaces {
+  color: @blue;
 }

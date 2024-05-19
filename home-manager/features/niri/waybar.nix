@@ -20,7 +20,7 @@ in
           position = "top";
           height = 30;
 
-          modules-left = [ "custom/niri-focused-window" ];
+          modules-left = [ "custom/niri-workspaces" "custom/niri-focused-window" ];
           modules-center = [ "clock" "custom/notification" ];
           modules-right = [ "tray" "network" ];
 
@@ -40,6 +40,27 @@ in
               jq = "${pkgs.jq}/bin/jq";
               script = pkgs.writeShellScript "niri-focused-window" ''
                 ${niri-bin} msg --json focused-window | ${jq} --unbuffered --compact-output '${jq-filter}'
+              '';
+            in
+            {
+              tooltip = false;
+              return-type = "json";
+              exec = script.outPath;
+              interval = 1;
+            };
+
+          "custom/niri-workspaces" =
+            let
+              jq-filter = ''
+                { 
+                  text: map(if .is_active then " █ " else "┃" end) | join(""),
+                  alt: .[] | select(.is_active) | (.name // .idx),
+                  class: ["workspaces"] 
+                }
+              '';
+              jq = "${pkgs.jq}/bin/jq";
+              script = pkgs.writeShellScript "niri-workspaces" ''
+                ${niri-bin} msg --json workspaces | ${jq} --unbuffered --compact-output '${jq-filter}'
               '';
             in
             {
