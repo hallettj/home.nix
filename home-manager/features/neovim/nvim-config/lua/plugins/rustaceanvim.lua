@@ -16,4 +16,17 @@ return {
 
     { 'gC',         ft = 'rust', function() vim.cmd.RustLsp('openCargo') end,                   desc = 'open Cargo.toml' },
   },
+  init = function ()
+    vim.g.rustaceanvim = {
+      server = {
+        default_settings = {
+          ['rust-analyzer'] = {
+            cargo = {
+              allFeatures = true
+            }
+          }
+        }
+      }
+    }
+  end
 }
