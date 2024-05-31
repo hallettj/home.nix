@@ -39,8 +39,9 @@ rec {
 
     # Get these packages from unstable by default
     neovide = final.unstable.neovide;
+    neovim = final.unstable.neovim;
+    neovim-unwrapped = final.unstable.neovim-unwrapped; # Home Manager uses unwrapped package
   };
 
-  neovim-nightly = inputs.neovim-nightly-overlay.overlay;
   niri = inputs.niri.overlays.niri;
 }
