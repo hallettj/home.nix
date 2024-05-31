@@ -34,8 +34,11 @@ rec {
       localSystem = final.buildPlatform.system;
       crossSystem = final.hostPlatform.system;
       config = final.config;
-      overlays = [additions modifications];
+      overlays = [ additions modifications ];
     };
+
+    # Get these packages from unstable by default
+    neovide = final.unstable.neovide;
   };
 
   neovim-nightly = inputs.neovim-nightly-overlay.overlay;

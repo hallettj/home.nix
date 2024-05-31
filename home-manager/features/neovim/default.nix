@@ -54,6 +54,6 @@ in
   };
 
   home.packages = with pkgs; [
-    unstable.neovide
+    neovide
   ];
 }

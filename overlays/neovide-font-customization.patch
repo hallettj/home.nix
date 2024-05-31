@@ -1,6 +1,6 @@
-From 2fe151d9fc02d40c380a56e6d6b6ce3c37c56b6f Mon Sep 17 00:00:00 2001
+From 0cde07e6d107c82b39c853cc64e136818090bdce Mon Sep 17 00:00:00 2001
 From: Jesse Hallett <jesse@sitr.us>
-Date: Wed, 10 Aug 2022 15:52:53 -0400
+Date: Fri, 31 May 2024 14:12:39 -0700
 Subject: [PATCH] adjustments for Cartograph CF: shrink line height, bump up
  baseline
 
@@ -9,27 +9,27 @@ Subject: [PATCH] adjustments for Cartograph CF: shrink line height, bump up
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/src/renderer/fonts/caching_shaper.rs b/src/renderer/fonts/caching_shaper.rs
-index ac77f77..5e75c4b 100644
+index faa5b6c..0c69ae7 100644
 --- a/src/renderer/fonts/caching_shaper.rs
 +++ b/src/renderer/fonts/caching_shaper.rs
-@@ -177,7 +177,7 @@ impl CachingShaper {
+@@ -202,7 +202,7 @@ impl CachingShaper {
+     pub fn font_base_dimensions(&mut self) -> PixelSize<f32> {
          let (metrics, glyph_advance) = self.info();
-         let font_width = (glyph_advance + 0.5).floor() as u64;
  
--        let bare_font_height = (metrics.ascent + metrics.descent + metrics.leading).ceil();
-+        let bare_font_height = ((metrics.ascent + metrics.descent + metrics.leading) * 0.83).ceil();
-         let font_height = bare_font_height as i64 + self.linespace;
- 
-         (
-@@ -365,7 +365,7 @@ impl CachingShaper {
+-        let bare_font_height = metrics.ascent + metrics.descent + metrics.leading;
++        let bare_font_height = (metrics.ascent + metrics.descent + metrics.leading) * 0.83;
+         // assuming that linespace is checked on receive for validity
+         let font_height = (bare_font_height + self.linespace).ceil();
+         let font_width = glyph_advance + self.options.width;
+@@ -398,7 +398,7 @@ impl CachingShaper {
  
              shaper.shape_with(|glyph_cluster| {
                  for glyph in glyph_cluster.glyphs {
--                    let position = ((glyph.data as u64 * glyph_width) as f32, glyph.y);
-+                    let position = ((glyph.data as u64 * glyph_width) as f32, glyph.y - 5.0);
+-                    let position = (glyph.data as f32 * glyph_width, glyph.y);
++                    let position = (glyph.data as f32 * glyph_width, glyph.y - 5.0);
                      glyph_data.push((glyph.id, position));
                  }
              });
 -- 
-2.39.2
+2.42.0
 
