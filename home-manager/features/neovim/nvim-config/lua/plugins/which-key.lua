@@ -73,12 +73,6 @@ return {
       map(mode, '<leader>P', '"+P', { desc = 'paste from system clipboard before cursor' })
     end
 
-    -- Navigation
-
-    wk.register {
-      ['<leader>O'] = { '<cmd>SymbolsOutline<cr>', 'toggle symbol outline' },
-    }
-
     -- Telescope finders
     wk.register({
       name = '+finders',
@@ -101,7 +95,6 @@ return {
         require('telescope.builtin')[builtin]()
       end
     end
-    local trouble = fmt('<cmd>Trouble %s<cr>')
 
     wk.register({
       K = { lsp 'buf.hover()', 'show documentation for symbol under cursor' },
@@ -110,7 +103,6 @@ return {
       go = { telescope 'lsp_type_definitions', 'go to type' },
       gi = { telescope 'lsp_implementations', 'go to implementation' },
       gr = { telescope 'lsp_references', 'find references' },
-      gR = { trouble 'lsp_references', 'list references' },
       gl = { diagnostic.open_float, 'show diagnostic info' },
       ['[d'] = { diagnostic.goto_prev, 'previous diagnostic' },
       [']d'] = { diagnostic.goto_next, 'next diagnostic' },
@@ -118,10 +110,6 @@ return {
         'previous error' },
       [']D'] = { function() diagnostic.goto_next({ severity = { min = diagnostic.severity.ERROR } }) end,
         'next error' },
-      ['[x'] = { function() require('trouble').previous({ skip_groups = true, jump = true }) end,
-        'previous item from Trouble' },
-      [']x'] = { function() require('trouble').next({ skip_groups = true, jump = true }) end,
-        'next item from Trouble' },
       ['<leader><space>'] = {
         function() vim.lsp.buf.format({ async = true }) end,
         'format document'
@@ -132,7 +120,7 @@ return {
     wk.register({
       name = '+IDE',
       c = { lsp 'buf.code_action()', 'code actions at cursor or selection' },
-      l = { lsp 'codelens.run()', 'codelens command of current line' },
+      L = { lsp 'codelens.run()', 'codelens command of current line' },
       q = { lsp 'buf.code_action({ only = {"quickfix"} })', 'quickfix at cursor or selection' },
       r = { lsp 'buf.rename()', 'rename' },
       R = { lsp 'buf.code_action({ only = {"refactor"} })', 'refactor at cursor or selection' },
@@ -143,16 +131,6 @@ return {
       q = { lsp 'buf.code_action({ only = {"quickfix"} })', 'quickfix for cursor or selection' },
       R = { lsp 'buf.code_action({ only = {"refactor"} })', 'refactor for cursor or selection' },
     }, { prefix = '<leader>c', mode = 'v' })
-
-    wk.register({
-      name = '+loclist',
-      x = { trouble '', 'diagnostics (same mode as last used)' },
-      w = { trouble 'workspace_diagnostics', 'workspace diagnostics ' },
-      d = { trouble 'document_diagnostics', 'document diagnostics' },
-      l = { trouble 'loclists', 'location list' },
-      q = { trouble 'quickfix', 'quickfix list' },
-      c = { '<cmd>TroubleClose<cr>', 'close Trouble' },
-    }, { prefix = '<leader>x', silent = true })
 
     -- gh.nvim bindings
     wk.register({
