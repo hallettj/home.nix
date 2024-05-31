@@ -80,8 +80,8 @@
 
   # Configure keymap in X11
   services.xserver = {
-    layout = "us";
-    xkbVariant = "";
+    xkb.layout = "us";
+    xkb.variant = "";
   };
 
   services.blueman.enable = true;
@@ -151,7 +151,7 @@
   # List services that you want to enable:
 
   # Avahi is enabled by default, but nssmdns is not
-  services.avahi.nssmdns = true;
+  services.avahi.nssmdns4 = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];

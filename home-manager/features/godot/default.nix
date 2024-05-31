@@ -5,7 +5,7 @@
   home.packages = with pkgs; [
     # Learning Godot with Erik
     gitg
-    unstable.godot_4
+    godot_4
     pixelorama
   ];
 }

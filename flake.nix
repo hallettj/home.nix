@@ -2,7 +2,7 @@
   description = "NixOS and Home Manager configuration for Jesse Hallett";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-gitbutler.url = "github:hallettj/nixpkgs?ref=package/gitbutler";
     # Also see the 'unstable-packages' overlay at 'overlays/default.nix'.
@@ -10,7 +10,7 @@
     systems.url = "github:nix-systems/default";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-23.11";
+      url = "github:nix-community/home-manager/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

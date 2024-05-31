@@ -33,7 +33,6 @@
   # environment.
   home.packages = with pkgs; [
     # GUI apps
-    authy
     discord
     element-desktop
     enpass
@@ -42,7 +41,7 @@
     google-chrome
     inkscape-with-extensions
     masterpdfeditor
-    unstable.obsidian
+    obsidian
     pavucontrol
     signal-desktop
     slack
@@ -99,7 +98,7 @@
 
   services.gpg-agent = {
     enable = true;
-    pinentryFlavor = "gnome3";
+    pinentryPackage = pkgs.pinentry-gnome3;
   };
 
   # Nicely reload system units when changing configs

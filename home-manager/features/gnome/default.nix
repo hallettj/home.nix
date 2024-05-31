@@ -17,7 +17,6 @@ in
     enabledExtensionUuids = [
       "advanced-alt-tab@G-dH.github.com"
       "appindicatorsupport@rgcjonas.gmail.com"
-      "gtktitlebar@velitasali.github.io"
       "horizontal-workspace-indicator@tty2.io"
       "runcat@kolesnikov.se"
     ];
