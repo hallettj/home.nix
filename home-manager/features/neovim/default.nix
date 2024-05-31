@@ -18,7 +18,7 @@ in
     extraPackages = with pkgs; [
       fd
       gh # for github integration
-      ripgrep # used by obsidian.nvim and other plugins
+      ripgrep # used by obsidian.nvim, smart-open and other plugins
       wl-clipboard # used by obsidian.nvim to interact with clipboard
 
       # needed to compile fzf-native for telescope-fzf-native.nvim
@@ -48,6 +48,9 @@ in
 
     # I just don't want extra UI anywhere
     NVIM_GTK_NO_HEADERBAR = "1";
+
+    # Read by kkharji/sqlite.lua plugin which is a dependency of smart-open
+    SQLITE_CLIB_PATH = "${pkgs.sqlite.out}/lib/libsqlite3.so";
   };
 
   home.packages = with pkgs; [

@@ -76,22 +76,13 @@ return {
     -- Navigation
 
     wk.register {
-      ['<c-p>'] = { '<cmd>Telescope find_files<cr>', 'find file' },
-      ['<leader>b'] = { '<cmd>Telescope buffers<cr>', 'find buffer' },
       ['<leader>O'] = { '<cmd>SymbolsOutline<cr>', 'toggle symbol outline' },
     }
 
     -- Telescope finders
     wk.register({
       name = '+finders',
-      f = { '<cmd>Telescope find_files<cr>', 'files' },
-      p = { "<cmd>lua require('find_directories').find_projects{}<cr>", 'projects' },
-      g = { '<cmd>Telescope live_grep<cr>', 'live grep' },
-      b = { '<cmd>Telescope buffers<cr>', 'buffers' },
-      h = { '<cmd>Telescope help_tags<cr>', 'help tags' },
-      C = { '<cmd>Telescope colorscheme<cr>', 'color schemes' },
-      s = { '<cmd>Telescope lsp_document_symbols<cr>', 'document symbols' },
-      S = { '<cmd>Telescope lsp_workspace_symbols<cr>', 'workspace symbols' },
+      -- actual bindings are in plugins/telescope.lua
     }, { prefix = '<leader>f' })
 
     -- Where am I?
@@ -105,7 +96,11 @@ return {
     local fmt = function(cmd) return function(str) return cmd:format(str) end end
     local lsp = fmt('<cmd>lua vim.lsp.%s<cr>')
     local diagnostic = vim.diagnostic
-    local telescope = fmt('<cmd>Telescope %s<cr>')
+    local telescope = function(builtin)
+      return function()
+        require('telescope.builtin')[builtin]()
+      end
+    end
     local trouble = fmt('<cmd>Trouble %s<cr>')
 
     wk.register({
@@ -148,12 +143,6 @@ return {
       q = { lsp 'buf.code_action({ only = {"quickfix"} })', 'quickfix for cursor or selection' },
       R = { lsp 'buf.code_action({ only = {"refactor"} })', 'refactor for cursor or selection' },
     }, { prefix = '<leader>c', mode = 'v' })
-
-    wk.register({
-      name = '+lists',
-      d = { telescope 'diagnostics bufnr=0', 'diagnostics for buffer' },
-      D = { telescope 'diagnostics', 'diagnostics for all buffers' },
-    }, { prefix = '<leader>l' })
 
     wk.register({
       name = '+loclist',
