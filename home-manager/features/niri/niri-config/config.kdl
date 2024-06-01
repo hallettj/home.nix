@@ -268,11 +268,11 @@ binds {
     XF86AudioPlay         allow-when-locked=true { spawn "playerctl" "play-pause"; }
     XF86AudioNext         { spawn "playerctl" "next"; }
     XF86AudioPrev         { spawn "playerctl" "previous"; }
-    XF86AudioRaiseVolume  { spawn "swayosd" "--output-volume" "1"; }
-    XF86AudioLowerVolume  { spawn "swayosd" "--output-volume" "-1"; }
-    XF86AudioMute         { spawn "swayosd" "--output-volume" "mute-toggle"; }
-    XF86MonBrightnessUp   { spawn "swayosd" "--brightness" "10"; }
-    XF86MonBrightnessDown { spawn "swayosd" "--brightness" "-10"; }
+    XF86AudioRaiseVolume  { spawn "swayosd-client" "--output-volume" "1"; }
+    XF86AudioLowerVolume  { spawn "swayosd-client" "--output-volume" "-1"; }
+    XF86AudioMute         { spawn "swayosd-client" "--output-volume" "mute-toggle"; }
+    XF86MonBrightnessUp   { spawn "swayosd-client" "--brightness" "10"; }
+    XF86MonBrightnessDown { spawn "swayosd-client" "--brightness" "-10"; }
 
     Mod+Backspace { close-window; }
 
