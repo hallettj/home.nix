@@ -2,5 +2,5 @@
 # You can build them using 'nix build .#example'
 
 { inputs, pkgs }: {
-  hasura3 = pkgs.callPackage ./hasura3-cli.nix {};
+  cli-ddn = pkgs.callPackage ./cli-ddn.nix { };
 }
