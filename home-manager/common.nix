@@ -54,6 +54,7 @@
     docker
     docker-compose
     gitbutler
+    ngrok
     rustc
     unstable.rust-analyzer
     clang
