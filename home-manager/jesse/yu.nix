@@ -18,9 +18,4 @@
   programs.kitty.extraConfig = ''
     font_size 12.0
   '';
-
-  programs.waybar.settings.mainBar = {
-    # Specify which network interface to display status of
-    network.interface = "wlp4s0";
-  };
 }

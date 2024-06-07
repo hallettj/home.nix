@@ -80,6 +80,7 @@ in
   };
 
   services.blueman-applet.enable = true;
+  services.network-manager-applet.enable = true;
 
   # Some services, like blueman-applet, require a `tray` target. Typically Home
   # Manager sets this target in WM modules, but it's not set up for Niri yet.

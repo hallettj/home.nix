@@ -22,7 +22,7 @@ in
 
           modules-left = [ "custom/niri-workspaces" "custom/niri-focused-window" ];
           modules-center = [ "clock" "custom/notification" ];
-          modules-right = [ "tray" "network" ];
+          modules-right = [ "tray" ];
 
           clock = {
             format = "{:%a, %b %d  %H:%M}";
@@ -90,30 +90,6 @@ in
           } // notification-click-actions;
 
           tray.icon-size = 20;
-
-          network = {
-            format-wifi = "{icon}";
-            format-ethernet = "󰈀";
-            format-disconnected = "󰤮"; # An empty format will hide the module.
-            tooltip-format-wifi = "{ifname} [{essid}] {ipaddr}/{cidr} ({signalStrength}%)";
-            tooltip-format-ethernet = "{ifname} {ipaddr}/{cidr}";
-            tooltip-format-disconnected = "{ifname} disconnected";
-            format-icons = [ "󰤯" "󰤟" "󰤢" "󰤥" "󰤨" ];
-            max-length = 50;
-          } // (
-            let
-              rofi-wifi-menu = pkgs.fetchFromGitHub {
-                owner = "ericmurphyxyz";
-                repo = "rofi-wifi-menu";
-                rev = "d6debde6e302f68d8235ced690d12719124ff18e";
-                hash = "sha256-H+vBRdGcSDMKGLHhPB7imV148O8GRTMj1tZ+PLQUVG4=";
-              };
-            in
-            {
-              on-click = "${pkgs.bash}/bin/bash ${rofi-wifi-menu}/rofi-wifi-menu.sh";
-              on-click-right = "${pkgs.networkmanagerapplet}/bin/nm-connection-editor";
-            }
-          );
         };
       };
       style = ./waybar.css;
