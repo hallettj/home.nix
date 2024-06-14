@@ -146,6 +146,9 @@
   #   enableSSHSupport = true;
   # };
 
+  # Nix CLI helper
+  programs.nh.enable = true;
+
   programs.zsh.enable = true; # for login shell
 
   # List services that you want to enable:
