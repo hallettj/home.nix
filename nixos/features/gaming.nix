@@ -30,7 +30,10 @@
     # - open Settings > Java
     # - click Auto-detect...
     # - select the 17.xx option
-    prismlauncher
+    (prismlauncher.overrideAttrs (attrs: {
+      # make the latest JDK available - Minecraft 1.21 wants jdk21
+      nativeBuildInputs = attrs.nativeBuildInputs ++ [ jdk ];
+    }))
 
     vulkan-tools # just to check that vulkan is set up
   ];
