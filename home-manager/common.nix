@@ -53,7 +53,6 @@
     cargo
     docker
     docker-compose
-    gitbutler
     ngrok
     rustc
     rust-analyzer

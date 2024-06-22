@@ -360,22 +360,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-gitbutler": {
-      "locked": {
-        "lastModified": 1711475683,
-        "narHash": "sha256-LYJ7L+iZwviqkqUm+G4Cieqdt5wpQ0voE+p+68/uYfw=",
-        "owner": "hallettj",
-        "repo": "nixpkgs",
-        "rev": "c8cf58da04a3ee7dfc7473ff1512e03df6f8fa23",
-        "type": "github"
-      },
-      "original": {
-        "owner": "hallettj",
-        "ref": "package/gitbutler",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "nixpkgs-lib": {
       "locked": {
         "lastModified": 1717284937,
@@ -490,7 +474,6 @@
         "niri": "niri",
         "nix-index-database": "nix-index-database",
         "nixpkgs": "nixpkgs_3",
-        "nixpkgs-gitbutler": "nixpkgs-gitbutler",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "sops-nix": "sops-nix",
         "systems": "systems_4"

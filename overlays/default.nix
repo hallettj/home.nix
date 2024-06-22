@@ -17,11 +17,6 @@ rec {
     # issue is resolved:
     # https://github.com/NixOS/nixpkgs/pull/232718#issuecomment-1582123406
     _1password-gui = patch prev._1password-gui [ ./1password-native-wayland.patch ];
-    gitbutler = (import inputs.nixpkgs-gitbutler {
-      localSystem = final.buildPlatform.system;
-      crossSystem = final.hostPlatform.system;
-      config = final.config;
-    }).gitbutler;
     neovide = patch prev.neovide [ ./neovide-font-customization.patch ];
   };
 
