@@ -96,6 +96,11 @@ input {
     position x=1280 y=0
 }
 
+output "DP-1" {
+    scale 1
+    variable-refresh-rate
+}
+
 layout {
     // By default focus ring and border are rendered as a solid background rectangle
     // behind windows. That is, they will show up through semitransparent windows.
