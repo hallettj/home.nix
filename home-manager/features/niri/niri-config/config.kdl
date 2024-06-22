@@ -1,99 +1,29 @@
 // This config is in the KDL format: https://kdl.dev
 // "/-" comments out the following node.
+//
+// For configuration documentation see https://github.com/YaLTeR/niri/wiki/Configuration:-Overview
+//
+// For examples see https://github.com/YaLTeR/niri/blob/main/resources/default-config.kdl
 
 input {
     keyboard {
-        xkb {
-            // You can set rules, model, layout, variant and options.
-            // For more information, see xkeyboard-config(7).
-
-            // For example:
-            // layout "us,ru"
-            // options "grp:win_space_toggle,compose:ralt,ctrl:nocaps"
-        }
-
-        // You can set the keyboard repeat parameters. The defaults match wlroots and sway.
-        // Delay is in milliseconds before the repeat starts. Rate is in characters per second.
-        // repeat-delay 600
-        // repeat-rate 25
-
-        // Niri can remember the keyboard layout globally (the default) or per-window.
-        // - "global" - layout change is global for all windows.
-        // - "window" - layout is tracked for each window individually.
-        // track-layout "global"
+        xkb { }
     }
 
-    // Next sections include libinput settings.
-    // Omitting settings disables them, or leaves them at their default values.
     touchpad {
         tap
-        // dwt
         natural-scroll
-        // accel-speed 0.2
-        // accel-profile "flat"
-        // tap-button-map "left-middle-right"
     }
 
-    mouse {
-        // natural-scroll
-        // accel-speed 0.2
-        // accel-profile "flat"
-    }
+    mouse { }
 
     tablet {
-        // Set the name of the output (see below) which the tablet will map to.
-        // If this is unset or the output doesn't exist, the tablet maps to one of the
-        // existing outputs.
         map-to-output "eDP-1"
     }
 
     touch {
-        // Set the name of the output (see below) which touch input will map to.
-        // If this is unset or the output doesn't exist, touch input maps to one of the
-        // existing outputs.
         map-to-output "eDP-1"
     }
-
-    // By default, niri will take over the power button to make it sleep
-    // instead of power off.
-    // Uncomment this if you would like to configure the power button elsewhere
-    // (i.e. logind.conf).
-    // disable-power-key-handling
-}
-
-// You can configure outputs by their name, which you can find
-// by running `niri msg outputs` while inside a niri instance.
-// The built-in laptop monitor is usually called "eDP-1".
-// Remember to uncommend the node by removing "/-"!
-/-output "eDP-1" {
-    // Uncomment this line to disable this output.
-    // off
-
-    // Scale is a floating-point number, but at the moment only integer values work.
-    scale 2.0
-
-    // Transform allows to rotate the output counter-clockwise, valid values are:
-    // normal, 90, 180, 270, flipped, flipped-90, flipped-180 and flipped-270.
-    transform "normal"
-
-    // Resolution and, optionally, refresh rate of the output.
-    // The format is "<width>x<height>" or "<width>x<height>@<refresh rate>".
-    // If the refresh rate is omitted, niri will pick the highest refresh rate
-    // for the resolution.
-    // If the mode is omitted altogether or is invalid, niri will pick one automatically.
-    // Run `niri msg outputs` while inside a niri instance to list all outputs and their modes.
-    mode "1920x1080@144"
-
-    // Position of the output in the global coordinate space.
-    // This affects directional monitor actions like "focus-monitor-left", and cursor movement.
-    // The cursor can only move between directly adjacent outputs.
-    // Output scale has to be taken into account for positioning:
-    // outputs are sized in logical, or scaled, pixels.
-    // For example, a 3840×2160 output with scale 2.0 will have a logical size of 1920×1080,
-    // so to put another output directly adjacent to it on the right, set its x to 1920.
-    // It the position is unset or results in an overlap, the output is instead placed
-    // automatically.
-    position x=1280 y=0
 }
 
 output "DP-1" {
@@ -102,125 +32,33 @@ output "DP-1" {
 }
 
 layout {
-    // By default focus ring and border are rendered as a solid background rectangle
-    // behind windows. That is, they will show up through semitransparent windows.
-    // This is because windows using client-side decorations can have an arbitrary shape.
-    //
-    // If you don't like that, you should uncomment `prefer-no-csd` below.
-    // Niri will draw focus ring and border *around* windows that agree to omit their
-    // client-side decorations.
-
-    // You can change how the focus ring looks.
     focus-ring {
-        // Uncomment this line to disable the focus ring.
-        // off
-
-        // How many logical pixels the ring extends out from the windows.
         width 4
-
-        // Colors can be set in a variety of ways:
-        // - CSS named colors: "red"
-        // - RGB hex: "#rgb", "#rgba", "#rrggbb", "#rrggbbaa"
-        // - CSS-like notation: "rgb(255, 127, 0)", rgba(), hsl() and a few others.
-
-        // Color of the ring on the active monitor.
         active-color "#b7bdf8" // Lavender from Catppuccin Macchiato theme
-
-        // Color of the ring on inactive monitors.
         inactive-color "#6e738d" // Overlay0 from Catppuccin Macchiato theme
-
-        // You can also use gradients. They take precedence over solid colors.
-        // Gradients are rendered the same as CSS linear-gradient(angle, from, to).
-        // The angle is the same as in linear-gradient, and is optional,
-        // defaulting to 180 (top-to-bottom gradient).
-        // You can use any CSS linear-gradient tool on the web to set these up.
-        //
-        // active-gradient from="#80c8ff" to="#bbddff" angle=45
-
-        // You can also color the gradient relative to the entire view
-        // of the workspace, rather than relative to just the window itself.
-        // To do that, set relative-to="workspace-view".
-        //
-        // inactive-gradient from="#505050" to="#808080" angle=45 relative-to="workspace-view"
     }
 
-    // You can also add a border. It's similar to the focus ring, but always visible.
-    border {
-        // The settings are the same as for the focus ring.
-        // If you enable the border, you probably want to disable the focus ring.
-        off
-    }
-
-    // You can customize the widths that "switch-preset-column-width" (Mod+R) toggles between.
     preset-column-widths {
-        // Proportion sets the width as a fraction of the output width, taking gaps into account.
-        // For example, you can perfectly fit four windows sized "proportion 0.25" on an output.
-        // The default preset widths are 1/3, 1/2 and 2/3 of the output.
         proportion 0.25
         proportion 0.33333
         proportion 0.5
         proportion 0.66667
         proportion 0.75
-
-        // Fixed sets the width in logical pixels exactly.
-        // fixed 1920
     }
 
-    // You can change the default width of the new windows.
-    default-column-width { proportion 0.5; }
+    // default-column-width { proportion 0.5; }
     // If you leave the brackets empty, the windows themselves will decide their initial width.
-    // default-column-width {}
+    default-column-width {}
 
-    // Set gaps around windows in logical pixels.
     gaps 8
-
-    // Struts shrink the area occupied by windows, similarly to layer-shell panels.
-    // You can think of them as a kind of outer gaps. They are set in logical pixels.
-    // Left and right struts will cause the next window to the side to always be visible.
-    // Top and bottom struts will simply add outer gaps in addition to the area occupied by
-    // layer-shell panels and regular gaps.
-    struts {
-        // left 64
-        // right 64
-        // top 64
-        // bottom 64
-    }
-
-    // When to center a column when changing focus, options are:
-    // - "never", default behavior, focusing an off-screen column will keep at the left
-    //   or right edge of the screen.
-    // - "on-overflow", focusing a column will center it if it doesn't fit
-    //   together with the previously focused column.
-    // - "always", the focused column will always be centered.
     center-focused-column "never"
 }
 
-// Add lines like this to spawn processes at startup.
-// Note that running niri as a session supports xdg-desktop-autostart,
-// which may be more convenient to use.
-// spawn-at-startup "alacritty" "-e" "fish"
+cursor { }
 
-cursor {
-    // Change the theme and size of the cursor as well as set the
-    // `XCURSOR_THEME` and `XCURSOR_SIZE` env variables.
-    // xcursor-theme "default"
-    // xcursor-size 24
-}
-
-// Uncomment this line to ask the clients to omit their client-side decorations if possible.
-// If the client will specifically ask for CSD, the request will be honored.
-// Additionally, clients will be informed that they are tiled, removing some rounded corners.
-// prefer-no-csd
-
-// You can change the path where screenshots are saved.
-// A ~ at the front will be expanded to the home directory.
 // The path is formatted with strftime(3) to give you the screenshot date and time.
 screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 
-// You can also set this to null to disable saving screenshots to disk.
-// screenshot-path null
-
-// Settings for the "Important Hotkeys" overlay.
 hotkey-overlay {
     // Uncomment this line if you don't want to see the hotkey help at niri startup.
     skip-at-startup
@@ -249,26 +87,13 @@ window-rule {
 }
 
 binds {
-    // Keys consist of modifiers separated by + signs, followed by an XKB key name
-    // in the end. To find an XKB name for a particular key, you may use a program
-    // like wev.
-    //
-    // "Mod" is a special modifier equal to Super when running on a TTY, and to Alt
-    // when running as a winit window.
-
-    // Mod-Shift-/, which is usually the same as Mod-?,
-    // shows a list of important hotkeys.
     Mod+Shift+Slash { show-hotkey-overlay; }
 
-    // Suggested binds for running programs: terminal, app launcher, screen locker.
     Mod+T { spawn "kitty"; }
     Mod+W { spawn "rofi" "-show" "drun"; }
     Mod+V { spawn "rofi" "-show" "window"; }
     Mod+Ctrl+L { spawn "loginctl" "lock-session"; }
     Mod+Slash { spawn "swaync-client" "-t"; }
-
-    // You can also use a shell:
-    // Mod+T { spawn "bash" "-c" "notify-send hello && exec alacritty"; }
 
     XF86AudioPlay         allow-when-locked=true { spawn "playerctl" "play-pause"; }
     XF86AudioNext         { spawn "playerctl" "next"; }
@@ -291,52 +116,15 @@ binds {
     Mod+Shift+Up    { move-window-up; }
     Mod+Shift+Right { move-column-right; }
 
-    // Alternative commands that move across workspaces when reaching
-    // the first or last window in a column.
-    // Mod+J     { focus-window-or-workspace-down; }
-    // Mod+K     { focus-window-or-workspace-up; }
-    // Mod+Ctrl+J     { move-window-down-or-to-workspace-down; }
-    // Mod+Ctrl+K     { move-window-up-or-to-workspace-up; }
-
     Mod+Home { focus-column-first; }
     Mod+End  { focus-column-last; }
     Mod+Shift+Home { move-column-to-first; }
     Mod+Shift+End  { move-column-to-last; }
 
-    // Mod+Shift+Left  { focus-monitor-left; }
-    // Mod+Shift+Down  { focus-monitor-down; }
-    // Mod+Shift+Up    { focus-monitor-up; }
-    // Mod+Shift+Right { focus-monitor-right; }
-    // Mod+Shift+H     { focus-monitor-left; }
-    // Mod+Shift+J     { focus-monitor-down; }
-    // Mod+Shift+K     { focus-monitor-up; }
-    // Mod+Shift+L     { focus-monitor-right; }
-
-    // Mod+Shift+Ctrl+Left  { move-column-to-monitor-left; }
-    // Mod+Shift+Ctrl+Down  { move-column-to-monitor-down; }
-    // Mod+Shift+Ctrl+Up    { move-column-to-monitor-up; }
-    // Mod+Shift+Ctrl+Right { move-column-to-monitor-right; }
-    // Mod+Shift+Ctrl+H     { move-column-to-monitor-left; }
-    // Mod+Shift+Ctrl+J     { move-column-to-monitor-down; }
-    // Mod+Shift+Ctrl+K     { move-column-to-monitor-up; }
-    // Mod+Shift+Ctrl+L     { move-column-to-monitor-right; }
-
-    // Alternatively, there are commands to move just a single window:
-    // Mod+Shift+Ctrl+Left  { move-window-to-monitor-left; }
-    // ...
-
-    // And you can also move a whole workspace to another monitor:
-    // Mod+Shift+Ctrl+Left  { move-workspace-to-monitor-left; }
-    // ...
-
     Mod+Page_Down      { focus-workspace-down; }
     Mod+Page_Up        { focus-workspace-up; }
     Mod+Shift+Page_Down { move-column-to-workspace-down; }
     Mod+Shift+Page_Up   { move-column-to-workspace-up; }
-
-    // Alternatively, there are commands to move just a single window:
-    // Mod+Ctrl+Page_Down { move-window-to-workspace-down; }
-    // ...
 
     Mod+Shift+Ctrl+Page_Down { move-workspace-down; }
     Mod+Shift+Ctrl+Page_Up   { move-workspace-up; }
@@ -360,9 +148,6 @@ binds {
     Mod+Shift+8 { move-column-to-workspace 8; }
     Mod+Shift+9 { move-column-to-workspace 9; }
 
-    // Alternatively, there are commands to move just a single window:
-    // Mod+Ctrl+1 { move-window-to-workspace 1; }
-
     Mod+I { consume-window-into-column; }
     Mod+O { expel-window-from-column; }
 
@@ -377,28 +162,11 @@ binds {
     Mod+6 { set-column-width "66.666%"; }
     Mod+7 { set-column-width "75%"; }
 
-    // Finer width adjustments.
-    // This command can also:
-    // * set width in pixels: "1000"
-    // * adjust width in pixels: "-5" or "+5"
-    // * set width as a percentage of screen width: "25%"
-    // * adjust width as a percentage of screen width: "-10%" or "+10%"
-    // Pixel sizes use logical, or scaled, pixels. I.e. on an output with scale 2.0,
-    // set-column-width "100" will make the column occupy 200 physical screen pixels.
     Mod+Minus { set-column-width "-10%"; }
     Mod+Equal { set-column-width "+10%"; }
 
-    // Finer height adjustments when in column with other windows.
     Mod+Shift+Minus { set-window-height "-10%"; }
     Mod+Shift+Equal { set-window-height "+10%"; }
-
-    // Actions to switch layouts.
-    // Note: if you uncomment these, make sure you do NOT have
-    // a matching layout switch hotkey configured in xkb options above.
-    // Having both at once on the same hotkey will break the switching,
-    // since it will switch twice upon pressing the hotkey (once by xkb, once by niri).
-    // Mod+Space       { switch-layout "next"; }
-    // Mod+Shift+Space { switch-layout "prev"; }
 
     Print { screenshot; }
     Ctrl+Print { screenshot-screen; }
