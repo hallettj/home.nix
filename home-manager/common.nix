@@ -56,7 +56,7 @@
     gitbutler
     ngrok
     rustc
-    unstable.rust-analyzer
+    rust-analyzer
     clang
     nodejs_20
 

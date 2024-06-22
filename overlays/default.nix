@@ -41,6 +41,7 @@ rec {
     neovide = final.unstable.neovide;
     neovim = final.unstable.neovim;
     neovim-unwrapped = final.unstable.neovim-unwrapped; # Home Manager uses unwrapped package
+    rust-analyzer = final.unstable.rust-analyzer;
   };
 
   niri = inputs.niri.overlays.niri;
