@@ -87,7 +87,7 @@ in
   systemd.user.targets.tray = {
     Unit = {
       Description = "Target for apps that want to start minimized to the system tray";
-      Requires = [ "graphical-session-pre.target" ];
+      Requires = [ "niri.service" ];
     };
   };
 
