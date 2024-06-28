@@ -7,6 +7,7 @@
     ./features/fonts
     ./features/garnix
     ./features/niri.nix
+    ./features/nix-ld.nix
     ./features/openssh.nix
     ./features/sops.nix
   ] ++ (builtins.attrValues outputs.nixosModules);
