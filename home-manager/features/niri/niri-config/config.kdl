@@ -31,6 +31,14 @@ output "DP-1" {
     variable-refresh-rate
 }
 
+output "eDP-1" {
+    scale 1.0
+
+    // Transform allows to rotate the output counter-clockwise, valid values are:
+    // normal, 90, 180, 270, flipped, flipped-90, flipped-180 and flipped-270.
+    transform "normal"
+}
+
 layout {
     focus-ring {
         width 4
@@ -101,8 +109,8 @@ binds {
     XF86AudioRaiseVolume  { spawn "swayosd-client" "--output-volume" "1"; }
     XF86AudioLowerVolume  { spawn "swayosd-client" "--output-volume" "-1"; }
     XF86AudioMute         { spawn "swayosd-client" "--output-volume" "mute-toggle"; }
-    XF86MonBrightnessUp   { spawn "swayosd-client" "--brightness" "10"; }
-    XF86MonBrightnessDown { spawn "swayosd-client" "--brightness" "-10"; }
+    XF86MonBrightnessUp   { spawn "swayosd-client" "--brightness" "+5"; }
+    XF86MonBrightnessDown { spawn "swayosd-client" "--brightness" "-5"; }
 
     Mod+Backspace { close-window; }
 
