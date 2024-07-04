@@ -90,7 +90,7 @@ binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
 
     Mod+T { spawn "kitty"; }
-    Mod+W { spawn "rofi" "-show" "drun"; }
+    Mod+W { spawn "fuzzel"; }
     Mod+V { spawn "rofi" "-show" "window"; }
     Mod+Ctrl+L { spawn "loginctl" "lock-session"; }
     Mod+Slash { spawn "swaync-client" "-t"; }

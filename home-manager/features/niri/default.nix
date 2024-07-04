@@ -29,6 +29,8 @@ in
     swaync.source = config.lib.file.mkOutOfStoreSymlink "${dir}/swaync";
   };
 
+  programs.fuzzel.enable = true;
+
   # Run programs or switch to open windows
   programs.rofi = {
     enable = true;
