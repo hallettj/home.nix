@@ -141,6 +141,9 @@ in
 
   # OSD for volume, brightness changes
   services.swayosd.enable = true;
+  # Adjust swayosd restart policy - it's failing due to too many restart
+  # attempts when resuming from sleep
+  systemd.user.services.swayosd.Unit.StartLimitIntervalSec = 1;
 
   systemd.user.services.swaybg = {
     Unit = {
