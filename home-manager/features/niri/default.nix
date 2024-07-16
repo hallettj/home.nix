@@ -11,6 +11,7 @@ in
 {
   imports = [
     ./waybar.nix
+    ./xwayland-satellite.nix
   ];
 
   # Nix packages configure Chrome and Electron apps to run in native Wayland
@@ -18,8 +19,6 @@ in
   home.sessionVariables.NIXOS_OZONE_WL = "1";
 
   home.packages = with pkgs; [
-    cage # run X11 apps
-    (pkgs.callPackage ./enpass-in-xwayland.nix { })
     playerctl # for play-pause key bind
     swaynotificationcenter
   ];

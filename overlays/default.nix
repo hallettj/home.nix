@@ -37,6 +37,9 @@ rec {
     neovim = final.unstable.neovim;
     neovim-unwrapped = final.unstable.neovim-unwrapped; # Home Manager uses unwrapped package
     rust-analyzer = final.unstable.rust-analyzer;
+
+    # From my custom packages
+    xwayland-satellite = final.xwayland-satellite-main;
   };
 
   niri = inputs.niri.overlays.niri;

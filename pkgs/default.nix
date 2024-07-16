@@ -3,4 +3,5 @@
 
 { inputs, pkgs }: {
   cli-ddn = pkgs.callPackage ./cli-ddn.nix { };
+  xwayland-satellite-main = pkgs.callPackage ./xwayland-satellite.nix { };
 }
