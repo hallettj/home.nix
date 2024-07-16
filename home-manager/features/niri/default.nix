@@ -1,4 +1,4 @@
-{ config, flakePath, pkgs, ... }:
+{ config, flakePath, lib, pkgs, ... }:
 
 let
   # Out-of-store symlinks require absolute paths when using a flake config. This
@@ -82,14 +82,26 @@ in
   };
 
   services.blueman-applet.enable = true;
+  systemd.user.services.blueman-applet.Install = lib.mkForce {
+    # Replace "graphical-session.target" so that this only starts when Niri starts.
+    WantedBy = [ "tray.target" ];
+  };
+
   services.network-manager-applet.enable = true;
+  systemd.user.services.network-manager-applet.Install = lib.mkForce {
+    # Replace "graphical-session.target" so that this only starts when Niri starts.
+    WantedBy = [ "tray.target" ];
+  };
 
   # Some services, like blueman-applet, require a `tray` target. Typically Home
   # Manager sets this target in WM modules, but it's not set up for Niri yet.
   systemd.user.targets.tray = {
     Unit = {
       Description = "Target for apps that want to start minimized to the system tray";
-      Requires = [ "niri.service" ];
+      After = [ "niri.service" ];
+    };
+    Install = {
+      WantedBy = [ "niri.service" ];
     };
   };
 
@@ -141,9 +153,14 @@ in
 
   # OSD for volume, brightness changes
   services.swayosd.enable = true;
-  # Adjust swayosd restart policy - it's failing due to too many restart
-  # attempts when resuming from sleep
-  systemd.user.services.swayosd.Unit.StartLimitIntervalSec = 1;
+  systemd.user.services.swayosd = {
+    # Adjust swayosd restart policy - it's failing due to too many restart
+    # attempts when resuming from sleep
+    Unit.StartLimitIntervalSec = 1;
+
+    # Replace "graphical-session.target" so that this only starts when Niri starts.
+    Install.WantedBy = [ "tray.target" ];
+  };
 
   systemd.user.services.swaybg = {
     Unit = {
