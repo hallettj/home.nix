@@ -18,6 +18,17 @@ rec {
     # https://github.com/NixOS/nixpkgs/pull/232718#issuecomment-1582123406
     _1password-gui = patch prev._1password-gui [ ./1password-native-wayland.patch ];
     neovide = patch prev.neovide [ ./neovide-font-customization.patch ];
+
+    rofi-wayland-unwrapped = prev.rofi-wayland-unwrapped.overrideAttrs (oldAttrs: {
+      version = "main"; 
+      src = final.fetchFromGitHub {
+        owner = "lbonn";
+        repo = "rofi";
+        rev = "d88b475bad26a6ba60c85cd7830e441da5774cdb"; # latest as of 2024-07-16
+        fetchSubmodules = true;
+        hash = "sha256-JORQoLe3cc7f5muj7E9ldS89aRld4oZ/b5PAt7OH0jE=";
+      };
+    });
   };
 
   # When applied, the unstable nixpkgs set (declared in the flake inputs) will
