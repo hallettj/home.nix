@@ -46,7 +46,7 @@ alias ci = git commit
 alias lg = git log --color --graph '--pretty=format:%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 alias pull = git pull
 alias push = git push
-alias show = git show
+alias show = git show --ext-diff
 alias st = git status
 alias re = git restore
 alias fix = git commit --fixup
