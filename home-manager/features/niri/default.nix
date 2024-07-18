@@ -112,12 +112,13 @@ in
       systemctl = "${pkgs.systemd}/bin/systemctl";
       playerctl = "${pkgs.playerctl}/bin/playerctl";
       swaylock = "${config.programs.swaylock.package}/bin/swaylock";
+      _1password = "${pkgs._1password-gui}/bin/1password";
 
       lock-session = pkgs.writeShellScript "lock-session" ''
         ${swaylock} -f
-        ${pkgs._1password-gui}/bin/1password --lock
+        ${_1password} --lock
         ${niri-bin} msg action power-off-monitors
-        ${playerctl} pause
+        ${playerctl} pause 2>/dev/null || true
       '';
 
       before-sleep = pkgs.writeShellScript "before-sleep" ''
@@ -155,6 +156,7 @@ in
       PartOf = [ "graphical-session.target" ];
     };
     Service = {
+      Slice = "background.slice";
       Type = "simple";
       Restart = "always";
       ExecStart = "${pkgs.swaybg}/bin/swaybg --color #${colors.surface0}";
