@@ -17,8 +17,6 @@
     ./features/zsh
   ] ++ (builtins.attrValues outputs.homeManagerModules);
 
-  nixpkgs.config.allowUnfree = true;
-
   home = {
     username = lib.mkDefault "jesse";
     homeDirectory = lib.mkDefault "/home/jesse";

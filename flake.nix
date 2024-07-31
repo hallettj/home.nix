@@ -36,22 +36,23 @@
   outputs = { self, nixpkgs, home-manager, systems, ... }@inputs:
     let
       inherit (self) outputs;
-      eachSystem = callback: nixpkgs.lib.genAttrs (import systems) (system: callback (pkgs system));
+      perSystem = callback: nixpkgs.lib.genAttrs (import systems) (system: callback (pkgs system));
       flakePath = config: "${config.home.homeDirectory}/Documents/NixConfig";
       pkgs = system: import nixpkgs {
         inherit system;
         overlays = builtins.attrValues self.overlays;
       };
+      extraSpecialArgs = { inherit flakePath inputs outputs; };
     in
     {
       # Your custom packages
       # Acessible through 'nix build', 'nix shell', etc
-      packages = eachSystem (pkgs:
+      packages = perSystem (pkgs:
         import ./pkgs { inherit inputs pkgs; }
       );
       # Devshell for bootstrapping
       # Acessible through 'nix develop' or 'nix-shell' (legacy)
-      devShells = eachSystem (pkgs:
+      devShells = perSystem (pkgs:
         import ./shell.nix { inherit pkgs; }
       );
 
@@ -70,32 +71,48 @@
         yu = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs outputs; };
           modules = [
-            # > Our main nixos configuration file <
             ./nixos/yu/configuration.nix
+            home-manager.nixosModules.home-manager
+            {
+              home-manager = {
+                inherit extraSpecialArgs;
+                useGlobalPkgs = true;
+                users.jesse = import ./home-manager/jesse/yu.nix;
+              };
+            }
           ];
         };
         battuta = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs outputs; };
-          modules = [ ./nixos/battuta/configuration.nix ];
+          modules = [
+            ./nixos/battuta/configuration.nix
+            home-manager.nixosModules.home-manager
+            {
+              home-manager = {
+                inherit extraSpecialArgs;
+                useGlobalPkgs = true;
+                users.jesse = import ./home-manager/jesse/battuta.nix;
+              };
+            }
+          ];
         };
       };
 
       # Standalone home-manager configuration entrypoint
       # Available through 'home-manager --flake .#your-username@your-hostname'
       homeConfigurations = {
-        "jesse@yu" = home-manager.lib.homeManagerConfiguration {
-          pkgs = pkgs "x86_64-linux"; # Home-manager requires 'pkgs' instance
-          extraSpecialArgs = { inherit flakePath inputs outputs; };
-          modules = [
-            # > Our main home-manager configuration file <
-            ./home-manager/jesse/yu.nix
-          ];
-        };
-        "jesse@battuta" = home-manager.lib.homeManagerConfiguration {
-          pkgs = pkgs "x86_64-linux";
-          extraSpecialArgs = { inherit flakePath inputs outputs; };
-          modules = [ ./home-manager/jesse/battuta.nix ];
-        };
+        # Currently my home manager configurations are set up through nixos (see
+        # nixosConfigurations). But standalone configurations for non-nixos
+        # systems can be set up like this:
+
+        # "jesse@yu" = home-manager.lib.homeManagerConfiguration {
+        #   inherit extraSpecialArgs;
+        #   pkgs = pkgs "x86_64-linux"; # Home-manager requires 'pkgs' instance
+        #   modules = [
+        #     # > Our main home-manager configuration file <
+        #     ./home-manager/jesse/yu.nix
+        #   ];
+        # };
       };
     };
 }
