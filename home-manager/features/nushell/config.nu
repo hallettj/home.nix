@@ -3,7 +3,7 @@ $env.config = {
   show_banner: false
 
   completions: {
-    algorithm: prefix
+    algorithm: fuzzy
   }
 
   cursor_shape: {
@@ -28,7 +28,17 @@ $env.config = {
     mode: rounded
   }
 
-  shell_integration: true
+  shell_integration: {
+    osc2: true                                                                                                             
+    osc7: true                                                                                                             
+    osc8: true                                                                                                             
+    osc9_9: false                                                                                                          
+    osc133: true                                                                                                           
+    osc633: true                                                                                                           
+    reset_application_mode: true                                       
+  }
+
+  use_kitty_protocol: true
 
   hooks: {
     # The atuin home manager module has a bug where it assumes that these hook
@@ -49,7 +59,7 @@ alias push = git push
 alias show = git show --ext-diff
 alias st = git status
 alias re = git restore
-alias fix = git commit --fixup
+alias fix = git commit --fixup=commit
 alias pr = gh pr checkout
 
 # nix aliases
