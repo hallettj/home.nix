@@ -5,12 +5,12 @@ let
   # is because relative paths are expanded after the flake source is copied to
   # a store path which would get us read-only store paths.
   dir = "${flakePath config}/home-manager/features/niri";
-  niri-bin = "${pkgs.niri-stable}/bin/niri";
   colors = (import ./colors.nix).catppuccin-macchiato;
 in
 {
   imports = [
     ../rofi
+    ./swayidle.nix
     ./waybar.nix
     ./xwayland-satellite.nix
   ];
@@ -99,45 +99,6 @@ in
   };
   home.sessionVariables.SSH_AUTH_SOCK = "$XDG_RUNTIME_DIR/keyring/ssh";
 
-  services.swayidle =
-    let
-      screen-blank-timeout = 5 * minutes;
-      lock-after-blank-timeout = 15 * seconds;
-      sleep-timeout = 45 * minutes;
-
-      seconds = 1;
-      minutes = 60 * seconds;
-
-      loginctl = "${pkgs.systemd}/bin/loginctl";
-      systemctl = "${pkgs.systemd}/bin/systemctl";
-      playerctl = "${pkgs.playerctl}/bin/playerctl";
-      swaylock = "${config.programs.swaylock.package}/bin/swaylock";
-      _1password = "${pkgs._1password-gui}/bin/1password";
-
-      lock-session = pkgs.writeShellScript "lock-session" ''
-        ${swaylock} -f
-        ${_1password} --lock
-        ${niri-bin} msg action power-off-monitors
-        ${playerctl} pause 2>/dev/null || true
-      '';
-
-      before-sleep = pkgs.writeShellScript "before-sleep" ''
-        ${loginctl} lock-session
-      '';
-    in
-    {
-      enable = true;
-      timeouts = [
-        { timeout = screen-blank-timeout; command = "${niri-bin} msg action power-off-monitors"; }
-        { timeout = screen-blank-timeout + lock-after-blank-timeout; command = "${loginctl} lock-session"; }
-        { timeout = sleep-timeout; command = "${systemctl} suspend"; }
-      ];
-      events = [
-        { event = "lock"; command = lock-session.outPath; }
-        { event = "before-sleep"; command = before-sleep.outPath; }
-      ];
-      systemdTarget = "niri.service";
-    };
 
   # OSD for volume, brightness changes
   services.swayosd.enable = true;
