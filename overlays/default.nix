@@ -47,6 +47,8 @@ rec {
     neovide = final.unstable.neovide;
     neovim = final.unstable.neovim;
     neovim-unwrapped = final.unstable.neovim-unwrapped; # Home Manager uses unwrapped package
+    nu_scripts = final.unstable.nu_scripts;
+    nushell = final.unstable.nushell;
     rust-analyzer = final.unstable.rust-analyzer;
 
     # From my custom packages
