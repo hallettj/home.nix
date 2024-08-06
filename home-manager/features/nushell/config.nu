@@ -63,8 +63,7 @@ alias fix = git commit --fixup=commit
 alias pr = gh pr checkout
 
 # nix aliases
-alias rebuild = sudo nixos-rebuild switch --flake ~/Documents/NixConfig
-alias switch = home-manager switch --flake ~/Documents/NixConfig
+alias switch = nh os switch
 alias pkg = nix search nixpkgs
 
 alias grep = grep --color=auto
