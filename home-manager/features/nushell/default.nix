@@ -19,11 +19,19 @@ in
     configFile.text = ''
       ${use_completions [
         "cargo"
+        "curl"
+        "bat"
+        "docker"
+        "eza"
         "git"
         "just"
+        "less"
         "make"
+        "man"
         "nix"
         "npm"
+        "rg"
+        "tar"
       ]}
       use ${nu_scripts}/share/nu_scripts/custom-completions/yarn/yarn-v4-completions.nu *
 
