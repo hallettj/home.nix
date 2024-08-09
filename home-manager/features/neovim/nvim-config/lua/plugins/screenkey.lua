@@ -3,7 +3,7 @@ return {
   'NStefan002/screenkey.nvim',
   version = '*',
   cmd = { 'Screenkey' },
-  config = {
+  opts = {
     group_mappings = true,
   },
 }

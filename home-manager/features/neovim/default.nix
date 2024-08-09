@@ -25,6 +25,10 @@ in
       gcc
       gnumake
 
+      # needed by luarocks
+      lua
+      python3
+
       # language servers
       deno
       lua-language-server
@@ -32,6 +36,7 @@ in
       nls # Nickel LSP
       nodePackages.bash-language-server
       nodePackages.typescript-language-server
+      ormolu # formatting for haskell files
       shellcheck # called by bash-language-server
 
       # Rust support
