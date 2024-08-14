@@ -34,6 +34,7 @@ return {
     -- To set up servers without any custom configuration add them to this list.
     lsp_zero.setup_servers {
       'bashls',
+      'jsonls',
       'nickel_ls',
       'nushell',
       'uiua',

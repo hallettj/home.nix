@@ -52,6 +52,7 @@ in
     # language servers
     nickel-lang-cli # to pair with the LSP
     nickel-lang-lsp # Nickel LSP from my overlay
+    vscode-langservers-extracted
   ];
 
   home.sessionVariables = {
