@@ -33,7 +33,6 @@ in
       deno
       lua-language-server
       nil # Nix LSP
-      nls # Nickel LSP
       nodePackages.bash-language-server
       nodePackages.typescript-language-server
       ormolu # formatting for haskell files
@@ -47,6 +46,14 @@ in
     ];
   };
 
+  home.packages = with pkgs; [
+    neovide
+
+    # language servers
+    nickel-lang-cli # to pair with the LSP
+    nickel-lang-lsp # Nickel LSP from my overlay
+  ];
+
   home.sessionVariables = {
     # Disable the top window bar in Neovide
     NEOVIDE_FRAME = "none";
@@ -57,8 +64,4 @@ in
     # Read by kkharji/sqlite.lua plugin which is a dependency of smart-open
     SQLITE_CLIB_PATH = "${pkgs.sqlite.out}/lib/libsqlite3.so";
   };
-
-  home.packages = with pkgs; [
-    neovide
-  ];
 }

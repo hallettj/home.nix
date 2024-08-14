@@ -4,6 +4,18 @@ let
   patch = pkg: patches: pkg.overrideAttrs (oldAttrs: {
     patches = (oldAttrs.patches or [ ]) ++ patches;
   });
+
+  # Get these packages from unstable by default
+  get-from-unstable = [
+    "neovide"
+    "neovim"
+    "neovim-unwrapped" # Home Manager uses unwrapped package
+    "nickel"
+    "nls"
+    "nu_scripts"
+    "nushell"
+    "rust-analyzer"
+  ];
 in
 rec {
   # This one brings our custom packages from the 'pkgs' directory
@@ -20,7 +32,7 @@ rec {
     neovide = patch prev.neovide [ ./neovide-font-customization.patch ];
 
     rofi-wayland-unwrapped = prev.rofi-wayland-unwrapped.overrideAttrs (oldAttrs: {
-      version = "main"; 
+      version = "main";
       src = final.fetchFromGitHub {
         owner = "lbonn";
         repo = "rofi";
@@ -43,16 +55,14 @@ rec {
       overlays = [ additions modifications ];
     };
 
-    # Get these packages from unstable by default
-    neovide = final.unstable.neovide;
-    neovim = final.unstable.neovim;
-    neovim-unwrapped = final.unstable.neovim-unwrapped; # Home Manager uses unwrapped package
-    nu_scripts = final.unstable.nu_scripts;
-    nushell = final.unstable.nushell;
-    rust-analyzer = final.unstable.rust-analyzer;
-
     # From my custom packages
     xwayland-satellite = final.xwayland-satellite-main;
+  } // (builtins.listToAttrs (builtins.map (pkg: { name = pkg; value = final.unstable.${pkg}; }) get-from-unstable));
+
+  nickel = final: prev: {
+    nickel-lang-core = inputs.nickel.packages.${final.system}.nickel-lang-core;
+    nickel-lang-cli = inputs.nickel.packages.${final.system}.nickel-lang-cli;
+    nickel-lang-lsp = inputs.nickel.packages.${final.system}.nickel-lang-lsp;
   };
 
   niri = inputs.niri.overlays.niri;
