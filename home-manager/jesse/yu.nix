@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
   imports = [
@@ -18,4 +18,8 @@
   programs.kitty.extraConfig = ''
     font_size 12.0
   '';
+
+  home.packages = with pkgs; [
+    shotcut
+  ];
 }
