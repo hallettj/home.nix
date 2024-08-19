@@ -91,7 +91,6 @@ return {
     -- tsserver`
     lspconfig.denols.setup { autostart = false }
     lspconfig.tsserver.setup {
-      autostart = false,
       settings = {
         typescript = tsserver_config,
         javascript = tsserver_config,
