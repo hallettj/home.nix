@@ -110,18 +110,4 @@ in
     # Replace "graphical-session.target" so that this only starts when Niri starts.
     Install.WantedBy = [ "tray.target" ];
   };
-
-  systemd.user.services.swaybg = {
-    Unit = {
-      Description = "Sets background color or image for Wayland compositors";
-      PartOf = [ "graphical-session.target" ];
-    };
-    Service = {
-      Slice = "background.slice";
-      Type = "simple";
-      Restart = "always";
-      ExecStart = "${pkgs.swaybg}/bin/swaybg --color #${colors.surface0}";
-    };
-    Install.WantedBy = [ "niri.service" ];
-  };
 }
