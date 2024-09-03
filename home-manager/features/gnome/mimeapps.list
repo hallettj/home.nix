@@ -26,6 +26,7 @@ image/svg+xml-compressed=org.gnome.Loupe.desktop
 image/vnd.wap.wbmp=org.gnome.Loupe.desktop
 image/x-icns=org.gnome.Loupe.desktop
 text/plain=neovide.desktop
+video/x-matroska=vlc.desktop
 
 [Added Associations]
 application/pdf=org.gnome.Evince.desktop;
@@ -53,3 +54,4 @@ image/svg+xml-compressed=org.gnome.Loupe.desktop;
 image/vnd.wap.wbmp=org.gnome.Loupe.desktop;
 image/x-icns=org.gnome.Loupe.desktop;
 image/png=org.gnome.Loupe.desktop;
+video/x-matroska=vlc.desktop;
