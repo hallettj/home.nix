@@ -74,7 +74,7 @@ return {
     }
 
     -- Configuration to make lsp-inlayhints.nvim work with TypeScript
-    local tsserver_config = {
+    local ts_ls = {
       inlayHints = {
         includeInlayParameterNameHints = 'all',
         includeInlayParameterNameHintsWhenArgumentMatchesName = false,
@@ -90,10 +90,10 @@ return {
     -- autostart, and start them manually. Run `:LspStart denols` or `:LspStart
     -- tsserver`
     lspconfig.denols.setup { autostart = false }
-    lspconfig.tsserver.setup {
+    lspconfig.ts_ls.setup {
       settings = {
-        typescript = tsserver_config,
-        javascript = tsserver_config,
+        typescript = ts_ls,
+        javascript = ts_ls,
       },
     }
 

@@ -25,8 +25,9 @@ in
       gcc
       gnumake
 
-      # needed by luarocks
-      lua
+      # To allow plugins to get dependencies from luarocks
+      lua51Packages.lua
+      lua51Packages.luarocks
       python3
 
       # language servers
