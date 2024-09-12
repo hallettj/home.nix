@@ -50,8 +50,10 @@ in
     neovide
 
     # language servers
-    nickel-lang-cli # to pair with the LSP
-    nickel-lang-lsp # Nickel LSP from my overlay
+    # disable nickel for now because I'm not using it, and it takes a long time
+    # to build
+    # nickel-lang-cli # to pair with the LSP
+    # nickel-lang-lsp # Nickel LSP from my overlay
     vscode-langservers-extracted
   ];
 
