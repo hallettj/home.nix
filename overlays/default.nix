@@ -54,9 +54,6 @@ rec {
       config = final.config;
       overlays = [ additions modifications ];
     };
-
-    # From my custom packages
-    xwayland-satellite = final.xwayland-satellite-main;
   } // (builtins.listToAttrs (builtins.map (pkg: { name = pkg; value = final.unstable.${pkg}; }) get-from-unstable));
 
   nickel = final: prev: {
