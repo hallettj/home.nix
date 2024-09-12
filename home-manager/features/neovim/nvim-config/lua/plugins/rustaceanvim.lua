@@ -1,6 +1,6 @@
 return {
   'mrcjkb/rustaceanvim',
-  version = '^4',
+  version = '^5',
   lazy = false,
   keys = {
     { '<leader>cc', ft = 'rust', function() vim.cmd.RustLsp('codeAction') end,                  desc = 'code actions at cursor or selection', mode = { 'n', 'x' }, silent = true },
