@@ -11,15 +11,15 @@ return {
     local map = vim.keymap.set
 
     wk.setup {
-      triggers_nowait = { -- customized to remove commands that show registers
-        -- marks
-        '`',
-        "'",
-        'g`',
-        "g'",
-        -- spelling
-        'z=',
-      },
+      -- triggers_nowait = { -- customized to remove commands that show registers
+      --   -- marks
+      --   '`',
+      --   "'",
+      --   'g`',
+      --   "g'",
+      --   -- spelling
+      --   'z=',
+      -- },
     }
 
     -- Swap : and ,
@@ -31,33 +31,33 @@ return {
     map({ 'n', 'v' }, '`', "'", { desc = 'jump to mark in the current buffer' })
 
     -- Window management shortcuts
-    wk.register {
-      ['<leader>-'] = { '<c-w>_', 'maximize vertically' },
-      ['<leader>='] = { '<c-w>=', 'equal window sizes' },
+    wk.add {
+      { '<leader>-',   '<c-w>_',                  desc = 'maximize vertically' },
+      { '<leader>=',   '<c-w>=',                  desc = 'equal window sizes' },
 
-      ['<c-w><c-m>'] = { '<cmd>WinShift<cr>', 'start win-move mode' },
-      ['<c-w>m'] = { '<cmd>WinShift<cr>', 'start win-move mode' },
-      ['<c-w>X'] = { '<cmd>WinShift swap<cr>', 'swap two windows' },
+      { '<c-w><c-m>',  '<cmd>WinShift<cr>',       desc = 'start win-move mode' },
+      { '<c-w>m',      '<cmd>WinShift<cr>',       desc = 'start win-move mode' },
+      { '<c-w>X',      '<cmd>WinShift swap<cr>',  desc = 'swap two windows' },
 
-      ['<c-left>'] = { '<c-w>h', 'move to window on left' },
-      ['<c-down>'] = { '<c-w>j', 'move to window below' },
-      ['<c-up>'] = { '<c-w>k', 'move to window above' },
-      ['<c-right>'] = { '<c-w>l', 'move to window on right' },
+      { '<c-left>',    '<c-w>h',                  desc = 'move to window on left' },
+      { '<c-down>',    '<c-w>j',                  desc = 'move to window below' },
+      { '<c-up>',      '<c-w>k',                  desc = 'move to window above' },
+      { '<c-right>',   '<c-w>l',                  desc = 'move to window on right' },
 
-      ['<c-s-left>'] = { '<cmd>WinShift left<cr>', 'move window left' },
-      ['<c-s-down>'] = { '<cmd>WinShift down<cr>', 'move window down' },
-      ['<c-s-up>'] = { '<cmd>WinShift up<cr>', 'move window up' },
-      ['<c-s-right>'] = { '<cmd>WinShift right<cr>', 'move window right' },
+      { '<c-s-left>',  '<cmd>WinShift left<cr>',  desc = 'move window left' },
+      { '<c-s-down>',  '<cmd>WinShift down<cr>',  desc = 'move window down' },
+      { '<c-s-up>',    '<cmd>WinShift up<cr>',    desc = 'move window up' },
+      { '<c-s-right>', '<cmd>WinShift right<cr>', desc = 'move window right' },
 
-      ['<c-h>'] = { '<c-w>h', 'move to window on left' },
-      ['<c-t>'] = { '<c-w>j', 'move to window below' },
-      ['<c-c>'] = { '<c-w>k', 'move to window above' },
-      ['<c-n>'] = { '<c-w>l', 'move to window on right' },
+      { '<c-h>',       '<c-w>h',                  desc = 'move to window on left' },
+      { '<c-t>',       '<c-w>j',                  desc = 'move to window below' },
+      { '<c-c>',       '<c-w>k',                  desc = 'move to window above' },
+      { '<c-n>',       '<c-w>l',                  desc = 'move to window on right' },
 
-      ['<c-s-h>'] = { '<cmd>WinShift left<cr>', 'move window left' },
-      ['<c-s-t>'] = { '<cmd>WinShift down<cr>', 'move window down' },
-      ['<c-s-c>'] = { '<cmd>WinShift up<cr>', 'move window up' },
-      ['<c-s-n>'] = { '<cmd>WinShift right<cr>', 'move window right' },
+      { '<c-s-h>',     '<cmd>WinShift left<cr>',  desc = 'move window left' },
+      { '<c-s-t>',     '<cmd>WinShift down<cr>',  desc = 'move window down' },
+      { '<c-s-c>',     '<cmd>WinShift up<cr>',    desc = 'move window up' },
+      { '<c-s-n>',     '<cmd>WinShift right<cr>', desc = 'move window right' },
     }
 
     -- Retain selection in visual mode when indenting blocks
@@ -74,21 +74,16 @@ return {
     end
 
     -- Telescope finders
-    wk.register({
-      name = '+finders',
+    wk.add {
+      { '<leader>f', group = '+finders' },
       -- actual bindings are in plugins/telescope.lua
-    }, { prefix = '<leader>f' })
+    }
 
     -- Where am I?
-    wk.register({
-      ['<leader>H'] = {
-        function() print(vim.fn.expand('%:p')) end, 'show file path'
-      }
-    }, { silent = true })
+    map('n', '<leader>H', function() print(vim.fn.expand('%:p')) end,
+      { desc = 'show file path', silent = true })
 
     -- IDE features
-    local fmt = function(cmd) return function(str) return cmd:format(str) end end
-    local lsp = fmt('<cmd>lua vim.lsp.%s<cr>')
     local diagnostic = vim.diagnostic
     local telescope = function(builtin)
       return function()
@@ -96,90 +91,41 @@ return {
       end
     end
 
-    wk.register({
-      K = { lsp 'buf.hover()', 'show documentation for symbol under cursor' },
-      gd = { telescope 'lsp_definitions', 'go to definition' },
-      gD = { lsp 'buf.declaration()', 'go to declaration' },
-      go = { telescope 'lsp_type_definitions', 'go to type' },
-      gi = { telescope 'lsp_implementations', 'go to implementation' },
-      gr = { telescope 'lsp_references', 'find references' },
-      gl = { diagnostic.open_float, 'show diagnostic info' },
-      ['[d'] = { diagnostic.goto_prev, 'previous diagnostic' },
-      [']d'] = { diagnostic.goto_next, 'next diagnostic' },
-      ['[D'] = { function() diagnostic.goto_prev({ severity = { min = diagnostic.severity.ERROR } }) end,
-        'previous error' },
-      [']D'] = { function() diagnostic.goto_next({ severity = { min = diagnostic.severity.ERROR } }) end,
-        'next error' },
-      ['<leader><space>'] = {
-        function() vim.lsp.buf.format({ async = true }) end,
-        'format document'
-      },
-      ['<leader>u'] = { '<cmd>MundoToggle<cr>', 'toggle Mundo' },
-    })
+    wk.add {
+      { 'K', function() vim.lsp.buf.hover() end, desc = 'show documentation for symbol under cursor' },
+      { 'gd', telescope 'lsp_definitions', desc = 'go to definition' },
+      { 'gD', function() vim.lsp.buf.declaration() end, desc = 'go to declaration' },
+      { 'go', telescope 'lsp_type_definitions', desc = 'go to type' },
+      { 'gi', telescope 'lsp_implementations', desc = 'go to implementation' },
+      { 'gr', telescope 'lsp_references', desc = 'find references' },
+      { 'gl', diagnostic.open_float, desc = 'show diagnostic info' },
+      { '[d', diagnostic.goto_prev, desc = 'previous diagnostic' },
+      { ']d', diagnostic.goto_next, desc = 'next diagnostic' },
+      { '[D', function() diagnostic.goto_prev({ severity = { min = diagnostic.severity.ERROR } }) end, desc = 'previous error' },
+      { ']D', function() diagnostic.goto_next({ severity = { min = diagnostic.severity.ERROR } }) end, desc = 'next error' },
+      { '<leader><space>', function() vim.lsp.buf.format({ async = true }) end, desc = 'format document' },
+      { '<leader>u', '<cmd>MundoToggle<cr>', desc = 'toggle Mundo' },
+    }
 
-    wk.register({
-      name = '+IDE',
-      c = { lsp 'buf.code_action()', 'code actions at cursor or selection' },
-      L = { lsp 'codelens.run()', 'codelens command of current line' },
-      q = { lsp 'buf.code_action({ only = {"quickfix"} })', 'quickfix at cursor or selection' },
-      r = { lsp 'buf.rename()', 'rename' },
-      R = { lsp 'buf.code_action({ only = {"refactor"} })', 'refactor at cursor or selection' },
-    }, { prefix = '<leader>c', remap = true })
-    wk.register({
-      name = '+IDE',
-      a = { lsp 'buf.code_action()', 'code actions at cursor or selection' },
-      q = { lsp 'buf.code_action({ only = {"quickfix"} })', 'quickfix for cursor or selection' },
-      R = { lsp 'buf.code_action({ only = {"refactor"} })', 'refactor for cursor or selection' },
-    }, { prefix = '<leader>c', mode = 'v' })
-
-    -- gh.nvim bindings
-    wk.register({
-      name = '+Github',
-      c = {
-        name = '+Commits',
-        c = { '<cmd>GHCloseCommit<cr>', 'Close' },
-        e = { '<cmd>GHExpandCommit<cr>', 'Expand' },
-        o = { '<cmd>GHOpenToCommit<cr>', 'Open To' },
-        p = { '<cmd>GHPopOutCommit<cr>', 'Pop Out' },
-        z = { '<cmd>GHCollapseCommit<cr>', 'Collapse' }
-      },
-      i = { name = '+Issues', p = { '<cmd>GHPreviewIssue<cr>', 'Preview' } },
-      l = { name = '+Litee', t = { '<cmd>LTPanel<cr>', 'Toggle Panel' } },
-      r = {
-        name = '+Review',
-        b = { '<cmd>GHStartReview<cr>', 'Begin' },
-        c = { '<cmd>GHCloseReview<cr>', 'Close' },
-        d = { '<cmd>GHDeleteReview<cr>', 'Delete' },
-        e = { '<cmd>GHExpandReview<cr>', 'Expand' },
-        s = { '<cmd>GHSubmitReview<cr>', 'Submit' },
-        z = { '<cmd>GHCollapseReview<cr>', 'Collapse' }
-      },
-      p = {
-        name = '+Pull Request',
-        c = { '<cmd>GHClosePR<cr>', 'Close' },
-        d = { '<cmd>GHPRDetails<cr>', 'Details' },
-        e = { '<cmd>GHExpandPR<cr>', 'Expand' },
-        o = { '<cmd>GHOpenPR<cr>', 'Open' },
-        p = { '<cmd>GHPopOutPR<cr>', 'PopOut' },
-        r = { '<cmd>GHRefreshPR<cr>', 'Refresh' },
-        t = { '<cmd>GHOpenToPR<cr>', 'Open To' },
-        z = { '<cmd>GHCollapsePR<cr>', 'Collapse' }
-      },
-      t = {
-        name = '+Threads',
-        c = { '<cmd>GHCreateThread<cr>', 'Create' },
-        n = { '<cmd>GHNextThread<cr>', 'Next' },
-        t = { '<cmd>GHToggleThread<cr>', 'Toggle' }
+    wk.add {
+      { '<leader>c', group = '+IDE' },
+      { '<leader>cc', function() vim.lsp.buf.code_action() end, desc = 'code actions at cursor or selection' },
+      { '<leader>cL', function() vim.lsp.codelens.run() end, desc = 'codelens command of current line' },
+      { '<leader>cq', function() vim.lsp.buf.code_action({ only = { 'quickfix' } }) end, desc = 'quickfix at cursor or selection' },
+      { '<leader>cr', function() vim.lsp.buf.rename() end, desc = 'rename' },
+      { '<leader>cR', function() vim.lsp.buf.code_action({ only = { 'refactor' } }) end, desc = 'refactor at cursor or selection' },
+      {
+        mode = { 'v' },
+        { '<leader>ca', function() vim.lsp.buf.code_action() end, desc = 'code actions at cursor or selection' },
+        { '<leader>cq', function() vim.lsp.buf.code_action({ only = { 'quickfix' } }) end, desc = 'quickfix for cursor or selection' },
+        { '<leader>cR', function() vim.lsp.buf.code_action({ only = { 'refactor' } }) end, desc = 'refactor for cursor or selection' },
       }
-    }, { prefix = '<leader>gh' })
+    }
 
-    -- Magic Registers
-    wk.register({
-      d = { '"=strftime("%F")<cr>', 'put current date in unnamed register' },
-      p = {
-        '"=expand("%:p:h")<cr>',
-        'put directory of open file in unnamed register'
-      }
-    }, { prefix = '<leader>"' })
+    wk.add {
+      { '<leader>"', group = "magic registers" },
+      { '<leader>"d', '"=strftime("%F")<cr>', desc = 'put current date in unnamed register' },
+      { '<leader>"p', '"=expand("%:p:h")<cr>', desc = 'put directory of open file in unnamed register' }
+    }
   end,
 }
