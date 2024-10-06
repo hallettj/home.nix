@@ -4,7 +4,7 @@
 
 {
   home.packages = with pkgs; [
-    xwayland-satellite-unstable # from niri overlay
+    xwayland-satellite
   ];
 
   systemd.user.services.xwayland-satellite = {
