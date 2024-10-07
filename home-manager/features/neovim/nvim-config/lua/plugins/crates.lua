@@ -37,36 +37,32 @@ return {
         cmp.setup.buffer { sources = { { name = 'crates' } } }
 
         -- Set up keybindings.
-        wk.register({
-          name = '+crates.nvim',
-          t = { crates.toggle, 'toggle' },
-          r = { crates.reload, 'reload' },
-          v = { crates.show_versions_popup, 'show versions' },
-          f = { crates.show_features_popup, 'show features' },
-          d = { crates.show_dependencies_popup, 'show dependencies' },
-          u = { crates.update_crate, 'update crate' },
-          a = { crates.update_all_crates, 'update all crates' },
-          U = { crates.upgrade_crate, 'upgrade crate' },
-          A = { crates.upgrade_all_crates, 'upgrade all crates' },
-          H = { crates.open_homepage, 'open homepage' },
-          R = { crates.open_repository, 'open repository' },
-          D = { crates.open_documentation, 'open documentation' },
-          C = { crates.open_crates_io, 'open crates.io' },
-        }, { prefix = '<leader>C', buffer = data.buf, silent = true })
-        wk.register({
-          name = '+crates.nvim',
-          u = { crates.update_crates, 'update crates' },
-          U = { crates.upgrade_crates, 'upgrade crates' },
-        }, { prefix = '<leader>C', mode = 'v', buffer = data.buf, silent = true })
-        wk.register({
-          K = { function()
-            if (crates.popup_available()) then
-              crates.show_popup()
-            else
-              vim.lsp.buf.hover()
-            end
-          end, 'hover documentation' },
-        }, { buffer = data.buf, silent = true })
+        wk.add {
+          buffer = data.buf, silent = true,
+          { '<leader>C',  group = '+crates.nvim' },
+          { '<leader>Ct', crates.toggle,                  desc = 'toggle' },
+          { '<leader>Cr', crates.reload,                  desc = 'reload' },
+          { '<leader>Cv', crates.show_versions_popup,     desc = 'show versions' },
+          { '<leader>Cf', crates.show_features_popup,     desc = 'show features' },
+          { '<leader>Cd', crates.show_dependencies_popup, desc = 'show dependencies' },
+          { '<leader>Cu', crates.update_crate,            desc = 'update crate' },
+          { '<leader>Ca', crates.update_all_crates,       desc = 'update all crates' },
+          { '<leader>CU', crates.upgrade_crate,           desc = 'upgrade crate' },
+          { '<leader>CA', crates.upgrade_all_crates,      desc = 'upgrade all crates' },
+          { '<leader>CH', crates.open_homepage,           desc = 'open homepage' },
+          { '<leader>CR', crates.open_repository,         desc = 'open repository' },
+          { '<leader>CD', crates.open_documentation,      desc = 'open documentation' },
+          { '<leader>CC', crates.open_crates_io,          desc = 'open crates.io' },
+          {
+            mode = 'v',
+            { '<leader>Cu', crates.update_crates,  desc = 'update crates' },
+            { '<leader>CU', crates.upgrade_crates, desc = 'upgrade crates' },
+          },
+        }
+        wk.add {
+          buffer = data.buf, silent = true,
+          { 'K', function() if (crates.popup_available()) then crates.show_popup() else vim.lsp.buf.hover() end end, desc = 'hover documentation' },
+        }
       end,
     })
   end,
