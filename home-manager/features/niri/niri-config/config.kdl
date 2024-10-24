@@ -102,6 +102,11 @@ window-rule {
     block-out-from "screen-capture"
 }
 
+window-rule {
+    match app-id="gamescope"
+    open-fullscreen true
+}
+
 binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
 
