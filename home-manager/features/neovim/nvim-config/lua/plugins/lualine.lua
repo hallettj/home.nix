@@ -1,6 +1,9 @@
 return {
   'nvim-lualine/lualine.nvim',
-  dependencies = { 'nvim-tree/nvim-web-devicons' },
+  dependencies = {
+    'nvim-tree/nvim-web-devicons',
+    'AndreM222/copilot-lualine'
+  },
   config = function()
     -- Mode is indicated in status line instead
     vim.o.showmode = false
@@ -39,7 +42,7 @@ return {
     end
 
     require('lualine').setup {
-      theme = "catppuccin",
+      theme = 'catppuccin',
       sections = {
         lualine_a = { 'mode' },
         lualine_b = {
@@ -51,8 +54,9 @@ return {
           'filename',
         },
         lualine_x = {
-          { 'filetype', fmt = format_filetype },
+          'copilot',
           lsp_status,
+          { 'filetype', fmt = format_filetype },
         },
         lualine_y = { 'progress' },
         lualine_z = { 'location' }

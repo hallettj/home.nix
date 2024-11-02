@@ -12,6 +12,8 @@ return {
     -- cmp must be configured with a snippet engine
     'L3MON4D3/LuaSnip',
     'saadparwaiz1/cmp_luasnip',
+
+    'zbirenbaum/copilot-cmp',
   },
   config = function()
     local cmp = require('cmp')
@@ -44,6 +46,7 @@ return {
       sources = cmp.config.sources({
         { name = 'nvim_lsp' },
         { name = 'luasnip', keyword_length = 2 },
+        { name = 'copilot' },
         { name = 'path' },
         { name = 'buffer',  keyword_length = 3 },
       }, {
