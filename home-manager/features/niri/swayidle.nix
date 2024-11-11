@@ -21,7 +21,7 @@ in
 
       lock-session = pkgs.writeShellScript "lock-session" ''
         ${swaylock} -f
-        ${_1password} --lock
+        ${_1password} --lock --ozone-platform-hint=auto --enable-features=WaylandWindowDecorations
         ${niri-bin} msg action power-off-monitors
         ${playerctl} pause 2>/dev/null || true
       '';
