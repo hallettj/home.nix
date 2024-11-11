@@ -22,7 +22,9 @@ return {
         ignore_install = { 't32' }, -- t32 is failing to download for me
         highlight = {
           enable = true,            -- false will disable the whole extension
-          disable = {},             -- list of languages that will be disabled
+          disable = {
+            'markdown'
+          }, -- list of languages that will be disabled
         },
         indent = { enable = true },
       }
