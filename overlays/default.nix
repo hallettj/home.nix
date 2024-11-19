@@ -8,7 +8,6 @@ let
   # Get these packages from unstable by default
   get-from-unstable = [
     "localsend" # v1.15 adds --hidden flag
-    "neovide"
     "neovim"
     "neovim-unwrapped" # Home Manager uses unwrapped package
     "nickel"
@@ -30,7 +29,7 @@ rec {
     # issue is resolved:
     # https://github.com/NixOS/nixpkgs/pull/232718#issuecomment-1582123406
     _1password-gui = patch prev._1password-gui [ ./1password-native-wayland.patch ];
-    neovide = patch prev.neovide [ ./neovide-font-customization.patch ];
+    neovide = patch inputs.nixpkgs-for-neovide.legacyPackages.${final.system}.neovide [ ./neovide-font-customization.patch ];
 
     rofi-wayland-unwrapped = prev.rofi-wayland-unwrapped.overrideAttrs (oldAttrs: {
       version = "main";

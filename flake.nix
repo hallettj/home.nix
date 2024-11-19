@@ -6,6 +6,10 @@
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     # Also see the 'unstable-packages' overlay at 'overlays/default.nix'.
 
+    # Neovide is not building on the latest unstable due to an issue with
+    # cctools - pin to a working version
+    nixpkgs-for-neovide.url = "github:nixos/nixpkgs?rev=4aa36568d413aca0ea84a1684d2d46f55dbabad7";
+
     systems.url = "github:nix-systems/default";
 
     home-manager = {
@@ -28,8 +32,7 @@
     # Manages version-controlled, encrypted secrets
     sops-nix = {
       url = "github:mic92/sops-nix";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-      inputs.nixpkgs-stable.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # Prebuilt package index - provides comma package
