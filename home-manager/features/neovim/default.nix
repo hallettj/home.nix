@@ -56,6 +56,9 @@ in
     # nickel-lang-cli # to pair with the LSP
     # nickel-lang-lsp # Nickel LSP from my overlay
     vscode-langservers-extracted
+
+    # Provides codelldb which rustaceanvim uses for debugging Rust targets
+    vscode-extensions.vadimcn.vscode-lldb.adapter
   ];
 
   home.sessionVariables = {
