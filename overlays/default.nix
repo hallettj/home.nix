@@ -7,6 +7,7 @@ let
 
   # Get these packages from unstable by default
   get-from-unstable = [
+    "kitty"
     "localsend" # v1.15 adds --hidden flag
     "neovim"
     "neovim-unwrapped" # Home Manager uses unwrapped package
