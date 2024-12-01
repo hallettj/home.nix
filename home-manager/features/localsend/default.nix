@@ -6,13 +6,13 @@
   ];
 
   systemd.user.services.localsend = {
-    Install.WantedBy = [ "tray.target" ];
+    Install.WantedBy = [ "graphical-session.target" ];
     Service.ExecStart = "${pkgs.localsend}/bin/localsend_app --hidden";
     Unit = {
       Description = "An open source cross-platform alternative to AirDrop";
-      After = "graphical-session-pre.target";
-      PartOf = "graphical-session.target";
-      Requires = "tray.target";
+      After = [ "graphical-session-pre.target" "tray.target" ];
+      PartOf = [ "graphical-session.target" ];
+      Requires = [ "tray.target" ];
     };
   };
 }
