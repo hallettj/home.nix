@@ -8,10 +8,8 @@
     enable32Bit = true;
   };
 
-  programs.steam = {
-    enable = true;
-    gamescopeSession.enable = true;
-  };
+  programs.steam.enable = true;
+  programs.gamescope.enable = true;
 
   # Wrappeer program that applies settings to improve game performance
   programs.gamemode.enable = true;
