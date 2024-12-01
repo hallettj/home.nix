@@ -81,9 +81,6 @@ in
         };
       };
       style = ./waybar.css;
-      systemd = {
-        enable = true;
-        target = "niri.service";
-      };
+      systemd.enable = true;
     };
 }
