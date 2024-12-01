@@ -3,10 +3,9 @@
 {
   # programs.steam.enable implicitly enables these options, but let's make them
   # explicit
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
-    driSupport = true;
-    driSupport32Bit = true;
+    enable32Bit = true;
   };
 
   programs.steam = {

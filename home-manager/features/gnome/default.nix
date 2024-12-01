@@ -9,7 +9,7 @@ in
   ];
 
   home.packages = with pkgs; [
-    gnome.gnome-tweaks
+    gnome-tweaks
   ];
 
   gnomeExtensions = {
@@ -17,7 +17,6 @@ in
     enabledExtensionUuids = [
       "advanced-alt-tab@G-dH.github.com"
       "appindicatorsupport@rgcjonas.gmail.com"
-      "horizontal-workspace-indicator@tty2.io"
       "runcat@kolesnikov.se"
     ];
   };
@@ -103,10 +102,6 @@ in
     "org/gnome/shell/extensions/gtktitlebar" = {
       hide-window-titlebars = "always";
       restrict-to-primary-screen = false;
-    };
-
-    "org/gnome/shell/extensions/horizontal-workspace-indicator" = {
-      icons-style = "lines";
     };
 
     "org/gnome/shell/extensions/runcat" = {

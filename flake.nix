@@ -2,18 +2,14 @@
   description = "NixOS and Home Manager configuration for Jesse Hallett";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     # Also see the 'unstable-packages' overlay at 'overlays/default.nix'.
-
-    # Neovide is not building on the latest unstable due to an issue with
-    # cctools - pin to a working version
-    nixpkgs-for-neovide.url = "github:nixos/nixpkgs?rev=4aa36568d413aca0ea84a1684d2d46f55dbabad7";
 
     systems.url = "github:nix-systems/default";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-24.05";
+      url = "github:nix-community/home-manager/release-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
