@@ -21,7 +21,15 @@ in
 
       lock-session = pkgs.writeShellScript "lock-session" ''
         ${swaylock} -f
-        ${_1password} --lock --ozone-platform-hint=auto --enable-features=WaylandWindowDecorations
+
+        # Run the 1password lock command only if 1password is running. If it is
+        # not running then the lock command will start it, which blocks this
+        # script, which prevents swayidle from working until 1password is
+        # closed.
+        if ! ps x | grep -v grep | grep 1password; then
+          ${_1password} --lock
+        fi
+
         ${niri-bin} msg action power-off-monitors
         ${playerctl} pause 2>/dev/null || true
       '';
