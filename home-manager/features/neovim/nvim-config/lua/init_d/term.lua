@@ -17,7 +17,7 @@ vim.api.nvim_create_autocmd('TermOpen', {
 })
 
 -- Window navigation using reversed-T mapings
-vim.keymap.set('t', '<c-h>', '<c-\\><c-n><c-w><c-h>')
-vim.keymap.set('t', '<c-t>', '<c-\\><c-n><c-w><c-j>')
-vim.keymap.set('t', '<c-n>', '<c-\\><c-n><c-w><c-l>')
-vim.keymap.set('t', '<c-c>', '<c-\\><c-n><c-w><c-k>')
+vim.keymap.set('t', '<c-left>', '<c-\\><c-n><c-w><c-h>')
+vim.keymap.set('t', '<c-down>', '<c-\\><c-n><c-w><c-j>')
+vim.keymap.set('t', '<c-right>', '<c-\\><c-n><c-w><c-l>')
+vim.keymap.set('t', '<c-up>', '<c-\\><c-n><c-w><c-k>')
