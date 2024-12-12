@@ -40,8 +40,6 @@ rec {
       config = final.config;
       overlays = [ additions modifications ];
     };
-
-    xwayland-satellite = inputs.xwayland-satellite.packages.${final.system}.default;
   } // (builtins.listToAttrs (builtins.map (pkg: { name = pkg; value = final.unstable.${pkg}; }) get-from-unstable));
 
   nickel = final: prev: {

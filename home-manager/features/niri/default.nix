@@ -106,8 +106,5 @@ in
     # Adjust swayosd restart policy - it's failing due to too many restart
     # attempts when resuming from sleep
     Unit.StartLimitIntervalSec = lib.mkForce 1;
-
-    # Replace "graphical-session.target" so that this only starts when Niri starts.
-    Install.WantedBy = [ "tray.target" ];
   };
 }
