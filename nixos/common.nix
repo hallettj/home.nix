@@ -4,6 +4,7 @@
   imports = [
     ./features/_1password.nix
     ./features/cachix
+    ./features/claude-anthropic
     ./features/fonts
     ./features/garnix
     ./features/niri.nix
