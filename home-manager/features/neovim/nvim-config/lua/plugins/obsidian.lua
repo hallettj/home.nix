@@ -19,6 +19,7 @@ return {
   },
   lazy = false,
   keys = {
+    { '<c-enter>', vim.cmd.ObsidianFollowLink, desc = 'follow a wiki link' },
     { '<leader>fn', vim.cmd.ObsidianQuickSwitch, desc = 'open an Obsidian note' },
   },
   config = function()
@@ -127,23 +128,6 @@ return {
       desc = 'turn visual selection into a link to a new or existing note',
       nargs = '?',
       range = true,
-    })
-
-    command('Note', function(opts)
-      local client = require('obsidian').get_client()
-      local note = client:resolve_note(opts.args)
-      if note ~= nil then
-        vim.cmd.edit(note.path.filename)
-      else
-        local new_note_path = opts.args
-        local workspace_path = client.current_workspace.path
-        local file_path = workspace_path .. '/Inbox/' .. new_note_path .. '.md'
-        vim.cmd.edit(file_path)
-      end
-    end, {
-      complete = obsidian_completer(require('obsidian.commands').complete_args_search),
-      desc = 'open an Obsidian note, or create a new one with the given name',
-      nargs = 1,
     })
 
     -- Sync active workspace to working directory
