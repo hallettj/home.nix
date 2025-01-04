@@ -5,8 +5,6 @@ let
   # is because relative paths are expanded after the flake source is copied to
   # a store path which would get us read-only store paths.
   dir = "${flakePath config}/home-manager/features/neovim";
-
-  treesitter-plugin = pkgs.vimPlugins.nvim-treesitter.withAllGrammars;
 in
 {
   xdg.configFile.nvim = {
@@ -17,12 +15,12 @@ in
     enable = true;
     defaultEditor = true;
     withPython3 = true;
-    plugins = [
+    plugins = with pkgs.vimPlugins; [
       # Get the treesitter plugin from nix with prebuilt grammars. Lazy.nvim
       # somehow prevents the plugin from loading automatically so we also need
-      # to pass the plugin directory to lazy to tell it where to load it from.
-      # See the environment variable below.
-      treesitter-plugin
+      # to declare the plugin to lazy.nvim. I have a helper function in my
+      # neovim configuration for that called `from_nixpkgs`.
+      nvim-treesitter.withAllGrammars
     ];
     extraPackages = with pkgs; [
       fd
@@ -76,8 +74,6 @@ in
 
     # I just don't want extra UI anywhere
     NVIM_GTK_NO_HEADERBAR = "1";
-
-    NVIM_TREESITTER_PLUGIN_DIR = treesitter-plugin.outPath;
 
     # Read by kkharji/sqlite.lua plugin which is a dependency of smart-open
     SQLITE_CLIB_PATH = "${pkgs.sqlite.out}/lib/libsqlite3.so";
