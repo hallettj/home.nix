@@ -15,12 +15,15 @@ in
     enable = true;
     defaultEditor = true;
     withPython3 = true;
-    plugins = with pkgs.vimPlugins; [
+    plugins = [
       # Get the treesitter plugin from nix with prebuilt grammars. Lazy.nvim
       # somehow prevents the plugin from loading automatically so we also need
       # to declare the plugin to lazy.nvim. I have a helper function in my
       # neovim configuration for that called `from_nixpkgs`.
-      nvim-treesitter.withAllGrammars
+      #
+      # Getting plugin from unstable because as of 2025-01-04 nushell highlight
+      # queries are broken in the stable plugin.
+      pkgs.unstable.vimPlugins.nvim-treesitter.withAllGrammars
     ];
     extraPackages = with pkgs; [
       fd
