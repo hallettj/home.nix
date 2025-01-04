@@ -82,30 +82,16 @@ return {
         },
         neogit = true,
       },
-      -- Treesitter recently introduced highlight group names of the form
-      -- `@namespace` as opposed to the previously-used form `TSNamespace`. The old
-      -- highlight group names still exist, but Catppuccin has updated to use the
-      -- new ones if they are available; so the old group names don't work for
-      -- Catppuccin customization.
-      --
-      -- This whole system might change again before nvim 0.8 is stabilized. See
-      -- https://github.com/nvim-treesitter/nvim-treesitter/pull/3365
       custom_highlights = function(colors)
         return {
           ['Boolean'] = { style = { 'italic' } },
+          ['Include'] = { style = {} },                                    -- disable italic
+          ['@module'] = { style = {} },                                    -- some `Include` items are also linked to `@module`
+          ['StorageClass'] = { fg = colors.yellow, style = { 'italic' } }, -- `&`, `&mut`, and `ref` in Rust
           ['@function.builtin'] = { style = { 'italic' } },
-          ['@keyword.operator'] = { style = { 'italic' } },
-          -- disable italic for parameters
-          ['@variable.parameter'] = { style = {} },
-          ['@parameter'] = { style = {} }, -- new name is @variable.parameter, but catppuccin links @lsp.type.parameter to this name
-          ['@module'] = { style = {} },
-          ['@namespace'] = { style = {} }, -- new name is @module, but catppuccin links @lsp.type.nampespace to this name
-          -- italic for `for` in `impl X for Y` in Rust
-          ['@keyword.repeat'] = { style = { 'italic' } },
-          -- italic for `self` in Rust
-          ['@variable.builtin'] = { style = { 'italic' } },
-          -- italic for `mut` and `ref` in Rust
-          ['@type.qualifier'] = { fg = colors.yellow, style = { 'italic' } },
+          ['@parameter'] = { style = {} },                                 -- disable italic
+          ['@variable.builtin'] = { style = { 'italic' } },                -- italic for `self` in Rust
+
           -- messages from vim.notify
           ['ErrorMsg'] = { style = {} },
           ['WarningMsg'] = { style = {} },
