@@ -10,6 +10,7 @@
 return {
   'catppuccin/nvim',
   main = 'catppuccin',
+  dependencies = { 'nvim-treesitter/nvim-treesitter' },
 
   -- The main colorscheme must be loaded synchronously - otherwise neovim does
   -- some automatic highlight group aliasing that messes things up. So we

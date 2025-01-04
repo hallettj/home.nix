@@ -28,7 +28,7 @@ require('lazy').setup {
   },
   change_detection = { notify = false },
   performance = {
-    -- Some plugins are installed by nix - we need to preserve the starting pack path to load them.
+    -- To get treesitter grammars from nix we need to preserve the pack path
     reset_packpath = false,
   },
 }
