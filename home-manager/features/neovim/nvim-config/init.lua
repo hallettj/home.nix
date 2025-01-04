@@ -21,10 +21,17 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = '\\'
 
 -- Initialize plugins, evaluating all modules in `lua/plugins/`
-require('lazy').setup('plugins', {
+require('lazy').setup {
+  spec = {
+    -- get plugin specs from lua/plugins/ directory
+    { import = 'plugins' }
+  },
   change_detection = { notify = false },
-  dev = { path = '~/projects/vim/' },
-})
+  performance = {
+    -- Some plugins are installed by nix - we need to preserve the starting pack path to load them.
+    reset_packpath = false,
+  },
+}
 
 local opt = vim.opt
 

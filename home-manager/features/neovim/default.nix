@@ -15,6 +15,9 @@ in
     enable = true;
     defaultEditor = true;
     withPython3 = true;
+    plugins = with pkgs.vimPlugins; [
+      nvim-treesitter.withAllGrammars
+    ];
     extraPackages = with pkgs; [
       fd
       gh # for github integration

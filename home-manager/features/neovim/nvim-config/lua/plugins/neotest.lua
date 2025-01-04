@@ -4,7 +4,6 @@ return {
     'nvim-neotest/nvim-nio',
     'nvim-lua/plenary.nvim',
     -- 'antionemadec/FixCursorHold.nvim',
-    'nvim-treesitter/nvim-treesitter',
 
     -- test adapters
     'mrcjkb/rustaceanvim',
