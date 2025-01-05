@@ -24,6 +24,7 @@ in
       # Getting plugin from unstable because as of 2025-01-04 nushell highlight
       # queries are broken in the stable plugin.
       pkgs.unstable.vimPlugins.nvim-treesitter.withAllGrammars
+      pkgs.vimPlugins.lazy-nvim
     ];
     extraPackages = with pkgs; [
       fd
