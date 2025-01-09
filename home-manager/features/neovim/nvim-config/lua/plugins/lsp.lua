@@ -1,20 +1,38 @@
 return {
-  'VonHeikemen/lsp-zero.nvim',
-  branch = 'v3.x',
+  'neovim/nvim-lspconfig',
   dependencies = {
     -- Special LSP support for neovim API and for plugin APIs for plugins loaded
     -- through lazy
     'folke/neodev.nvim',
   },
   config = function()
-    local lsp_zero = require('lsp-zero')
+    local lspconfig = require('lspconfig')
 
-    lsp_zero.set_sign_icons({
-      error = '◈',
-      warn = '▲',
-      hint = '⚑',
-      info = '»'
-    })
+    -- Extending lsp capabilities is required prior to nvim v0.11. Blink at
+    -- least does this automatically in that nvim version. I'm not sure about
+    -- nvim-cmp.
+    local lspconfig_defaults = require('lspconfig').util.default_config
+    lspconfig_defaults.capabilities = vim.tbl_deep_extend(
+      'force',
+      lspconfig_defaults.capabilities,
+
+      -- for nvim-cmp
+      require('cmp_nvim_lsp').default_capabilities()
+
+      -- for blink.cmp
+      -- require('blink.cmp').get_lsp_capabilities()
+    )
+
+    vim.diagnostic.config {
+      signs = {
+        text = {
+          [vim.diagnostic.severity.ERROR] = '◈',
+          [vim.diagnostic.severity.WARN] = '▲',
+          [vim.diagnostic.severity.HINT] = '⚑',
+          [vim.diagnostic.severity.INFO] = '»',
+        },
+      }
+    }
 
     -- New inlay hints in nvim-0.10!
     if vim.fn.has('nvim-0.10') == 1 then
@@ -29,16 +47,11 @@ return {
       })
     end
 
-    local lspconfig = require('lspconfig')
-
-    -- To set up servers without any custom configuration add them to this list.
-    lsp_zero.setup_servers {
-      'bashls',
-      'jsonls',
-      'nickel_ls',
-      'nushell',
-      'uiua',
-    };
+    lspconfig.bashls.setup {}
+    lspconfig.jsonls.setup {}
+    lspconfig.nickel_ls.setup {}
+    lspconfig.nushell.setup {}
+    lspconfig.uiua.setup {}
 
     -- To set up with custom configuration, use `lspconfig` as seen below.
     -- We don't set up rust_analyzer in any of these steps because it is set up
@@ -89,8 +102,9 @@ return {
     -- The simplest way to switch between denols and tsserver is to disable
     -- autostart, and start them manually. Run `:LspStart denols` or `:LspStart
     -- tsserver`
-    lspconfig.denols.setup { autostart = false }
+    lspconfig.denols.setup { autostart = true }
     lspconfig.ts_ls.setup {
+      autostart = false,
       settings = {
         typescript = ts_ls,
         javascript = ts_ls,

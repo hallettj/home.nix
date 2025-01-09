@@ -7,7 +7,6 @@ return {
     'hrsh7th/cmp-path',
     'hrsh7th/cmp-nvim-lsp',
     'hrsh7th/cmp-nvim-lua',
-    'VonHeikemen/lsp-zero.nvim',
 
     -- cmp must be configured with a snippet engine
     'L3MON4D3/LuaSnip',
@@ -17,31 +16,17 @@ return {
   },
   config = function()
     local cmp = require('cmp')
-    local lsp_zero = require('lsp-zero')
-    local cmp_action = lsp_zero.cmp_action()
 
     cmp.setup {
-      formatting = lsp_zero.cmp_format {
-        details = true,
-      },
       snippet = {
         expand = function(args)
           require('luasnip').lsp_expand(args.body)
         end,
       },
-      mapping = {
-        -- `Enter` key to confirm completion
+      mapping = cmp.mapping.preset.insert {
+        -- -- `Enter` key to confirm completion
         ['<CR>'] = cmp.mapping.confirm({ select = false }),
         ['<C-Space>'] = cmp.mapping.complete(),
-        ['<C-e>'] = cmp.mapping.abort(),
-
-        -- Scroll up and down the documentation window
-        ['<C-u>'] = cmp.mapping.scroll_docs(-4),
-        ['<C-d>'] = cmp.mapping.scroll_docs(4),
-
-        -- Navigate between snippet placeholders
-        ['<C-f>'] = cmp_action.luasnip_jump_forward(),
-        ['<C-b>'] = cmp_action.luasnip_jump_backward(),
       },
       sources = cmp.config.sources({
         { name = 'nvim_lsp' },
@@ -49,8 +34,6 @@ return {
         { name = 'copilot' },
         { name = 'path' },
         { name = 'buffer',  keyword_length = 3 },
-      }, {
-        { name = 'buffer' },
       }),
     }
 
