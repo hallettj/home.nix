@@ -46,6 +46,9 @@ return {
 
       -- I just want to use titles as file names
       note_id_func = function(title) return title end,
+
+      -- Get fancy rendering from render-markdown instead
+      ui = { enable = false },
     }
 
     -- Custom commands

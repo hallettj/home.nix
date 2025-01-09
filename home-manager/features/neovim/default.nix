@@ -55,6 +55,7 @@ in
       lldb # debug adapter
       graphviz # to render crate graphs from rustaceanvim
 
+      python312Packages.pylatexenc # to get latex2text for render-markdown
       nixpkgs-fmt # I have nil configured to call this for formatting
     ];
   };
