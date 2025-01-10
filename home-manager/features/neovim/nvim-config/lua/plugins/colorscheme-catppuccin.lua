@@ -86,12 +86,13 @@ return {
       custom_highlights = function(colors)
         return {
           ['Boolean'] = { style = { 'italic' } },
-          ['Include'] = { style = {} },                                    -- disable italic
-          ['@module'] = { style = {} },                                    -- some `Include` items are also linked to `@module`
-          ['StorageClass'] = { fg = colors.yellow, style = { 'italic' } }, -- `&`, `&mut`, and `ref` in Rust
+          ['Include'] = { style = {} },                                      -- disable italic
+          ['@module'] = { style = {} },                                      -- some `Include` items are also linked to `@module`
+          ['StorageClass'] = { fg = colors.yellow, style = { 'italic' } },   -- `&`, `&mut`, and `ref` in Rust
           ['@function.builtin'] = { style = { 'italic' } },
-          ['@parameter'] = { style = {} },                                 -- disable italic
-          ['@variable.builtin'] = { style = { 'italic' } },                -- italic for `self` in Rust
+          ['@keyword.import'] = { fg = colors.mauve, style = { 'italic' } }, -- `use` and `as` in Rust
+          ['@parameter'] = { style = {} },                                   -- disable italic
+          ['@variable.builtin'] = { style = { 'italic' } },                  -- italic for `self` in Rust
 
           -- messages from vim.notify
           ['ErrorMsg'] = { style = {} },
