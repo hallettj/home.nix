@@ -1,6 +1,9 @@
+local features = require('config.features')
+
 -- Autocompletion
 return {
   'hrsh7th/nvim-cmp',
+  enabled = features.nvim_cmp,
   dependencies = {
     'hrsh7th/cmp-buffer',
     'hrsh7th/cmp-cmdline',
@@ -11,8 +14,6 @@ return {
     -- cmp must be configured with a snippet engine
     'L3MON4D3/LuaSnip',
     'saadparwaiz1/cmp_luasnip',
-
-    'zbirenbaum/copilot-cmp',
   },
   config = function()
     local cmp = require('cmp')
@@ -31,9 +32,11 @@ return {
       sources = cmp.config.sources({
         { name = 'nvim_lsp' },
         { name = 'luasnip', keyword_length = 2 },
-        { name = 'copilot' },
+        (features.avante and { name = 'avante' } or {}),
+        (features.codecompanion and { name = 'codecompanion' } or {}),
+        (features.copilot and { name = 'copilot' } or {}),
         { name = 'path' },
-        { name = 'buffer',  keyword_length = 3 },
+        { name = 'buffer', keyword_length = 3 },
       }),
     }
 

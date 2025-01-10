@@ -1,3 +1,5 @@
+local features = require('config.features')
+
 return {
   'neovim/nvim-lspconfig',
   dependencies = {
@@ -9,19 +11,22 @@ return {
     local lspconfig = require('lspconfig')
 
     -- Extending lsp capabilities is required prior to nvim v0.11. Blink at
-    -- least does this automatically in that nvim version. I'm not sure about
+    -- least doesn't require this step in v0.11. I'm not sure about
     -- nvim-cmp.
-    local lspconfig_defaults = require('lspconfig').util.default_config
-    lspconfig_defaults.capabilities = vim.tbl_deep_extend(
-      'force',
-      lspconfig_defaults.capabilities,
-
-      -- for nvim-cmp
-      require('cmp_nvim_lsp').default_capabilities()
-
-      -- for blink.cmp
-      -- require('blink.cmp').get_lsp_capabilities()
-    )
+    local extraLspCapabilities = nil
+    if features.blink then
+      extraLspCapabilities = require('blink.cmp').get_lsp_capabilities()
+    elseif features.nvim_cmp then
+      extraLspCapabilities = require('cmp_nvim_lsp').default_capabilities()
+    end
+    if extraLspCapabilities then
+      local lspconfig_defaults = require('lspconfig').util.default_config
+      lspconfig_defaults.capabilities = vim.tbl_deep_extend(
+        'force',
+        lspconfig_defaults.capabilities,
+        extraLspCapabilities
+      )
+    end
 
     vim.diagnostic.config {
       signs = {

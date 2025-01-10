@@ -1,25 +1,15 @@
--- Recommended by avant.nvim - instead of having a status bar for each window
--- there is only one status bar.
-vim.opt.laststatus = 3
+local from_nixpkgs = require('config.util').from_nixpkgs
 
-return {
+return from_nixpkgs {
   'yetone/avante.nvim',
+  enabled = require('config.features').avante,
   event = 'VeryLazy',
-  lazy = false,
-  version = false, -- set this if you want to always pull the latest change
-  opts = {
-    -- add any opts here
-  },
-  -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
-  build = 'make',
   dependencies = {
     'stevearc/dressing.nvim',
     'nvim-lua/plenary.nvim',
     'MunifTanjim/nui.nvim',
     --- The below dependencies are optional,
-    'hrsh7th/nvim-cmp',            -- autocompletion for avante commands and mentions
-    'nvim-tree/nvim-web-devicons', -- or echasnovski/mini.icons
-    'zbirenbaum/copilot.lua',      -- for providers='copilot'
+    require('config.features').nvim_cmp and { 'hrsh7th/nvim-cmp' } or {}, -- autocompletion for avante commands and mentions
     {
       -- support for image pasting
       'HakonHarnes/img-clip.nvim',
@@ -38,5 +28,6 @@ return {
       },
     },
   },
+  opts = {
+  },
 }
-

@@ -1,6 +1,9 @@
+local enabled = require('config.features').copilot
+
 return {
   {
     'zbirenbaum/copilot.lua',
+    enabled = enabled,
     opts = {
       suggestion = { enabled = true },
       keymap = {
@@ -14,6 +17,7 @@ return {
   },
   {
     'zbirenbaum/copilot-cmp',
+    enabled = enabled,
     dependencies = { 'zbirenbaum/copilot.lua' },
     opts = {},
   }
