@@ -46,6 +46,10 @@ layout {
         inactive-color "#6e738d" // Overlay0 from Catppuccin Macchiato theme
     }
 
+    insert-hint {
+        color "#f5a97f80" // Peach from Catppuccin with reduced opacity
+    }
+
     preset-column-widths {
         proportion 0.25
         proportion 0.33333
@@ -116,7 +120,6 @@ layer-rule {
 binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
 
-    Mod+T { spawn "kitty"; }
     Mod+W { spawn "rofi" "-show" "drun"; }
     Mod+V { spawn "rofi" "-show" "window"; }
     Mod+Ctrl+L { spawn "loginctl" "lock-session"; }
@@ -142,6 +145,9 @@ binds {
     Mod+Shift+Down  { move-window-down; }
     Mod+Shift+Up    { move-window-up; }
     Mod+Shift+Right { move-column-right; }
+
+    Mod+T { switch-focus-between-floating-and-tiling; }
+    Mod+Shift+T { toggle-window-floating; }
 
     Mod+Home { focus-column-first; }
     Mod+End  { focus-column-last; }
