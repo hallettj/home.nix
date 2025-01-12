@@ -107,6 +107,12 @@ window-rule {
     open-fullscreen true
 }
 
+layer-rule {
+    match namespace="notification"
+    match namespace="swaync-control-center"
+    block-out-from "screencast"
+}
+
 binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
 
