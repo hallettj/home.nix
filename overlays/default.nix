@@ -35,9 +35,16 @@ rec {
     unstable = import inputs.nixpkgs-unstable {
       # Apply the same system, config, and overlays to 'pkgs.unstable' that are
       # applied to 'pkgs'
-      localSystem = final.buildPlatform.system;
-      crossSystem = final.hostPlatform.system;
       config = final.config;
+      # I'd rather use these settings instead of just setting `system`:
+      #
+      #     localSystem = final.buildPlatform.system;
+      #     crossSystem = final.hostPlatform.system;
+      #
+      # But when I do that nix rebuilds the entire stdenv when I try to install
+      # wine packages, and that fails due to this bug:
+      # https://github.com/NixOS/nixpkgs/issues/291271
+      system = final.system;
       overlays = [ additions modifications ];
     };
   } // (builtins.listToAttrs (builtins.map (pkg: { name = pkg; value = final.unstable.${pkg}; }) get-from-unstable));
