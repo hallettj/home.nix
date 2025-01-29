@@ -29,5 +29,10 @@ return from_nixpkgs {
     },
   },
   opts = {
+    mappings = {
+      sidebar = {
+        remove_file = 'X'
+      }
+    }
   },
 }
