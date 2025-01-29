@@ -26,7 +26,7 @@ in
 
           modules-left = [ "custom/niri-workspaces" "niri/window" ];
           modules-center = [ "clock" "custom/notification" ];
-          modules-right = [ "tray" ];
+          modules-right = [ "pulseaudio" "tray" ];
 
           clock = {
             format = "{:%a, %b %d  %H:%M}";
@@ -76,6 +76,27 @@ in
             exec = "swaync-client -swb";
             escape = true;
           } // notification-click-actions;
+
+          pulseaudio = {
+            format = "{volume}% {icon}";
+            format-bluetooth = "{volume}% {icon}";
+            format-muted = "";
+            format-icons = {
+              "alsa_output.pci-0000_00_1f.3.analog-stereo" = "";
+              "alsa_output.pci-0000_00_1f.3.analog-stereo-muted" = "";
+              headphone = "";
+              hands-free = "";
+              headset = "";
+              phone = "";
+              phone-muted = "";
+              portable = "";
+              car = "";
+              default = [ "" "" ];
+            };
+            scroll-step = 1;
+            on-click = "pavucontrol";
+            ignored-sinks = [ "Easy Effects Sink" ];
+          };
 
           tray.icon-size = 20;
         };
