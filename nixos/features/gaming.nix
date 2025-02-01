@@ -8,15 +8,24 @@
     enable32Bit = true;
   };
 
-  programs.steam.enable = true;
+  programs.steam = {
+    enable = true;
+    localNetworkGameTransfers.openFirewall = true;
+  };
   programs.gamescope.enable = true;
 
-  # Wrappeer program that applies settings to improve game performance
+  # Wrapper program that applies settings to improve game performance
   programs.gamemode.enable = true;
 
   environment.systemPackages = with pkgs; [
     bottles
-    mangohud # Wrapper command that shows system info overlayed over a game
+
+    (unstable.lutris.override {
+      extraPkgs = pkgs: [
+        pkgs.wineWowPackages.stagingFull
+        pkgs.winetricks
+      ];
+    })
 
     # Alternative Minecraft launcher. This is installed with a version of
     # openjdk that is compatible with Minecraft, and the launcher is run with
