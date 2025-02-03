@@ -82,8 +82,9 @@ in
             format-bluetooth = "{volume}% {icon}";
             format-muted = "";
             format-icons = {
-              "alsa_output.pci-0000_00_1f.3.analog-stereo" = "";
-              "alsa_output.pci-0000_00_1f.3.analog-stereo-muted" = "";
+              "alsa_output.usb-Kingston_HyperX_Virtual_Surround_Sound_00000000-00.analog-stereo" = ""; # HyperX headphone controller
+              "alsa_output.pci-0000_0c_00.1.hdmi-stereo" = ""; # Navi 31
+              "alsa_output.pci-0000_0e_00.4.iec958-stereo" = ""; # Starship/Matisse
               headphone = "";
               hands-free = "";
               headset = "";
