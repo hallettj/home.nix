@@ -9,7 +9,6 @@ let
   get-from-unstable = [
     "neovim"
     "neovim-unwrapped" # Home Manager uses unwrapped package
-    "nickel"
     "nls"
     "rust-analyzer"
   ];
@@ -48,12 +47,6 @@ rec {
       overlays = [ additions modifications ];
     };
   } // (builtins.listToAttrs (builtins.map (pkg: { name = pkg; value = final.unstable.${pkg}; }) get-from-unstable));
-
-  nickel = final: prev: {
-    nickel-lang-core = inputs.nickel.packages.${final.system}.nickel-lang-core;
-    nickel-lang-cli = inputs.nickel.packages.${final.system}.nickel-lang-cli;
-    nickel-lang-lsp = inputs.nickel.packages.${final.system}.nickel-lang-lsp;
-  };
 
   niri = inputs.niri.overlays.niri;
 }

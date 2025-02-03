@@ -54,7 +54,6 @@ return {
 
     lspconfig.bashls.setup {}
     lspconfig.jsonls.setup {}
-    lspconfig.nickel_ls.setup {}
     lspconfig.nushell.setup {}
     lspconfig.uiua.setup {}
 

@@ -8,7 +8,6 @@
     ./features/git
     ./features/gnome
     ./features/kitty
-    ./features/localsend
     ./features/neovim
     ./features/niri
     ./features/nushell

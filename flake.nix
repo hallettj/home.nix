@@ -13,12 +13,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # A better configuration language
-    nickel = {
-      url = "github:tweag/nickel";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     # Scrolling window manager
     niri = {
       url = "github:sodiboo/niri-flake";
