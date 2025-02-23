@@ -62,7 +62,6 @@
     sops
 
     # CLI
-    cli-ddn
     file
     jq
     fd
