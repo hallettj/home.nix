@@ -100,6 +100,14 @@ window-rule {
 }
 
 window-rule {
+    match is-window-cast-target=true
+    focus-ring {
+        active-color "#dd7878" // Maroon from Catppuccin Macchiato theme
+        inactive-color "#f0c6c6" // Flamingo from Catppuccin Macchiato theme
+    }
+}
+
+window-rule {
     match app-id="kitty"
     default-column-width { proportion 0.25; }
 }
