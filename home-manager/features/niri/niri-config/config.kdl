@@ -140,6 +140,7 @@ layer-rule {
 binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
 
+    Mod+Return hotkey-overlay-title="Spawn Terminal" { spawn "kitty"; }
     Mod+V hotkey-overlay-title="Launch apps or switch to open windows" { spawn "rofi" "-show" "combi" "-combi-modes" "window,drun"; }
     Mod+Ctrl+L hotkey-overlay-title="Lock Session" { spawn "loginctl" "lock-session"; }
     Mod+Slash hotkey-overlay-title="Show Notification Center" { spawn "swaync-client" "-t"; }
