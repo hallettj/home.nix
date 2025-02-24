@@ -1,0 +1,93 @@
+configuration {
+  terminal: "kitty";
+  font: "Cantarell 18";
+  show-icons: true;
+  combi-display-format: "{text}";
+  window-format: "{t}";
+  location: 0;
+  xoffset: 0;
+  yoffset: 0;
+}
+
+* {
+  // Catppuccin Macchiato colors
+  rosewater: #f4dbd6;
+  flamingo: #f0c6c6;
+  pink: #f5bde6;
+  mauve: #c6a0f6;
+  red: #ed8796;
+  maroon: #ee99a0;
+  peach: #f5a97f;
+  yellow: #eed49f;
+  green: #a6da95;
+  teal: #8bd5ca;
+  sky: #91d7e3;
+  sapphire: #7dc4e4;
+  blue: #8aadf4;
+  lavender: #b7bdf8;
+  text: #cad3f5;
+  subtext1: #b8c0e0;
+  subtext0: #a5adcb;
+  overlay2: #939ab7;
+  overlay1: #8087a2;
+  overlay0: #6e738d;
+  surface2: #5b6078;
+  surface1: #494d64;
+  surface0: #363a4f;
+  base: #24273a;
+  mantle: #1e2030;
+  crust: #181926;
+
+  selection-background: rgba(124, 127, 147, 30%); // overlay2 with opacity
+}
+
+window {
+  text-color: @text;
+  background-color: @base;
+  border: 4px;
+  border-color: @lavender;
+  border-radius: 4px;
+  padding: 0.5em;
+  width: 50em;
+}
+
+// Bar at the top of window containing prompt followed by entry
+inputbar {
+  children: [ prompt, textbox-prompt-colon, entry, case-indicator ];
+  background-color: @surface0;
+  padding: 0.2em;
+}
+
+// Filter text written by user
+entry {
+  text-color: @text;
+  placeholder-color: @overlay1;
+}
+
+// Text, usually the mode being shown
+prompt, textbox-prompt-colon, case-indicator {
+  text-color: @overlay1;
+}
+
+// A result row
+element {
+  padding: 0.2em;
+  spacing: 0.5em;
+}
+
+element.normal.normal, element.alternate.normal {
+  background-color: @base;
+  text-color: @text;
+}
+
+element.selected.normal {
+  background-color: @selection-background;
+  text-color: @text;
+}
+
+scrollbar {
+  handle-color: @blue;
+  handle-width: 0.15em;
+  background-color: @base;
+}
+
