@@ -122,10 +122,9 @@ layer-rule {
 binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
 
-    Mod+W { spawn "rofi" "-show" "drun"; }
-    Mod+V { spawn "rofi" "-show" "window"; }
-    Mod+Ctrl+L { spawn "loginctl" "lock-session"; }
-    Mod+Slash { spawn "swaync-client" "-t"; }
+    Mod+V hotkey-overlay-title="Launch apps or switch to open windows" { spawn "rofi" "-show" "combi" "-combi-modes" "window,drun"; }
+    Mod+Ctrl+L hotkey-overlay-title="Lock Session" { spawn "loginctl" "lock-session"; }
+    Mod+Slash hotkey-overlay-title="Show Notification Center" { spawn "swaync-client" "-t"; }
 
     XF86AudioPlay         allow-when-locked=true { spawn "playerctl" "play-pause"; }
     XF86AudioNext         { spawn "playerctl" "next"; }
