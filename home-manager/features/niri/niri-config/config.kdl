@@ -64,6 +64,15 @@ layout {
 
     gaps 8
     center-focused-column "never"
+
+    tab-indicator {
+        width 6
+        corner-radius 3
+        gaps-between-tabs 6
+        active-color "#f4dbd6" // rosewater
+        gap 8
+        place-within-column
+    }
 }
 
 cursor {
@@ -84,6 +93,10 @@ screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 hotkey-overlay {
     // Uncomment this line if you don't want to see the hotkey help at niri startup.
     skip-at-startup
+}
+
+window-rule {
+    geometry-corner-radius 2
 }
 
 window-rule {
@@ -184,6 +197,8 @@ binds {
 
     Mod+I { consume-window-into-column; }
     Mod+O { expel-window-from-column; }
+
+    Mod+W { toggle-column-tabbed-display; }
 
     Mod+R { switch-preset-column-width; }
     Mod+F { maximize-column; }
