@@ -116,12 +116,6 @@ window-rule {
 }
 
 window-rule {
-    match app-id="org.freedesktop.Xwayland"
-    default-column-width { proportion 0.33; }
-    block-out-from "screen-capture"
-}
-
-window-rule {
     match app-id="gamescope"
     open-fullscreen true
 }
