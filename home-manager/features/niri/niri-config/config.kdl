@@ -65,6 +65,8 @@ layout {
     gaps 8
     center-focused-column "never"
 
+    default-column-display "tabbed"
+
     tab-indicator {
         width 6
         corner-radius 3
@@ -72,6 +74,7 @@ layout {
         active-color "#f4dbd6" // rosewater
         gap 8
         place-within-column
+        hide-when-single-tab
     }
 }
 
