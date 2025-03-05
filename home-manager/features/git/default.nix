@@ -26,14 +26,39 @@ in
     ignores = [ "*.swo" "*.swp" ];
 
     extraConfig = {
-      user.useConfigOnly = true;
-      push.default = "simple";
-      pull.ff = "only";
+      column.ui = "auto"; # columns display for status, branches, tags
+      branch.sort = "-committerdate";
       core = {
         pager = "less -FR";
         autocrlf = "input";
         editor = "nvim";
       };
+      color.diff = {
+        oldMoved = "magenta";
+        oldMovedAlternative = "#ea76cb"; # pink
+        newMoved = "cyan";
+        newMovedAlternative = "#179299"; # teal
+      };
+      diff = {
+        algorithm = "histogram";
+        colorMoved = "zebra"; # highlight moved lines with distinct colors for adjacent blocks moved to/from different places
+        mnemonicPrefix = true; # replace a/ b/ in diffs with initials for index, worktree, commit
+        renames = true; # turn on file rename detection
+      };
+      fetch = {
+        prune = true; # delete origin/ branch pointers locally when upstream branches are removed
+        pruneTags = true; # same for tags
+        all = true; # apply pruning to all branches
+      };
+      init.defaultBranch = "main";
+      merge.conflictstyle = "zdiff3"; # three-way conflict markers instead of two-way
+      push = {
+        default = "simple";
+        followTags = true; # automatically push tags, like `push --tags`
+      };
+      pull.ff = "only";
+      tag.sort = "version:refname"; # sorts semver strings
+      user.useConfigOnly = true;
 
       # Settings given in difftastic manual https://difftastic.wilfred.me.uk/git.html
       diff.external = "${difft} --display side-by-side";
@@ -42,13 +67,14 @@ in
       "difftool \"difftastic\"".cmd = ''${difft} "$LOCAL" "$REMOTE"'';
       pager.difftool = true;
 
-      rebase.autosquash = true;
+      rebase = {
+        autosquash = true; # automatically squash fixups, etc.
+        updateRefs = true; # force-update branch pointers to rebased commits
+      };
       rerere = {
+        # record rebase conflict solutions to re-apply if needed
         enabled = true;
         autoupdate = true;
-      };
-      init = {
-        defaultBranch = "main";
       };
     };
   };
