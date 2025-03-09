@@ -47,7 +47,6 @@ in
       };
       fetch = {
         prune = true; # delete origin/ branch pointers locally when upstream branches are removed
-        pruneTags = true; # same for tags
         all = true; # apply pruning to all branches
       };
       init.defaultBranch = "main";
