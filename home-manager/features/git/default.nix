@@ -68,7 +68,6 @@ in
 
       rebase = {
         autosquash = true; # automatically squash fixups, etc.
-        updateRefs = true; # force-update branch pointers to rebased commits
       };
       rerere = {
         # record rebase conflict solutions to re-apply if needed
