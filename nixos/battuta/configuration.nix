@@ -10,6 +10,7 @@
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ../common.nix
+      ../features/docker.nix
       ../features/gaming.nix
     ];
 
@@ -21,8 +22,6 @@
   boot.kernelParams = ["mem_sleep_default=deep"];
 
   networking.hostName = "battuta";
-
-  virtualisation.docker.enable = true;
 
   # Support automatic screen rotation & ambient light adjustment in Gnome.
   hardware.sensor.iio.enable = true;

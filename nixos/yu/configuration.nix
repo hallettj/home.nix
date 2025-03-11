@@ -10,14 +10,13 @@
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ../common.nix
+      ../features/docker.nix
       ../features/gaming.nix
       ../features/vpn
     ];
 
   networking.hostName = "yu"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-  virtualisation.docker.enable = true;
 
   services.clamav = {
     daemon.enable = true;
