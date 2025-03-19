@@ -25,4 +25,7 @@
   };
 
   services.avahi.enable = true;
+
+  programs.wireshark.enable = true;
+  users.users.jesse.extraGroups = [ "wireshark" ];
 }
