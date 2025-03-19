@@ -50,12 +50,14 @@ in
       python3
 
       # language servers
+      basedpyright # Python LSP server
       deno
       lua-language-server
       nil # Nix LSP
       nodePackages.bash-language-server
       nodePackages.typescript-language-server
       ormolu # formatting for haskell files
+      ruff # another Python LSP server that provides formatting
       shellcheck # called by bash-language-server
 
       # Rust support

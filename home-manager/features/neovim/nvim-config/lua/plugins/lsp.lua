@@ -90,6 +90,14 @@ return {
       }
     }
 
+    -- Python
+    lspconfig.basedpyright.setup {} -- python LSP
+    lspconfig.ruff.setup {          -- formatter
+      init_options = {
+        settings = { lint = { enable = false } },
+      }
+    } -- python formatting and linting
+
     -- Configuration to make lsp-inlayhints.nvim work with TypeScript
     local ts_ls = {
       inlayHints = {
