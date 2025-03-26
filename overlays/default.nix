@@ -7,6 +7,8 @@ let
 
   # Get these packages from unstable by default
   get-from-unstable = [
+    "_1password-gui"
+    "_1password-cli"
     "neovim"
     "neovim-unwrapped" # Home Manager uses unwrapped package
     "nls"
