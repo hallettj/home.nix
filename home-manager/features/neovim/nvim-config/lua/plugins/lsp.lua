@@ -121,9 +121,9 @@ return {
     -- The simplest way to switch between denols and tsserver is to disable
     -- autostart, and start them manually. Run `:LspStart denols` or `:LspStart
     -- tsserver`
-    lspconfig.denols.setup { autostart = true }
+    lspconfig.denols.setup { autostart = false }
     lspconfig.ts_ls.setup {
-      autostart = false,
+      autostart = true,
       settings = {
         typescript = ts_ls,
         javascript = ts_ls,
