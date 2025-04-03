@@ -38,7 +38,6 @@
     gimp-with-plugins
     google-chrome
     inkscape-with-extensions
-    masterpdfeditor
     obsidian
     pavucontrol
     signal-desktop
