@@ -91,8 +91,15 @@ return {
     }
 
     -- Python
-    lspconfig.basedpyright.setup {} -- python LSP
-    lspconfig.ruff.setup {          -- formatter
+    lspconfig.basedpyright.setup {
+      on_new_config = function(new_config, new_root_dir)
+        local python_path = vim.fs.joinpath(new_root_dir, '.venv/bin/python')
+        if vim.fn.filereadable(python_path) ~= 0 then
+          new_config.settings.python = { pythonPath = python_path }
+        end
+      end,
+    }
+    lspconfig.ruff.setup { -- formatter
       init_options = {
         settings = { lint = { enable = false } },
       }
