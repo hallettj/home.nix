@@ -15,16 +15,20 @@ return {
   'saecki/crates.nvim',
   dependencies = {
     { 'nvim-lua/plenary.nvim' },
-    { 'jose-elias-alvarez/null-ls.nvim' },
     features.nvim_cmp and { 'hrsh7th/nvim-cmp' } or {},
   },
   config = function()
     local crates = require('crates')
 
     crates.setup {
-      null_ls = {
+      completion = {
+        cmp = { enabled = true },
+      },
+      lsp = {
         enabled = true,
-        name = 'crates.nvim',
+        actions = true,
+        completion = true,
+        hover = true,
       },
     }
 

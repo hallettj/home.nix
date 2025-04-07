@@ -61,15 +61,6 @@ return {
     -- We don't set up rust_analyzer in any of these steps because it is set up
     -- by rustaceanvim instead.
 
-    lspconfig.hls.setup {
-      -- Disable formatting for hls - we want to be able to specify a specific
-      -- version of ormolu which is easier to do with null-ls.
-      on_attach = function(client)
-        client.server_capabilities.documentFormattingProvider = false
-        client.server_capabilities.documentRangeFormattingProvider = false
-      end,
-    }
-
     lspconfig.lua_ls.setup {
       settings = {
         Lua = {
