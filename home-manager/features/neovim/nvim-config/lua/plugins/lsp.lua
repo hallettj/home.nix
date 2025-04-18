@@ -82,14 +82,42 @@ return {
     }
 
     -- Python
-    lspconfig.basedpyright.setup {
-      on_new_config = function(new_config, new_root_dir)
-        local python_path = vim.fs.joinpath(new_root_dir, '.venv/bin/python')
-        if vim.fn.filereadable(python_path) ~= 0 then
-          new_config.settings.python = { pythonPath = python_path }
+    local original_basedpyright_on_attach = vim.lsp.config['basedpyright'].on_attach
+    vim.lsp.config('basedpyright', {
+      on_attach = function(client, bufnr)
+        if original_basedpyright_on_attach then
+          original_basedpyright_on_attach(client, bufnr)
+        end
+
+        local buffer_dir = vim.fn.expand('%:p:h')
+        local home_dir = vim.fn.expand('~')
+
+        local repo_root = vim.fs.find(
+          { '.git' },
+          { path = buffer_dir, upward = true, stop = home_dir, limit = 1 }
+        )[1]
+        local stop_dir
+        if repo_root == nil then
+          stop_dir = home_dir
+        else
+          stop_dir = repo_root
+        end
+
+        local venv = vim.fs.find({ '.venv' }, { path = buffer_dir, upward = true, stop = stop_dir, limit = 1 })[1]
+
+        if venv ~= nil then
+          local python_path = vim.fs.joinpath(venv, 'bin/python')
+          if vim.fn.filereadable(python_path) ~= 0 then
+            client.config.settings.python = vim.tbl_deep_extend('force',
+              client.config.settings.python or {},
+              { pythonPath = python_path }
+            )
+            client.notify('workspace/didChangeConfiguration', { settings = { python = client.config.settings.python } })
+          end
         end
       end,
-    }
+    })
+    vim.lsp.enable('basedpyright')
     lspconfig.ruff.setup { -- formatter
       init_options = {
         settings = { lint = { enable = false } },

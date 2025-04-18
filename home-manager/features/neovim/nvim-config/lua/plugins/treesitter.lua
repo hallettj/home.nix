@@ -22,7 +22,7 @@ return {
     },
   },
   { 'nvim-treesitter/nvim-treesitter-textobjects' },
-  { 'RRethy/nvim-treesitter-textsubjects' },
+  -- { 'RRethy/nvim-treesitter-textsubjects' },
   { 'nvim-treesitter/nvim-treesitter-refactor' },
 
   -- Shows lines with containing function, struct, etc. if that would otherwise
