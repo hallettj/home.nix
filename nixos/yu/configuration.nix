@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ pkgs, ... }:
+{ ... }:
 
 {
   imports =
@@ -25,7 +25,4 @@
   };
 
   services.avahi.enable = true;
-
-  programs.wireshark.enable = true;
-  users.users.jesse.extraGroups = [ "wireshark" ];
 }
