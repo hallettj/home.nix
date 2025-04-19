@@ -7,7 +7,11 @@
 
 input {
     keyboard {
-        xkb { }
+        xkb {
+            layout "us"
+            // variant "dvorak"
+            options "compose:ralt,ctrl:nocaps"
+        }
     }
 
     touchpad {
@@ -37,6 +41,7 @@ output "DP-1" {
 output "eDP-1" {
     scale 1.0
     background-color "#363a4f" // Catppuccin surface0
+    // transform "180"
 }
 
 layout {
