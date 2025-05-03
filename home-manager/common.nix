@@ -38,6 +38,7 @@
     gimp-with-plugins
     google-chrome
     inkscape-with-extensions
+    mission-center
     obsidian
     pavucontrol
     signal-desktop
