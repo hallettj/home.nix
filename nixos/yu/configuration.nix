@@ -18,11 +18,5 @@
   networking.hostName = "yu"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
-  services.clamav = {
-    daemon.enable = true;
-    updater.enable = true;
-    updater.interval = "daily";
-  };
-
   services.avahi.enable = true;
 }
