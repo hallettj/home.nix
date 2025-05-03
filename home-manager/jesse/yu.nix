@@ -20,6 +20,8 @@
   '';
 
   home.packages = with pkgs; [
+    gparted
+    parted
     shotcut
   ];
 }
