@@ -11,6 +11,7 @@ let
     "_1password-cli"
     "neovim"
     "neovim-unwrapped" # Home Manager uses unwrapped package
+    "wrapNeovimUnstable" # Home Manager calls this in its neovim module
     "nls"
     "rust-analyzer"
   ];
