@@ -5,6 +5,7 @@
     ./features/_1password.nix
     ./features/cachix
     ./features/claude-anthropic
+    ./features/determinate.nix
     ./features/fonts
     ./features/garnix
     ./features/niri.nix

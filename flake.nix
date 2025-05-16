@@ -13,6 +13,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    determinate-nix.url = "https://flakehub.com/f/DeterminateSystems/nix-src/*";
+
     # Scrolling window manager
     niri = {
       url = "github:sodiboo/niri-flake";
