@@ -8,7 +8,7 @@ local workspaces = {
 }
 
 return {
-  'epwalsh/obsidian.nvim',
+  'obsidian-nvim/obsidian.nvim',
   dependencies = {
     -- required
     'nvim-lua/plenary.nvim',
