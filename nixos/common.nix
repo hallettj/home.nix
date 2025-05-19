@@ -121,7 +121,7 @@
     # Be sure to change it (using passwd) after rebooting!
     initialPassword = "howmuchisthefish";
     isNormalUser = true;
-    description = "Jeses Hallett";
+    description = "Jesse Hallett";
     shell = pkgs.zsh;
     extraGroups = [
       "networkmanager"
