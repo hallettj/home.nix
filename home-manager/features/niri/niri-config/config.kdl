@@ -49,6 +49,7 @@ layout {
         width 4
         active-color "#b7bdf8" // Lavender from Catppuccin Macchiato theme
         inactive-color "#6e738d" // Overlay0 from Catppuccin Macchiato theme
+        urgent-color "#f5bde6" // Catppuccin pink
     }
 
     insert-hint {
@@ -77,10 +78,15 @@ layout {
         corner-radius 3
         gaps-between-tabs 6
         active-color "#f4dbd6" // rosewater
+        urgent-color "#f5bde6" // Catppuccin pink
         gap 8
         place-within-column
         hide-when-single-tab
     }
+}
+
+overview {
+    backdrop-color "#1e2030" // Catppuccin mantle
 }
 
 cursor {
@@ -153,6 +159,7 @@ binds {
     Mod+V hotkey-overlay-title="Launch apps or switch to open windows" { spawn "rofi" "-show" "combi" "-combi-modes" "window,drun"; }
     Mod+Ctrl+L hotkey-overlay-title="Lock Session" { spawn "loginctl" "lock-session"; }
     Mod+Slash hotkey-overlay-title="Show Notification Center" { spawn "swaync-client" "-t"; }
+    Mod+O repeat=false { toggle-overview; }
 
     XF86AudioPlay         allow-when-locked=true { spawn "playerctl" "play-pause"; }
     XF86AudioNext         { spawn "playerctl" "next"; }
@@ -210,14 +217,18 @@ binds {
     Mod+Shift+8 { move-column-to-workspace 8; }
     Mod+Shift+9 { move-column-to-workspace 9; }
 
-    Mod+I { consume-window-into-column; }
-    Mod+O { expel-window-from-column; }
+    // The following binds move the focused window in and out of a column.
+    // If the window is alone, they will consume it into the nearby column to the side.
+    // If the window is already in a column, they will expel it out.
+    Mod+BracketLeft  { consume-or-expel-window-left; }
+    Mod+BracketRight { consume-or-expel-window-right; }
 
     Mod+W { toggle-column-tabbed-display; }
 
     Mod+R { switch-preset-column-width; }
     Mod+F { maximize-column; }
     Mod+Shift+F { fullscreen-window; }
+    Mod+Ctrl+Shift+F { toggle-windowed-fullscreen; }
     Mod+M { center-column; }
 
     Mod+4 { set-column-width "25%"; }
@@ -235,6 +246,9 @@ binds {
     Print { screenshot; }
     Ctrl+Print { screenshot-screen; }
     Alt+Print { screenshot-window; }
+
+    Mod+C { set-dynamic-cast-window; }
+    Mod+Shift+C { clear-dynamic-cast-target; }
 
     Mod+Shift+E { quit; }
     Mod+Shift+P { power-off-monitors; }
