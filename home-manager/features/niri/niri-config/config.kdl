@@ -170,7 +170,7 @@ binds {
     XF86MonBrightnessUp   { spawn "swayosd-client" "--brightness" "+5"; }
     XF86MonBrightnessDown { spawn "swayosd-client" "--brightness" "-5"; }
 
-    Mod+Backspace { close-window; }
+    Mod+Delete { close-window; }
 
     Mod+Left  { focus-column-left; }
     Mod+Down  { focus-window-down; }
