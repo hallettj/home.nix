@@ -85,6 +85,12 @@ layout {
 
 cursor {
     hide-when-typing
+
+    // After upgrading to NixOS 25.05 and Niri v25.05 I stopped seeing the
+    // cursor change shape until I set a theme here explicitly. I was seeing the
+    // arrow all the time - the cursor wouldn't change to, e.g., a beam or hand.
+    xcursor-size 34
+    xcursor-theme "Adwaita"
 }
 
 environment {
