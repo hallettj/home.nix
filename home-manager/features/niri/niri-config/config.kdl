@@ -84,9 +84,7 @@ layout {
 }
 
 cursor {
-    // I disabled hide-when-typing because it causes the character view to jump down
-    // every time I press a key and move the mouse at the same time in Overwatch
-    // when running wine in native Wayland mode.
+    hide-when-typing
 }
 
 environment {
