@@ -69,16 +69,7 @@ in
   };
 
   services.blueman-applet.enable = true;
-  systemd.user.services.blueman-applet.Install = lib.mkForce {
-    # Replace "graphical-session.target" so that this only starts when Niri starts.
-    WantedBy = [ "tray.target" ];
-  };
-
   services.network-manager-applet.enable = true;
-  systemd.user.services.network-manager-applet.Install = lib.mkForce {
-    # Replace "graphical-session.target" so that this only starts when Niri starts.
-    WantedBy = [ "tray.target" ];
-  };
 
   # Use Gnome Keyring as SSH agent
   services.gnome-keyring = {
