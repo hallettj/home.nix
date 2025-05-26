@@ -21,7 +21,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.niri-stable.follows = "niri-stable";
     };
-    niri-stable.url = "github:YaLTeR/niri/v25.02";
+    niri-stable.url = "github:YaLTeR/niri/v25.05.1";
 
     # Manages version-controlled, encrypted secrets
     sops-nix = {
