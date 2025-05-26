@@ -1,10 +1,6 @@
 # This file defines overlays
 { inputs, ... }:
 let
-  patch = pkg: patches: pkg.overrideAttrs (oldAttrs: {
-    patches = (oldAttrs.patches or [ ]) ++ patches;
-  });
-
   # Get these packages from unstable by default
   get-from-unstable = [
     "_1password-gui"
@@ -23,9 +19,7 @@ rec {
   # This one contains whatever you want to overlay
   # You can change versions, add patches, set compilation flags, anything really.
   # https://nixos.wiki/wiki/Overlays
-  modifications = final: prev: {
-    neovide = patch prev.neovide [ ./neovide-font-customization.patch ];
-  };
+  modifications = final: prev: { };
 
   # When applied, the unstable nixpkgs set (declared in the flake inputs) will
   # be accessible through 'pkgs.unstable'
