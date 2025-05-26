@@ -10,7 +10,7 @@ in
       enable = true;
       zplugHome = "${config.xdg.cacheHome}/zplug";
     };
-    initExtra = ''
+    initContent = ''
       # Use Solarized theme colors for directory listings
       [[ -s "$HOME/.dircolors" ]] && eval `dircolors "$HOME/.dircolors"`
 

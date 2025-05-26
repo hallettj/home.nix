@@ -21,7 +21,7 @@
     username = lib.mkDefault "jesse";
     homeDirectory = lib.mkDefault "/home/jesse";
     sessionVariables = {
-      FLAKE = flakePath config;
+      NH_FLAKE = flakePath config;
     };
     stateVersion = "23.05"; # Please read the comment before changing.
     enableNixpkgsReleaseCheck = true;
@@ -95,7 +95,7 @@
 
   services.gpg-agent = {
     enable = true;
-    pinentryPackage = pkgs.pinentry-gnome3;
+    pinentry.package = pkgs.pinentry-gnome3;
   };
 
   # Nicely reload system units when changing configs

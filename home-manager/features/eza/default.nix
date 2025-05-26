@@ -8,7 +8,7 @@
     alias ls = ${pkgs.eza}/bin/eza
   '';
 
-  programs.zsh.initExtra = ''
+  programs.zsh.initContent = ''
     # Alias ls to eza
     alias ls="${pkgs.eza}/bin/eza"
   '';

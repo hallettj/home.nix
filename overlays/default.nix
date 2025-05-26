@@ -3,12 +3,9 @@
 let
   # Get these packages from unstable by default
   get-from-unstable = [
-    "_1password-gui"
-    "_1password-cli"
-    "neovim"
-    "neovim-unwrapped" # Home Manager uses unwrapped package
-    "wrapNeovimUnstable" # Home Manager calls this in its neovim module
-    "nls"
+    # "neovim"
+    # "neovim-unwrapped" # Home Manager uses unwrapped package
+    # "wrapNeovimUnstable" # Home Manager calls this in its neovim module
     "rust-analyzer"
   ];
 in
