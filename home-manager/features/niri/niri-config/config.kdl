@@ -71,7 +71,7 @@ layout {
     gaps 8
     center-focused-column "never"
 
-    default-column-display "tabbed"
+    default-column-display "normal"
 
     tab-indicator {
         width 6
@@ -123,6 +123,11 @@ window-rule {
         active-color "#dd7878" // Maroon from Catppuccin Macchiato theme
         inactive-color "#f0c6c6" // Flamingo from Catppuccin Macchiato theme
     }
+}
+
+window-rule {
+    match app-id="firefox"
+    default-column-width { proportion 0.5; }
 }
 
 window-rule {
