@@ -242,3 +242,7 @@ def schemas [] {
     get fields |
     each {|it| { validator: ($it.validator | from json), table_info: ($it.table_info | from json) } }
 }
+
+# 1Password AWS plugin integration
+$env.OP_PLUGIN_ALIASES_SOURCED = 1
+alias aws = op plugin run -- aws
