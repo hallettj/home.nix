@@ -2,14 +2,7 @@
 
 let
   dir = "${flakePath config}/home-manager/features/nushell";
-
   nu_scripts = pkgs.nu_scripts;
-  use_completions = cmds:
-    let
-      imports =
-        builtins.map (cmd: "use ${nu_scripts}/share/nu_scripts/custom-completions/${cmd}/${cmd}-completions.nu *") cmds;
-    in
-    builtins.concatStringsSep "\n" imports;
 in
 {
   programs.nushell = {
@@ -17,29 +10,16 @@ in
     package = pkgs.nushell;
     envFile.text = "source ${dir}/env.nu";
     configFile.text = ''
-      ${use_completions [
-        "cargo"
-        "curl"
-        "bat"
-        "docker"
-        "eza"
-        "git"
-        "just"
-        "less"
-        "make"
-        "man"
-        "nix"
-        "npm"
-        "rg"
-        "tar"
-      ]}
-      use ${nu_scripts}/share/nu_scripts/custom-completions/yarn/yarn-v4-completions.nu *
-
       use ${nu_scripts}/share/nu_scripts/modules/filesystem/expand.nu
       use ${nu_scripts}/share/nu_scripts/modules/nix/nix.nu *
 
       source ${dir}/config.nu
     '';
+  };
+
+  programs.carapace = {
+    enable = true;
+    enableNushellIntegration = true;
   };
 
   # Change directories with fuzzy search
