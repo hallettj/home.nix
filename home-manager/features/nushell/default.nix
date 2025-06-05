@@ -13,11 +13,21 @@ in
       use ${nu_scripts}/share/nu_scripts/modules/filesystem/expand.nu
       use ${nu_scripts}/share/nu_scripts/modules/nix/nix.nu *
 
+      # Eza integration will alias ls, but I want to keep a reference to nu's
+      # internal table-outputting ls under a different alias.
+      alias nuls = ls
+
       source ${dir}/config.nu
     '';
   };
 
   programs.carapace = {
+    enable = true;
+    enableNushellIntegration = true;
+  };
+
+  # Replacement for ls
+  programs.eza = {
     enable = true;
     enableNushellIntegration = true;
   };

@@ -35,6 +35,12 @@ in
     inputrc = { source = link "home/.inputrc"; target = ".inputrc"; };
   };
 
+  # Replacement for ls
+  programs.eza = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+
   home.packages = with pkgs; [
     fd
     fzf

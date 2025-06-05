@@ -3,7 +3,6 @@
 {
   imports = [
     inputs.nix-index-database.hmModules.nix-index
-    ./features/eza
     ./features/firefox
     ./features/git
     ./features/gnome
