@@ -8,13 +8,9 @@ in
 {
   imports = lib.mapAttrsToList toImport (lib.filterAttrs filterCaches (builtins.readDir folder));
 
-  nix.settings = {
-    substituters = [ "https://cache.nixos.org/" ];
-
-    # netrc contains passwords to access private binary caches - see the line
-    # below that sets content for that file from sops secrets
-    netrc-file = [ "/etc/nix/netrc" ];
-  };
+  # netrc contains passwords to access private binary caches - see the line
+  # below that sets content for that file from sops secrets
+  nix.settings.netrc-file = [ "/etc/nix/netrc" ];
 
   environment.etc = {
     "nix/netrc" = {
