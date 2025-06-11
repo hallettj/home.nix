@@ -104,18 +104,15 @@
       # Standalone home-manager configuration entrypoint
       # Available through 'home-manager --flake .#your-username@your-hostname'
       homeConfigurations = {
-        # Currently my home manager configurations are set up through nixos (see
-        # nixosConfigurations). But standalone configurations for non-nixos
-        # systems can be set up like this:
-
-        # "jesse@yu" = home-manager.lib.homeManagerConfiguration {
-        #   inherit extraSpecialArgs;
-        #   pkgs = pkgs "x86_64-linux"; # Home-manager requires 'pkgs' instance
-        #   modules = [
-        #     # > Our main home-manager configuration file <
-        #     ./home-manager/jesse/yu.nix
-        #   ];
-        # };
+        # Standalone home manager configurations for machines that don't run
+        # NixOS go here.
+        "jesse@varian" = home-manager.lib.homeManagerConfiguration {
+          inherit extraSpecialArgs;
+          pkgs = pkgs "x86_64-linux"; # Home-manager requires 'pkgs' instance
+          modules = [
+            ./home-manager/jesse/varian.nix
+          ];
+        };
       };
     };
 }
