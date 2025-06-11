@@ -19,4 +19,7 @@
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   services.avahi.enable = true;
+
+  virtualisation.virtualbox.host.enable = true;
+  users.extraGroups.vboxusers.members = [ "jesse" ];
 }
