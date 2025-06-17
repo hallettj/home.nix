@@ -13,7 +13,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    determinate-nix.url = "https://flakehub.com/f/DeterminateSystems/nix-src/*";
+    determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
 
     # Scrolling window manager
     niri = {
@@ -36,7 +36,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, systems, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, systems, determinate, ... }@inputs:
     let
       inherit (self) outputs;
       perSystem = callback: nixpkgs.lib.genAttrs (import systems) (system: callback (pkgs system));
