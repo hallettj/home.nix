@@ -105,8 +105,6 @@
       # Standalone home-manager configuration entrypoint
       # Available through 'home-manager --flake .#your-username@your-hostname'
       homeConfigurations = {
-        # Standalone home manager configurations for machines that don't run
-        # NixOS go here.
         "jesse@varian" = home-manager.lib.homeManagerConfiguration {
           inherit extraSpecialArgs;
           pkgs = pkgs "x86_64-linux"; # Home-manager requires 'pkgs' instance

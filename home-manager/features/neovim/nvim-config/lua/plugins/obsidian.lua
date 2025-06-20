@@ -7,8 +7,13 @@ local workspaces = {
   { name = 'Hasura',   path = '~/Documents/Hasura' },
 }
 
+workspaces = vim.tbl_filter(function(workspace)
+  return vim.fn.isdirectory(vim.fn.expand(workspace.path)) == 1
+end, workspaces)
+
 return {
   'obsidian-nvim/obsidian.nvim',
+  enabled = #workspaces > 0,
   dependencies = {
     -- required
     'nvim-lua/plenary.nvim',
@@ -19,7 +24,7 @@ return {
   },
   lazy = false,
   keys = {
-    { '<c-enter>', vim.cmd.ObsidianFollowLink, desc = 'follow a wiki link' },
+    { '<c-enter>',  vim.cmd.ObsidianFollowLink,  desc = 'follow a wiki link' },
     { '<leader>fn', vim.cmd.ObsidianQuickSwitch, desc = 'open an Obsidian note' },
   },
   config = function()
