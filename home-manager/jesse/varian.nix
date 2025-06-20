@@ -27,7 +27,7 @@
 #
 # Install PAM config
 #
-#     sudo ln -s /home/jesse/.nix-profile/etc/pam.d/swaylock /etc/pam.d/
+#     sudo cp /home/jesse/.nix-profile/etc/pam.d/swaylock /etc/pam.d/
 #
 # The nixpkgs version of swaylock assumes a password-checking program is
 # available at /run/wrappers/bin/unix_chkpwd, but on Fedora that program is at
