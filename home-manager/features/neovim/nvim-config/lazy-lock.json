@@ -56,7 +56,7 @@
   "sibling-swap.nvim": { "branch": "main", "commit": "4d3b8a9d80a8b3c8d76e74c2bdd13b6e7c4f8258" },
   "smart-open.nvim": { "branch": "0.2.x", "commit": "560d8f16e17977c8303db6f9660db58a4415ca41" },
   "sqlite.lua": { "branch": "master", "commit": "50092d60feb242602d7578398c6eb53b4a8ffe7b" },
-  "telepath.nvim": { "branch": "main", "commit": "cbaa8313041bda76d73efee9f23396a1d1a3f89a" },
+  "telepath.nvim": { "branch": "master", "commit": "cbaa8313041bda76d73efee9f23396a1d1a3f89a" },
   "telescope-fzf-native.nvim": { "branch": "main", "commit": "1f08ed60cafc8f6168b72b80be2b2ea149813e55" },
   "telescope-fzy-native.nvim": { "branch": "master", "commit": "282f069504515eec762ab6d6c89903377252bf5b" },
   "telescope-zoxide": { "branch": "main", "commit": "54bfe630bad08dc9891ec78c7cf8db38dd725c97" },
