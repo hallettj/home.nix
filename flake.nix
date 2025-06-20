@@ -43,6 +43,7 @@
       flakePath = config: "${config.home.homeDirectory}/Documents/NixConfig";
       pkgs = system: import nixpkgs {
         inherit system;
+        config.allowUnfree = true;
         overlays = builtins.attrValues self.overlays;
       };
       extraSpecialArgs = { inherit flakePath inputs outputs; };

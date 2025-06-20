@@ -79,6 +79,10 @@
     vorta
   ];
 
+  # In addition to managing Bash this creates ~/.profile which loads
+  # home.sessionVariables on non-NixOS systems
+  programs.bash.enable = true;
+
   programs.direnv = {
     enable = true;
     nix-direnv.enable = true;
