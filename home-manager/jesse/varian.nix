@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
   imports = [
@@ -14,6 +14,11 @@
   programs.kitty.extraConfig = ''
     font_size 12.0
   '';
+
+  fonts.fontconfig.enable = true;
+  home.packages = with pkgs; [
+    nerd-fonts.symbols-only
+  ];
 }
 
 # This configuration runs on a non-NixOS host which means there are some
@@ -23,7 +28,9 @@
 #
 # Install Cartograph CF font in ~/.local/share/fonts/
 #
-# Special setup for swaylock:
+# Install system blueman-applet
+#
+# ## Special setup for swaylock:
 #
 # Install PAM config
 #
