@@ -40,7 +40,6 @@
     mission-center
     obsidian
     pavucontrol
-    signal-desktop
     slack
     transmission_4-gtk
     write_stylus
