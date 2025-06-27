@@ -12,6 +12,7 @@ return {
       { '<leader>fg', function() require('telescope.builtin').live_grep() end,             desc = 'live grep' },
       { '<leader>fh', function() require('telescope.builtin').help_tags() end,             desc = 'search help tags' },
       { '<leader>fC', function() require('telescope.builtin').colorscheme() end,           desc = 'pick color scheme' },
+      { '<leader>fr', function() require('telescope.builtin').resume() end,                desc = 'resume last search' },
       { '<leader>fs', function() require('telescope.builtin').lsp_document_symbols() end,  desc = 'search document symbols' },
       { '<leader>fS', function() require('telescope.builtin').lsp_workspace_symbols() end, desc = 'search workspace symbols' },
     },
