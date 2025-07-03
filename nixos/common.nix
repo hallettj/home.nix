@@ -155,7 +155,7 @@
 
   # List services that you want to enable:
 
-  # Avahi is enabled by default, but nssmdns is not
+  services.avahi.enable = true;
   services.avahi.nssmdns4 = true;
 
   # Open ports in the firewall.
