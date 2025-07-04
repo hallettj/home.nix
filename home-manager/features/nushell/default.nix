@@ -3,6 +3,7 @@
 let
   dir = "${flakePath config}/home-manager/features/nushell";
   nu_scripts = pkgs.nu_scripts;
+  nuModule = pkgs.callPackage ./writeNushellModule.nix { };
 in
 {
   programs.nushell = {
@@ -17,6 +18,8 @@ in
       # internal table-outputting ls under a different alias.
       alias nuls = ls
 
+      use ${nuModule ./nushell-modules/boot-to.nu}
+      use ${nuModule ./nushell-modules/webcam-temp.nu}
       source ${dir}/config.nu
     '';
   };
@@ -50,4 +53,9 @@ in
     end
     return module
   '';
+
+  home.packages = with pkgs; [
+    efibootmgr # for boot-to script
+    v4l-utils # for webcam temperature control
+  ];
 }
