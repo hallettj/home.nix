@@ -34,6 +34,8 @@
       url = "github:Mic92/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    ddn-cli-nix.url = "github:hasura/ddn-cli-nix";
   };
 
   outputs = { self, nixpkgs, home-manager, systems, determinate, ... }@inputs:

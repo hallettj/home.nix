@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 
 {
   imports = [
@@ -18,6 +18,7 @@
   fonts.fontconfig.enable = true;
   home.packages = with pkgs; [
     nerd-fonts.symbols-only
+    inputs.ddn-cli-nix.packages.${pkgs.system}.default
   ];
 }
 
