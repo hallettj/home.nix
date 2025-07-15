@@ -59,6 +59,10 @@ in
       ruff # another Python LSP server that provides formatting
       shellcheck # called by bash-language-server
 
+      # formatters
+      black # python code formatter
+      isort # python import sorter
+
       # Rust support
       lldb # debug adapter
       graphviz # to render crate graphs from rustaceanvim

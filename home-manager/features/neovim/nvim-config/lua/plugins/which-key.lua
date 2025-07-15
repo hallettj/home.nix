@@ -91,6 +91,14 @@ return {
       end
     end
 
+    local format_document = function()
+      -- Format with conform if it has configuration for the given filetype,
+      -- otherwise format with LSP
+      if not require('conform').format() then
+        vim.lsp.buf.format({ async = true })
+      end
+    end
+
     wk.add {
       { 'K', function() vim.lsp.buf.hover() end, desc = 'show documentation for symbol under cursor' },
       { 'gd', telescope 'lsp_definitions', desc = 'go to definition' },
@@ -103,7 +111,7 @@ return {
       { ']d', diagnostic.goto_next, desc = 'next diagnostic' },
       { '[D', function() diagnostic.goto_prev({ severity = { min = diagnostic.severity.ERROR } }) end, desc = 'previous error' },
       { ']D', function() diagnostic.goto_next({ severity = { min = diagnostic.severity.ERROR } }) end, desc = 'next error' },
-      { '<leader><space>', function() vim.lsp.buf.format({ async = true }) end, desc = 'format document' },
+      { '<leader><space>', format_document, desc = 'format document' },
       { '<leader>u', '<cmd>MundoToggle<cr>', desc = 'toggle Mundo' },
     }
 
