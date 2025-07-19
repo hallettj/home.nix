@@ -12,6 +12,7 @@
       ../common.nix
       ../features/docker.nix
       ../features/gaming.nix
+      ../features/jellyfin.nix
     ];
 
   networking.hostName = "yu"; # Define your hostname.
