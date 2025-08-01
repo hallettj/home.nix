@@ -21,6 +21,7 @@ in
       use ${nuModule ./nushell-modules/boot-to.nu}
       use ${nuModule ./nushell-modules/webcam-temp.nu}
       source ${dir}/config.nu
+      source ${dir}/config.d/eza.nu
     '';
   };
 
