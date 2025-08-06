@@ -1,6 +1,7 @@
 require('config.lazy')
 require('config.settings')
 require('config.handle_resize')
+require('config.highlight_cursor')
 require('config.neovide')
 require('config.spell')
 require('config.term')
