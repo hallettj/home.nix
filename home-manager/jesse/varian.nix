@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ lib, pkgs, inputs, ... }:
 
 {
   imports = [
@@ -20,6 +20,52 @@
     nerd-fonts.symbols-only
     inputs.ddn-cli-nix.packages.${pkgs.system}.default
   ];
+
+  programs.swaylock.settings =
+    let
+      # Color palette generated from promptql-neon as a starting point
+      # https://coolors.co/b6fc34-ffffff-922d50-000000-639fab
+      promptql-neon = "b6fc34";
+      quinacridone-magenta = "922d50";
+      moonstone = "639fab";
+      black = "000000";
+      white = "ffffff";
+    in
+    lib.mkForce {
+      color = black;
+      font-size = 48;
+      font = "Cantarell";
+
+      indicator-radius = 160;
+      indicator-thickness = 20;
+
+      ring-color = white;
+      inside-color = black;
+      text-color = white;
+
+      key-hl-color = promptql-neon;
+      bs-hl-color = quinacridone-magenta;
+
+      ring-clear-color = white;
+      inside-clear-color = white;
+      text-clear-color = black;
+
+      # "ver" is short for "Verifying"
+      ring-ver-color = moonstone;
+      inside-ver-color = moonstone;
+      text-ver-color = black;
+
+      ring-wrong-color = quinacridone-magenta;
+      inside-wrong-color = quinacridone-magenta;
+      text-wrong-color = white;
+
+      line-color = black;
+      separator-color = black;
+
+      ignore-empty-password = true;
+      indicator-idle-visible = false;
+      show-failed-attempts = true;
+    };
 }
 
 # This configuration runs on a non-NixOS host which means there are some
