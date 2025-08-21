@@ -29,6 +29,13 @@ return from_nixpkgs {
         },
       },
     },
+    cmdline = {
+      keymap = { preset = 'inherit' },
+      completion = {
+        menu = { auto_show = true },
+        list = { selection = { preselect = false } },
+      },
+    },
     sources = {
       default = { 'lsp', 'path', 'snippets', 'buffer' },
     },
