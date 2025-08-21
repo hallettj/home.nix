@@ -7,6 +7,8 @@
 -- `TSVariableBuiltin` which gets linked to `Special`. Colors and styles applied
 -- to the Treesitter groups after they are linked are ignored.
 
+local features = require('config.features')
+
 return {
   'catppuccin/nvim',
   main = 'catppuccin',
@@ -47,9 +49,10 @@ return {
         types = {},
         operators = {},
       },
+      auto_integrations = true,
       integrations = {
         -- For various plugins integrations see https://github.com/catppuccin/nvim#integrations
-        cmp = true,
+        cmp = features.nvim_cmp,
         dap = true,
         dap_ui = true,
         fidget = true,

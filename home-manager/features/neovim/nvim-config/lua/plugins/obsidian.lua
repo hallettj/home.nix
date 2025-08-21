@@ -1,6 +1,7 @@
 local autocmd = vim.api.nvim_create_autocmd
 local augroup = vim.api.nvim_create_augroup
 local command = vim.api.nvim_create_user_command
+local features = require('config.features')
 
 local workspaces = {
   { name = 'Personal', path = '~/Documents/Personal' },
@@ -19,7 +20,6 @@ return {
     'nvim-lua/plenary.nvim',
 
     -- optional
-    'hrsh7th/nvim-cmp',
     'nvim-telescope/telescope.nvim',
   },
   lazy = false,
@@ -54,6 +54,11 @@ return {
 
       -- Get fancy rendering from render-markdown instead
       ui = { enable = false },
+
+      completion = {
+        nvim_cmp = features.nvim_cmp,
+        blink = features.blink,
+      },
     }
 
     -- Custom commands

@@ -7,7 +7,7 @@ return from_nixpkgs {
   ---@module 'blink.cmp'
   ---@type blink.cmp.Config
   opts = {
-    keymap = { preset = 'super-tab' },
+    keymap = { preset = 'enter' },
     appearance = {
       -- Sets the fallback highlight groups to nvim-cmp's highlight groups
       -- Useful for when your theme doesn't support blink.cmp
@@ -21,6 +21,11 @@ return from_nixpkgs {
       menu = {
         draw = {
           columns = { { 'kind_icon' }, { 'label', 'label_description', gap = 1 }, { 'source_name' } },
+        },
+      },
+      list = {
+        selection = {
+          preselect = false, -- this setting works better with the 'enter' keymap preset
         },
       },
     },

@@ -22,7 +22,7 @@ return {
 
     crates.setup {
       completion = {
-        cmp = { enabled = true },
+        cmp = { enabled = features.nvim_cmp },
       },
       lsp = {
         enabled = true,

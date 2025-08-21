@@ -5,6 +5,6 @@ return {
   copilot = false;
 
   -- completions
-  nvim_cmp = true;
-  blink = false;
+  nvim_cmp = false;
+  blink = true;
 }
