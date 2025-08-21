@@ -24,11 +24,12 @@ return {
   },
   lazy = false,
   keys = {
-    { '<c-enter>',  vim.cmd.ObsidianFollowLink,  desc = 'follow a wiki link' },
-    { '<leader>fn', vim.cmd.ObsidianQuickSwitch, desc = 'open an Obsidian note' },
+    { '<c-enter>',  function() vim.cmd('Obsidian follow_link') end,  desc = 'follow a wiki link' },
+    { '<leader>fn', function() vim.cmd('Obsidian quick_switch') end, desc = 'open an Obsidian note' },
   },
   config = function()
     require('obsidian').setup {
+      legacy_commands = false,
       workspaces = workspaces,
 
       disable_frontmatter = true,
@@ -38,8 +39,8 @@ return {
         date_format = '%Y-%m-%d %a',
       },
 
-      -- This config applies to `ObsidianNew`, but currently not to
-      -- `ObsidianLinkNew`
+      -- This config applies to `Obsidian new`, but currently not to
+      -- `Obsidian link_new`
       new_notes_location = 'notes_subdir',
       notes_subdir = 'Inbox',
 
@@ -60,24 +61,6 @@ return {
         blink = features.blink,
       },
     }
-
-    -- Custom commands
-
-    -- Create an alias of another command with an added description
-    local alias = function(short_name, name, desc)
-      local cmd = vim.api.nvim_get_commands({})[name]
-      local def = function(data) vim.cmd { cmd = name, args = data.fargs } end
-      local nargs = tonumber(cmd.nargs)
-      command(short_name, def, {
-        bang = cmd.bang,
-        desc = desc,
-        nargs = nargs ~= nil and nargs or cmd.nargs,
-        range = cmd.range ~= nil and true or nil,
-      })
-    end
-
-    alias('Backlinks', 'ObsidianBacklinks', 'show backlinks to the open note')
-    alias('Today', 'ObsidianToday', "open today's daily note")
 
     local obsidian_completer = function(callback)
       local client = require('obsidian').get_client()
@@ -164,8 +147,9 @@ return {
         end
       end
 
-      vim.cmd.ObsidianWorkspace {
-        args = { matched_workspace.name },
+      vim.cmd {
+        cmd = 'Obsidian',
+        args = { 'workspace', matched_workspace.name },
         mods = { silent = true },
       }
     end

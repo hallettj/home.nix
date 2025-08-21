@@ -9,21 +9,15 @@
 -- To install a new dependency type it out, and when you get to the version
 -- field press `<tab>` inside an empty set of quotes to see available versions.
 
-local features = require('config.features')
-
 return {
   'saecki/crates.nvim',
   dependencies = {
     { 'nvim-lua/plenary.nvim' },
-    features.nvim_cmp and { 'hrsh7th/nvim-cmp' } or {},
   },
   config = function()
     local crates = require('crates')
 
     crates.setup {
-      completion = {
-        cmp = { enabled = features.nvim_cmp },
-      },
       lsp = {
         enabled = true,
         actions = true,
@@ -37,11 +31,6 @@ return {
       pattern = 'Cargo.toml',
       callback = function(data)
         local wk = require('which-key')
-
-        -- Feed version number and feature completions to cmp.
-        if features.nvim_cmp then
-          require('cmp').setup.buffer { sources = { { name = 'crates' } } }
-        end
 
         -- Set up keybindings.
         wk.add {
