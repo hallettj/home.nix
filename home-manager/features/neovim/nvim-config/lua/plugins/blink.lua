@@ -26,14 +26,24 @@ return from_nixpkgs {
       list = {
         selection = {
           preselect = false, -- this setting works better with the 'enter' keymap preset
+          auto_insert = false, -- don't put text into buffer when selecting, only on accept
         },
       },
     },
     cmdline = {
-      keymap = { preset = 'inherit' },
+      keymap = {
+        preset = 'inherit',
+        ['<CR>'] = { 'accept_and_enter', 'fallback' }, -- default <cr> accepts, but does not immediately execute
+      },
       completion = {
-        menu = { auto_show = true },
         list = { selection = { preselect = false } },
+        menu = {
+          auto_show = function(ctx)
+            return
+                vim.fn.getcmdtype() == ':'    -- normal command
+                or vim.fn.getcmdtype() == '@' -- input() command
+          end,
+        },
       },
     },
     sources = {
