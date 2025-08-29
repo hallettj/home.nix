@@ -73,7 +73,7 @@ in
   };
 
   home.packages = with pkgs; [
-    neovide
+    unstable.neovide # Get v0.15.1 from unstable for fix for text not rendering in center line in leftmost window
 
     # language servers
     vscode-langservers-extracted
