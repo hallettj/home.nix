@@ -49,7 +49,12 @@ layout {
         width 4
         active-color "#b7bdf8" // Lavender from Catppuccin Macchiato theme
         inactive-color "#6e738d" // Overlay0 from Catppuccin Macchiato theme
-        urgent-color "#f5bde6" // Catppuccin pink
+        urgent-color "#f5a97f" // Catppuccin peach
+    }
+
+    shadow {
+        softness 10
+        offset x=0 y=0
     }
 
     insert-hint {
@@ -78,7 +83,7 @@ layout {
         corner-radius 3
         gaps-between-tabs 6
         active-color "#f4dbd6" // rosewater
-        urgent-color "#f5bde6" // Catppuccin pink
+        urgent-color "#f5a97f" // Catppuccin peach
         gap 8
         place-within-column
         hide-when-single-tab
@@ -115,7 +120,18 @@ window-rule {
     match is-window-cast-target=true
     focus-ring {
         active-color "#dd7878" // Maroon from Catppuccin Macchiato theme
-        inactive-color "#f0c6c6" // Flamingo from Catppuccin Macchiato theme
+    }
+    shadow {
+        on
+        color "#dd7878" // Maroon from Catppuccin Macchiato theme
+    }
+}
+
+window-rule {
+    match is-urgent=true
+    shadow {
+        on
+        color "#f5a97f" // Catppuccin peach
     }
 }
 
