@@ -21,7 +21,7 @@ in
   home.packages = with pkgs; [
     playerctl # for play-pause key bind
     swaynotificationcenter
-    xwayland-satellite # Niri automatically runs this when xwayland support is required
+    (xwayland-satellite.override { withSystemd = false; }) # Niri automatically runs this when xwayland support is required
   ];
 
   xdg.configFile = {
