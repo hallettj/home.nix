@@ -22,12 +22,13 @@ in
       use ${nuModule ./nushell-modules/webcam-temp.nu}
       source ${dir}/config.nu
       source ${dir}/config.d/eza.nu
+      source ${dir}/nushell-scripts/external-completions.nu
     '';
   };
 
   programs.carapace = {
     enable = true;
-    enableNushellIntegration = true;
+    enableNushellIntegration = false; # I have my own configuration in external-completions.nu
   };
 
   # Replacement for ls
@@ -57,6 +58,7 @@ in
 
   home.packages = with pkgs; [
     efibootmgr # for boot-to script
+    fish # for exernal completions
     v4l-utils # for webcam temperature control
   ];
 }
