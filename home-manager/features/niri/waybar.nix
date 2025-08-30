@@ -1,7 +1,6 @@
 { pkgs, ... }:
 
 let
-  niri-bin = "${pkgs.niri-stable}/bin/niri";
   colors = (import ./colors.nix).catppuccin-macchiato;
 in
 {
@@ -24,7 +23,7 @@ in
           position = "top";
           height = 30;
 
-          modules-left = [ "custom/niri-workspaces" "niri/window" ];
+          modules-left = [ "ext/workspaces" "niri/window" ];
           modules-center = [ "clock" "custom/notification" ];
           modules-right = [ "pulseaudio" "tray" ];
 
@@ -32,27 +31,15 @@ in
             format = "{:%a, %b %d  %H:%M}";
           } // notification-click-actions;
 
-          "custom/niri-workspaces" =
-            let
-              jq-filter = ''
-                sort_by(.idx) |
-                { 
-                  text: map(if .is_active then " █ " else "┃" end) | join(""),
-                  alt: .[] | select(.is_active) | (.name // .idx),
-                  class: ["workspaces"] 
-                }
-              '';
-              jq = "${pkgs.jq}/bin/jq";
-              script = pkgs.writeShellScript "niri-workspaces" ''
-                ${niri-bin} msg --json workspaces | ${jq} --unbuffered --compact-output '${jq-filter}'
-              '';
-            in
-            {
-              tooltip = false;
-              return-type = "json";
-              exec = script.outPath;
-              interval = 1;
+          "ext/workspaces" = {
+            format = "{icon}";
+            on-click = "activate";
+            format-icons = {
+              default = "┃";
+              urgent = "┃";
+              active = " █ ";
             };
+          };
 
           "niri/window" = {
             format = "{app_id} — {title}";

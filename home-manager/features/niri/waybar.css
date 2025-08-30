@@ -67,6 +67,32 @@ window#waybar {
   font-size: 20px; /* matches tray.icon-size setting in ./default.nix */
 }
 
-.workspaces {
+#workspaces button {
+  padding: 0;
+  margin: 0 -2.5rem;
+}
+
+#workspaces button:first-child {
+  margin-left: 0;
+}
+
+#workspaces button label {
   color: @blue;
 }
+
+#workspaces button.urgent label {
+  color: @peach;
+}
+
+/* Disable color change for whole button on hover */
+#workspaces button:hover {
+  box-shadow: inherit;
+  text-shadow: inherit;
+  background: inherit;
+  transition: none;
+}
+
+#workspaces button:hover label {
+  color: @sapphire;
+}
+
