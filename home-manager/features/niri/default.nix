@@ -12,7 +12,6 @@ in
     ../rofi
     ./swayidle.nix
     ./waybar.nix
-    ./xwayland-satellite.nix
   ];
 
   # Nix packages configure Chrome and Electron apps to run in native Wayland
@@ -22,6 +21,7 @@ in
   home.packages = with pkgs; [
     playerctl # for play-pause key bind
     swaynotificationcenter
+    xwayland-satellite # Niri automatically runs this when xwayland support is required
   ];
 
   xdg.configFile = {

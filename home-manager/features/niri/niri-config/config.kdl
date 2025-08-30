@@ -99,12 +99,6 @@ cursor {
     xcursor-theme "Adwaita"
 }
 
-environment {
-    // If xwayland-satellite.service is running it defines an Xwayland display
-    // with this identifier.
-    DISPLAY ":0"
-}
-
 // The path is formatted with strftime(3) to give you the screenshot date and time.
 screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 
