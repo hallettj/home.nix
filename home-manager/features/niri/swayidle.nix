@@ -1,54 +1,97 @@
 { config, pkgs, ... }:
 
 let
+  colors = (import ./colors.nix).catppuccin-macchiato;
   niri-bin = "${pkgs.niri-stable}/bin/niri";
+  loginctl = "${pkgs.systemd}/bin/loginctl";
+  systemctl = "${pkgs.systemd}/bin/systemctl";
+
+  screen-blank-timeout = 5 * minutes;
+  lock-after-blank-timeout = 15 * seconds;
+  sleep-timeout = 45 * minutes;
+
+  seconds = 1;
+  minutes = 60 * seconds;
+
+  lock-session = pkgs.writeShellApplication {
+    name = "lock-session";
+    runtimeInputs = with pkgs; [
+      niri-stable
+      systemd
+      playerctl
+      config.programs.swaylock.package
+      _1password-gui
+    ];
+    text = ''
+      swaylock -f
+
+      # Run the 1password lock command only if 1password is running. If it is
+      # not running then the lock command will start it, which blocks this
+      # script, which prevents swayidle from working until 1password is
+      # closed.
+      if pgrep 1password; then
+        1password --lock
+      fi
+
+      niri msg action power-off-monitors
+      playerctl pause 2>/dev/null || true
+    '';
+  };
 in
 {
-  services.swayidle =
-    let
-      screen-blank-timeout = 5 * minutes;
-      lock-after-blank-timeout = 15 * seconds;
-      sleep-timeout = 45 * minutes;
+  home.packages = [ lock-session ]; # put script in $PATH for troubleshooting
 
-      seconds = 1;
-      minutes = 60 * seconds;
+  services.swayidle = {
+    enable = true;
+    timeouts = [
+      { timeout = screen-blank-timeout; command = "${niri-bin} msg action power-off-monitors"; }
+      { timeout = screen-blank-timeout + lock-after-blank-timeout; command = "${loginctl} lock-session"; }
+      { timeout = sleep-timeout; command = "${systemctl} suspend"; }
+    ];
+    events = [
+      { event = "lock"; command = "${lock-session}/bin/lock-session"; }
+      { event = "before-sleep"; command = "${loginctl} lock-session"; }
+    ];
+    systemdTarget = "niri.service";
+  };
 
-      loginctl = "${pkgs.systemd}/bin/loginctl";
-      systemctl = "${pkgs.systemd}/bin/systemctl";
-      playerctl = "${pkgs.playerctl}/bin/playerctl";
-      swaylock = "${config.programs.swaylock.package}/bin/swaylock";
-      _1password = "${pkgs._1password-gui}/bin/1password";
+  programs.swaylock = {
+    enable = true;
+    settings = with colors; {
+      color = mantle;
+      font-size = 48;
+      font = "Cantarell";
 
-      lock-session = pkgs.writeShellScript "lock-session" ''
-        ${swaylock} -f
+      indicator-radius = 160;
+      indicator-thickness = 20;
 
-        # Run the 1password lock command only if 1password is running. If it is
-        # not running then the lock command will start it, which blocks this
-        # script, which prevents swayidle from working until 1password is
-        # closed.
-        if ! ps x | grep -v grep | grep 1password; then
-          ${_1password} --lock
-        fi
+      ring-color = teal;
+      inside-color = mantle;
+      text-color = text;
 
-        ${niri-bin} msg action power-off-monitors
-        ${playerctl} pause 2>/dev/null || true
-      '';
+      key-hl-color = green;
+      bs-hl-color = maroon;
 
-      before-sleep = pkgs.writeShellScript "before-sleep" ''
-        ${loginctl} lock-session
-      '';
-    in
-    {
-      enable = true;
-      timeouts = [
-        { timeout = screen-blank-timeout; command = "${niri-bin} msg action power-off-monitors"; }
-        { timeout = screen-blank-timeout + lock-after-blank-timeout; command = "${loginctl} lock-session"; }
-        { timeout = sleep-timeout; command = "${systemctl} suspend"; }
-      ];
-      events = [
-        { event = "lock"; command = lock-session.outPath; }
-        { event = "before-sleep"; command = before-sleep.outPath; }
-      ];
-      systemdTarget = "niri.service";
+      ring-clear-color = peach;
+      inside-clear-color = peach;
+      text-clear-color = mantle;
+
+      # "ver" is short for "Verifying"
+      ring-ver-color = mauve;
+      inside-ver-color = mauve;
+      text-ver-color = mantle;
+
+      ring-wrong-color = red;
+      inside-wrong-color = red;
+      text-wrong-color = mantle;
+
+      line-color = crust;
+      separator-color = crust;
+
+      ignore-empty-password = true;
+      indicator-idle-visible = false;
+      show-failed-attempts = true;
     };
+  };
+
 }

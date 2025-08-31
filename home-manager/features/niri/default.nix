@@ -5,7 +5,6 @@ let
   # is because relative paths are expanded after the flake source is copied to
   # a store path which would get us read-only store paths.
   dir = "${flakePath config}/home-manager/features/niri";
-  colors = (import ./colors.nix).catppuccin-macchiato;
 in
 {
   imports = [
@@ -27,45 +26,6 @@ in
   xdg.configFile = {
     niri.source = config.lib.file.mkOutOfStoreSymlink "${dir}/niri-config";
     swaync.source = config.lib.file.mkOutOfStoreSymlink "${dir}/swaync";
-  };
-
-  programs.swaylock = {
-    enable = true;
-    settings = with colors; {
-      color = mantle;
-      font-size = 48;
-      font = "Cantarell";
-
-      indicator-radius = 160;
-      indicator-thickness = 20;
-
-      ring-color = teal;
-      inside-color = mantle;
-      text-color = text;
-
-      key-hl-color = green;
-      bs-hl-color = maroon;
-
-      ring-clear-color = peach;
-      inside-clear-color = peach;
-      text-clear-color = mantle;
-
-      # "ver" is short for "Verifying"
-      ring-ver-color = mauve;
-      inside-ver-color = mauve;
-      text-ver-color = mantle;
-
-      ring-wrong-color = red;
-      inside-wrong-color = red;
-      text-wrong-color = mantle;
-
-      line-color = crust;
-      separator-color = crust;
-
-      ignore-empty-password = true;
-      indicator-idle-visible = false;
-      show-failed-attempts = true;
-    };
   };
 
   services.blueman-applet.enable = true;
