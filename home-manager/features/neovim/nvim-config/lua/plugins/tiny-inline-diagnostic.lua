@@ -9,7 +9,7 @@ return {
           if_many = false,
         },
         multilines = {
-          enabled = true, -- show diagnostics on multiple source lines unless cursor is on one of those lines
+          -- enabled = true, -- show diagnostics on multiple source lines unless cursor is on one of those lines
         },
       },
     }
