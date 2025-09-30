@@ -10,7 +10,7 @@ input {
         xkb {
             layout "us"
             // variant "dvorak"
-            options "compose:ralt,ctrl:nocaps"
+            options "compose:menu,ctrl:nocaps"
         }
     }
 
