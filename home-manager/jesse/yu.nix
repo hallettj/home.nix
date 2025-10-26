@@ -21,6 +21,7 @@
 
   home.packages = with pkgs; [
     gparted
+    love # 2D game engine
     parted
     shotcut
   ];
