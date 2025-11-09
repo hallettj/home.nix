@@ -1,6 +1,8 @@
-{ ... }:
+{ outputs, ... }:
 
 {
+  import = [ outputs.nixosModules.nixbuild ];
+
   # Configure remote builds on nixbuild.net
   services.nixbuild = {
     enable = true;

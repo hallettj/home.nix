@@ -1,10 +1,11 @@
-{ config, flakePath, lib, pkgs, ... }:
+{ config, flakePath, lib, outputs, pkgs, ... }:
 
 let
   dir = "${flakePath config}/home-manager/features/gnome";
 in
 {
   imports = [
+    outputs.homeManagerModules.gnomeExtensions
     ./paperwm.nix
   ];
 

@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, outputs, ... }:
 
 let
   terminal-width = if config.screen-type.aspect-ratio == "ultrawide" then "25%" else "33%";
@@ -15,6 +15,8 @@ let
   half = 1 / 2.0;
 in
 {
+  imports = [ outputs.homeManagerModules.paperwm ];
+
   gnomeExtensions.paperwm = {
     enable = true;
 

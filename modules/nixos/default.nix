@@ -2,6 +2,9 @@
 # These should be stuff you would like to share with others, not your personal configurations.
 
 {
-  # List your module files here
+  # Reusable modules
   nixbuild = import ./nixbuild.nix;
+
+  # Exported configurations
+  hallettj-base = import ../../nixos/common.nix;
 }

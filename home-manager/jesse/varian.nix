@@ -1,10 +1,14 @@
-{ lib, pkgs, inputs, ... }:
+{ lib, pkgs, inputs, outputs, ... }:
 
 {
   imports = [
+    outputs.homeManagerModules.screen-type
     ../common.nix
+    ../profiles/desktop
     ../features/mesa
   ];
+
+  screen-type.aspect-ratio = "ultrawide";
 
   # Increase font sizes - it's cleaner than applying a display scaling factor.
   dconf.settings."org/gnome/desktop/interface" = {

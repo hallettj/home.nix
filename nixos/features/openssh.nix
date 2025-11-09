@@ -51,7 +51,7 @@ in
     knownHosts = (builtins.mapAttrs
       (name: _: {
         publicKeyFile = pubKey name;
-        extraHostNames = lib.optional (name == hostName) "localhost";
+        extraHostNames = [ (name + ".local") ] ++ lib.optional (name == hostName) "localhost";
       })
       hosts) //
     # And also with the values from otherKnownHosts, converted to the format

@@ -38,7 +38,6 @@ in
       fd
       gh # for github integration
       ripgrep # used by obsidian.nvim, smart-open and other plugins
-      wl-clipboard # used by obsidian.nvim to interact with clipboard
 
       # needed to compile fzf-native for telescope-fzf-native.nvim
       gcc
@@ -73,8 +72,6 @@ in
   };
 
   home.packages = with pkgs; [
-    unstable.neovide # Get v0.15.1 from unstable for fix for text not rendering in center line in leftmost window
-
     # language servers
     vscode-langservers-extracted
 
@@ -83,12 +80,6 @@ in
   ];
 
   home.sessionVariables = {
-    # Disable the top window bar in Neovide
-    NEOVIDE_FRAME = "none";
-
-    # I just don't want extra UI anywhere
-    NVIM_GTK_NO_HEADERBAR = "1";
-
     # Read by kkharji/sqlite.lua plugin which is a dependency of smart-open
     SQLITE_CLIB_PATH = "${pkgs.sqlite.out}/lib/libsqlite3.so";
   };

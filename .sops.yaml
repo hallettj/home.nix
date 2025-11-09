@@ -4,6 +4,7 @@ keys:
   - &hosts:
     - &yu age1ukxx3kscch4e3tasyf28aamwdacsu7m3c2gqvyev0rvxsuvrydfsfxe44y
     - &battuta age1esn577ww0eaw6z6c43unf94m6t8rxvjhhf0dupj7w0v4vynnzv8qsq9ghj
+    # To generate a host key, run: cat ssh_host_ed25519_key.pub | ssh-to-age
 creation_rules:
   - path_regex: nixos/(common|features)/.*/secrets.ya?ml$
     key_groups:

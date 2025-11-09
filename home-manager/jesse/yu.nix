@@ -1,8 +1,10 @@
-{ pkgs, ... }:
+{ outputs, pkgs, ... }:
 
 {
   imports = [
+    outputs.homeManagerModules.screen-type
     ../common.nix
+    ../profiles/desktop
     ../features/godot
     ../features/obs
     ../features/vscode
@@ -12,7 +14,7 @@
 
   # Increase font sizes - it's cleaner than applying a display scaling factor.
   dconf.settings."org/gnome/desktop/interface" = {
-    text-scaling-factor =  1.25;
+    text-scaling-factor = 1.25;
   };
 
   programs.kitty.extraConfig = ''
@@ -25,4 +27,6 @@
     parted
     shotcut
   ];
+
+  home.stateVersion = "23.05"; # Please read the comment before changing.
 }

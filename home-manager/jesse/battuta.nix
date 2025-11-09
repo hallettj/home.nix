@@ -1,8 +1,10 @@
-{ lib, ... }:
+{ lib, outputs, ... }:
 
 {
   imports = [
+    outputs.homeManagerModules.screen-type
     ../common.nix
+    ../profiles/desktop
   ];
 
   # Increase font sizes - it's cleaner than applying a display scaling factor.
@@ -25,4 +27,6 @@
     # Specify which network interface to display status of
     network.interface = "wlo1";
   };
+
+  home.stateVersion = "23.05"; # Please read the comment before changing.
 }
