@@ -1,2 +1,5 @@
 Host homeassistant
 	User root
+
+Host hypatia.local
+	ForwardAgent yes
