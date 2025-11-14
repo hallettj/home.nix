@@ -3,6 +3,7 @@
 {
   imports = [
     outputs.homeManagerModules.screen-type
+    outputs.homeManagerModules.useOutOfStoreSymlinks
     ../common.nix
     ../profiles/desktop
     ../features/godot
@@ -27,6 +28,8 @@
     parted
     shotcut
   ];
+
+  home.useOutOfStoreSymlinks = true;
 
   home.stateVersion = "23.05"; # Please read the comment before changing.
 }

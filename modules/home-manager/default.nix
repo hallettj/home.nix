@@ -6,6 +6,7 @@
   gnomeExtensions = import ./gnome-extensions.nix;
   paperwm = import ./paperwm.nix;
   screen-type = import ./screen-type.nix;
+  useOutOfStoreSymlinks = import ./useOutOfStoreSymlinks.nix;
 
   # Exported configurations
   hallettj-base = import ../../home-manager/common.nix;

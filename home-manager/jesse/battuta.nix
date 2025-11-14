@@ -28,5 +28,7 @@
     network.interface = "wlo1";
   };
 
+  home.useOutOfStoreSymlinks = true;
+
   home.stateVersion = "23.05"; # Please read the comment before changing.
 }

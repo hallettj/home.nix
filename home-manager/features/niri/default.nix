@@ -4,7 +4,14 @@ let
   # Out-of-store symlinks require absolute paths when using a flake config. This
   # is because relative paths are expanded after the flake source is copied to
   # a store path which would get us read-only store paths.
+  useOutOfStoreSymlinks =
+    if builtins.hasAttr "useOutOfStoreSymlinks" config.home
+    then config.home.useOutOfStoreSymlinks
+    else false;
   dir = "${flakePath config}/home-manager/features/niri";
+  symlink = path:
+    let p = lib.strings.removePrefix "." path; in
+    if useOutOfStoreSymlinks then config.lib.file.mkOutOfStoreSymlink dir + p else ./. + p;
 in
 {
   imports = [
@@ -24,8 +31,8 @@ in
   ];
 
   xdg.configFile = {
-    niri.source = config.lib.file.mkOutOfStoreSymlink "${dir}/niri-config";
-    swaync.source = config.lib.file.mkOutOfStoreSymlink "${dir}/swaync";
+    niri.source = symlink "./niri-config";
+    swaync.source = symlink "./swaync";
   };
 
   services.blueman-applet.enable = true;

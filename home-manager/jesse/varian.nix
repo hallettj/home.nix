@@ -70,6 +70,10 @@
       indicator-idle-visible = false;
       show-failed-attempts = true;
     };
+
+  home.useOutOfStoreSymlinks = true;
+
+  home.stateVersion = "23.05"; # Please read the comment before changing.
 }
 
 # This configuration runs on a non-NixOS host which means there are some
