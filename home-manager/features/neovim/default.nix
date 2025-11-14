@@ -1,4 +1,4 @@
-{ config, flakePath, lib, pkgs, ... }:
+{ config, flakePath, pkgs, ... }:
 
 let
   # Out-of-store symlinks require absolute paths when using a flake config. This
@@ -9,13 +9,10 @@ let
     then config.home.useOutOfStoreSymlinks
     else false;
   dir = "${flakePath config}/home-manager/features/neovim";
-  symlink = path:
-    let p = lib.strings.removePrefix "." path; in
-    if useOutOfStoreSymlinks then config.lib.file.mkOutOfStoreSymlink dir + p else ./. + p;
 in
 {
   xdg.configFile.nvim = {
-    source = symlink "./nvim-config";
+    source = if useOutOfStoreSymlinks then config.lib.file.mkOutOfStoreSymlink "${dir}/nvim-config" else ./nvim-config;
   };
 
   programs.neovim = {

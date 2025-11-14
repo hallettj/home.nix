@@ -9,9 +9,6 @@ let
     then config.home.useOutOfStoreSymlinks
     else false;
   dir = "${flakePath config}/home-manager/features/gnome";
-  symlink = path:
-    let p = lib.strings.removePrefix "." path; in
-    if useOutOfStoreSymlinks then config.lib.file.mkOutOfStoreSymlink dir + p else ./. + p;
 in
 {
   imports = [
@@ -32,7 +29,10 @@ in
     ];
   };
 
-  xdg.configFile."mimeapps.list".source = symlink "./mimeapps.list";
+  xdg.configFile."mimeapps.list".source =
+    if useOutOfStoreSymlinks
+    then config.lib.file.mkOutOfStoreSymlink "${dir}/mimeapps.list"
+    else ./mimeapps.list;
 
   dconf.settings = {
     "org/gnome/desktop/datetime" = { automatic-timezone = false; };

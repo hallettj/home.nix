@@ -1,4 +1,4 @@
-{ config, flakePath, lib, pkgs, ... }:
+{ config, flakePath, pkgs, ... }:
 
 let
   # Out-of-store symlinks require absolute paths when using a flake config. This
@@ -9,9 +9,6 @@ let
     then config.home.useOutOfStoreSymlinks
     else false;
   dir = "${flakePath config}/home-manager/features/zsh";
-  symlink = path:
-    let p = lib.strings.removePrefix "." path; in
-    if useOutOfStoreSymlinks then config.lib.file.mkOutOfStoreSymlink dir + p else ./. + p;
 in
 {
   programs.zsh = {
@@ -36,13 +33,19 @@ in
     '';
   };
 
+  xdg.configFile.zsh = {
+    source = if useOutOfStoreSymlinks then config.lib.file.mkOutOfStoreSymlink "${dir}/home/.config/zsh" else ./home/.config/zsh;
+  };
+
   home.file = {
-    zsh-config = {
-      source = symlink "./home/.config/zsh";
-      target = ".config/zsh";
+    dircolors = {
+      source = if useOutOfStoreSymlinks then config.lib.file.mkOutOfStoreSymlink "${dir}/home/.dircolors" else ./home/.dircolors;
+      target = ".dircolors";
     };
-    dircolors = { source = symlink "home/.dircolors"; target = ".dircolors"; };
-    inputrc = { source = symlink "home/.inputrc"; target = ".inputrc"; };
+    inputrc = {
+      source = if useOutOfStoreSymlinks then config.lib.file.mkOutOfStoreSymlink "${dir}/home/.inputrc" else ./home/.inputrc;
+      target = ".inputrc";
+    };
   };
 
   # Replacement for ls

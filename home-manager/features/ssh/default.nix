@@ -1,4 +1,4 @@
-{ config, flakePath, lib, ... }:
+{ config, flakePath, ... }:
 
 let
   # Out-of-store symlinks require absolute paths when using a flake config. This
@@ -9,12 +9,9 @@ let
     then config.home.useOutOfStoreSymlinks
     else false;
   dir = "${flakePath config}/home-manager/features/ssh";
-  symlink = path:
-    let p = lib.strings.removePrefix "." path; in
-    if useOutOfStoreSymlinks then config.lib.file.mkOutOfStoreSymlink dir + p else ./. + p;
 in
 {
   home.file = {
-    ".ssh/config".source = symlink "./config";
+    ".ssh/config".source = if useOutOfStoreSymlinks then config.lib.file.mkOutOfStoreSymlink "${dir}/config" else ./config;
   };
 }

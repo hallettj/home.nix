@@ -9,9 +9,6 @@ let
     then config.home.useOutOfStoreSymlinks
     else false;
   dir = "${flakePath config}/home-manager/features/niri";
-  symlink = path:
-    let p = lib.strings.removePrefix "." path; in
-    if useOutOfStoreSymlinks then config.lib.file.mkOutOfStoreSymlink dir + p else ./. + p;
 in
 {
   imports = [
@@ -31,8 +28,8 @@ in
   ];
 
   xdg.configFile = {
-    niri.source = symlink "./niri-config";
-    swaync.source = symlink "./swaync";
+    niri.source = if useOutOfStoreSymlinks then config.lib.file.mkOutOfStoreSymlink "${dir}/niri-config" else ./niri-config;
+    swaync.source = if useOutOfStoreSymlinks then config.lib.file.mkOutOfStoreSymlink "${dir}/swaync" else ./swaync;
   };
 
   services.blueman-applet.enable = true;
