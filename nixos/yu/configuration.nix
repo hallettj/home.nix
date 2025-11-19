@@ -16,7 +16,6 @@
       ../features/determinate.nix
       ../features/docker.nix
       ../features/gaming.nix
-      ../features/jellyfin.nix
       ../features/printing.nix
     ];
 
