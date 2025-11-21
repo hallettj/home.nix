@@ -12,10 +12,6 @@
     enable = true;
     localNetworkGameTransfers.openFirewall = true;
   };
-  programs.gamescope.enable = true;
-
-  # Wrapper program that applies settings to improve game performance
-  programs.gamemode.enable = true;
 
   environment.systemPackages = with pkgs; [
     bottles
