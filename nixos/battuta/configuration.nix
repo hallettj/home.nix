@@ -17,6 +17,7 @@
       ../features/docker.nix
       ../features/gaming.nix
       ../features/printing.nix
+      ../features/tailscale.nix
     ];
 
   networking.hostName = "battuta";
