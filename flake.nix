@@ -19,6 +19,7 @@
     niri = {
       url = "github:sodiboo/niri-flake";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.niri-stable.url = "github:YaLTeR/niri/v25.11";
     };
 
     # Manages version-controlled, encrypted secrets
