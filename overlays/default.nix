@@ -33,7 +33,7 @@ rec {
       # But when I do that nix rebuilds the entire stdenv when I try to install
       # wine packages, and that fails due to this bug:
       # https://github.com/NixOS/nixpkgs/issues/291271
-      system = final.system;
+      system = final.stdenv.hostPlatform.system;
       overlays = [ additions modifications ];
     };
   } // (builtins.listToAttrs (builtins.map (pkg: { name = pkg; value = final.unstable.${pkg}; }) get-from-unstable));

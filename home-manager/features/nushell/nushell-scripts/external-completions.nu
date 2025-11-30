@@ -28,7 +28,7 @@ let carapace_completer = {|spans: list<string>|
 
 # This completer will use carapace by default
 let external_completer = {|spans|
-  let expanded_alias = (scope aliases | where name == $spans.0 | get -i 0 | get -i expansion)
+  let expanded_alias = (scope aliases | where name == $spans.0 | get --optional 0 | get --optional expansion)
 
   let spans = if $expanded_alias != null {
     $spans | skip 1 | prepend ($expanded_alias | split row ' ' | take 1)

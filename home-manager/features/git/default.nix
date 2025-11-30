@@ -11,21 +11,20 @@ in
 
   programs.git = {
     enable = true;
-    userName = "Jesse Hallett";
-    userEmail = "jesse@sitr.us";
     signing.key = "A5CC2BE3";
-
-    aliases = {
-      di = "diff --cached";
-      lg = "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit";
-      commend = "commit --amend --no-edit";
-      it = "!git init && read -p 'Committer email address for this repo: ' email && git config user.email $email && git commit -m 'initial commit' --allow-empty";
-      up = "git fetch origin main:main";
-    };
 
     ignores = [ "*.swo" "*.swp" ];
 
-    extraConfig = {
+    settings = {
+      user.name = "Jesse Hallett";
+      user.email = "jesse@sitr.us";
+      aliases = {
+        di = "diff --cached";
+        lg = "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit";
+        commend = "commit --amend --no-edit";
+        it = "!git init && read -p 'Committer email address for this repo: ' email && git config user.email $email && git commit -m 'initial commit' --allow-empty";
+        up = "git fetch origin main:main";
+      };
       column.ui = "auto"; # columns display for status, branches, tags
       branch.sort = "-committerdate";
       core = {

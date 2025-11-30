@@ -16,7 +16,7 @@
   environment.systemPackages = with pkgs; [
     bottles
 
-    (unstable.lutris.override {
+    (lutris.override {
       extraPkgs = pkgs: [
         pkgs.wineWowPackages.stagingFull
         pkgs.winetricks

@@ -151,7 +151,7 @@ window-rule {
 }
 
 window-rule {
-    match app-id="1Password"
+    match app-id="1password"
     default-column-width { proportion 0.33; }
     block-out-from "screen-capture"
 }

@@ -22,7 +22,7 @@
   fonts.fontconfig.enable = true;
   home.packages = with pkgs; [
     nerd-fonts.symbols-only
-    inputs.ddn-cli-nix.packages.${pkgs.system}.default
+    inputs.ddn-cli-nix.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];
 
   programs.swaylock.settings =

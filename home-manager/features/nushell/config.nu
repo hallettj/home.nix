@@ -141,7 +141,7 @@ def "docker ps" [
     | update command { |it| $it.command | str replace -r '^"(.*)"$' '$1' }  # remove quotes from command
     | update command { |it| if ($no_trunc) { $it.command } else { $it.command | str substring 0..19 } }
     | update status { |it| $it.status | parse_docker_status }
-    | update ports { |it| $it.ports | split row ", " | each { |it| $it | str trim } | filter { |it| not ($it | is-empty) } }
+    | update ports { |it| $it.ports | split row ", " | each { |it| $it | str trim } | where { |it| not ($it | is-empty) } }
     | update size { |it| $it.size | into filesize }
     | update virtual { |it| $it.virtual | into filesize }
 }

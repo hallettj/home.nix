@@ -27,7 +27,6 @@
     pavucontrol
     slack
     transmission_4-gtk
-    write_stylus
     xorg.xev # used by my `keycode` alias
 
     # Programming

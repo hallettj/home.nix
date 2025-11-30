@@ -26,17 +26,14 @@ in
       # somehow prevents the plugin from loading automatically so we also need
       # to declare the plugin to lazy.nvim. I have a helper function in my
       # neovim configuration for that called `from_nixpkgs`.
-      #
-      # Getting plugin from unstable because as of 2025-01-04 nushell highlight
-      # queries are broken in the stable plugin.
-      { plugin = pkgs.unstable.vimPlugins.nvim-treesitter.withAllGrammars; type = "lua"; optional = true; }
+      { plugin = pkgs.vimPlugins.nvim-treesitter.withAllGrammars; type = "lua"; optional = true; }
 
       # Blink uses a compiled fuzzy finder. The nix plugin package links to the
       # required derivation.
-      { plugin = pkgs.unstable.vimPlugins.blink-cmp; type = "lua"; optional = true; }
+      { plugin = pkgs.vimPlugins.blink-cmp; type = "lua"; optional = true; }
 
       # Avante needs to build a thing
-      { plugin = pkgs.unstable.vimPlugins.avante-nvim; type = "lua"; optional = true; }
+      { plugin = pkgs.vimPlugins.avante-nvim; type = "lua"; optional = true; }
     ];
     extraPackages = with pkgs; [
       fd
