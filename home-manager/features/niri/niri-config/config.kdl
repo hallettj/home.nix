@@ -157,8 +157,16 @@ window-rule {
 }
 
 window-rule {
-    match app-id="gamescope"
-    open-fullscreen true
+    match title="Qobuz"
+    default-column-width { proportion 0.33; }
+    block-out-from "screencast"
+}
+
+window-rule {
+    match app-id="steam" title="^notificationtoasts"
+    open-focused false
+    default-floating-position x=8 y=8 relative-to="bottom-right"
+    block-out-from "screencast"
 }
 
 layer-rule {
