@@ -1,6 +1,7 @@
 # Write Nushell modules with build-time checking. Returns **path** to module
 # file.
-{ nushell
+{ lib
+, nushell
 , writeTextFile
 }:
 
@@ -19,7 +20,7 @@ let
       text = builtins.readFile source;
       checkPhase = ''
         runHook preCheck
-        ${nushell}/bin/nu --commands "nu-check --as-module --debug '$target'"
+        ${lib.getExe nushell} --commands "nu-check --as-module --debug '$target'"
         runHook postCheck
       '';
     };

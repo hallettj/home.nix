@@ -1,8 +1,8 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 
 let
   difftastic = pkgs.difftastic;
-  difft = "${difftastic}/bin/difft";
+  difft = lib.getExe difftastic;
 in
 {
   home.packages = [

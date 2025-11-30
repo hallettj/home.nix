@@ -1,4 +1,4 @@
-{ config, flakePath, pkgs, ... }:
+{ config, flakePath, lib, pkgs, ... }:
 
 let
   dir = "${flakePath config}/home-manager/features/nushell";
@@ -51,7 +51,7 @@ in
   xdg.configFile."wezterm/autoload/default_prog_nu.lua".text = ''
     local module = {}
     function module.configure(config)
-      config.default_prog = { '${config.programs.nushell.package}/bin/nu' }
+      config.default_prog = { '${lib.getExe config.programs.nushell.package}' }
     end
     return module
   '';

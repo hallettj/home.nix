@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   colors = (import ./colors.nix).catppuccin-macchiato;
@@ -49,7 +49,7 @@ in
       { timeout = sleep-timeout; command = "${systemctl} suspend"; }
     ];
     events = [
-      { event = "lock"; command = "${lock-session}/bin/lock-session"; }
+      { event = "lock"; command = lib.getExe lock-session; }
       { event = "before-sleep"; command = "${loginctl} lock-session"; }
     ];
     systemdTarget = "niri.service";
