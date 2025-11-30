@@ -34,17 +34,17 @@ input {
 output "DP-1" {
     scale 1
     variable-refresh-rate
-    background-color "#363a4f" // Catppuccin surface0
 }
 
 // Laptop screen
 output "eDP-1" {
     scale 1.0
-    background-color "#363a4f" // Catppuccin surface0
     // transform "180"
 }
 
 layout {
+    background-color "#363a4f" // Catppuccin surface0
+
     focus-ring {
         width 4
         active-color "#b7bdf8" // Lavender from Catppuccin Macchiato theme
