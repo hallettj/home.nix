@@ -3,6 +3,7 @@
 {
   imports = [
     outputs.homeManagerModules.screen-type
+    outputs.homeManagerModules.useOutOfStoreSymlinks
     ../common.nix
     ../profiles/desktop
     ../features/mesa
