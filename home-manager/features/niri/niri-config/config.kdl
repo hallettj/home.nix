@@ -42,6 +42,10 @@ output "eDP-1" {
     // transform "180"
 }
 
+// Prefer boring rectangles instead of windows drawing custom title bars and
+// other client-side decorations.
+prefer-no-csd
+
 layout {
     background-color "#363a4f" // Catppuccin surface0
 
