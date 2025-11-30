@@ -10,6 +10,7 @@ in
   services.tailscale = {
     enable = true;
     package = tailscale;
+    openFirewall = true;
   };
 }
 
