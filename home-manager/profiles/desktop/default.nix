@@ -17,7 +17,6 @@
     # GUI apps
     discord
     element-desktop
-    enpass
     foliate
     gimp-with-plugins
     google-chrome
