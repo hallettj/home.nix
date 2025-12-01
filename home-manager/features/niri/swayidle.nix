@@ -19,6 +19,7 @@ let
       niri-stable
       systemd
       playerctl
+      procps # provides pgrep
       config.programs.swaylock.package
       _1password-gui
     ];
@@ -29,7 +30,7 @@ let
       # not running then the lock command will start it, which blocks this
       # script, which prevents swayidle from working until 1password is
       # closed.
-      if pgrep 1password; then
+      if pgrep -x 1password &>/dev/null; then
         1password --lock
       fi
 
