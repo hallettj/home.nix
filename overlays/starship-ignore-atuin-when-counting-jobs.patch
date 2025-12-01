@@ -1,0 +1,28 @@
+From 06f43f43617aa76c9ed058021f3751ea169e171c Mon Sep 17 00:00:00 2001
+From: Jesse Hallett <jesse@sitr.us>
+Date: Sun, 30 Nov 2025 17:49:44 -0800
+Subject: [PATCH] ignore atuin when counting jobs
+
+Because of the way atuin integrates into the shell it shows up as a job when
+I don't want it to for purposes of the job indicator in the shell prompt.
+
+---
+ src/init/starship.nu | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/init/starship.nu b/src/init/starship.nu
+index 4d7a46b8..b42d50d6 100644
+--- a/src/init/starship.nu
++++ b/src/init/starship.nu
+@@ -23,7 +23,7 @@ export-env { $env.STARSHIP_SHELL = "nu"; load-env {
+                 --terminal-width (term size).columns
+                 ...(
+                     if (which "job list" | where type == built-in | is-not-empty) {
+-                        ["--jobs", (job list | length)]
++                        ["--jobs", (job list | where tag != atuin | length)]
+                     } else {
+                         []
+                     }
+-- 
+2.51.2
+
