@@ -1,6 +1,6 @@
 return {
   -- ai
-  avante = true;
+  avante = false;
   codecompanion = false;
   copilot = false;
 
