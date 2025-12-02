@@ -28,8 +28,8 @@
   # On suspend enter S3 deep sleep state instead of shallow s2idle state
   boot.kernelParams = [ "mem_sleep_default=deep" ];
 
-  # Support automatic screen rotation & ambient light adjustment in Gnome.
-  hardware.sensor.iio.enable = true;
+  # Support automatic screen rotation in Niri
+  services.iio-niri.enable = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
