@@ -1,12 +1,12 @@
-{ lib, pkgs, inputs, outputs, ... }:
+{ config, lib, pkgs, inputs, outputs, ... }:
 
 {
   imports = [
     outputs.homeManagerModules.screen-type
     outputs.homeManagerModules.useOutOfStoreSymlinks
+    inputs.niri.homeModules.niri
     ../common.nix
     ../profiles/desktop
-    ../features/mesa
   ];
 
   screen-type.aspect-ratio = "ultrawide";
@@ -26,6 +26,8 @@
     inputs.ddn-cli-nix.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];
 
+  # Use different colors on lock screen to help me see which partition I'm
+  # logged into
   programs.swaylock.settings =
     let
       # Color palette generated from promptql-neon as a starting point
@@ -72,6 +74,54 @@
       show-failed-attempts = true;
     };
 
+  # Need to add niri to gdm session list manually - see notes below
+  programs.niri = {
+    enable = true;
+    config = null; # don't write a config - one is linked in the features/niri module
+  };
+
+  # niri-session starts this service to run Niri
+  systemd.user.services.niri = {
+    Unit = {
+      Description = "A scrollable-tiling Wayland compositor";
+      BindsTo = [ "graphical-session.target" ];
+      Before = [ "graphical-session.target" "xdg-desktop-autostart.target" ];
+      Wants = [ "graphical-session-pre.target" "xdg-desktop-autostart.target" ];
+      After = [ "graphical-session-pre.target" ];
+    };
+    Service = {
+      Slice = "session.slice";
+      Type = "notify";
+      ExecStart = "${config.programs.niri.package}/bin/niri --session";
+    };
+  };
+
+  # niri invokes this target to shut down
+  systemd.user.targets.niri-shutdown = {
+    Unit = {
+      Description = "Shutdown running niri session";
+      DefaultDependencies = "no";
+      StopWhenUnneeded = true;
+      Conflicts = [ "graphical-session.target" "graphical-session-pre.target" ];
+      After = [ "graphical-session.target" "graphical-session-pre.target" ];
+    };
+  };
+
+  # Enables settings that make Home Manager work better on GNU/Linux
+  # distributions other than NixOS. This includes configuring GPU drivers for
+  # programs that use hardware acceleration.
+  #
+  # Requires sudo access to host. A message appears when running `home-manager
+  # switch` when necessary with a sudo command needed to set up GPU drivers.
+  #
+  # On Fedora I had to configure SELinux to authorize the unit that Home Manager installs:
+  #
+  #     sudo semanage fcontext -a -t systemd_unit_file_t '/nix/store/[^/]+/resources/non-nixos-gpu.service'
+  #
+  # See https://gist.github.com/matthewpi/08c3d652e7879e4c4c30bead7021ff73
+  #
+  targets.genericLinux.enable = true;
+
   home.useOutOfStoreSymlinks = true;
 
   home.stateVersion = "23.05"; # Please read the comment before changing.
@@ -80,7 +130,15 @@
 # This configuration runs on a non-NixOS host which means there are some
 # non-declarative setup steps required.
 #
-# Niri is installed by a system package, which sets up GDM, portals, etc.
+# Add Niri to the GDM session list. Create this file at
+# /usr/share/wayland-sessions/niri.desktop, and run `chmod 644`:
+#
+#     [Desktop Entry]
+#     Name=Niri
+#     Comment=A scrollable-tiling Wayland compositor
+#     Exec=/home/jesse/.nix-profile/bin/niri-session
+#     Type=Application
+#     DesktopNames=niri
 #
 # Install Cartograph CF font in ~/.local/share/fonts/
 #
@@ -88,7 +146,7 @@
 #
 # ## Special setup for swaylock:
 #
-# Install PAM config
+# Install PAM config - this may need to be run again after dnf updates
 #
 #     sudo cp /home/jesse/.nix-profile/etc/pam.d/swaylock /etc/pam.d/
 #

@@ -2,7 +2,7 @@
 
 let
   colors = (import ./colors.nix).catppuccin-macchiato;
-  niri-bin = "${pkgs.niri-stable}/bin/niri";
+  niri-bin = "${config.programs.niri.package}/bin/niri";
   loginctl = "${pkgs.systemd}/bin/loginctl";
   systemctl = "${pkgs.systemd}/bin/systemctl";
 
