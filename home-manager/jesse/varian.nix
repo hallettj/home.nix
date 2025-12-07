@@ -107,6 +107,13 @@
     };
   };
 
+  # Use Gnome Keyring as SSH agent
+  services.gnome-keyring = {
+    enable = true;
+    components = [ "pkcs11" "secrets" "ssh" ];
+  };
+  home.sessionVariables.SSH_AUTH_SOCK = "$XDG_RUNTIME_DIR/keyring/ssh";
+
   # Enables settings that make Home Manager work better on GNU/Linux
   # distributions other than NixOS. This includes configuring GPU drivers for
   # programs that use hardware acceleration.
