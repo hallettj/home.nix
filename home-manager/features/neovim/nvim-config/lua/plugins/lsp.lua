@@ -54,6 +54,7 @@ return {
 
     lspconfig.bashls.setup {}
     lspconfig.jsonls.setup {}
+    lspconfig.nil_ls.setup {}
     lspconfig.nushell.setup {}
     lspconfig.uiua.setup {}
 
@@ -69,16 +70,6 @@ return {
           },
         },
       },
-    }
-
-    lspconfig.nil_ls.setup {
-      settings = {
-        ['nil'] = {
-          formatting = {
-            command = { 'nixpkgs-fmt' }
-          }
-        }
-      }
     }
 
     -- Python

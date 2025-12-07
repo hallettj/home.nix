@@ -53,7 +53,7 @@ in
       basedpyright # Python LSP server
       deno
       lua-language-server
-      nil # Nix LSP
+      (nil.override { nixfmt = pkgs.nixfmt-rfc-style; }) # Nix LSP
       nodePackages.bash-language-server
       nodePackages.typescript-language-server
       ruff # another Python LSP server that provides formatting
