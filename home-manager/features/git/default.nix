@@ -68,11 +68,6 @@ in
       rebase = {
         autosquash = true; # automatically squash fixups, etc.
       };
-      rerere = {
-        # record rebase conflict solutions to re-apply if needed
-        enabled = true;
-        autoupdate = true;
-      };
     };
   };
 }
