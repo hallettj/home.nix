@@ -58,17 +58,18 @@ in
       nodePackages.typescript-language-server
       ruff # another Python LSP server that provides formatting
       shellcheck # called by bash-language-server
+      yaml-language-server
 
       # formatters
       black # python code formatter
       isort # python import sorter
+      prettier
 
       # Rust support
       lldb # debug adapter
       graphviz # to render crate graphs from rustaceanvim
 
       python312Packages.pylatexenc # to get latex2text for render-markdown
-      nixpkgs-fmt # I have nil configured to call this for formatting
     ];
   };
 

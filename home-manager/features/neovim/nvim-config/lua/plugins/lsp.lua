@@ -57,6 +57,7 @@ return {
     lspconfig.nil_ls.setup {}
     lspconfig.nushell.setup {}
     lspconfig.uiua.setup {}
+    lspconfig.yamlls.setup {}
 
     -- To set up with custom configuration, use `lspconfig` as seen below.
     -- We don't set up rust_analyzer in any of these steps because it is set up
