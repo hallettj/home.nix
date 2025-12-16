@@ -6,9 +6,5 @@ export def main [
 }
 
 def boot-devices [] {
-  let bootable_entries = efibootmgr | grep -E 'Boot\S+\*' | parse --regex '(?<identifier>\S+) (?<description>(?:\w+ )*\w+)'
-  $bootable_entries | each {|it| {
-    value: ($it.identifier | str replace -r 'Boot(.*)\*' '$1'),
-    description: $it.description,
-  } }
+  efibootmgr | parse --regex 'Boot(?<value>\S+)\* (?<description>(?:\w+ )*\w+)'
 }
