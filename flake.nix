@@ -22,6 +22,11 @@
       inputs.niri-stable.url = "github:YaLTeR/niri/v25.11";
     };
 
+    noctalia = {
+      url = "github:noctalia-dev/noctalia-shell";
+      inputs.nixpkgs.follows = "nixpkgs-unstable"; # The docs say noctalia requires unstable packages
+    };
+
     # Manages version-controlled, encrypted secrets
     sops-nix = {
       url = "github:mic92/sops-nix";

@@ -8,6 +8,7 @@
     ../../features/kitty
     ../../features/neovide
     ../../features/niri
+    ../../features/noctalia
     ../../features/xcompose
   ];
 

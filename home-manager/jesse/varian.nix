@@ -149,8 +149,6 @@
 #
 # Install Cartograph CF font in ~/.local/share/fonts/
 #
-# Install system blueman-applet
-#
 # ## Special setup for swaylock:
 #
 # Install PAM config - this may need to be run again after dnf updates

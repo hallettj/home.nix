@@ -185,17 +185,19 @@ binds {
     Mod+Return hotkey-overlay-title="Spawn Terminal" { spawn "kitty"; }
     Mod+V hotkey-overlay-title="Launch apps or switch to open windows" { spawn "rofi" "-show" "combi" "-combi-modes" "window,drun"; }
     Mod+Ctrl+L hotkey-overlay-title="Lock Session" { spawn "loginctl" "lock-session"; }
-    Mod+Slash hotkey-overlay-title="Show Notification Center" { spawn "swaync-client" "-t"; }
+    Mod+Slash hotkey-overlay-title="Show Notification Center" { spawn "noctalia-shell" "ipc" "call" "notifications" "toggleHistory"; }
+    Mod+Ctrl+Slash hotkey-overlay-title="Show Notification Center" { spawn "noctalia-shell" "ipc" "call" "notifications" "toggleDND"; }
+    Mod+Ctrl+Shift+Slash hotkey-overlay-title="Show Notification Center" { spawn "noctalia-shell" "ipc" "call" "notifications" "clear"; }
     Mod+O repeat=false { toggle-overview; }
 
     XF86AudioPlay         allow-when-locked=true { spawn "playerctl" "play-pause"; }
     XF86AudioNext         { spawn "playerctl" "next"; }
     XF86AudioPrev         { spawn "playerctl" "previous"; }
-    XF86AudioRaiseVolume  { spawn "swayosd-client" "--output-volume" "1"; }
-    XF86AudioLowerVolume  { spawn "swayosd-client" "--output-volume" "-1"; }
-    XF86AudioMute         { spawn "swayosd-client" "--output-volume" "mute-toggle"; }
-    XF86MonBrightnessUp   { spawn "swayosd-client" "--brightness" "+5"; }
-    XF86MonBrightnessDown { spawn "swayosd-client" "--brightness" "-5"; }
+    XF86AudioRaiseVolume  { spawn "noctalia-shell" "ipc" "call" "volume" "increase"; }
+    XF86AudioLowerVolume  { spawn "noctalia-shell" "ipc" "call" "volume" "decrease"; }
+    XF86AudioMute         { spawn "noctalia-shell" "ipc" "call" "volume" "muteOutput"; }
+    XF86MonBrightnessUp   { spawn "noctalia-shell" "ipc" "call" "brightness" "increase"; }
+    XF86MonBrightnessDown { spawn "noctalia-shell" "ipc" "call" "brightness" "decrease"; }
 
     Mod+Delete { close-window; }
 
@@ -308,4 +310,8 @@ debug {
 
     // Override the DRM device that niri will use for all rendering.
     // render-drm-device "/dev/dri/renderD129"
+    
+    // Preview block-out-from rules
+    // preview-render "screencast"
+    // preview-render "screen-capture"
 }
