@@ -71,8 +71,10 @@ in
               usePrimaryColor = false;
             }
             { id = "NotificationHistory"; }
+            { id = "plugin:privacy-indicator"; }
           ];
           right = builtins.filter (e: e != null) [
+            { id = "plugin:network-indicator"; }
             {
               id = "Tray";
               drawerEnabled = false;
@@ -118,5 +120,25 @@ in
 
       wallpaper.enabled = false;
     };
+  };
+
+  config.xdg.configFile = {
+    "noctalia/plugins.json".text = builtins.toJSON {
+      sources = [
+        {
+          enabled = true;
+          name = "Official Noctalia Plugins";
+          url = "https://github.com/noctalia-dev/noctalia-plugins";
+        }
+      ];
+      states = {
+        network-indicator.enabled = true;
+        privacy-indicator.enabled = true;
+      };
+      version = 1;
+    };
+
+    "noctalia/plugins/network-indicator".source = "${inputs.noctalia-plugins}/network-indicator";
+    "noctalia/plugins/privacy-indicator".source = "${inputs.noctalia-plugins}/privacy-indicator";
   };
 }

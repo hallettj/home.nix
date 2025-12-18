@@ -27,6 +27,11 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable"; # The docs say noctalia requires unstable packages
     };
 
+    noctalia-plugins = {
+      url = "github:noctalia-dev/noctalia-plugins";
+      flake = false;
+    };
+
     # Manages version-controlled, encrypted secrets
     sops-nix = {
       url = "github:mic92/sops-nix";
