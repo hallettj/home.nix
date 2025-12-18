@@ -26,6 +26,10 @@
   # Connect to VPN by running $ mullvad connect
   services.mullvad-vpn.enable = true;
 
+  # Allows controlling external monitors - makes Noctalia's external monitor
+  # brightness control work.
+  services.ddccontrol.enable = true;
+
   virtualisation.virtualbox.host.enable = true;
   users.extraGroups.vboxusers.members = [ "jesse" ];
 

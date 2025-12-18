@@ -8,6 +8,11 @@
     ../profiles/desktop
   ];
 
+  my-settings = {
+    show-battery-status = true;
+    show-brightness = true;
+  };
+
   # Increase font sizes - it's cleaner than applying a display scaling factor.
   dconf.settings."org/gnome/desktop/interface" = {
     text-scaling-factor = 2.0;

@@ -46,7 +46,7 @@ in
     show-brightness = lib.mkOption {
       type = lib.types.bool;
       default = false;
-      description = "Should a brightness widget be displayed in the Noctalia bar?";
+      description = "Should a brightness widget be displayed in the Noctalia control center?";
     };
   };
 
@@ -97,29 +97,23 @@ in
             { id = "NotificationHistory"; }
             { id = "plugin:privacy-indicator"; }
           ];
-          right = builtins.filter (e: e != null) [
+          right = builtins.filter (e: e != { }) [
             { id = "plugin:network-indicator"; }
             {
               id = "Tray";
               drawerEnabled = false;
             }
-            (
-              if cfg.show-battery-status then
-                {
-                  id = "Battery";
-                  displayMode = "alwaysShow";
-                  warningThreshold = 30;
-                }
-              else
-                null
-            )
+            (lib.optionalAttrs cfg.show-battery-status {
+              id = "Battery";
+              displayMode = "alwaysShow";
+              warningThreshold = 30;
+            })
             {
               id = "Battery";
               deviceNativePath = "/org/bluez/hci0/dev_EC_A5_35_3B_B8_C8";
               displayMode = "alwaysShow";
               warningThreshold = 30;
             }
-            (if cfg.show-brightness then { id = "Brightness"; } else null)
             { id = "WiFi"; }
             {
               id = "Volume";
@@ -133,15 +127,49 @@ in
         };
       };
 
-      audio.volumeStep = 1;
+      audio = {
+        volumeStep = 1;
+        preferredPlayer = "Qobuz";
+      };
+      brightness = {
+        brightnessStep = 5;
+        enableDdcSupport = true;
+        enforceMinimum = true;
+      };
 
+      controlCenter.cards = builtins.filter (e: e != { }) [
+        {
+          enabled = true;
+          id = "profile-card";
+        }
+        {
+          enabled = true;
+          id = "shortcuts-card";
+        }
+        {
+          enabled = true;
+          id = "audio-card";
+        }
+        (lib.optionalAttrs cfg.show-brightness {
+          enabled = true;
+          id = "brightness-card";
+        })
+        {
+          enabled = true;
+          id = "weather-card";
+        }
+        {
+          enabled = true;
+          id = "media-sysmon-card";
+        }
+      ];
+
+      dock.enabled = false;
       location = {
         name = "Castro Valley, CA";
         firstDayOfWeek = 1;
       };
-
       nightLight.enabled = true;
-
       wallpaper.enabled = false;
     };
   };

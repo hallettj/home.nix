@@ -11,6 +11,7 @@
     ../features/vscode
   ];
 
+  my-settings.show-brightness = true;
   screen-type.aspect-ratio = "ultrawide";
 
   # Increase font sizes - it's cleaner than applying a display scaling factor.

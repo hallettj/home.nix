@@ -27,7 +27,6 @@ in
   home.sessionVariables.NIXOS_OZONE_WL = "1";
 
   home.packages = with pkgs; [
-    playerctl # for play-pause key bind
     (xwayland-satellite.override { withSystemd = false; }) # Niri automatically runs this when xwayland support is required
   ];
 

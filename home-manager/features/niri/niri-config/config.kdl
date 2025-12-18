@@ -190,9 +190,9 @@ binds {
     Mod+Ctrl+Shift+Slash hotkey-overlay-title="Show Notification Center" { spawn "noctalia-shell" "ipc" "call" "notifications" "clear"; }
     Mod+O repeat=false { toggle-overview; }
 
-    XF86AudioPlay         allow-when-locked=true { spawn "playerctl" "play-pause"; }
-    XF86AudioNext         { spawn "playerctl" "next"; }
-    XF86AudioPrev         { spawn "playerctl" "previous"; }
+    XF86AudioPlay         allow-when-locked=true { spawn "noctalia-shell" "ipc" "call" "media" "playPause"; }
+    XF86AudioNext         { spawn "noctalia-shell" "ipc" "call" "media" "next"; }
+    XF86AudioPrev         { spawn "noctalia-shell" "ipc" "call" "media" "previous"; }
     XF86AudioRaiseVolume  { spawn "noctalia-shell" "ipc" "call" "volume" "increase"; }
     XF86AudioLowerVolume  { spawn "noctalia-shell" "ipc" "call" "volume" "decrease"; }
     XF86AudioMute         { spawn "noctalia-shell" "ipc" "call" "volume" "muteOutput"; }
