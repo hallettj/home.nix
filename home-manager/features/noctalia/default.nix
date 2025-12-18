@@ -2,11 +2,35 @@
   config,
   inputs,
   lib,
+  pkgs,
   ...
 }:
 
 let
   cfg = config.my-settings;
+
+  plugin-settings.privacy-indicator.hideInactive = true;
+
+  # Create a derivation based on inputs.noctalia-plugins, but merge custom
+  # settings from `plugin-settings` with default settings for each plugin, and
+  # write the result to a `settings.json` file for each plugin.
+  plugins = pkgs.runCommand "noctalia-plugins" { } ''
+    cp -r "${inputs.noctalia-plugins}" "$out"
+    chmod -R +w "$out"
+    ${lib.concatStrings (
+      lib.mapAttrsToList (
+        pluginName: settings:
+        let
+          settingsJson = pkgs.writeText "${pluginName}-settings.json" (builtins.toJSON settings);
+        in
+        ''
+          ${lib.getExe pkgs.jq} --slurpfile customizations ${settingsJson} \
+            '.metadata.defaultSettings * $customizations[0]' \
+            "$out/${pluginName}/manifest.json" > "$out/${pluginName}/settings.json"
+        ''
+      ) plugin-settings
+    )}
+  '';
 in
 {
   imports = [
@@ -138,7 +162,7 @@ in
       version = 1;
     };
 
-    "noctalia/plugins/network-indicator".source = "${inputs.noctalia-plugins}/network-indicator";
-    "noctalia/plugins/privacy-indicator".source = "${inputs.noctalia-plugins}/privacy-indicator";
+    "noctalia/plugins/network-indicator".source = "${plugins}/network-indicator";
+    "noctalia/plugins/privacy-indicator".source = "${plugins}/privacy-indicator";
   };
 }
