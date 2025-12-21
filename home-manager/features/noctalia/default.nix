@@ -77,6 +77,12 @@ in
             {
               id = "Workspace";
               labelMode = "none";
+              showApplications = true;
+              hideUnoccupied = true;
+            }
+            {
+              id = "Spacer";
+              width = 20;
             }
             {
               id = "MediaMini";
@@ -99,6 +105,10 @@ in
           ];
           right = builtins.filter (e: e != { }) [
             { id = "plugin:network-indicator"; }
+            {
+              id = "Spacer";
+              width = 20;
+            }
             {
               id = "Tray";
               drawerEnabled = false;
