@@ -1,4 +1,11 @@
-{ config, lib, pkgs, inputs, outputs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  inputs,
+  outputs,
+  ...
+}:
 
 {
   imports = [
@@ -9,6 +16,13 @@
     ../profiles/desktop
   ];
 
+  my-settings = {
+    defaultWallpaper =
+      (pkgs.fetchurl {
+        url = "https://w.wallhaven.cc/full/md/wallhaven-mdyvvm.jpg"; # Source: https://wallhaven.cc/w/mdyvvm
+        hash = "sha256-1JtqfH1htLqprk3W8pkdscT/5w5lYflsO+f20m7dmbg=";
+      }).outPath;
+  };
   screen-type.aspect-ratio = "ultrawide";
 
   # Increase font sizes - it's cleaner than applying a display scaling factor.
@@ -85,8 +99,14 @@
     Unit = {
       Description = "A scrollable-tiling Wayland compositor";
       BindsTo = [ "graphical-session.target" ];
-      Before = [ "graphical-session.target" "xdg-desktop-autostart.target" ];
-      Wants = [ "graphical-session-pre.target" "xdg-desktop-autostart.target" ];
+      Before = [
+        "graphical-session.target"
+        "xdg-desktop-autostart.target"
+      ];
+      Wants = [
+        "graphical-session-pre.target"
+        "xdg-desktop-autostart.target"
+      ];
       After = [ "graphical-session-pre.target" ];
     };
     Service = {
@@ -102,15 +122,25 @@
       Description = "Shutdown running niri session";
       DefaultDependencies = "no";
       StopWhenUnneeded = true;
-      Conflicts = [ "graphical-session.target" "graphical-session-pre.target" ];
-      After = [ "graphical-session.target" "graphical-session-pre.target" ];
+      Conflicts = [
+        "graphical-session.target"
+        "graphical-session-pre.target"
+      ];
+      After = [
+        "graphical-session.target"
+        "graphical-session-pre.target"
+      ];
     };
   };
 
   # Use Gnome Keyring as SSH agent
   services.gnome-keyring = {
     enable = true;
-    components = [ "pkcs11" "secrets" "ssh" ];
+    components = [
+      "pkcs11"
+      "secrets"
+      "ssh"
+    ];
   };
   home.sessionVariables.SSH_AUTH_SOCK = "$XDG_RUNTIME_DIR/keyring/ssh";
 
@@ -172,12 +202,12 @@
 #     [Unit]
 #     After=run-wrappers.mount
 #     Wants=run-wrappers.mount
-#     
+#
 #     [Service]
 #     Type=oneshot
 #     ExecStart=/usr/bin/mkdir -p /run/wrappers/bin
 #     ExecStart=/usr/bin/ln -sf /sbin/unix_chkpwd /run/wrappers/bin/unix_chkpwd
-#     
+#
 #     [Install]
 #     WantedBy=multi-user.target
 #     EOF

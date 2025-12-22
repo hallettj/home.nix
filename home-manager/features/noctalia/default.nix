@@ -48,6 +48,18 @@ in
       default = false;
       description = "Should a brightness widget be displayed in the Noctalia control center?";
     };
+    defaultWallpaper = lib.mkOption {
+      type = lib.types.str;
+      description = "Path to default wallpaper image file";
+      default = "${config.programs.noctalia-shell.package}/share/noctalia-shell/Assets/Wallpaper/noctalia.png";
+    };
+    wallpapers = lib.mkOption {
+      type = lib.types.attrsOf lib.types.str;
+      description = "Wallpapers for each display, given as an attribute set from display name to image file path";
+      default = {
+        "DP-1" = cfg.defaultWallpaper;
+      };
+    };
   };
 
   # Referenced in my swayidle module
@@ -184,6 +196,15 @@ in
       };
       nightLight.enabled = true;
       wallpaper.enabled = false;
+    };
+  };
+
+  # Set wallpapers - applies to lock screen even if wallpapers are otherwise
+  # disabled.
+  config.home.file.".cache/noctalia/wallpapers.json" = {
+    text = builtins.toJSON {
+      defaultWallpaper = cfg.defaultWallpaper;
+      wallpapers = cfg.wallpapers;
     };
   };
 

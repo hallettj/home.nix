@@ -11,7 +11,14 @@
     ../features/vscode
   ];
 
-  my-settings.show-brightness = true;
+  my-settings = {
+    show-brightness = true;
+    defaultWallpaper =
+      (pkgs.fetchurl {
+        url = "https://w.wallhaven.cc/full/73/wallhaven-73looo.jpg"; # Source: https://wallhaven.cc/w/73looo
+        hash = "sha256-vE4WzXzJlk+RmcXv4M8KKOLjpuumJ4RLVUAKTtU8fHw=";
+      }).outPath;
+  };
   screen-type.aspect-ratio = "ultrawide";
 
   # Increase font sizes - it's cleaner than applying a display scaling factor.
