@@ -19,8 +19,8 @@
   my-settings = {
     defaultWallpaper =
       (pkgs.fetchurl {
-        url = "https://w.wallhaven.cc/full/md/wallhaven-mdyvvm.jpg"; # Source: https://wallhaven.cc/w/mdyvvm
-        hash = "sha256-1JtqfH1htLqprk3W8pkdscT/5w5lYflsO+f20m7dmbg=";
+        url = "https://w.wallhaven.cc/full/73/wallhaven-73looo.jpg"; # Source: https://wallhaven.cc/w/73looo
+        hash = "sha256-vE4WzXzJlk+RmcXv4M8KKOLjpuumJ4RLVUAKTtU8fHw=";
       }).outPath;
   };
   screen-type.aspect-ratio = "ultrawide";
