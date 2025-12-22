@@ -203,7 +203,7 @@ in
 
   # Set wallpapers - applies to lock screen even if wallpapers are otherwise
   # disabled.
-  config.home.file.".cache/noctalia/wallpapers.json" = {
+  config.xdg.cacheFile."noctalia/wallpapers.json" = {
     text = builtins.toJSON {
       defaultWallpaper = cfg.defaultWallpaper;
       wallpapers = cfg.wallpapers;
@@ -229,4 +229,10 @@ in
     "noctalia/plugins/network-indicator".source = "${plugins}/network-indicator";
     "noctalia/plugins/privacy-indicator".source = "${plugins}/privacy-indicator";
   };
+
+  # Automatically restart noctalia after changes to wallpaper or plugin settings
+  config.systemd.user.services.noctalia-shell.Unit.X-Restart-Triggers = [
+    config.xdg.cacheFile."noctalia/wallpapers.json".source
+    config.xdg.configFile."noctalia/plugins.json".source
+  ];
 }
