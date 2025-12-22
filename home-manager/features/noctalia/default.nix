@@ -86,7 +86,6 @@ in
       };
 
       bar = {
-        density = "comfortable";
         outerCorners = false;
         showCapsule = false;
         widgets = {

@@ -23,14 +23,11 @@
       }).outPath;
   };
 
-  # Increase font sizes - it's cleaner than applying a display scaling factor.
-  dconf.settings."org/gnome/desktop/interface" = {
-    text-scaling-factor = 2.0;
-  };
-
   programs.kitty.extraConfig = ''
-    font_size 20.0
+    font_size 10.0
   '';
+
+  programs.neovide.settings.font.size = 10;
 
   programs.waybar.settings.mainBar = {
     # Add battery module to waybar to show charge

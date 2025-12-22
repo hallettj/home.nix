@@ -38,7 +38,7 @@ output "DP-1" {
 
 // Laptop screen
 output "eDP-1" {
-    scale 1.0
+    scale 2.0
     // transform "180"
 }
 
