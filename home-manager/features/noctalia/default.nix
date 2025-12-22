@@ -77,7 +77,9 @@ in
       };
 
       ui = {
+        fontDefault = "Cantarell";
         fontDefaultScale = 1.1;
+        fontFixed = "Cartograph CF";
         fontFixedScale = 1.1;
         panelBackgroundOpacity = 1;
         settingsPanelMode = "window";
