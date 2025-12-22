@@ -1,6 +1,7 @@
 {
   config,
   flakePath,
+  lib,
   pkgs,
   ...
 }:
@@ -19,7 +20,6 @@ in
 {
   imports = [
     ../rofi
-    ./swayidle.nix
   ];
 
   # Nix packages configure Chrome and Electron apps to run in native Wayland
@@ -37,4 +37,8 @@ in
       else
         ./niri-config;
   };
+
+  # Referenced in my swayidle module
+  my-settings.power-off-monitors-command = "${lib.getExe config.programs.niri.package} msg action power-off-monitors";
+  services.swayidle.systemdTarget = "niri.service";
 }

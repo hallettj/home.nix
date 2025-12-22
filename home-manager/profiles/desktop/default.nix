@@ -9,6 +9,7 @@
     ../../features/neovide
     ../../features/niri
     ../../features/noctalia
+    ../../features/swayidle
     ../../features/xcompose
   ];
 
