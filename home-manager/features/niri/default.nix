@@ -39,6 +39,6 @@ in
   };
 
   # Referenced in my swayidle module
-  my-settings.power-off-monitors-command = "${lib.getExe config.programs.niri.package} msg action power-off-monitors";
+  my-settings.power-off-monitors-command = "${lib.getExe pkgs.niri} msg action power-off-monitors";
   services.swayidle.systemdTarget = "niri.service";
 }

@@ -15,13 +15,6 @@
 
     determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
 
-    # Scrolling window manager
-    niri = {
-      url = "github:sodiboo/niri-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.niri-stable.url = "github:YaLTeR/niri/v25.11";
-    };
-
     noctalia = {
       url = "github:noctalia-dev/noctalia-shell";
       inputs.nixpkgs.follows = "nixpkgs-unstable"; # The docs say noctalia requires unstable packages

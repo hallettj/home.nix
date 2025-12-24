@@ -4,13 +4,15 @@
   imports = [
     ../../features/_1password.nix
     ../../features/fonts
-    ../../features/niri.nix
   ];
 
   # Setup keyfile - copies /crypto_keyfile.bin to same path in initrd
   boot.initrd.secrets = {
     "/crypto_keyfile.bin" = null;
   };
+
+  # Scrolling window manager
+  programs.niri.enable = true;
 
   services.avahi = {
     enable = true;
@@ -57,4 +59,3 @@
   # Set your time zone.
   time.timeZone = lib.mkForce null; # allow TZ to be set by desktop user
 }
-
