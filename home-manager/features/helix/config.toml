@@ -1,0 +1,11 @@
+theme = "catppuccin_macchiato"
+
+[editor]
+auto-format = false
+auto-save = true
+gutters = ["diagnostics", "spacer", "diff"]
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"

@@ -11,6 +11,7 @@
     outputs.homeManagerModules.useOutOfStoreSymlinks
     ../common.nix
     ../profiles/desktop
+    ../features/helix
   ];
 
   my-settings = {
