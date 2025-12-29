@@ -24,6 +24,22 @@
       }).outPath;
   };
 
+  programs.niri.extraConfig = ''
+    output "eDP-1" {
+        scale 2.0
+    }
+
+    input {
+      tablet {
+          map-to-output "eDP-1"
+      }
+
+      touch {
+          map-to-output "eDP-1"
+      }
+    }
+  '';
+
   programs.kitty.extraConfig = ''
     font_size 10.0
   '';

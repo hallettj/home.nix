@@ -20,26 +20,6 @@ input {
     }
 
     mouse { }
-
-    tablet {
-        map-to-output "eDP-1"
-    }
-
-    touch {
-        map-to-output "eDP-1"
-    }
-}
-
-// External screen
-output "DP-1" {
-    scale 1
-    variable-refresh-rate
-}
-
-// Laptop screen
-output "eDP-1" {
-    scale 2.0
-    // transform "180"
 }
 
 // Prefer boring rectangles instead of windows drawing custom title bars and
@@ -50,7 +30,7 @@ layout {
     background-color "#363a4f" // Catppuccin surface0
 
     focus-ring {
-        width 4
+        width 2
         active-color "#b7bdf8" // Lavender from Catppuccin Macchiato theme
         inactive-color "#6e738d" // Overlay0 from Catppuccin Macchiato theme
         urgent-color "#f5a97f" // Catppuccin peach
@@ -77,14 +57,14 @@ layout {
     // If you leave the brackets empty, the windows themselves will decide their initial width.
     default-column-width {}
 
-    gaps 8
+    gaps 4
     center-focused-column "never"
 
     default-column-display "normal"
 
     tab-indicator {
-        width 6
-        corner-radius 3
+        width 4
+        corner-radius 2
         gaps-between-tabs 6
         active-color "#f4dbd6" // rosewater
         urgent-color "#f5a97f" // Catppuccin peach
@@ -104,7 +84,7 @@ cursor {
     // After upgrading to NixOS 25.05 and Niri v25.05 I stopped seeing the
     // cursor change shape until I set a theme here explicitly. I was seeing the
     // arrow all the time - the cursor wouldn't change to, e.g., a beam or hand.
-    xcursor-size 34
+    xcursor-size 32
     xcursor-theme "Adwaita"
 }
 

@@ -21,14 +21,18 @@
   };
   screen-type.aspect-ratio = "ultrawide";
 
-  # Increase font sizes - it's cleaner than applying a display scaling factor.
-  dconf.settings."org/gnome/desktop/interface" = {
-    text-scaling-factor = 1.25;
-  };
+  programs.niri.extraConfig = ''
+    output "DP-1" {
+        scale 1.33
+        variable-refresh-rate
+    }
+  '';
 
   programs.kitty.extraConfig = ''
-    font_size 12.0
+    font_size 10.0
   '';
+
+  programs.neovide.settings.font.size = 10;
 
   home.packages = with pkgs; [
     gparted

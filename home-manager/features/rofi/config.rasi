@@ -1,6 +1,6 @@
 configuration {
   terminal: "kitty";
-  font: "Cantarell 18";
+  font: "Cantarell 14";
   show-icons: true;
   combi-display-format: "{text}";
   window-format: "{t}";
@@ -44,9 +44,9 @@ configuration {
 window {
   text-color: @text;
   background-color: @base;
-  border: 4px;
+  border: 2px;
   border-color: @lavender;
-  border-radius: 4px;
+  border-radius: 2px;
   padding: 0.5em;
   width: 50em;
 }

@@ -7,7 +7,7 @@
       frame = "none"; # disable the top window bar
       font = {
         normal = [ "Cartograph CF" ];
-        size = lib.mkDefault 12;
+        size = lib.mkDefault 10;
       };
     };
   };
