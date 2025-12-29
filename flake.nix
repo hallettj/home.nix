@@ -13,7 +13,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
+    determinate-nix.url = "https://flakehub.com/f/DeterminateSystems/nix-src/*";
 
     noctalia = {
       url = "github:noctalia-dev/noctalia-shell";
@@ -40,7 +40,7 @@
     ddn-cli-nix.url = "github:hasura/ddn-cli-nix";
   };
 
-  outputs = { self, nixpkgs, home-manager, systems, determinate, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, systems, ... }@inputs:
     let
       inherit (self) outputs;
       perSystem = callback: nixpkgs.lib.genAttrs (import systems) (system: callback (pkgs system));
