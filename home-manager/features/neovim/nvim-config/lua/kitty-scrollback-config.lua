@@ -41,6 +41,9 @@ vim.api.nvim_create_autocmd('FileType', {
 
 local leap_config = require('plugins.leap')[1]
 leap_config.config()
+for _, key in ipairs(leap_config.keys) do
+  vim.keymap.set(key.mode, key[1], key[2], { desc = key.desc })
+end
 
 local surround_config = require('plugins.surround')
 require('nvim-surround').setup(surround_config.opts)
