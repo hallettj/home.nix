@@ -21,12 +21,10 @@
   };
   screen-type.aspect-ratio = "ultrawide";
 
-  programs.niri.extraConfig = ''
-    output "DP-1" {
-        scale 1.33
-        variable-refresh-rate
-    }
-  '';
+  programs.niri.settings.outputs."DP-1" = {
+    scale = 1.33;
+    variable-refresh-rate = true;
+  };
 
   programs.kitty.extraConfig = ''
     font_size 10.0

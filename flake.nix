@@ -15,6 +15,12 @@
 
     determinate-nix.url = "https://flakehub.com/f/DeterminateSystems/nix-src/*";
 
+    niri-flake = {
+      url = "github:LuckShiba/niri-flake/includes";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs-stable.follows = "nixpkgs";
+    };
+
     noctalia = {
       url = "github:noctalia-dev/noctalia-shell";
       inputs.nixpkgs.follows = "nixpkgs-unstable"; # The docs say noctalia requires unstable packages
