@@ -12,6 +12,7 @@
     outputs.homeManagerModules.screen-type
     outputs.homeManagerModules.useOutOfStoreSymlinks
     inputs.niri.homeModules.niri
+    inputs.stylix.homeModules.stylix
     ../common.nix
     ../profiles/desktop
   ];
@@ -87,6 +88,8 @@
       indicator-idle-visible = false;
       show-failed-attempts = true;
     };
+
+  stylix.enable = true;
 
   # Need to add niri to gdm session list manually - see notes below
   programs.niri = {

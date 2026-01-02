@@ -21,6 +21,11 @@
   };
   screen-type.aspect-ratio = "ultrawide";
 
+  # stylix.image = pkgs.fetchurl {
+  #   url = "https://w.wallhaven.cc/full/md/wallhaven-mdyvvm.jpg"; # Source: https://wallhaven.cc/w/mdyvvm
+  #   hash = "sha256-1JtqfH1htLqprk3W8pkdscT/5w5lYflsO+f20m7dmbg=";
+  # };
+
   programs.niri.settings.outputs."DP-1" = {
     scale = 1.33;
     variable-refresh-rate = true;
@@ -30,7 +35,7 @@
     font_size 10.0
   '';
 
-  programs.neovide.settings.font.size = 10;
+  # programs.neovide.settings.font.size = 10;
 
   home.packages = with pkgs; [
     gparted

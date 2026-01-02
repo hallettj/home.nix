@@ -1,7 +1,8 @@
-{ pkgs, ... }:
+{ inputs, pkgs, ... }:
 
 {
   imports = [
+    # inputs.stylix.homeModules.stylix
     ../../features/borg
     ../../features/firefox
     ../../features/gnome
@@ -12,6 +13,33 @@
     ../../features/swayidle
     ../../features/xcompose
   ];
+
+  stylix = {
+    #   # enable = true;
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-macchiato.yaml";
+    fonts = {
+      # serif = {
+      #   package = pkgs.dejavu_fonts;
+      #   name = "DejaVu Serif";
+      # };
+      sansSerif = {
+        package = pkgs.cantarell-fonts;
+        name = "Cantarell";
+      };
+      monospace = {
+        # package = Todo;
+        name = "Cartograph CF";
+      };
+    };
+    targets = {
+      firefox.profileNames = [ "default" ];
+      neovim.enable = false;
+    };
+  };
+
+  # stylix.targets.qt.enable = false; # getting an error
+
+  # qt.qt5ctSettings = {};
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
@@ -49,4 +77,3 @@
     pinentry.package = pkgs.pinentry-gnome3;
   };
 }
-

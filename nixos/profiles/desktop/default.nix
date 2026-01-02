@@ -1,7 +1,13 @@
-{ lib, ... }:
+{
+  lib,
+  inputs,
+  pkgs,
+  ...
+}:
 
 {
   imports = [
+    inputs.stylix.nixosModules.stylix
     ../../features/_1password.nix
     ../../features/fonts
   ];
@@ -13,6 +19,11 @@
 
   # Scrolling window manager
   programs.niri.enable = true;
+
+  stylix = {
+    enable = true;
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-macchiato.yaml";
+  };
 
   services.avahi = {
     enable = true;

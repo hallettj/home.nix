@@ -40,13 +40,8 @@ in
 
     "org/gnome/desktop/calendar".show-weekdate = true;
     "org/gnome/desktop/interface" = {
-      color-scheme = "prefer-dark";
       font-antialiasing = "grayscale";
       font-hinting = "slight";
-
-      # Older GTK apps don't use the above color-scheme setting. For those set
-      # the legacy theme to a dark one
-      gtk-theme = "Adwaita-dark";
     };
 
     "org/gnome/desktop/input-sources" = {
