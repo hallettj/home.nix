@@ -78,9 +78,9 @@ in
 
       ui = {
         fontDefault = "Cantarell";
-        fontDefaultScale = 1.1;
+        fontDefaultScale = 1.0;
         fontFixed = "Cartograph CF";
-        fontFixedScale = 1.1;
+        fontFixedScale = 1.0;
         panelBackgroundOpacity = 1;
         settingsPanelMode = "window";
       };
