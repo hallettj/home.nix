@@ -20,7 +20,7 @@ let
 in
 {
   imports = [
-    inputs.niri-flake.homeModules.config
+    inputs.niri-flake.homeModules.niri
     ../rofi
   ];
 

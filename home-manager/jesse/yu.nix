@@ -22,7 +22,7 @@
   screen-type.aspect-ratio = "ultrawide";
 
   programs.niri.settings.outputs."DP-1" = {
-    scale = 1.33;
+    scale = 1.25;
     variable-refresh-rate = true;
   };
 

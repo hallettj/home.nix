@@ -11,7 +11,6 @@
   imports = [
     outputs.homeManagerModules.screen-type
     outputs.homeManagerModules.useOutOfStoreSymlinks
-    inputs.niri.homeModules.niri
     ../common.nix
     ../profiles/desktop
   ];
@@ -25,13 +24,13 @@
   };
   screen-type.aspect-ratio = "ultrawide";
 
-  # Increase font sizes - it's cleaner than applying a display scaling factor.
-  dconf.settings."org/gnome/desktop/interface" = {
-    text-scaling-factor = 1.25;
+  programs.niri.settings.outputs."DP-1" = {
+    scale = 1.25;
+    variable-refresh-rate = true;
   };
 
   programs.kitty.extraConfig = ''
-    font_size 12.0
+    font_size 10.0
   '';
 
   fonts.fontconfig.enable = true;
@@ -89,10 +88,7 @@
     };
 
   # Need to add niri to gdm session list manually - see notes below
-  programs.niri = {
-    enable = true;
-    config = null; # don't write a config - one is linked in the features/niri module
-  };
+  programs.niri.enable = true;
 
   # niri-session starts this service to run Niri
   systemd.user.services.niri = {
