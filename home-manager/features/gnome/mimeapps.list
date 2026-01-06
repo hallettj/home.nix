@@ -1,5 +1,5 @@
 [Default Applications]
-application/pdf=org.gnome.Evince.desktop
+application/pdf=org.gnome.Papers.desktop
 x-scheme-handler/magnet=userapp-transmission-gtk-FGGVA2.desktop
 image/png=org.gnome.Loupe.desktop
 image/jpeg=org.gnome.Loupe.desktop
@@ -39,7 +39,7 @@ application/x-extension-xhtml=firefox.desktop
 application/x-extension-xht=firefox.desktop
 
 [Added Associations]
-application/pdf=org.gnome.Evince.desktop;
+application/pdf=org.gnome.Evince.desktop;org.gnome.Papers.desktop;
 x-scheme-handler/magnet=userapp-transmission-gtk-FGGVA2.desktop;
 image/bmp=org.gnome.Loupe.desktop;
 image/gif=org.gnome.Loupe.desktop;
@@ -75,4 +75,3 @@ application/x-extension-shtml=firefox.desktop;
 application/xhtml+xml=firefox.desktop;
 application/x-extension-xhtml=firefox.desktop;
 application/x-extension-xht=firefox.desktop;
-
