@@ -8,14 +8,14 @@ in
     enable = true;
     settings = with colors; {
       color = mantle;
-      font-size = 48;
+      font-size = 64;
       font = "Cantarell";
 
       indicator-radius = 160;
       indicator-thickness = 20;
 
       ring-color = teal;
-      inside-color = mantle;
+      inside-color = mantle + "00"; # add alpha channel
       text-color = text;
 
       key-hl-color = green;

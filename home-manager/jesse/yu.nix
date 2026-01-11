@@ -1,4 +1,8 @@
-{ outputs, pkgs, ... }:
+{
+  outputs,
+  pkgs,
+  ...
+}:
 
 {
   imports = [
@@ -11,14 +15,7 @@
     ../features/vscode
   ];
 
-  my-settings = {
-    show-brightness = true;
-    defaultWallpaper =
-      (pkgs.fetchurl {
-        url = "https://w.wallhaven.cc/full/md/wallhaven-mdyvvm.jpg"; # Source: https://wallhaven.cc/w/mdyvvm
-        hash = "sha256-1JtqfH1htLqprk3W8pkdscT/5w5lYflsO+f20m7dmbg=";
-      }).outPath;
-  };
+  my-settings.show-brightness = true;
   screen-type.aspect-ratio = "ultrawide";
 
   programs.niri.settings.outputs."DP-1" = {
@@ -31,6 +28,11 @@
   '';
 
   programs.neovide.settings.font.size = 10;
+
+  programs.swaylock.settings.image = pkgs.fetchurl {
+    url = "https://w.wallhaven.cc/full/md/wallhaven-mdyvvm.jpg"; # Source: https://wallhaven.cc/w/mdyvvm
+    hash = "sha256-1JtqfH1htLqprk3W8pkdscT/5w5lYflsO+f20m7dmbg=";
+  };
 
   home.packages = with pkgs; [
     gparted

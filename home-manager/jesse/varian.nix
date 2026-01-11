@@ -15,13 +15,6 @@
     ../profiles/desktop
   ];
 
-  my-settings = {
-    defaultWallpaper =
-      (pkgs.fetchurl {
-        url = "https://w.wallhaven.cc/full/73/wallhaven-73looo.jpg"; # Source: https://wallhaven.cc/w/73looo
-        hash = "sha256-vE4WzXzJlk+RmcXv4M8KKOLjpuumJ4RLVUAKTtU8fHw=";
-      }).outPath;
-  };
   screen-type.aspect-ratio = "ultrawide";
 
   programs.niri.settings.outputs."DP-1" = {
@@ -60,7 +53,7 @@
       indicator-thickness = 20;
 
       ring-color = white;
-      inside-color = black;
+      inside-color = black + "00"; # add alpha channel
       text-color = white;
 
       key-hl-color = promptql-neon;
@@ -85,6 +78,11 @@
       ignore-empty-password = true;
       indicator-idle-visible = false;
       show-failed-attempts = true;
+
+      image = pkgs.fetchurl {
+        url = "https://w.wallhaven.cc/full/73/wallhaven-73looo.jpg"; # Source: https://wallhaven.cc/w/73looo
+        hash = "sha256-vE4WzXzJlk+RmcXv4M8KKOLjpuumJ4RLVUAKTtU8fHw=";
+      };
     };
 
   # Need to add niri to gdm session list manually - see notes below

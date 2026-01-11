@@ -62,8 +62,9 @@ in
     };
   };
 
-  # Referenced in my swayidle module
-  config.my-settings.lock-screen-command = "${lib.getExe config.programs.noctalia-shell.package} ipc call lockScreen lock";
+  # Referenced in my swayidle module - uncomment to switch from swaylock to
+  # noctalia lock screen
+  # config.my-settings.lock-screen-command = "${lib.getExe config.programs.noctalia-shell.package} ipc call lockScreen lock";
 
   config.programs.noctalia-shell = {
     enable = true;

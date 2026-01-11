@@ -10,6 +10,7 @@
     ../../features/niri
     ../../features/noctalia
     ../../features/swayidle
+    ../../features/swaylock
     ../../features/xcompose
   ];
 

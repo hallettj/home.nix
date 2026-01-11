@@ -17,11 +17,6 @@
   my-settings = {
     show-battery-status = true;
     show-brightness = true;
-    defaultWallpaper =
-      (pkgs.fetchurl {
-        url = "https://w.wallhaven.cc/full/x6/wallhaven-x6l5vl.jpg"; # Source: https://wallhaven.cc/w/x6l5vl
-        hash = "sha256-g2XGek4OqeLbOPAo146Iyfr/AJmQYmYuJ5dD0tVqqbg=";
-      }).outPath;
   };
 
   programs.niri.settings = {
@@ -35,6 +30,11 @@
   '';
 
   programs.neovide.settings.font.size = 10;
+
+  programs.swaylock.settings.image = pkgs.fetchurl {
+    url = "https://w.wallhaven.cc/full/x6/wallhaven-x6l5vl.jpg"; # Source: https://wallhaven.cc/w/x6l5vl
+    hash = "sha256-g2XGek4OqeLbOPAo146Iyfr/AJmQYmYuJ5dD0tVqqbg=";
+  };
 
   programs.waybar.settings.mainBar = {
     # Add battery module to waybar to show charge
