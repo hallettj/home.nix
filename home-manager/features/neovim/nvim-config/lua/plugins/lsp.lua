@@ -2,11 +2,6 @@ local features = require('config.features')
 
 return {
   'neovim/nvim-lspconfig',
-  dependencies = {
-    -- Special LSP support for neovim API and for plugin APIs for plugins loaded
-    -- through lazy
-    'folke/neodev.nvim',
-  },
   config = function()
     local lspconfig = require('lspconfig')
 
