@@ -16,11 +16,17 @@ return {
   'obsidian-nvim/obsidian.nvim',
   enabled = #workspaces > 0,
   dependencies = {
-    -- required
     'nvim-lua/plenary.nvim',
-
-    -- optional
-    'nvim-telescope/telescope.nvim',
+    { 'nvim-telescope/telescope.nvim', optional = true },
+    {
+      'saghen/blink.cmp',
+      optional = true,
+      opts = {
+        sources = {
+          default = { 'obsidian', 'obsidian_tags', 'obsidian_new' },
+        },
+      },
+    },
   },
   lazy = false,
   keys = {
