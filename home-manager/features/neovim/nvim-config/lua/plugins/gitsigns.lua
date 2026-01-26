@@ -60,7 +60,7 @@ return {
         wk.add {
           { '<leader>t', group = '+toggles' },
           { '<leader>tb', gs.toggle_current_line_blame, desc = 'current line blame' },
-          { '<leader>td', gs.toggle_deleted, desc = 'deleted' },
+          { '<leader>td', gs.toggle_deleted, desc = 'show deleted lines' },
         }
 
         -- Text object
