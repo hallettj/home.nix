@@ -38,7 +38,7 @@ return {
       legacy_commands = false,
       workspaces = workspaces,
 
-      disable_frontmatter = true,
+      frontmatter = { enabled = false },
 
       daily_notes = {
         folder = 'Periodic',
@@ -51,7 +51,7 @@ return {
       notes_subdir = 'Inbox',
 
       attachments = {
-        img_folder = 'Attachments',
+        folder = 'Attachments',
       },
 
       prepend_note_id = false,
