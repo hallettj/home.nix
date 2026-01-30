@@ -6,8 +6,8 @@ return {
     dependencies = { 'tpope/vim-repeat' },
     keys = {
       -- default mappings, except that I changed 'gs' to 'gw', and 's' and 'S' are inclusive motions
-      { 's',  mode = { 'n', 'x', 'o' }, '<Plug>(leap-forward-to)',    desc = 'Leap forward' },
-      { 'S',  mode = { 'n', 'x', 'o' }, '<Plug>(leap-backward-to)',   desc = 'Leap backward' },
+      { 's',  mode = { 'n', 'x', 'o' }, '<Plug>(leap-forward)',       desc = 'Leap forward' },
+      { 'S',  mode = { 'n', 'x', 'o' }, '<Plug>(leap-backward)',      desc = 'Leap backward' },
       { 'x',  mode = { 'x', 'o' },      '<Plug>(leap-forward-till)',  desc = 'eXclusive leap motion forward' },
       { 'X',  mode = { 'x', 'o' },      '<Plug>(leap-backward-till)', desc = 'eXclusive leap motion backward' },
       { 'gw', mode = { 'n', 'x', 'o' }, '<Plug>(leap-from-window)',   desc = 'Leap to another window' },
@@ -22,7 +22,7 @@ return {
   -- Leap, but only up the AST
   {
     'ggandor/leap-ast.nvim',
-    dependencies = { 'ggandor/leap.nvim' },
+    dependencies = { 'https://codeberg.org/andyg/leap.nvim.git' },
     keys = {
       { '-', mode = { 'n', 'x', 'o' }, function() require 'leap-ast'.leap() end, desc = 'leap to, or operate on a higher AST node' },
     },
@@ -32,7 +32,7 @@ return {
   -- e.g., yr<leap><motion>
   {
     'rasulomaroff/telepath.nvim',
-    dependencies = { 'ggandor/leap.nvim' },
+    dependencies = { 'https://codeberg.org/andyg/leap.nvim.git' },
     keys = {
       { 'r', mode = 'o', function() require('telepath').remote { restore = true } end,                   desc = 'operate on remote textobject, use leap search to set start point' },
       { 'R', mode = 'o', function() require('telepath').remote { restore = true, recursive = true } end, desc = 'operate on remote textobject recursively, use leap search to set start point' },
