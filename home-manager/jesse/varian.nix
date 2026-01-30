@@ -147,7 +147,8 @@
   #
   # On Fedora I had to configure SELinux to authorize the unit that Home Manager installs:
   #
-  #     sudo semanage fcontext -a -t systemd_unit_file_t '/nix/store/[^/]+/resources/non-nixos-gpu.service'
+  #     sudo semanage fcontext -a -t systemd_unit_file_t '/nix/store/<path>/resources/non-nixos-gpu.service'
+  #     sudo restorecon -v '/nix/store/<path>/resources/non-nixos-gpu.service'
   #
   # See https://gist.github.com/matthewpi/08c3d652e7879e4c4c30bead7021ff73
   #
