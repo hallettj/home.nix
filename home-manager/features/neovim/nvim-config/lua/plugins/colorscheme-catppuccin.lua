@@ -100,6 +100,12 @@ return {
           -- messages from vim.notify
           ['ErrorMsg'] = { style = {} },
           ['WarningMsg'] = { style = {} },
+
+          -- Highlights used by tiny-inline-diagnostic
+          ['DiagnosticError'] = { style = {} }, -- disable italic style
+          ['DiagnosticWarn'] = { style = {} },
+          ['DiagnosticInfo'] = { style = {} },
+          ['DiagnosticHint'] = { style = {} },
         }
       end,
     })
