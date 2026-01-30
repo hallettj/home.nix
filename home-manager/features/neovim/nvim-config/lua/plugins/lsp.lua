@@ -1,28 +1,6 @@
-local features = require('config.features')
-
 return {
   'neovim/nvim-lspconfig',
   config = function()
-    local lspconfig = require('lspconfig')
-
-    -- Extending lsp capabilities is required prior to nvim v0.11. Blink at
-    -- least doesn't require this step in v0.11. I'm not sure about
-    -- nvim-cmp.
-    local extraLspCapabilities = nil
-    if features.blink then
-      extraLspCapabilities = require('blink.cmp').get_lsp_capabilities()
-    elseif features.nvim_cmp then
-      extraLspCapabilities = require('cmp_nvim_lsp').default_capabilities()
-    end
-    if extraLspCapabilities then
-      local lspconfig_defaults = require('lspconfig').util.default_config
-      lspconfig_defaults.capabilities = vim.tbl_deep_extend(
-        'force',
-        lspconfig_defaults.capabilities,
-        extraLspCapabilities
-      )
-    end
-
     vim.diagnostic.config {
       signs = {
         text = {
@@ -34,43 +12,44 @@ return {
       }
     }
 
-    -- New inlay hints in nvim-0.10!
-    if vim.fn.has('nvim-0.10') == 1 then
-      vim.api.nvim_create_autocmd('LspAttach', {
-        group = vim.api.nvim_create_augroup('EnableInlayHints', { clear = true }),
-        callback = function(args)
-          local client = vim.lsp.get_client_by_id(args.data.client_id)
-          if client ~= nil and client.server_capabilities.inlayHintProvider then
-            vim.lsp.inlay_hint.enable(true, { bufnr = args.buf })
-          end
+    vim.api.nvim_create_autocmd('LspAttach', {
+      group = vim.api.nvim_create_augroup('EnableInlayHints', { clear = true }),
+      callback = function(args)
+        local client = vim.lsp.get_client_by_id(args.data.client_id)
+        if client ~= nil and client.server_capabilities.inlayHintProvider then
+          vim.lsp.inlay_hint.enable(true, { bufnr = args.buf })
         end
-      })
-    end
+      end
+    })
 
-    lspconfig.bashls.setup {}
-    lspconfig.jsonls.setup {}
-    lspconfig.nil_ls.setup {}
-    lspconfig.nushell.setup {}
-    lspconfig.uiua.setup {}
-    lspconfig.yamlls.setup {}
+    -- Custom LSP configurations are in the lsp/ directory in the root of the neovim
+    -- config. Some of these use stock configurations bundled with
+    -- nvim-lspconfig. To see those configs run `:h lspconfig-all`
+    vim.lsp.enable {
+      'bashls',
+      'jsonls',
+      'lua_ls',
+      'nil_ls', -- Nix
+      'nushell',
+      'uiua',
+      'yamlls',
 
-    -- To set up with custom configuration, use `lspconfig` as seen below.
-    -- We don't set up rust_analyzer in any of these steps because it is set up
-    -- by rustaceanvim instead.
+      -- Python
+      'basedpyright', -- Python type checker
+      'ruff',         -- Python linter & formatter
 
-    lspconfig.lua_ls.setup {
-      settings = {
-        Lua = {
-          completion = {
-            callSnippet = 'Replace',
-          },
-        },
-      },
+      -- Javascript / Typescript
+      -- 'denols',
+      'ts_ls',
     }
 
-    -- Python
-    local original_basedpyright_on_attach = vim.lsp.config['basedpyright'].on_attach
-    vim.lsp.config('basedpyright', {
+    -- The Rust LSP is not listed because it is configured by rustaceanvim
+
+    -- basedpyright configuration customization has to be here because we read
+    -- from the stock configuration - putting this in the lsp/ directory leads
+    -- to an infinite loop
+    local original_basedpyright_on_attach = vim.lsp.config.basedpyright.on_attach
+    vim.lsp.config.basedpyright = {
       on_attach = function(client, bufnr)
         if original_basedpyright_on_attach then
           original_basedpyright_on_attach(client, bufnr)
@@ -103,37 +82,6 @@ return {
           end
         end
       end,
-    })
-    vim.lsp.enable('basedpyright')
-    lspconfig.ruff.setup { -- formatter
-      init_options = {
-        settings = { lint = { enable = false } },
-      }
-    } -- python formatting and linting
-
-    -- Configuration to make lsp-inlayhints.nvim work with TypeScript
-    local ts_ls = {
-      inlayHints = {
-        includeInlayParameterNameHints = 'all',
-        includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-        includeInlayFunctionParameterTypeHints = true,
-        includeInlayVariableTypeHints = true,
-        includeInlayPropertyDeclarationTypeHints = true,
-        includeInlayFunctionLikeReturnTypeHints = true,
-        includeInlayEnumMemberValueHints = true,
-      }
-    }
-
-    -- The simplest way to switch between denols and tsserver is to disable
-    -- autostart, and start them manually. Run `:LspStart denols` or `:LspStart
-    -- tsserver`
-    lspconfig.denols.setup { autostart = false }
-    lspconfig.ts_ls.setup {
-      autostart = true,
-      settings = {
-        typescript = ts_ls,
-        javascript = ts_ls,
-      },
     }
 
     -- Overide lsp-zero's virtual_text setting.
