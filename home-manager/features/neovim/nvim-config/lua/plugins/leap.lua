@@ -2,7 +2,7 @@ return {
   -- `s`/`S` command jumps forward/backward to occurrence of a pair of characters
   -- `gw` jumps to pair of characters in another window
   {
-    'ggandor/leap.nvim',
+    'https://codeberg.org/andyg/leap.nvim.git',
     dependencies = { 'tpope/vim-repeat' },
     keys = {
       -- default mappings, except that I changed 'gs' to 'gw', and 's' and 'S' are inclusive motions
