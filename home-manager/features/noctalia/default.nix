@@ -102,11 +102,6 @@ in
               width = 20;
             }
             {
-              id = "MediaMini";
-              maxWidth = 1000;
-              useFixedWidth = false;
-            }
-            {
               id = "ActiveWindow";
               maxWidth = 1000;
               useFixedWidth = true; # prevents distracting animations on width changes
@@ -121,11 +116,6 @@ in
             { id = "plugin:privacy-indicator"; }
           ];
           right = builtins.filter (e: e != { }) [
-            { id = "plugin:network-indicator"; }
-            {
-              id = "Spacer";
-              width = 20;
-            }
             {
               id = "Tray";
               drawerEnabled = false;
