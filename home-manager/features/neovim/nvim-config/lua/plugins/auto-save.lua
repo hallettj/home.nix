@@ -51,11 +51,13 @@ return {
       end
     })
 
-    -- Disable autosave in Cargo.toml - constant workspace reloading is too
-    -- disruptive.
+    -- Disable autosave for certain files
     autocmd({ 'BufNewFile', 'BufRead' }, {
       group = group,
-      pattern = 'Cargo.toml',
+      pattern = { 
+        'Cargo.toml',     -- Constant workspace reloading is too disruptive
+        'COMMIT_EDITMSG', -- so I can abort a git commit by closing without saving
+      },
       callback = function()
         vim.b.auto_save = 0
       end
