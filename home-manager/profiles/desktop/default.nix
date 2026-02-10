@@ -19,7 +19,6 @@
   home.packages = with pkgs; [
     # GUI apps
     discord
-    element-desktop
     foliate
     gimp-with-plugins
     google-chrome
@@ -45,9 +44,10 @@
     lexend
   ];
 
+  programs.element-desktop.enable = true;
+
   services.gpg-agent = {
     enable = true;
     pinentry.package = pkgs.pinentry-gnome3;
   };
 }
-
