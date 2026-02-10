@@ -77,5 +77,6 @@
   "weresocool_vim": { "branch": "master", "commit": "c9f73f03c49caf4e20809a8d4598d3afeda63056" },
   "which-key.nvim": { "branch": "main", "commit": "3aab2147e74890957785941f0c1ad87d0a44c15a" },
   "winshift.nvim": { "branch": "main", "commit": "37468ed6f385dfb50402368669766504c0e15583" },
+  "wrapping.nvim": { "branch": "master", "commit": "197ff80c43f68332d98b79218449da43721b8feb" },
   "zenbones.nvim": { "branch": "main", "commit": "4635a3f46d1066975d1074cd9f61f93cb1e32f64" }
 }
