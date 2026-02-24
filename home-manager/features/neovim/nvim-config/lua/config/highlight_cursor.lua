@@ -5,7 +5,7 @@ local function highlight_cursor()
   local previous_cursorline = vim.o.cursorline
   local previous_hl_ns = vim.api.nvim_get_hl_ns({})
 
-  local timer, err = vim.loop.new_timer()
+  local timer, err = vim.uv.new_timer()
   if timer == nil then
     vim.print('error highlighting cursor line: ' .. tostring(err))
     return
