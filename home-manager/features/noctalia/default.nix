@@ -108,10 +108,7 @@ in
             }
           ];
           center = [
-            {
-              id = "Clock";
-              usePrimaryColor = false;
-            }
+            { id = "Clock"; }
             { id = "NotificationHistory"; }
             { id = "plugin:privacy-indicator"; }
           ];
@@ -128,8 +125,7 @@ in
             {
               id = "Battery";
               deviceNativePath = "/org/bluez/hci0/dev_EC_A5_35_3B_B8_C8";
-              displayMode = "alwaysShow";
-              warningThreshold = 30;
+              displayMode = "icon-always";
             }
             { id = "WiFi"; }
             {
