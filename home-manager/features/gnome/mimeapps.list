@@ -37,6 +37,7 @@ application/x-extension-shtml=firefox.desktop
 application/xhtml+xml=firefox.desktop
 application/x-extension-xhtml=firefox.desktop
 application/x-extension-xht=firefox.desktop
+video/webm=org.gnome.Showtime.desktop
 
 [Added Associations]
 application/pdf=org.gnome.Evince.desktop;org.gnome.Papers.desktop;
@@ -75,3 +76,4 @@ application/x-extension-shtml=firefox.desktop;
 application/xhtml+xml=firefox.desktop;
 application/x-extension-xhtml=firefox.desktop;
 application/x-extension-xht=firefox.desktop;
+video/webm=org.gnome.Showtime.desktop;
