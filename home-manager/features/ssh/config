@@ -3,3 +3,6 @@ Host homeassistant
 
 Host hypatia.local
 	ForwardAgent yes
+
+Host hypatia
+	ForwardAgent yes
