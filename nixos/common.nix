@@ -70,6 +70,7 @@
     description = "Jesse Hallett";
     shell = pkgs.zsh;
     extraGroups = [
+      "dialout" # read/write perms for USB devices for e.g. ZMK Studio
       "networkmanager"
       "wheel"
     ] ++ (lib.optional config.virtualisation.docker.enable "docker");
