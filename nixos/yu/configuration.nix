@@ -11,6 +11,7 @@
       ./hardware-configuration.nix
       ../common.nix
       ../profiles/desktop
+      ../features/android-development.nix
       ../features/cachix
       ../features/claude-anthropic
       ../features/determinate.nix
