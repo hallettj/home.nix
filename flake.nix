@@ -46,29 +46,46 @@
     ddn-cli-nix.url = "github:hasura/ddn-cli-nix";
   };
 
-  outputs = { self, nixpkgs, home-manager, systems, ... }@inputs:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      home-manager,
+      systems,
+      ...
+    }@inputs:
     let
       inherit (self) outputs;
       perSystem = callback: nixpkgs.lib.genAttrs (import systems) (system: callback (pkgs system));
       flakePath = config: "${config.home.homeDirectory}/Documents/NixConfig";
-      pkgs = system: import nixpkgs {
-        inherit system;
-        config.allowUnfree = true;
-        overlays = builtins.attrValues self.overlays;
-      };
+      pkgs =
+        system:
+        import nixpkgs {
+          inherit system;
+          config.allowUnfree = true;
+          overlays = builtins.attrValues self.overlays;
+        };
       extraSpecialArgs = { inherit flakePath inputs outputs; };
     in
     {
       # Your custom packages
       # Acessible through 'nix build', 'nix shell', etc
-      packages = perSystem (pkgs:
-        import ./pkgs { inherit inputs pkgs; }
+      packages = perSystem (pkgs: import ./pkgs { inherit inputs pkgs; });
+
+      # Build overlay additions and modifications in checks so that we get caching on Garnix
+      checks = perSystem (
+        pkgs:
+        let
+          overlayPkgs = overlay: overlay pkgs pkgs;
+        in
+        builtins.intersectAttrs (
+          overlayPkgs self.overlays.additions // overlayPkgs self.overlays.modifications
+        ) pkgs
       );
+
       # Devshell for bootstrapping
       # Acessible through 'nix develop' or 'nix-shell' (legacy)
-      devShells = perSystem (pkgs:
-        import ./shell.nix { inherit pkgs; }
-      );
+      devShells = perSystem (pkgs: import ./shell.nix { inherit pkgs; });
 
       # Your custom packages and modifications, exported as overlays
       overlays = import ./overlays { inherit inputs; };
