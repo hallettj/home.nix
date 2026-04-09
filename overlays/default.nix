@@ -29,6 +29,10 @@ rec {
   # https://nixos.wiki/wiki/Overlays
   modifications = final: prev: {
     starship = patch prev.starship [ ./starship-ignore-atuin-when-counting-jobs.patch ];
+    vimPlugins = prev.vimPlugins // {
+      # Fix from https://github.com/yetone/avante.nvim/pull/2985
+      avante-nvim = patch prev.vimPlugins.avante-nvim [ ./avante-support-sonnet-4-6.patch ];
+    };
   };
 
   # When applied, the unstable nixpkgs set (declared in the flake inputs) will

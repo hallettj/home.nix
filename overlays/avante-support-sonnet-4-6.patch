@@ -1,0 +1,27 @@
+From 57a382d1d520e5a43dde682cbc65be0d3f7e2a97 Mon Sep 17 00:00:00 2001
+From: 626619403 <626619403@qq.com>
+Date: Sun, 8 Mar 2026 16:58:53 +0300
+Subject: [PATCH] Add claude-sonnet-4-6 support with text_editor_20250728
+
+---
+ lua/avante/providers/claude.lua | 51 +++++++++++++++++++--------------
+ 1 file changed, 29 insertions(+), 22 deletions(-)
+
+diff --git a/lua/avante/providers/claude.lua b/lua/avante/providers/claude.lua
+index 668b14582..e76700c92 100644
+--- a/lua/avante/providers/claude.lua
++++ b/lua/avante/providers/claude.lua
+@@ -566,7 +568,12 @@ function M:parse_curl_args(prompt_opts)
+   end
+ 
+   if prompt_opts.tools and #prompt_opts.tools > 0 and Config.mode == "agentic" then
+-    if provider_conf.model:match("claude%-sonnet%-4%-5") then
++    if provider_conf.model:match("claude%-sonnet%-4%-6") then
++      table.insert(tools, {
++        type = "text_editor_20250728",
++        name = "str_replace_based_edit_tool",
++      })
++    elseif provider_conf.model:match("claude%-sonnet%-4%-5") then
+       table.insert(tools, {
+         type = "text_editor_20250728",
+         name = "str_replace_based_edit_tool",

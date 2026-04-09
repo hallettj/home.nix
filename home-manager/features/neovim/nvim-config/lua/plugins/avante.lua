@@ -33,6 +33,11 @@ return from_nixpkgs {
       sidebar = {
         remove_file = 'X'
       }
-    }
+    },
+    providers = {
+      claude = {
+        model = "claude-sonnet-4-6",
+      },
+    },
   },
 }
