@@ -10,11 +10,15 @@
 
   programs.steam = {
     enable = true;
+    extraCompatPackages = with pkgs; [
+      proton-ge-bin # Adds "GE Proton" compatibility tool that automatically updates
+    ];
     localNetworkGameTransfers.openFirewall = true;
   };
 
   environment.systemPackages = with pkgs; [
     bottles
+    protonup-qt # makes downloading new GE Proton versions much quicker
 
     (lutris.override {
       extraPkgs = pkgs: [
