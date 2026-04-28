@@ -12,12 +12,30 @@ return {
       }
     }
 
+    local autocmd_group = vim.api.nvim_create_augroup('my-lsp-features', { clear = true })
     vim.api.nvim_create_autocmd('LspAttach', {
-      group = vim.api.nvim_create_augroup('EnableInlayHints', { clear = true }),
+      group = autocmd_group,
       callback = function(args)
+        local bufnr = args.buf
         local client = vim.lsp.get_client_by_id(args.data.client_id)
+
+        -- Enable inlay hints
         if client ~= nil and client.server_capabilities.inlayHintProvider then
           vim.lsp.inlay_hint.enable(true, { bufnr = args.buf })
+        end
+
+        -- Highlight references to name under cursor.
+        if client ~= nil and client.server_capabilities.documentHighlightProvider then
+          vim.api.nvim_create_autocmd('CursorHold', {
+            buffer = bufnr,
+            group = autocmd_group,
+            callback = function() vim.lsp.buf.document_highlight() end,
+          })
+          vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
+            buffer = bufnr,
+            group = autocmd_group,
+            callback = function() vim.lsp.buf.clear_references() end,
+          })
         end
       end
     })

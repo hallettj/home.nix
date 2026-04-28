@@ -1,10 +1,19 @@
 {
   flake.modules.homeManager.neovide =
-    { lib, pkgs, ... }:
+    {
+      config,
+      lib,
+      pkgs,
+      ...
+    }:
 
+    let
+      unstableNeovim = config.programs.neovim.package == pkgs.unstable.neovim-unwrapped;
+    in
     {
       programs.neovide = {
         enable = true;
+        package = lib.mkIf unstableNeovim pkgs.unstable.neovide;
         settings = {
           frame = "none"; # disable the top window bar
           font = {

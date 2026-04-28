@@ -21,6 +21,9 @@ in
         else
           false;
       dir = "${flakePath}/modules/features/neovim";
+
+      neovimPkgs = pkgs.unstable;
+      vimPlugins = neovimPkgs.vimPlugins;
     in
     {
       xdg.configFile.nvim = {
@@ -33,17 +36,28 @@ in
 
       programs.neovim = {
         enable = true;
+        package = neovimPkgs.neovim-unwrapped;
         defaultEditor = true;
         withPython3 = true;
-        plugins = [
-          pkgs.vimPlugins.lazy-nvim
+        plugins = with vimPlugins; [
+          lazy-nvim
 
           # Get the treesitter plugin from nix with prebuilt grammars. Lazy.nvim
           # somehow prevents the plugin from loading automatically so we also need
           # to declare the plugin to lazy.nvim. I have a helper function in my
           # neovim configuration for that called `from_nixpkgs`.
           {
-            plugin = pkgs.vimPlugins.nvim-treesitter.withAllGrammars;
+            plugin = vimPlugins.nvim-treesitter.withAllGrammars;
+            type = "lua";
+            optional = true;
+          }
+          {
+            plugin = vimPlugins.nvim-treesitter-textobjects;
+            type = "lua";
+            optional = true;
+          }
+          {
+            plugin = vimPlugins.nvim-treesitter-context;
             type = "lua";
             optional = true;
           }
@@ -51,14 +65,7 @@ in
           # Blink uses a compiled fuzzy finder. The nix plugin package links to the
           # required derivation.
           {
-            plugin = pkgs.vimPlugins.blink-cmp;
-            type = "lua";
-            optional = true;
-          }
-
-          # Avante needs to build a thing
-          {
-            plugin = pkgs.vimPlugins.avante-nvim;
+            plugin = vimPlugins.blink-cmp;
             type = "lua";
             optional = true;
           }
