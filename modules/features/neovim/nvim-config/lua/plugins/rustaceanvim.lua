@@ -33,6 +33,11 @@ return {
           -- highlighting from treesitter language injections, like my
           -- sqlx::query!() injection.
           vim.api.nvim_set_hl(0, "@lsp.type.string.rust", {})
+
+          -- I'm using @markup.normal in my sqlx injection for nodes that the
+          -- sql queries don't otherwise highlight. This makes those nodes
+          -- white, instead of using the green highlighting used for strings.
+          vim.api.nvim_set_hl(0, "@markup.normal", { link = "Normal" })
         end,
       }
     }
