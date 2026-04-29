@@ -1,0 +1,29 @@
+From 3e422cea17ede5a538ca68c082de0ebb95559395 Mon Sep 17 00:00:00 2001
+From: Jesse Hallett <jesse@sitr.us>
+Date: Wed, 29 Apr 2026 00:30:26 -0700
+Subject: [PATCH] reduce string priority
+
+---
+ runtime/queries/rust/highlights.scm | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/runtime/queries/rust/highlights.scm b/runtime/queries/rust/highlights.scm
+index 2342dcfa..2a713e8d 100644
+--- a/runtime/queries/rust/highlights.scm
++++ b/runtime/queries/rust/highlights.scm
+@@ -227,10 +227,10 @@
+ 
+ (float_literal) @number.float
+ 
+-[
++(([
+   (raw_string_literal)
+   (string_literal)
+-] @string
++] (#set! priority 90)) @string)
+ 
+ (escape_sequence) @string.escape
+ 
+-- 
+2.51.2
+

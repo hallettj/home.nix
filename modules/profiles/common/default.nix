@@ -1,12 +1,11 @@
-{
-  config,
+flake-parts@{
   inputs,
   self,
   ...
 }:
 
 let
-  flakePath = config.flakePath;
+  flakePath = flake-parts.config.flakePath;
 in
 {
   flake.modules.nixos.common =
@@ -26,8 +25,7 @@ in
       ];
 
       nixpkgs = {
-        overlays = builtins.attrValues self.overlays; # overlays from overlays.nix
-        config.allowUnfree = true;
+        inherit (flake-parts.config.nixpkgs) config overlays;
       };
 
       nix = {
@@ -139,10 +137,8 @@ in
         # features
         nix-index-database
         git
-        neovim
         nushell
         ssh
-        tig
         zsh
       ];
 

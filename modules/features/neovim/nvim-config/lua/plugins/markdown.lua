@@ -1,6 +1,6 @@
 return {
   'MeanderingProgrammer/render-markdown.nvim',
-  ft = { 'markdown', 'codecompanion', 'Avante' },
+  ft = { 'markdown', 'codecompanion' },
   dependencies = {
     'nvim-tree/nvim-web-devicons',
   },

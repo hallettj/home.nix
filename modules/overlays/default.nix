@@ -1,4 +1,5 @@
 {
+  config,
   inputs,
   lib,
   self,
@@ -19,7 +20,15 @@ let
   ];
 in
 {
-  flake.overlays = rec {
+  options.nixpkgs-unstable = {
+    patches = lib.mkOption {
+      type = lib.types.listOf lib.types.path;
+      default = [ ];
+      description = "Patches to apply to nixpkgs before initializing. For most modifications use overlays instead";
+    };
+  };
+
+  config.flake.overlays = rec {
     # Flake packages get added to package set, which propagates to NixOS and
     # Home Manager
     additions =
@@ -36,8 +45,20 @@ in
     # be accessible through 'pkgs.unstable'
     unstable-packages =
       final: _prev:
+      let
+        patches = config.nixpkgs-unstable.patches;
+        nixpkgs-unstable =
+          if patches == [ ] then
+            inputs.nixpkgs-unstable
+          else
+            final.applyPatches {
+              inherit patches;
+              name = "nixpkgs";
+              src = inputs.nixpkgs-unstable;
+            };
+      in
       {
-        unstable = import inputs.nixpkgs-unstable {
+        unstable = import nixpkgs-unstable {
           # Apply the same system, config, and overlays to 'pkgs.unstable' that are
           # applied to 'pkgs'
           config = final.config;
@@ -64,7 +85,13 @@ in
       ));
   };
 
-  perSystem =
+  config.nixpkgs.overlays = with self.overlays; [
+    additions
+    modifications
+    unstable-packages
+  ];
+
+  config.perSystem =
     { pkgs, system, ... }:
     let
       # Get set of packages added or modified by overlay

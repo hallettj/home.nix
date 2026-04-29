@@ -16,7 +16,7 @@ return {
 
     { 'gC',         ft = 'rust', function() vim.cmd.RustLsp('openCargo') end,                   desc = 'open Cargo.toml' },
   },
-  init = function ()
+  init = function()
     vim.g.rustaceanvim = {
       server = {
         default_settings = {
@@ -25,7 +25,15 @@ return {
               allFeatures = true
             }
           }
-        }
+        },
+        ---@diagnostic disable-next-line: unused-local
+        on_attach = function(client, bufnr)
+          -- Modify semantic highlighting to make highlighting for strings
+          -- transparent. This prevents semantic highlighting from overriding
+          -- highlighting from treesitter language injections, like my
+          -- sqlx::query!() injection.
+          vim.api.nvim_set_hl(0, "@lsp.type.string.rust", {})
+        end,
       }
     }
   end

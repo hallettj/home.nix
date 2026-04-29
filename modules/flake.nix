@@ -20,5 +20,12 @@
   flake-file = {
     description = "NixOS and Home Manager configuration for Jesse Hallett";
     outputs = "dendritic"; # uses flake-parts & import-tree to import everything in /modules
+
+    # This inputs set is extended by other modules in this repo
+    inputs = {
+      nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+      nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+      # Also see the 'unstable-packages' overlay at 'overlays/default.nix'.
+    };
   };
 }

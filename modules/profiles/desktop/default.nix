@@ -99,16 +99,6 @@
         thunderbird
         xorg.xev # used by my `keycode` alias
 
-        # Programming
-        cargo
-        docker
-        docker-compose
-        ngrok
-        rustc
-        rust-analyzer
-        clang
-        nodejs_20
-
         # Fonts
         lexend
       ];

@@ -32,7 +32,6 @@ return {
       sources = cmp.config.sources({
         { name = 'nvim_lsp' },
         { name = 'luasnip', keyword_length = 2 },
-        (features.avante and { name = 'avante' } or {}),
         (features.codecompanion and { name = 'codecompanion' } or {}),
         (features.copilot and { name = 'copilot' } or {}),
         { name = 'path' },

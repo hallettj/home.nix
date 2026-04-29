@@ -29,13 +29,12 @@
         # profiles
         common
         desktop
+        development
 
         # features
         android-development
         cachix
-        claude-anthropic
         determinate
-        docker
         gaming
         printing
         tailscale
@@ -67,6 +66,7 @@
         # profiles
         common
         desktop
+        development
 
         # features
         godot
