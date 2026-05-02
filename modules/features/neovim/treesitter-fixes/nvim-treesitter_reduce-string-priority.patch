@@ -16,11 +16,11 @@ index 2342dcfa..2a713e8d 100644
  (float_literal) @number.float
  
 -[
-+(([
++([
    (raw_string_literal)
    (string_literal)
 -] @string
-+] (#set! priority 90)) @string)
++] (#set! priority 90)) @string
  
  (escape_sequence) @string.escape
  

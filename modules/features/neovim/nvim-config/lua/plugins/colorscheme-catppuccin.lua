@@ -90,6 +90,7 @@ return {
         return {
           ['Boolean'] = { style = { 'italic' } },
           ['Include'] = { style = {} },                                      -- disable italic
+          ['Interface'] = { fg = colors.flamingo },
           ['@module'] = { style = {} },                                      -- some `Include` items are also linked to `@module`
           ['StorageClass'] = { fg = colors.yellow, style = { 'italic' } },   -- `&`, `&mut`, and `ref` in Rust
           ['@function.builtin'] = { style = { 'italic' } },
@@ -106,6 +107,19 @@ return {
           ['DiagnosticWarn'] = { style = {} },
           ['DiagnosticInfo'] = { style = {} },
           ['DiagnosticHint'] = { style = {} },
+
+          -- Link lsp groups more precisely
+          ['@lsp.type.interface'] = { link = 'Interface' },
+
+          -- Modify semantic highlighting to make highlighting for strings transparent.
+          -- This prevents semantic highlighting from overriding highlighting from
+          -- treesitter language injections, like my sqlx::query!() injection.
+          ['@lsp.type.string'] = {},
+
+          -- I'm using @markup.normal in my sqlx injection for nodes that the
+          -- sql queries don't otherwise highlight. This makes those nodes
+          -- white, instead of using the green highlighting used for strings.
+          ['@markup.normal'] = { link = 'Normal' },
         }
       end,
     })

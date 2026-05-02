@@ -6,6 +6,7 @@
     path: (identifier) @_macro_path
     name: (identifier) @_macro_name)
   (token_tree
+    .
     [
     (string_literal
       ((string_content) @injection.content))

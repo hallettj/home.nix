@@ -26,19 +26,6 @@ return {
             }
           }
         },
-        ---@diagnostic disable-next-line: unused-local
-        on_attach = function(client, bufnr)
-          -- Modify semantic highlighting to make highlighting for strings
-          -- transparent. This prevents semantic highlighting from overriding
-          -- highlighting from treesitter language injections, like my
-          -- sqlx::query!() injection.
-          vim.api.nvim_set_hl(0, "@lsp.type.string.rust", {})
-
-          -- I'm using @markup.normal in my sqlx injection for nodes that the
-          -- sql queries don't otherwise highlight. This makes those nodes
-          -- white, instead of using the green highlighting used for strings.
-          vim.api.nvim_set_hl(0, "@markup.normal", { link = "Normal" })
-        end,
       }
     }
   end
