@@ -98,8 +98,10 @@ in
           # formatters
           black # python code formatter
           isort # python import sorter
+          codespell
           prettier
           prettierd
+          sqlfluff # sql
 
           # Rust support
           lldb # debug adapter
