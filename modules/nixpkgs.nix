@@ -45,7 +45,7 @@ with lib.types;
         if patches == [ ] then
           inputs.nixpkgs
         else
-          pkgs.applyPatches {
+          inputs.nixpkgs.legacyPackages.${system}.applyPatches {
             inherit patches;
             name = "nixpkgs";
             src = inputs.nixpkgs;
