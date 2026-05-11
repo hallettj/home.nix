@@ -7,19 +7,18 @@ let
 
         # Reduce highlight priority of strings in Rust code so that string
         # highlight does not override treesitter language injection highlights.
-        #
-        # We have to patch nvim-treesitter's src attribute instead of patching
-        # the usual way because built queries get their src from
-        # nvim-treesitter.src.
-        nvim-treesitter = plugins-prev.nvim-treesitter.overrideAttrs (attrs: {
-          src = final.applyPatches {
-            src = attrs.src;
-            patches = [ ./nvim-treesitter_reduce-string-priority.patch ];
-          };
-        });
+        nvim-treesitter = patch plugins-prev.nvim-treesitter [
+          ./nvim-treesitter_reduce-string-priority.patch
+        ];
       }
     );
   };
+
+  patch =
+    pkg: patches:
+    pkg.overrideAttrs (oldAttrs: {
+      patches = (oldAttrs.patches or [ ]) ++ patches;
+    });
 in
 {
   # This patch is required to get the patch to nvim-treesitter to propagate to
