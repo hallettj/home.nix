@@ -99,6 +99,7 @@ in
           black # python code formatter
           isort # python import sorter
           prettier
+          prettierd
 
           # Rust support
           lldb # debug adapter
