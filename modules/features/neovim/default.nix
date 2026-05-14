@@ -99,6 +99,7 @@ in
           black # python code formatter
           isort # python import sorter
           codespell
+          nixfmt
           prettier
           prettierd
           sqlfluff # sql
