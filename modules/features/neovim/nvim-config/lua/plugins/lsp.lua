@@ -40,6 +40,19 @@ return {
       end
     })
 
+    -- Filter inlay hints that are too long to be useful
+    local orig_inlay_hint_handler = vim.lsp.handlers['textDocument/inlayHint']
+    vim.lsp.handlers['textDocument/inlayHint'] = function(err, result, ctx, config)
+      if result then
+        result = vim.tbl_filter(function(hint)
+          local label = type(hint.label) == 'string' and hint.label
+            or vim.iter(hint.label):map(function(p) return p.value end):join('')
+          return #label <= 40
+        end, result)
+      end
+      orig_inlay_hint_handler(err, result, ctx, config)
+    end
+
     -- Custom LSP configurations are in the lsp/ directory in the root of the neovim
     -- config. Some of these use stock configurations bundled with
     -- nvim-lspconfig. To see those configs run `:h lspconfig-all`
@@ -102,7 +115,7 @@ return {
       end,
     }
 
-    -- Overide lsp-zero's virtual_text setting.
+    -- Override lsp-zero's virtual_text setting.
     vim.diagnostic.config {
       virtual_text = function()
         return {
