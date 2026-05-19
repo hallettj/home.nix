@@ -1,12 +1,14 @@
 {
   inputs,
-  lib,
   self,
+  withSystem,
   ...
 }:
 
 {
-  flake.nixosConfigurations.battuta = inputs.nixpkgs.lib.nixosSystem {
+  flake.nixosConfigurations.battuta = inputs.nixpkgs.lib.nixosSystem rec {
+    system = "x86_64-linux";
+    pkgs = withSystem system ({ pkgs, ... }: pkgs);
     modules = [
       self.modules.nixos.battuta
       inputs.home-manager.nixosModules.home-manager
@@ -16,7 +18,6 @@
           users.jesse = self.modules.homeManager.battuta-jesse;
         };
       }
-      { nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux"; }
     ];
   };
 

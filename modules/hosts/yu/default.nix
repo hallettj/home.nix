@@ -1,12 +1,14 @@
 {
   inputs,
-  lib,
   self,
+  withSystem,
   ...
 }:
 
 {
-  flake.nixosConfigurations.yu = inputs.nixpkgs.lib.nixosSystem {
+  flake.nixosConfigurations.yu = inputs.nixpkgs.lib.nixosSystem rec {
+    system = "x86_64-linux";
+    pkgs = withSystem system ({ pkgs, ... }: pkgs);
     modules = [
       self.modules.nixos.yu
       inputs.home-manager.nixosModules.home-manager
@@ -16,7 +18,6 @@
           users.jesse = self.modules.homeManager.yu-jesse;
         };
       }
-      { nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux"; }
     ];
   };
 
@@ -97,7 +98,7 @@
         gparted
         love # 2D game engine
         parted
-        shotcut
+        shotcut # codespell:ignore shotcut
       ];
 
       home.useOutOfStoreSymlinks = true;
