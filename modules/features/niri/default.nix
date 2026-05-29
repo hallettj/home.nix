@@ -9,6 +9,7 @@
 
 let
   flakePath = config.flakePath;
+  niri = pkgs: pkgs.unstable.niri;
 in
 {
   flake-file.inputs = {
@@ -21,9 +22,29 @@ in
     };
   };
 
-  flake.modules.nixos.niri = {
-    programs.niri.enable = true;
-  };
+  flake.modules.nixos.niri =
+    { pkgs, ... }:
+    {
+      programs.niri.enable = true;
+      programs.niri.package = niri pkgs;
+
+      # Copied from niri-flake. Polkit allows, for example, superuser access for gparted
+      security.polkit.enable = true;
+      services.gnome.gnome-keyring.enable = true;
+      systemd.user.services.niri-flake-polkit = {
+        description = "PolicyKit Authentication Agent for niri";
+        wantedBy = [ "niri.service" ];
+        after = [ "graphical-session.target" ];
+        partOf = [ "graphical-session.target" ];
+        serviceConfig = {
+          Type = "simple";
+          ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+          Restart = "on-failure";
+          RestartSec = 1;
+          TimeoutStopSec = 10;
+        };
+      };
+    };
 
   flake.modules.homeManager.niri =
     {
@@ -50,7 +71,7 @@ in
         rofi
       ];
 
-      programs.niri.package = pkgs.niri;
+      programs.niri.package = niri pkgs;
 
       programs.niri.settings = {
         includes = lib.mkAfter [
