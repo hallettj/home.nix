@@ -23,7 +23,7 @@
 
     # This inputs set is extended by other modules in this repo
     inputs = {
-      nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+      nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
       nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
       # Also see the 'unstable-packages' overlay at 'overlays/default.nix'.
     };

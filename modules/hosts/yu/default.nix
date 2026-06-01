@@ -45,7 +45,7 @@
       # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
       # Connect to VPN by running $ mullvad connect
-      services.mullvad-vpn.enable = true;
+      # services.mullvad-vpn.enable = true;
 
       # Allows controlling external monitors - makes Noctalia's external monitor
       # brightness control work.

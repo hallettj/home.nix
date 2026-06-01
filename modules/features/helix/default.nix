@@ -34,8 +34,8 @@ in
           lua-language-server
           nil # Nix LSP
           nls # Nickel LSP
-          nodePackages.bash-language-server
-          nodePackages.typescript-language-server
+          bash-language-server
+          typescript-language-server
           shellcheck # called by bash-language-server
         ];
 

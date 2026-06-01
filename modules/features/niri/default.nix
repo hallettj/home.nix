@@ -9,7 +9,7 @@
 
 let
   flakePath = config.flakePath;
-  niri = pkgs: pkgs.unstable.niri;
+  niri = pkgs: pkgs.niri;
 in
 {
   flake-file.inputs = {
@@ -91,7 +91,7 @@ in
 
       # Referenced in my swayidle module
       my-settings.power-off-monitors-command = "${lib.getExe pkgs.niri} msg action power-off-monitors";
-      services.swayidle.systemdTarget = "niri.service";
+      services.swayidle.systemdTargets = [ "niri.service" ];
       # };
     };
 }

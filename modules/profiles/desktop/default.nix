@@ -97,7 +97,7 @@
         slack
         transmission_4-gtk
         thunderbird
-        xorg.xev # used by my `keycode` alias
+        xev # used by my `keycode` alias
 
         # Fonts
         lexend

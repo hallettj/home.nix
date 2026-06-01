@@ -19,6 +19,10 @@ in
       dir = "${flakePath}/modules/features/kitty";
     in
     {
+      imports = [
+        flakeParts.config.flake.modules.homeManager.kitty-scrollback-nvim # ./kitty-scrollback-nvim.nix
+      ];
+
       programs.kitty = {
         enable = true;
         settings = {

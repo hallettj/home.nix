@@ -13,7 +13,7 @@
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.11";
+      url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     import-tree.url = "github:vic/import-tree";
@@ -28,7 +28,7 @@
       url = "github:Mic92/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     noctalia = {
       url = "github:noctalia-dev/noctalia-shell";
@@ -38,10 +38,26 @@
       url = "github:noctalia-dev/noctalia-plugins";
       flake = false;
     };
+    sibling-swap-nvim = {
+      url = "github:Wansmer/sibling-swap.nvim";
+      flake = false;
+    };
     sops-nix = {
       url = "github:mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     systems.url = "github:nix-systems/default";
+    telepath-nvim = {
+      url = "github:rasulomaroff/telepath.nvim";
+      flake = false;
+    };
+    vim-mcfunction = {
+      url = "github:RubixTheSlime/vim-mcfunction/f8ad1bfccb97f8f8e7ee0c52024eac3a8e491a85";
+      flake = false;
+    };
+    wrappers = {
+      url = "github:BirdeeHub/nix-wrapper-modules";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 }

@@ -3,7 +3,6 @@
   inputs,
   lib,
   self,
-  withSystem,
   ...
 }:
 
@@ -29,11 +28,6 @@ in
   };
 
   config.flake.overlays = rec {
-    # Flake packages get added to package set, which propagates to NixOS and
-    # Home Manager
-    additions =
-      final: prev: withSystem prev.stdenv.hostPlatform.system ({ config, ... }: config.packages);
-
     # This one contains whatever you want to overlay
     # You can change versions, add patches, set compilation flags, anything really.
     # https://nixos.wiki/wiki/Overlays
@@ -72,7 +66,6 @@ in
           # https://github.com/NixOS/nixpkgs/issues/291271
           system = final.stdenv.hostPlatform.system;
           overlays = [
-            additions
             modifications
           ]; # unstable gets the same overlays as the base pkg set
         };
@@ -86,7 +79,6 @@ in
   };
 
   config.nixpkgs.overlays = with self.overlays; [
-    additions
     modifications
     unstable-packages
   ];
@@ -104,9 +96,7 @@ in
       pkgsOnly = lib.filterAttrs (key: value: lib.isDerivation value);
     in
     {
-      # Build overlay modifications in checks so that we get caching on Garnix.
-      # Additions are automatically built when running checks because they are
-      # also flake package outputs.
+      # Build overlay modifications in checks so that we get caching from CI.
       checks = pkgsOnly modifiedPkgs;
     };
 }

@@ -81,16 +81,10 @@
             command = "${systemctl} suspend";
           }
         ];
-        events = [
-          {
-            event = "lock";
-            command = lib.getExe lock-session;
-          }
-          {
-            event = "before-sleep";
-            command = "${loginctl} lock-session";
-          }
-        ];
+        events = {
+          lock = lib.getExe lock-session;
+          before-sleep = "${loginctl} lock-session";
+        };
       };
     };
 }
