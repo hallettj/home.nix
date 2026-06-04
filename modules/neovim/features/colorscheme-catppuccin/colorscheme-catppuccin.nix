@@ -7,5 +7,8 @@
         after = [ "treesitter" ];
         config = builtins.readFile ./colorscheme-catppuccin.lua;
       };
+
+      # Catppuccin integration detection requires git
+      runtimePkgs = [ pkgs.git ];
     };
 }
