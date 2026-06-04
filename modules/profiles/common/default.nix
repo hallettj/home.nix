@@ -132,6 +132,7 @@ in
 
         # features
         nix-index-database
+        nix-support
         git
         nushell
         ssh
