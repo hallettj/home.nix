@@ -13,6 +13,10 @@
           show_help = false;
           update_check = false;
           workspaces = true;
+          history_filter = [
+            # exclude items from history tracking
+            "^zi$"
+          ];
         };
       };
 
