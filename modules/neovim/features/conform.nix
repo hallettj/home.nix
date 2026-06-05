@@ -1,32 +1,42 @@
 {
   flake.nvim-config.conform =
-    { pkgs, ... }:
+    { lib, pkgs, ... }:
     {
       specs.conform = {
         data = pkgs.vimPlugins.conform-nvim;
         lazy = true;
         after = [ "lze" ];
         config = /* lua */ ''
-          require('lze').load {
-            'conform.nvim',
+          require("lze").load {
+            "conform.nvim",
 
             keys = {
-              { '<leader><space>', function() require('conform').format() end, desc = 'format document' },
+              { "<leader><space>", function() require("conform").format() end, desc = "format document" },
             },
 
             after = function()
-              require('conform').setup {
+              require("conform").setup {
                 default_format_opts = {
-                  lsp_format = 'fallback',
+                  lsp_format = "fallback",
                 },
+
                 formatters_by_ft = {
-                  javascript = { 'prettierd', 'prettier', stop_after_first = true },
-                  typescript = { 'prettierd', 'prettier', stop_after_first = true },
-                  lua = { 'stylua' },
-                  nix = { 'injected', 'nixfmt' },
-                  python = { 'black' },
-                  sql = { 'sqlfluff' },
-                  yaml = { 'prettier' },
+                  javascript = { "prettierd", "prettier", stop_after_first = true },
+                  typescript = { "prettierd", "prettier", stop_after_first = true },
+                  lua = { "stylua" },
+                  nix = { "injected", "nixfmt" },
+                  nu = { "nufmt" },
+                  python = { "black" },
+                  sql = { "sqlfluff" },
+                  yaml = { "prettier" },
+                },
+
+                formatters = {
+                  nufmt = {
+                    command = "${lib.getExe pkgs.nufmt}",
+                    args = { "--stdin" },
+                    stdin = true,
+                  },
                 },
               }
             end,
@@ -39,6 +49,7 @@
         isort # python import sorter
         codespell
         nixfmt
+        nufmt # nushell
         prettier
         prettierd
         sqlfluff # sql
