@@ -39,6 +39,7 @@ application/x-extension-xhtml=firefox.desktop
 application/x-extension-xht=firefox.desktop
 video/webm=org.gnome.Showtime.desktop
 x-scheme-handler/claude-cli=claude-code-url-handler.desktop
+x-scheme-handler/slack=slack.desktop
 
 [Added Associations]
 application/pdf=org.gnome.Evince.desktop;org.gnome.Papers.desktop;
