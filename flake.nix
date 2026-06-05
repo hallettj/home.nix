@@ -6,6 +6,10 @@
   outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } (inputs.import-tree ./modules);
 
   inputs = {
+    catppuccin-nushell = {
+      url = "github:catppuccin/nushell";
+      flake = false;
+    };
     determinate-nix.url = "https://flakehub.com/f/DeterminateSystems/nix-src/*";
     flake-file.url = "github:vic/flake-file";
     flake-parts = {

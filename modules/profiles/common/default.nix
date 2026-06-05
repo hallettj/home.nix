@@ -78,7 +78,7 @@ in
         initialPassword = "howmuchisthefish";
         isNormalUser = true;
         description = "Jesse Hallett";
-        shell = pkgs.zsh;
+        shell = pkgs.nushell;
         extraGroups = [
           "dialout" # read/write perms for USB devices for e.g. ZMK Studio
           "networkmanager"
