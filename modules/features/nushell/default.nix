@@ -28,7 +28,7 @@ in
         enable = true;
         package = nupkgs.nushell;
         envFile.text = "source ${dir}/env.nu";
-        configFile.text = ''
+        configFile.text = /* nu */ ''
           use ${nu_scripts}/share/nu_scripts/modules/filesystem/expand.nu
           use ${nu_scripts}/share/nu_scripts/modules/nix/nix.nu *
 
@@ -38,6 +38,17 @@ in
           source ${dir}/config.d/eza.nu
           source ${inputs.catppuccin-nushell}/themes/catppuccin_macchiato.nu
         '';
+
+        # Duplicate home.sessionVariables in nushell - this is not automatic as
+        # of Home Manager 26.05.
+        #
+        # This doesn't correctly handle cases where variables include
+        # expressions meant to be expanded by bash. Fortunately I don't have any
+        # of those in my environment.
+        # See https://github.com/nix-community/home-manager/issues/4313#issuecomment-3667548466
+        environmentVariables = builtins.mapAttrs (
+          name: value: builtins.toString value
+        ) config.home.sessionVariables;
       };
 
       programs.carapace = {
@@ -55,7 +66,7 @@ in
       programs.zoxide.enable = true;
 
       # and do the same for wezterm
-      xdg.configFile."wezterm/autoload/default_prog_nu.lua".text = ''
+      xdg.configFile."wezterm/autoload/default_prog_nu.lua".text = /* lua */ ''
         local module = {}
         function module.configure(config)
           config.default_prog = { '${lib.getExe config.programs.nushell.package}' }
