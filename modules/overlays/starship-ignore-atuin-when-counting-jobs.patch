@@ -1,28 +1,79 @@
-From 06f43f43617aa76c9ed058021f3751ea169e171c Mon Sep 17 00:00:00 2001
+From ead04a7ee284c30bf1d86469cc7f6af562c70c18 Mon Sep 17 00:00:00 2001
 From: Jesse Hallett <jesse@sitr.us>
-Date: Sun, 30 Nov 2025 17:49:44 -0800
+Date: Thu, 4 Jun 2026 22:39:30 -0700
 Subject: [PATCH] ignore atuin when counting jobs
 
 Because of the way atuin integrates into the shell it shows up as a job when
 I don't want it to for purposes of the job indicator in the shell prompt.
 
+See https://github.com/starship/starship/issues/7102
+
 ---
- src/init/starship.nu | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ src/init/starship.nu | 37 ++++++++++++++++++++++---------------
+ 1 file changed, 22 insertions(+), 15 deletions(-)
 
 diff --git a/src/init/starship.nu b/src/init/starship.nu
-index 4d7a46b8..b42d50d6 100644
+index 4d7a46b8..b698972e 100644
 --- a/src/init/starship.nu
 +++ b/src/init/starship.nu
-@@ -23,7 +23,7 @@ export-env { $env.STARSHIP_SHELL = "nu"; load-env {
+@@ -2,7 +2,26 @@
+ # - overlay which can be loaded with `overlay use starship.nu`
+ # - module which can be used with `use starship.nu`
+ # - script which can be used with `source starship.nu`
+-export-env { $env.STARSHIP_SHELL = "nu"; load-env {
++export-env { $env.STARSHIP_SHELL = "nu"; 
++
++    let job_args = {||
++        if (which "job list" | where type == built-in | is-not-empty) {
++            let count = (
++                job list
++                | where {|row|
++                    not ($row.pids | any {|pid|
++                        (open $"/proc/($pid)/comm" | str trim) == "atuin"
++                    })
++                }
++                | length
++            )
++            ["--jobs", $count]
++        } else {
++            []
++        }
++    }
++
++load-env {
+     STARSHIP_SESSION_KEY: (random chars -l 16)
+     PROMPT_MULTILINE_INDICATOR: (
+         ^::STARSHIP:: prompt --continuation
+@@ -21,13 +40,7 @@ export-env { $env.STARSHIP_SHELL = "nu"; load-env {
+                 --cmd-duration $cmd_duration
+                 $"--status=($env.LAST_EXIT_CODE)"
                  --terminal-width (term size).columns
-                 ...(
-                     if (which "job list" | where type == built-in | is-not-empty) {
+-                ...(
+-                    if (which "job list" | where type == built-in | is-not-empty) {
 -                        ["--jobs", (job list | length)]
-+                        ["--jobs", (job list | where tag != atuin | length)]
-                     } else {
-                         []
-                     }
+-                    } else {
+-                        []
+-                    }
+-                )
++                ...(do $job_args)
+         )
+     }
+ 
+@@ -45,13 +58,7 @@ export-env { $env.STARSHIP_SHELL = "nu"; load-env {
+                 --cmd-duration $cmd_duration
+                 $"--status=($env.LAST_EXIT_CODE)"
+                 --terminal-width (term size).columns
+-                ...(
+-                    if (which "job list" | where type == built-in | is-not-empty) {
+-                        ["--jobs", (job list | length)]
+-                    } else {
+-                        []
+-                    }
+-                )
++                ...(do $job_args)
+         )
+     }
+ }}
 -- 
-2.51.2
+2.54.0
 
