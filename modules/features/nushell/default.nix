@@ -65,15 +65,6 @@ in
       # Change directories with fuzzy search
       programs.zoxide.enable = true;
 
-      # and do the same for wezterm
-      xdg.configFile."wezterm/autoload/default_prog_nu.lua".text = /* lua */ ''
-        local module = {}
-        function module.configure(config)
-          config.default_prog = { '${lib.getExe config.programs.nushell.package}' }
-        end
-        return module
-      '';
-
       home.packages = with pkgs; [
         efibootmgr # for boot-to script
         v4l-utils # for webcam temperature control
