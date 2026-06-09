@@ -30,6 +30,7 @@
       desktop
 
       # features
+      android-development
       cachix
       claude-anthropic
       determinate
@@ -75,6 +76,7 @@
         # profiles
         common
         desktop
+        development
       ];
 
       my-settings = {
