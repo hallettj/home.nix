@@ -77,6 +77,9 @@
         common
         desktop
         development
+
+        # features
+        niri-virtual-keyboard
       ];
 
       my-settings = {
