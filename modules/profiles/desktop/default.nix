@@ -10,6 +10,7 @@
         fonts
         gnome
         niri
+        noctalia
       ];
 
       # Setup keyfile - copies /crypto_keyfile.bin to same path in initrd

@@ -3,54 +3,30 @@
 {
   flake-file.inputs = {
     noctalia = {
-      url = "github:noctalia-dev/noctalia-shell";
-      inputs.nixpkgs.follows = "nixpkgs-unstable"; # The docs say noctalia requires unstable packages
-    };
-    noctalia-plugins = {
-      url = "github:noctalia-dev/noctalia-plugins";
-      flake = false;
+      url = "github:noctalia-dev/noctalia";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  flake.modules.homeManager.noctalia =
-    {
-      config,
-      lib,
-      pkgs,
-      ...
-    }:
+  flake.modules.nixos.noctalia = { pkgs, ... }: {
+    # Required options for Noctalia v5
+    networking.networkmanager.enable = true;
+    hardware.bluetooth.enable = true;
+    services.power-profiles-daemon.enable = true;
+    services.upower.enable = true;
 
+    # Allows controlling external monitors - makes Noctalia's external monitor
+    # brightness control work (in theory).
+    services.ddccontrol.enable = true;
+    environment.systemPackages = [ pkgs.ddcutil ];
+  };
+
+  flake.modules.homeManager.noctalia =
+    { config, lib, ... }:
     let
       cfg = config.my-settings;
-
-      plugin-settings.privacy-indicator.hideInactive = true;
-
-      # Create a derivation based on inputs.noctalia-plugins, but merge custom
-      # settings from `plugin-settings` with default settings for each plugin, and
-      # write the result to a `settings.json` file for each plugin.
-      plugins = pkgs.runCommand "noctalia-plugins" { } ''
-        cp -r "${inputs.noctalia-plugins}" "$out"
-        chmod -R +w "$out"
-        ${lib.concatStrings (
-          lib.mapAttrsToList (
-            pluginName: settings:
-            let
-              settingsJson = pkgs.writeText "${pluginName}-settings.json" (builtins.toJSON settings);
-            in
-            ''
-              ${lib.getExe pkgs.jq} --slurpfile customizations ${settingsJson} \
-                '.metadata.defaultSettings * $customizations[0]' \
-                "$out/${pluginName}/manifest.json" > "$out/${pluginName}/settings.json"
-            ''
-          ) plugin-settings
-        )}
-      '';
     in
     {
-      imports = [
-        inputs.noctalia.homeModules.default
-      ];
-
       options.my-settings = {
         show-battery-status = lib.mkOption {
           type = lib.types.bool;
@@ -76,164 +52,169 @@
         };
       };
 
-      # Referenced in my swayidle module - uncomment to switch from swaylock to
-      # noctalia lock screen
-      # config.my-settings.lock-screen-command = "${lib.getExe config.programs.noctalia-shell.package} ipc call lockScreen lock";
+      imports = [ inputs.noctalia.homeModules.default ];
 
-      config.programs.noctalia-shell = {
+      config.programs.noctalia = {
         enable = true;
         systemd.enable = true;
+
         settings = {
-          colorSchemes.predefinedScheme = "Catppuccin";
-
-          general = {
-            enableShadows = false;
-            dimmerOpacity = 0.5;
+          theme = {
+            mode = "dark";
+            source = "builtin";
+            builtin = "Catppuccin";
           };
 
-          ui = {
-            fontDefault = "Cantarell";
-            fontDefaultScale = 1.0;
-            fontFixed = "Cartograph CF";
-            fontFixedScale = 1.0;
-            panelBackgroundOpacity = 1;
-            settingsPanelMode = "window";
+          bar.default = {
+            margin_edge = 0; # space above the bar
+            margin_ends = 0; # space to the left and right sides of the bar
+            radius = 0;
+            shadow = false;
+
+            widget_spacing = 12;
+
+            start = [
+              "taskbar"
+              "spacer_40"
+              "active_window"
+              "spacer_40"
+              "media"
+              "audio_visualizer"
+            ];
+            center = [
+              "clock"
+              "spacer_20"
+              "notifications"
+              "privacy"
+            ];
+            end = [
+              "tray"
+              "clipboard"
+              "network"
+              "bluetooth"
+              "volume"
+              "brightness"
+              "battery"
+              "nightlight"
+              "control-center"
+            ];
           };
 
-          bar = {
-            outerCorners = false;
-            showCapsule = false;
-            widgets = {
-              left = [
-                {
-                  id = "Workspace";
-                  labelMode = "none";
-                  showApplications = true;
-                  hideUnoccupied = true;
-                }
-                {
-                  id = "Spacer";
-                  width = 20;
-                }
-                {
-                  id = "ActiveWindow";
-                  maxWidth = 1000;
-                  useFixedWidth = true; # prevents distracting animations on width changes
-                }
-              ];
-              center = [
-                { id = "Clock"; }
-                { id = "NotificationHistory"; }
-                { id = "plugin:privacy-indicator"; }
-              ];
-              right = builtins.filter (e: e != { }) [
-                {
-                  id = "Tray";
-                  drawerEnabled = false;
-                }
-                (lib.optionalAttrs cfg.show-battery-status {
-                  id = "Battery";
-                  displayMode = "alwaysShow";
-                  warningThreshold = 30;
-                })
-                {
-                  id = "Battery";
-                  deviceNativePath = "/org/bluez/hci0/dev_EC_A5_35_3B_B8_C8";
-                  displayMode = "icon-always";
-                }
-                { id = "WiFi"; }
-                {
-                  id = "Volume";
-                  displayMode = "alwaysHide";
-                }
-                {
-                  id = "ControlCenter";
-                  useDistroLogo = true;
-                }
-              ];
+          widget.bluetooth = {
+            hide_when_no_connected_device = true;
+            show_label = true;
+          };
+
+          widget.clock.format = "{:%A, %B %-d — %H:%M}";
+
+          widget.media.hide_when_no_media = true;
+
+          widget.privacy.hide_inactive = true;
+
+          widget.taskbar = {
+            group_by_workspace = true;
+            group_single_icon_per_app = true;
+            hide_empty_workspaces = true;
+            scale = 1.1499999999999999;
+            show_workspace_label = false;
+          };
+
+          widget.volume = {
+            show_label = false;
+            scroll_step = 1;
+          };
+
+          widget.spacer_20 = {
+            length = 20;
+            type = "spacer";
+          };
+
+          widget.spacer_40 = {
+            length = 40;
+            type = "spacer";
+          };
+
+          brightness.enable_ddcutil = true;
+
+          control_center = {
+            sidebar_section = "none"; # no panel sidebar when opening bar widgets like clock, network
+            shortcuts = [
+              { type = "wifi"; }
+              { type = "bluetooth"; }
+              { type = "caffeine"; }
+              { type = "nightlight"; }
+              { type = "weather"; }
+              { type = "power_profile"; }
+            ];
+          };
+
+          osd.position = "top_center";
+
+          shell.panel = {
+            clipboard_placement = "attached";
+            open_near_click_clipboard = true;
+            open_near_click_control_center = true;
+            open_near_click_session = true;
+            session_placement = "centered";
+          };
+
+          calendar = {
+            enabled = true;
+            account.mailbox = {
+              name = "Personal Calendar";
+              provider = "custom";
+              server_url = "https://dav.mailbox.org/";
+              type = "caldav";
+              username = "jesse@sitr.us";
             };
           };
 
-          audio = {
-            volumeStep = 1;
-            preferredPlayer = "Qobuz";
-          };
-          brightness = {
-            brightnessStep = 5;
-            enableDdcSupport = true;
-            enforceMinimum = true;
-          };
-
-          controlCenter.cards = builtins.filter (e: e != { }) [
-            {
-              enabled = true;
-              id = "profile-card";
-            }
-            {
-              enabled = true;
-              id = "shortcuts-card";
-            }
-            {
-              enabled = true;
-              id = "audio-card";
-            }
-            (lib.optionalAttrs cfg.show-brightness {
-              enabled = true;
-              id = "brightness-card";
-            })
-            {
-              enabled = true;
-              id = "weather-card";
-            }
-            {
-              enabled = true;
-              id = "media-sysmon-card";
-            }
-          ];
-
-          dock.enabled = false;
-          location = {
-            name = "Castro Valley, CA";
-            firstDayOfWeek = 1;
-          };
-          nightLight.enabled = true;
+          desktop_widgets.enabled = false;
+          lockscreen.enabled = false;
+          lockscreen_widgets.enabled = false;
+          location.auto_locate = true;
+          nightlight.enabled = true;
+          shell.telemetry_enabled = true;
           wallpaper.enabled = false;
         };
       };
 
-      # Set wallpapers - applies to lock screen even if wallpapers are otherwise
-      # disabled.
-      config.xdg.cacheFile."noctalia/wallpapers.json" = {
-        text = builtins.toJSON {
-          defaultWallpaper = cfg.defaultWallpaper;
-          wallpapers = cfg.wallpapers;
-        };
-      };
-
-      config.xdg.configFile = {
-        "noctalia/plugins.json".text = builtins.toJSON {
-          sources = [
-            {
-              enabled = true;
-              name = "Official Noctalia Plugins";
-              url = "https://github.com/noctalia-dev/noctalia-plugins";
-            }
-          ];
-          states = {
-            network-indicator.enabled = true;
-            privacy-indicator.enabled = true;
+      config.programs.niri.settings.binds =
+        let
+          msg =
+            m: args:
+            [
+              "noctalia"
+              "msg"
+              m
+            ]
+            ++ args;
+        in
+        {
+          "Mod+Slash" = {
+            hotkey-overlay.title = "Toggle Do Not Disturb";
+            action.spawn = msg "notification-dnd-toggle" [ ];
           };
-          version = 1;
+          "Mod+Ctrl+Slash" = {
+            hotkey-overlay.title = "Clear active notifications";
+            action.spawn = msg "notification-clear-active" [ ];
+          };
+          "Mod+Ctrl+Shift+Slash" = {
+            hotkey-overlay.title = "Clear notification history";
+            action.spawn = msg "notification-clear-history" [ ];
+          };
+
+          XF86AudioPlay = {
+            allow-when-locked = true;
+            action.spawn = msg "media" [ "toggle" ]; # toggle play/pause
+          };
+          XF86AudioNext.action.spawn = msg "media" [ "next" ];
+          XF86AudioPrev.action.spawn = msg "media" [ "previous" ];
+          XF86AudioRaiseVolume.action.spawn = msg "volume-up" [ "1" ];
+          XF86AudioLowerVolume.action.spawn = msg "volume-down" [ "1" ];
+          XF86AudioMute.action.spawn = msg "volume-mute" [ ];
+          XF86MonBrightnessUp.action.spawn = msg "brightness-up" [ ];
+          XF86MonBrightnessDown.action.spawn = msg "brightness-down" [ ];
         };
-
-        "noctalia/plugins/network-indicator".source = "${plugins}/network-indicator";
-        "noctalia/plugins/privacy-indicator".source = "${plugins}/privacy-indicator";
-      };
-
-      # Automatically restart noctalia after changes to wallpaper or plugin settings
-      config.systemd.user.services.noctalia-shell.Unit.X-Restart-Triggers = [
-        config.xdg.cacheFile."noctalia/wallpapers.json".source
-        config.xdg.configFile."noctalia/plugins.json".source
-      ];
     };
 }

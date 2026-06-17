@@ -35,12 +35,8 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     noctalia = {
-      url = "github:noctalia-dev/noctalia-shell";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
-    noctalia-plugins = {
-      url = "github:noctalia-dev/noctalia-plugins";
-      flake = false;
+      url = "github:noctalia-dev/noctalia";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     sibling-swap-nvim = {
       url = "github:Wansmer/sibling-swap.nvim";

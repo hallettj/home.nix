@@ -47,10 +47,6 @@
       # Connect to VPN by running $ mullvad connect
       # services.mullvad-vpn.enable = true;
 
-      # Allows controlling external monitors - makes Noctalia's external monitor
-      # brightness control work.
-      services.ddccontrol.enable = true;
-
       # This value determines the NixOS release from which the default
       # settings for stateful data, like file locations and database versions
       # on your system were taken. It‘s perfectly fine and recommended to leave
