@@ -71,7 +71,6 @@
         vscode
       ];
 
-      my-settings.show-brightness = true;
       screen-type.aspect-ratio = "ultrawide";
 
       programs.niri.settings.outputs."DP-1" = {

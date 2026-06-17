@@ -82,11 +82,6 @@
         niri-virtual-keyboard
       ];
 
-      my-settings = {
-        show-battery-status = true;
-        show-brightness = true;
-      };
-
       programs.niri.settings = {
         outputs."eDP-1".scale = 2.0;
         input.tablet.map-to-output = "eDP-1";
