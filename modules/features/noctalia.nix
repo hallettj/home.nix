@@ -151,7 +151,12 @@
           ];
         };
 
-        osd.position = "top_center";
+        osd = {
+          position = "top_center";
+          kinds = {
+            media = false; # do not show toasts when a new track starts playing
+          };
+        };
 
         shell.panel = {
           clipboard_placement = "attached";
