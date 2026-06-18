@@ -43,31 +43,45 @@
           radius = 0;
           shadow = false;
 
-          widget_spacing = 12;
+          font_family = "Lexend";
+
+          widget_spacing = 6;
 
           start = [
             "taskbar"
-            "spacer_40"
+            "space_l"
             "active_window"
-            "spacer_40"
+            "space_l"
             "media"
             "audio_visualizer"
           ];
           center = [
+            "icon_calendar"
+            "date"
+            "space_m"
+            "icon_clock"
             "clock"
-            "spacer_20"
+            "space_m"
+            "weather"
+            "space_m"
             "notifications"
             "privacy"
           ];
           end = [
             "tray"
             "clipboard"
+            "space_s"
             "network"
+            "space_s"
             "bluetooth"
+            "space_s"
             "volume"
+            "space_s"
             "brightness"
+            "space_s"
             "battery"
             "nightlight"
+            "space_s"
             "control-center"
           ];
         };
@@ -77,7 +91,17 @@
           show_label = true;
         };
 
-        widget.clock.format = "{:%A, %B %-d — %H:%M}";
+        widget.date.format = "{:%A, %B %-d}";
+        widget.clock.format = "{:%H:%M}";
+
+        widget.icon_calendar = {
+          glyph = "calendar-event";
+          type = "custom_button";
+        };
+        widget.icon_clock = {
+          glyph = "clock";
+          type = "custom_button";
+        };
 
         widget.media.hide_when_no_media = true;
 
@@ -96,13 +120,20 @@
           scroll_step = 1;
         };
 
-        widget.spacer_20 = {
+        widget.weather.show_condition = false;
+
+        widget.space_l = {
+          length = 40;
+          type = "spacer";
+        };
+
+        widget.space_m = {
           length = 20;
           type = "spacer";
         };
 
-        widget.spacer_40 = {
-          length = 40;
+        widget.space_s = {
+          length = 12;
           type = "spacer";
         };
 
