@@ -65,6 +65,7 @@
             "weather"
             "space_m"
             "notifications"
+            "space_m"
             "privacy"
           ];
           end = [
