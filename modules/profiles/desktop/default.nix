@@ -11,6 +11,7 @@
         gnome
         niri
         noctalia
+        swaylock
       ];
 
       # Setup keyfile - copies /crypto_keyfile.bin to same path in initrd

@@ -1,5 +1,9 @@
 { config, ... }:
 {
+  flake.modules.nixos.swaylock = {
+    security.pam.services.swaylock = { };
+  };
+
   flake.modules.homeManager.swaylock = {
     programs.swaylock = {
       enable = true;
