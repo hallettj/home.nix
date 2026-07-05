@@ -64,6 +64,24 @@ in
         else
           false;
       dir = "${flakePath}/modules/features/niri";
+
+      xwayland-satellite = (pkgs.xwayland-satellite.override { withSystemd = false; }); # Niri automatically runs this when xwayland support is required
+
+      # Run xxwayland-satellite through systemd-cat so I can see its logs with:
+      #
+      #     journalctl --user -u xwayland-satellite.scope
+      #
+      xwayland-satellite-with-logging = pkgs.writeShellApplication {
+        name = "xwayland-satellite-with-logging";
+        runtimeInputs = [
+          pkgs.systemd
+          xwayland-satellite
+        ];
+        text = ''
+          exec systemd-run --user --scope --collect --unit=xwayland-satellite -- \
+                systemd-cat --identifier=xwayland-satellite -- xwayland-satellite "$@"
+        '';
+      };
     in
     {
       imports = with self.modules.homeManager; [
@@ -79,15 +97,14 @@ in
           # symlinks.
           (if useOutOfStoreSymlinks then "${dir}/config.kdl" else ./config.kdl)
         ];
+        xwayland-satellite.path = lib.getExe xwayland-satellite-with-logging;
       };
 
       # Nix packages configure Chrome and Electron apps to run in native Wayland
       # mode if this environment variable is set.
       home.sessionVariables.NIXOS_OZONE_WL = "1";
 
-      home.packages = with pkgs; [
-        (xwayland-satellite.override { withSystemd = false; }) # Niri automatically runs this when xwayland support is required
-      ];
+      home.packages = [ xwayland-satellite ];
 
       # Referenced in my swayidle module
       my-settings.power-off-monitors-command = "${lib.getExe pkgs.niri} msg action power-off-monitors";
