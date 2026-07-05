@@ -9,7 +9,7 @@
 
       runtimePkgs = with pkgs; [
         basedpyright # Python LSP server
-        deno
+        # deno
         lua-language-server
         nil # Nix LSP
         bash-language-server

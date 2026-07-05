@@ -30,7 +30,7 @@ in
         package = pkgs.helix;
 
         extraPackages = with pkgs; [
-          deno
+          # deno
           lua-language-server
           nil # Nix LSP
           nls # Nickel LSP
