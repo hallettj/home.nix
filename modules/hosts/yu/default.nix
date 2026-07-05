@@ -69,6 +69,7 @@
         godot
         obs
         vscode
+        zen-browser
       ];
 
       screen-type.aspect-ratio = "ultrawide";
