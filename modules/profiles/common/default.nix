@@ -18,7 +18,6 @@ in
     {
       imports = with self.modules.nixos; [
         # features
-        garnix
         nix-ld
         openssh
         sops
