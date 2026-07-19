@@ -5,4 +5,5 @@ if vim.g.neovide then
   vim.g.neovide_remember_window_position = false
   vim.g.neovide_remember_window_size = false
   vim.g.neovide_scroll_animation_length = 0.12
+  vim.g.neovide_progress_bar_enabled = false
 end
