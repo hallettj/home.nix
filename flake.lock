@@ -37,6 +37,22 @@
         "url": "https://flakehub.com/f/DeterminateSystems/nix-src/%2A"
       }
     },
+    "difftastic-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1783611154,
+        "narHash": "sha256-x5rm54LdloowVFPtNGs/N6dAqcVe3tHH7eJjPvxdqzk=",
+        "owner": "clabby",
+        "repo": "difftastic.nvim",
+        "rev": "c39bbe1c60eec06ad7d141bd09bb910fac4d2436",
+        "type": "github"
+      },
+      "original": {
+        "owner": "clabby",
+        "repo": "difftastic.nvim",
+        "type": "github"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -351,6 +367,7 @@
       "inputs": {
         "catppuccin-nushell": "catppuccin-nushell",
         "determinate-nix": "determinate-nix",
+        "difftastic-nvim": "difftastic-nvim",
         "flake-file": "flake-file",
         "flake-parts": "flake-parts_2",
         "home-manager": "home-manager",

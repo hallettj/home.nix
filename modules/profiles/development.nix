@@ -10,6 +10,8 @@
     { pkgs, ... }:
     {
       imports = with self.modules.homeManager; [
+        # features
+        jujutsu
         neovim
         tig
       ];

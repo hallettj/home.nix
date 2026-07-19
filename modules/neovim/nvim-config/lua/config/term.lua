@@ -16,8 +16,8 @@ vim.api.nvim_create_autocmd('TermOpen', {
   end
 })
 
--- Window navigation using reversed-T mapings
-vim.keymap.set('t', '<c-left>', '<c-\\><c-n><c-w><c-h>')
-vim.keymap.set('t', '<c-down>', '<c-\\><c-n><c-w><c-j>')
-vim.keymap.set('t', '<c-right>', '<c-\\><c-n><c-w><c-l>')
-vim.keymap.set('t', '<c-up>', '<c-\\><c-n><c-w><c-k>')
+-- Window navigation using reversed-T mapings - interferes with jj diff editing
+-- vim.keymap.set('t', '<c-left>', '<c-\\><c-n><c-w><c-h>')
+-- vim.keymap.set('t', '<c-down>', '<c-\\><c-n><c-w><c-j>')
+-- vim.keymap.set('t', '<c-right>', '<c-\\><c-n><c-w><c-l>')
+-- vim.keymap.set('t', '<c-up>', '<c-\\><c-n><c-w><c-k>')

@@ -11,6 +11,10 @@
       flake = false;
     };
     determinate-nix.url = "https://flakehub.com/f/DeterminateSystems/nix-src/*";
+    difftastic-nvim = {
+      url = "github:clabby/difftastic.nvim";
+      flake = false;
+    };
     flake-file.url = "github:vic/flake-file";
     flake-parts = {
       url = "github:hercules-ci/flake-parts";

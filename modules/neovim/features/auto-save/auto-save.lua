@@ -52,6 +52,7 @@ autocmd({ 'BufNewFile', 'BufRead' }, {
   pattern = {
     'Cargo.toml', -- Constant workspace reloading is too disruptive
     'COMMIT_EDITMSG', -- so I can abort a git commit by closing without saving
+    'DESCRIBE_EDITMSG', -- same, but for jj describe
   },
   callback = function() vim.b.auto_save = 0 end,
 })

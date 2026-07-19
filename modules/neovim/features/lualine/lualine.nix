@@ -9,5 +9,9 @@
         ];
         config = builtins.readFile ./lualine.lua;
       };
+
+      runtimePkgs = with pkgs; [
+        jj-starship
+      ];
     };
 }

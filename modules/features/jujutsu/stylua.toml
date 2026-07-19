@@ -1,0 +1,11 @@
+syntax = "LuaJIT" # Neovim embeds LuaJIT
+
+indent_type = "Spaces"
+indent_width = 2
+
+call_parentheses = "None" # omit parentheses for single string or table argument
+collapse_simple_statement = "FunctionOnly" # whether to collapse simple functions or ifs to single line
+quote_style = "AutoPreferDouble"
+
+[sort_requires]
+enabled = true
