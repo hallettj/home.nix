@@ -33,7 +33,7 @@
       android-development
       cachix
       claude-anthropic
-      determinate
+      # determinate
       docker
       gaming
       printing

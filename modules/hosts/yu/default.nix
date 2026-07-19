@@ -35,7 +35,7 @@
         # features
         android-development
         cachix
-        determinate
+        # determinate
         docker
         gaming
         printing
