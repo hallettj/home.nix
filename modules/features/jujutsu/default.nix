@@ -1,8 +1,6 @@
 # Set up jujutsu version control system, a.k.a. jj
 {
-  config,
   inputs,
-  self,
   ...
 }:
 
@@ -12,6 +10,11 @@
       url = "github:clabby/difftastic.nvim";
       flake = false;
     };
+    oyui = {
+      # url = "github:emilien-jegou/oyui";
+      url = "github:hallettj/oyui/override-default-key-bindings";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   flake.modules.homeManager.jujutsu =
@@ -20,6 +23,7 @@
       difftastic = pkgs.difftastic;
       difft = lib.getExe difftastic;
       jj-starship = lib.getExe pkgs.jj-starship;
+      oyui = inputs.oyui.packages.${pkgs.stdenv.hostPlatform.system}.default;
     in
     {
       programs.jujutsu = {
@@ -35,10 +39,12 @@
           ui = {
             default-command = [ "log" ];
             diff-editor = [
-              (lib.getExe self.packages.${pkgs.stdenv.hostPlatform.system}.neovim-with-diff-editor) # see definition below
-              "-c"
-              "DiffEditor $left $right $output"
+              (lib.getExe' oyui "oyui") # diff-editor isn't reading merge-tools edit-args - don't know why
+              "diff"
+              "$left"
+              "$right"
             ];
+            diff-instructions = false;
             diff-formatter = [
               difft
               "--display=side-by-side"
@@ -47,6 +53,14 @@
               "$right"
             ];
             merge-editor = lib.getExe pkgs.mergiraf;
+            merge-tools.oyui = {
+              program = lib.getExe' oyui "oyui";
+              edit-args = [
+                "diff"
+                "$left"
+                "$right"
+              ];
+            };
           };
           aliases = {
             tug = [
@@ -77,10 +91,28 @@
         git_status.disabled = true;
       };
 
+      xdg.configFile."oyui/config.rn".text = /* rust */ ''
+        pub fn config() {
+          theme::set("catppuccin-macchiato");
+          keybind("c", || global::confirm());
+          keybind("enter", || global::unset());
+          keybind("j", || view::tree::directory::expand());
+          keybind("k", || view::tree::directory::collapse());
+          on_mode("file", || {
+            keybind("left", || view::file::close());
+            keybind("right", || view::file::scroll::left(0));
+            keybind("(", || view::file::nav::prev_hunk());
+            keybind(")", || view::file::nav::next_hunk());
+            keybind("-", || view::file::staging::toggle());
+          });
+        }
+      '';
+
       home.packages = [
         difftastic
         pkgs.jj-starship
         pkgs.mergiraf
+        oyui # diff editor
       ];
     };
 
@@ -218,51 +250,5 @@
         meld
         mergiraf
       ];
-    };
-
-  # Self-contained neovim configuration specifically to be run by
-  # jj for editing diffs - for example for `split` or `squash -i`
-  flake.wrappers.neovim-with-diff-editor =
-    { pkgs, wlib, ... }:
-    {
-      imports = with config.flake.nvim-config; [
-        wlib.wrapperModules.neovim
-        treesitter
-        colorscheme-catppuccin
-        leap
-        surround
-        textobjects
-        tpope
-      ];
-
-      binName = "nvim-with-diff-editor";
-
-      settings = {
-        config_directory = ./nvim-config-with-diff-editor;
-        dont_link = true; # this is not the primary neovim install - don't link man pages and other stuff
-      };
-
-      # Lazy loading helper
-      specs.lze = {
-        data = pkgs.vimPlugins.lze;
-        name = "lze";
-      };
-
-      # The hunk.nvim plugin provides the diff editor
-      specs.hunk = {
-        data = pkgs.vimPlugins.hunk-nvim;
-        config = /* lua */ ''
-          require("hunk").setup {
-            keys = {
-              tree = {
-                toggle_file = { "-" },
-              },
-              diff = {
-                toggle_hunk = { "-" },
-              },
-            },
-          }
-        '';
-      };
     };
 }

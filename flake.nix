@@ -42,6 +42,10 @@
       url = "github:noctalia-dev/noctalia";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    oyui = {
+      url = "github:hallettj/oyui/override-default-key-bindings";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     sibling-swap-nvim = {
       url = "github:Wansmer/sibling-swap.nvim";
       flake = false;
