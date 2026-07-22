@@ -46,6 +46,7 @@
               "$left"
               "$right"
             ];
+            merge-editor = lib.getExe pkgs.mergiraf;
           };
           aliases = {
             tug = [
@@ -79,6 +80,7 @@
       home.packages = [
         difftastic
         pkgs.jj-starship
+        pkgs.mergiraf
       ];
     };
 
@@ -100,8 +102,11 @@
             diff = { backend = "codediff" },
             keymaps = {
               close = { "q" },
+              log = {
+                resolve = "gR",
+              },
             },
-            terminal = { window = { type = "vsplit" } },
+            terminal = { window = { type = "hsplit" } },
           }
 
           local cmd = require "jj.cmd"
@@ -141,6 +146,7 @@
 
           -- Diff commands
           local diff = require "jj.diff"
+          vim.keymap.set("n", "<leader>dd", function() vim.cmd "CodeDiff" end, { desc = "diff of working copy" })
           vim.keymap.set("n", "<leader>df", function() diff.open_vdiff() end, { desc = "JJ diff current buffer" })
           vim.keymap.set("n", "<leader>dF", function() diff.open_hdiff() end, { desc = "JJ hdiff current buffer" })
 
