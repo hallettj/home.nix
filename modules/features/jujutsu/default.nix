@@ -66,6 +66,7 @@
           shell = [
             jj-starship
             "--no-git-id"
+            "--strip-bookmark-prefix=jesse/,hallettj/"
           ];
           format = "$output ";
         };

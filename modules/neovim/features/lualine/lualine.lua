@@ -110,7 +110,12 @@ end
 local jj_status_cache = ""
 
 local function update_jj_status()
-  vim.fn.jobstart({ "jj-starship", "--no-git-id" }, {
+  vim.fn.jobstart({
+    "jj-starship",
+    "--no-git-id",
+    "--bookmarks-display-limit=1",
+    "--strip-bookmark-prefix=jesse/,hallettj/",
+  }, {
     stdout_buffered = true,
     on_stdout = function(_, data)
       if data then
