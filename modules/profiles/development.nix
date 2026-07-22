@@ -26,6 +26,9 @@
         rust-analyzer
         clang
         nodejs
+
+        # Environment
+        devenv
       ];
     };
 }
