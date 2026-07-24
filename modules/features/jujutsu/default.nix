@@ -82,6 +82,7 @@
             jj-starship
             "--no-git-id"
             "--strip-bookmark-prefix=jesse/,hallettj/"
+            "--truncate-name=18"
           ];
           format = "$output ";
         };

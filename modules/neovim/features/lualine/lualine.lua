@@ -115,6 +115,7 @@ local function update_jj_status()
     "--no-git-id",
     "--bookmarks-display-limit=1",
     "--strip-bookmark-prefix=jesse/,hallettj/",
+    "--truncate-name=18",
   }, {
     stdout_buffered = true,
     on_stdout = function(_, data)
