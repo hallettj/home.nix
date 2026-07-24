@@ -122,12 +122,17 @@
     {
       # I also have the picker from snacks.nvim set up in another module because jj uses it.
       specs.jj = {
-        data = with pkgs.vimPlugins; [
-          codediff-nvim
+        data = with pkgs.unstable.vimPlugins; [
+          codediff-nvim # nixpkgs unstable has v2.49 which includes compact diff mode
           jj-nvim
         ];
         config = /* lua */ ''
-          require("codediff").setup {}
+          require("codediff").setup {
+            diff = {
+              compact = true,
+              compact_context_lines = 12,
+            },
+          }
 
           local jj = require "jj"
           jj.setup {
