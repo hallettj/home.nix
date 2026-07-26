@@ -36,6 +36,7 @@
         android-development
         cachix
         determinate
+        docker
         gaming
         printing
         tailscale
