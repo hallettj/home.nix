@@ -63,13 +63,19 @@
             };
           };
           aliases = {
+            # Move closest bookmark to @-, and run jj fix;
             tug = [
-              "bookmark"
-              "move"
-              "--from"
-              "heads(::@- & bookmarks())"
-              "--to"
-              "@-"
+              "util"
+              "exec"
+              "--"
+              "bash"
+              "-c"
+              ''
+                set -euo pipefail
+                jj fix -s 'heads(::@- & bookmarks())..@- & mutable()' # fix revisions after bookmark, up to and including @-
+                jj bookmark move --from 'heads(::@- & bookmarks())' --to '@-'
+              ''
+              "" # last string becomes $0 -- see jj docs
             ];
           };
         };
