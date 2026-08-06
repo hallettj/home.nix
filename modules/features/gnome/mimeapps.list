@@ -40,6 +40,10 @@ application/x-extension-xht=firefox.desktop
 video/webm=org.gnome.Showtime.desktop
 x-scheme-handler/claude-cli=claude-code-url-handler.desktop
 x-scheme-handler/slack=slack.desktop
+x-scheme-handler/mailto=userapp-Thunderbird-78HNT3.desktop
+x-scheme-handler/mid=userapp-Thunderbird-78HNT3.desktop
+message/rfc822=userapp-Thunderbird-78HNT3.desktop
+x-scheme-handler/net.thunderbird=userapp-Thunderbird-ZKEXT3.desktop
 
 [Added Associations]
 application/pdf=org.gnome.Evince.desktop;org.gnome.Papers.desktop;
@@ -79,3 +83,7 @@ application/xhtml+xml=firefox.desktop;
 application/x-extension-xhtml=firefox.desktop;
 application/x-extension-xht=firefox.desktop;
 video/webm=org.gnome.Showtime.desktop;
+x-scheme-handler/mailto=userapp-Thunderbird-78HNT3.desktop;
+x-scheme-handler/mid=userapp-Thunderbird-78HNT3.desktop;
+message/rfc822=userapp-Thunderbird-78HNT3.desktop;
+x-scheme-handler/net.thunderbird=userapp-Thunderbird-ZKEXT3.desktop;
