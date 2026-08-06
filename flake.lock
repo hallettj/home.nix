@@ -125,6 +125,36 @@
       }
     },
     "flake-utils": {
+      "locked": {
+        "lastModified": 1638122382,
+        "narHash": "sha256-sQzZzAbvKEqN9s0bzWuYmRaA03v40gaJ4+iL1LXjaeI=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "74f7e4319258e287b0f9cb95426c9853b282730b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "flake-utils_2": {
+      "locked": {
+        "lastModified": 1638122382,
+        "narHash": "sha256-sQzZzAbvKEqN9s0bzWuYmRaA03v40gaJ4+iL1LXjaeI=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "74f7e4319258e287b0f9cb95426c9853b282730b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "flake-utils_3": {
       "inputs": {
         "systems": "systems"
       },
@@ -139,6 +169,50 @@
       "original": {
         "owner": "numtide",
         "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "git-format-staged": {
+      "inputs": {
+        "git-hooks": "git-hooks",
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "nixpkgs-old-pythons": "nixpkgs-old-pythons"
+      },
+      "locked": {
+        "lastModified": 1785787756,
+        "narHash": "sha256-tzc69XW0Da9yWxWOYX5HaEyApPURyQyhaEskP6npvIg=",
+        "rev": "9b200cb4e7a3ef32a709311c574f92d60f547846",
+        "revCount": 132,
+        "type": "tarball",
+        "url": "https://api.flakehub.com/f/pinned/hallettj/git-format-staged/4.0.2/019fc941-248c-7342-a162-1cb19d646f32/source.tar.gz"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://flakehub.com/f/hallettj/git-format-staged/4.%2A"
+      }
+    },
+    "git-hooks": {
+      "inputs": {
+        "flake-utils": "flake-utils",
+        "nixpkgs": [
+          "git-format-staged",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1766934887,
+        "narHash": "sha256-zXB/psKqAm57fqqJm1Bd8W7uZYnjKNbqg/1jBV9+3Bg=",
+        "owner": "ysndr",
+        "repo": "nix-git-hooks",
+        "rev": "d48aa6c86f9ded84e342e60ebebf8f973a891aa9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ysndr",
+        "repo": "nix-git-hooks",
+        "rev": "d48aa6c86f9ded84e342e60ebebf8f973a891aa9",
         "type": "github"
       }
     },
@@ -164,6 +238,28 @@
       "original": {
         "type": "tarball",
         "url": "https://flakehub.com/f/cachix/git-hooks.nix/0.1.941"
+      }
+    },
+    "git-hooks_2": {
+      "inputs": {
+        "flake-utils": "flake-utils_2",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1766934887,
+        "narHash": "sha256-zXB/psKqAm57fqqJm1Bd8W7uZYnjKNbqg/1jBV9+3Bg=",
+        "owner": "ysndr",
+        "repo": "nix-git-hooks",
+        "rev": "d48aa6c86f9ded84e342e60ebebf8f973a891aa9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ysndr",
+        "repo": "nix-git-hooks",
+        "rev": "d48aa6c86f9ded84e342e60ebebf8f973a891aa9",
+        "type": "github"
       }
     },
     "home-manager": {
@@ -313,6 +409,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-old-pythons": {
+      "locked": {
+        "lastModified": 1766902085,
+        "narHash": "sha256-coBu0ONtFzlwwVBzmjacUQwj3G+lybcZ1oeNSQkgC0M=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "c0b0e0fddf73fd517c3471e546c0df87a42d53f4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "c0b0e0fddf73fd517c3471e546c0df87a42d53f4",
+        "type": "github"
+      }
+    },
     "nixpkgs-regression": {
       "locked": {
         "lastModified": 1643052045,
@@ -399,7 +511,7 @@
     },
     "oyui": {
       "inputs": {
-        "flake-utils": "flake-utils",
+        "flake-utils": "flake-utils_3",
         "nixpkgs": [
           "nixpkgs"
         ],
@@ -427,6 +539,8 @@
         "difftastic-nvim": "difftastic-nvim",
         "flake-file": "flake-file",
         "flake-parts": "flake-parts_2",
+        "git-format-staged": "git-format-staged",
+        "git-hooks": "git-hooks_2",
         "home-manager": "home-manager",
         "import-tree": "import-tree",
         "niri-flake": "niri-flake",

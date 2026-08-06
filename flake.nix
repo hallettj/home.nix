@@ -20,6 +20,17 @@
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
+    git-format-staged = {
+      url = "https://flakehub.com/f/hallettj/git-format-staged/4.*";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
+      };
+    };
+    git-hooks = {
+      url = "github:ysndr/nix-git-hooks/d48aa6c86f9ded84e342e60ebebf8f973a891aa9";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     home-manager = {
       url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
