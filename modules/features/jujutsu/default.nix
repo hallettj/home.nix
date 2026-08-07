@@ -18,7 +18,12 @@
   };
 
   flake.modules.homeManager.jujutsu =
-    { lib, pkgs, ... }:
+    {
+      config,
+      lib,
+      pkgs,
+      ...
+    }:
     let
       difftastic = pkgs.difftastic;
       difft = lib.getExe difftastic;
@@ -64,19 +69,31 @@
           };
           aliases = {
             # Move closest bookmark to @-, and run jj fix;
-            tug = [
-              "util"
-              "exec"
-              "--"
-              "bash"
-              "-c"
-              ''
-                set -euo pipefail
-                jj fix -s 'heads(::@- & bookmarks())..@- & mutable()' # fix revisions after bookmark, up to and including @-
-                jj bookmark move --from 'heads(::@- & bookmarks())' --to '@-'
-              ''
-              "" # last string becomes $0 -- see jj docs
-            ];
+            tug =
+              let
+                tug-script = pkgs.writeShellApplication {
+                  name = "jj-tug";
+                  runtimeInputs = [ config.programs.jujutsu.package ];
+                  text = ''
+                    TARGET="''${1:-@-}" # default target is @- which is parent of working copy
+
+                    BOOKMARK="heads(::($TARGET) & bookmarks())"
+
+                    # Run fix if fix.tools are configured
+                    if jj config get fix.tools >/dev/null 2>&1; then
+                      jj fix -s "$BOOKMARK..($TARGET) & mutable()" # fix revisions after bookmark, up to and including $TARGET
+                    fi
+
+                    jj bookmark move --from "$BOOKMARK" --to "$TARGET"
+                  '';
+                };
+              in
+              [
+                "util"
+                "exec"
+                "--"
+                (lib.getExe tug-script)
+              ];
           };
         };
       };
