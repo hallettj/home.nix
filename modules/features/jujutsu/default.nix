@@ -27,6 +27,7 @@
     let
       difftastic = pkgs.difftastic;
       difft = lib.getExe difftastic;
+      jjui = pkgs.unstable.jjui;
       jj-starship = lib.getExe pkgs.jj-starship;
       oyui = inputs.oyui.packages.${pkgs.stdenv.hostPlatform.system}.default;
     in
@@ -42,7 +43,7 @@
             private-commits = "description(regex:'^wip\\b') | description('wip:*') | description('private:*')";
           };
           ui = {
-            default-command = [ "log" ];
+            default-command = [ "util" "exec" "--" (lib.getExe jjui) ];
             diff-editor = [
               (lib.getExe' oyui "oyui") # diff-editor isn't reading merge-tools edit-args - don't know why
               "diff"
@@ -134,6 +135,7 @@
 
       home.packages = [
         difftastic
+        jjui
         pkgs.jj-starship
         pkgs.mergiraf
         oyui # diff editor
