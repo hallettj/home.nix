@@ -22,10 +22,7 @@
     };
     git-format-staged = {
       url = "https://flakehub.com/f/hallettj/git-format-staged/4.*";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        systems.follows = "systems";
-      };
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     git-hooks = {
       url = "github:ysndr/nix-git-hooks/d48aa6c86f9ded84e342e60ebebf8f973a891aa9";
