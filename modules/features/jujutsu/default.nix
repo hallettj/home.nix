@@ -1,6 +1,7 @@
 # Set up jujutsu version control system, a.k.a. jj
 {
   inputs,
+  withSystem,
   ...
 }:
 
@@ -56,30 +57,45 @@
           };
           ui = {
             default-command = [ "util" "exec" "--" (lib.getExe jjui) ];
-            diff-editor = [
-              (lib.getExe' oyui "oyui") # diff-editor isn't reading merge-tools edit-args - don't know why
-              "diff"
-              "$left"
-              "$right"
-            ];
+            diff-editor = "hunk";
+            diff-formatter = "difft";
             diff-instructions = false;
-            diff-formatter = [
-              difft
+            merge-editor = "mergiraf";
+          };
+          merge-tools.difft = {
+            program = difft;
+            edit-args = [ ]; # not used for editing
+            diff-args = [
               "--display=side-by-side"
               "--color=always"
               "$left"
               "$right"
             ];
-            merge-editor = lib.getExe pkgs.mergiraf;
-            merge-tools.oyui = {
-              program = lib.getExe' oyui "oyui";
-              edit-args = [
-                "diff"
-                "$left"
-                "$right"
-              ];
-            };
           };
+
+          # Diff editor via hunk.nvim neovim plugin, designed for jj
+          merge-tools.hunk = {
+            program = withSystem pkgs.stdenv.hostPlatform.system (
+              { self', ... }: lib.getExe self'.packages.neovim
+            );
+            edit-args = [
+              "-c"
+              "DiffEditor $left $right $output"
+            ];
+            diff-args = [ ]; # not used for diff display
+          };
+
+          # Standalone diff editor, designed for jj
+          merge-tools.oyui = {
+            program = lib.getExe' oyui "oyui";
+            edit-args = [
+              "diff"
+              "$left"
+              "$right"
+            ];
+            diff-args = [ ]; # not used for diff display
+          };
+
           aliases = {
             # Move closest bookmark to @-, and run jj fix;
             tug =
@@ -149,7 +165,7 @@
         difftastic
         jjui
         pkgs.jj-starship
-        pkgs.mergiraf
+        pkgs.mergiraf # headless, automatic conflict resolver
         oyui # diff editor
       ];
     };
@@ -249,6 +265,27 @@
 
       # jj runs nested editor in terminal for commands like `split`
       env.EDITOR = "nvim";
+
+      # Hunk.nvim is a diff editor for use with jj commands like `split`
+      specs.hunk = {
+        data = pkgs.vimPlugins.hunk-nvim;
+        config = /* lua */ ''
+          require("hunk").setup {
+            -- customize keys to be a little more like fugitive
+            keys = {
+              tree = {
+                toggle_file = { "-", "a" };
+              };
+              diff = {
+                toggle_hunk = { "-", "A" },
+
+                prev_hunk = { "(", "[h" },
+                next_hunk = { ")", "]h" },
+              },
+            },
+          }
+        '';
+      };
 
       # AST-aware diff viewer in Neovim with built-in support for jj
       specs.difftastic =
