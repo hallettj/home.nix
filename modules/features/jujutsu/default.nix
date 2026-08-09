@@ -39,8 +39,20 @@
             name = "Jesse Hallett";
             email = "jesse@sitr.us";
           };
+          revsets = {
+            bookmark-advance-to = "closest_pushable(@)";
+          };
+          revset-aliases = {
+            # Revisions that should not be pushed to a git remote
+            "private()" = "description(regex:'^wip\\b') | description('wip:*') | description('private:*')";
+
+            # Closest revision that is mutable, non-private, has a description, is either non-empty or a merge
+            "closest_pushable(to)" = ''
+              heads(::to & mutable() & ~private():: & ~description(exact:"") & (~empty() | merges()))
+            '';
+          };
           git = {
-            private-commits = "description(regex:'^wip\\b') | description('wip:*') | description('private:*')";
+            private-commits = "private()";
           };
           ui = {
             default-command = [ "util" "exec" "--" (lib.getExe jjui) ];
