@@ -11,6 +11,7 @@
     {
       imports = with self.modules.homeManager; [
         # features
+        difftastic
         jujutsu
         neovim
         tig

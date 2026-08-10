@@ -66,7 +66,6 @@
             program = difft;
             edit-args = [ ]; # not used for editing
             diff-args = [
-              "--display=side-by-side"
               "--color=always"
               "$left"
               "$right"
