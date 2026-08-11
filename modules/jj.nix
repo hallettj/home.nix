@@ -56,9 +56,10 @@
           config = toml-format.generate "config.toml" jj-config;
         in
         pkgs.mkShell {
-          packages = with pkgs; [ jujutsu ];
+          # Use lib.getExe to call jj without installing it in the devShell
+          # which would override the system jj version
           shellHook = ''
-            config_path=$(jj config path --workspace)
+            config_path=$(${lib.getExe pkgs.jujutsu} config path --workspace)
             ln -sf "${config}" "$config_path"
           '';
         };

@@ -28,13 +28,13 @@
     let
       difftastic = pkgs.difftastic;
       difft = lib.getExe difftastic;
-      jjui = pkgs.unstable.jjui;
       jj-starship = lib.getExe pkgs.jj-starship;
       oyui = inputs.oyui.packages.${pkgs.stdenv.hostPlatform.system}.default;
     in
     {
       programs.jujutsu = {
         enable = true;
+        package = pkgs.unstable.jujutsu;
         settings = {
           user = {
             name = "Jesse Hallett";
@@ -60,7 +60,7 @@
               "util"
               "exec"
               "--"
-              (lib.getExe jjui)
+              (lib.getExe config.programs.jjui.package)
             ];
             diff-editor = "hunk";
             diff-formatter = "difft";
@@ -101,43 +101,69 @@
             diff-args = [ ]; # not used for diff display
           };
 
-          aliases = {
-            # Advance bookmark, and run jj fix;
-            tug =
-              let
-                tug-script = pkgs.writeNushellApplication {
-                  name = "jj-tug";
-                  runtimeInputs = [ config.programs.jujutsu.package ];
-                  text = /* nu */ ''
-                    def main [
-                      ...names: string # Move bookmarks matching the given name patterns
-                      --to (-t): string # Move bookmarks to this revision
-                    ] {
-                        # Mirror the defaults that `jj bookmark advance` would compute internally, so
-                        # that the revset used for `jj fix -s` below matches what advance will move.
-                        let target = $to | default (jj config get revsets.bookmark-advance-to)
-                        let bookmark = if ($names | is-empty) {
-                            $"heads\(::\(($target)\) & bookmarks\(\)\)"
-                        } else {
-                            let patterns = ($names | each {|n| $"bookmarks\(($n)\)" } | str join " | ")
-                            $"heads\(::\(($target)\) & \(($patterns)\)\)"
-                        }
-                        # Run fix if fix.tools are configured
-                        if (jj config get fix.tools | complete | get exit_code) == 0 {
-                            jj fix -s $"($bookmark)..\(($target)\) & mutable\(\)" # fix revisions after bookmark, up to and including target
-                        }
-                        jj bookmark advance ...$names --to $target
-                    }
-                  '';
-                };
-              in
-              [
+          aliases.fix-and-advance =
+            let
+              implementation = pkgs.writeNushellApplication {
+                name = "jj-fix-and-advance";
+                runtimeInputs = [ config.programs.jujutsu.package ];
+                text = /* nu */ ''
+                  def main [
+                    ...names: string # Move bookmarks matching the given name patterns
+                    --to (-t): string # Move bookmarks to this revision
+                  ] {
+                      # Mirror the defaults that `jj bookmark advance` would compute internally, so
+                      # that the revset used for `jj fix -s` below matches what advance will move.
+                      let target = $to | default (jj config get revsets.bookmark-advance-to)
+                      let bookmark = if ($names | is-empty) {
+                          $"heads\(::\(($target)\) & bookmarks\(\)\)"
+                      } else {
+                          let patterns = ($names | each {|n| $"bookmarks\(($n)\)" } | str join " | ")
+                          $"heads\(::\(($target)\) & \(($patterns)\)\)"
+                      }
+                      # Run fix if fix.tools are configured
+                      if (jj config get fix.tools | complete | get exit_code) == 0 {
+                          jj fix -s $"($bookmark)..\(($target)\) & mutable\(\)"
+                      }
+                      jj bookmark advance ...$names --to $target
+                  }
+                '';
+              };
+            in
+            {
+              doc = "Same as `jj advance`, but also runs `jj fix` on revisions added to bookmark history";
+              definition = [
                 "util"
                 "exec"
                 "--"
-                (lib.getExe tug-script)
+                (lib.getExe implementation)
               ];
-          };
+            };
+          aliases.ba = [ "fix-and-advance" ];
+        };
+      };
+
+      programs.jjui = {
+        enable = true;
+        package = pkgs.unstable.jjui;
+        settings = {
+          actions = [
+            {
+              name = "jj-fix-and-advance";
+              lua = /* lua */ ''
+                jj_async "fix-and-advance"
+                jjui.bookmarks.cancel()
+                revisions.refresh()
+              '';
+            }
+          ];
+          bindings = [
+            {
+              action = "jj-fix-and-advance";
+              key = "a";
+              scope = "bookmarks";
+              desc = "advance bookmark after fix";
+            }
+          ];
         };
       };
 
@@ -177,7 +203,6 @@
 
       home.packages = [
         difftastic
-        jjui
         pkgs.jj-starship
         pkgs.mergiraf # headless, automatic conflict resolver
         oyui # diff editor
