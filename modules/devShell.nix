@@ -8,6 +8,7 @@
           # home-manager
           (import ../shell.nix { inherit pkgs; }).default
           config.devShells.git-format-staged
+          config.devShells.jj
         ];
       };
     };
