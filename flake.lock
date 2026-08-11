@@ -295,6 +295,22 @@
         "type": "github"
       }
     },
+    "jjui-themes": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1786324100,
+        "narHash": "sha256-0nei3ZcdNTkoHEzMG4ofZlaaP3co6UprwtMhli1e2Rc=",
+        "owner": "vic",
+        "repo": "tinted-jjui",
+        "rev": "5f9f991e3fe4401de64af8097f729c295098588c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "vic",
+        "repo": "tinted-jjui",
+        "type": "github"
+      }
+    },
     "niri-flake": {
       "inputs": {
         "niri-stable": "niri-stable",
@@ -540,6 +556,7 @@
         "git-hooks": "git-hooks_2",
         "home-manager": "home-manager",
         "import-tree": "import-tree",
+        "jjui-themes": "jjui-themes",
         "niri-flake": "niri-flake",
         "nix-index-database": "nix-index-database",
         "nixpkgs": "nixpkgs_2",

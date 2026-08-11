@@ -1,6 +1,7 @@
 # Set up jujutsu version control system, a.k.a. jj
 {
   inputs,
+  self,
   withSystem,
   ...
 }:
@@ -32,6 +33,10 @@
       oyui = inputs.oyui.packages.${pkgs.stdenv.hostPlatform.system}.default;
     in
     {
+      imports = with self.modules.homeManager; [
+        jj-colors
+      ];
+
       programs.jujutsu = {
         enable = true;
         package = pkgs.unstable.jujutsu;

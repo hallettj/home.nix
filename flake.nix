@@ -33,6 +33,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     import-tree.url = "github:vic/import-tree";
+    jjui-themes = {
+      url = "github:vic/tinted-jjui";
+      flake = false;
+    };
     niri-flake = {
       url = "github:LuckShiba/niri-flake/includes";
       inputs = {
