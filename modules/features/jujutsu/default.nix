@@ -56,7 +56,12 @@
             private-commits = "private()";
           };
           ui = {
-            default-command = [ "util" "exec" "--" (lib.getExe jjui) ];
+            default-command = [
+              "util"
+              "exec"
+              "--"
+              (lib.getExe jjui)
+            ];
             diff-editor = "hunk";
             diff-formatter = "difft";
             diff-instructions = false;
@@ -96,23 +101,32 @@
           };
 
           aliases = {
-            # Move closest bookmark to @-, and run jj fix;
+            # Advance bookmark, and run jj fix;
             tug =
               let
-                tug-script = pkgs.writeShellApplication {
+                tug-script = pkgs.writeNushellApplication {
                   name = "jj-tug";
                   runtimeInputs = [ config.programs.jujutsu.package ];
-                  text = ''
-                    TARGET="''${1:-@-}" # default target is @- which is parent of working copy
-
-                    BOOKMARK="heads(::($TARGET) & bookmarks())"
-
-                    # Run fix if fix.tools are configured
-                    if jj config get fix.tools >/dev/null 2>&1; then
-                      jj fix -s "$BOOKMARK..($TARGET) & mutable()" # fix revisions after bookmark, up to and including $TARGET
-                    fi
-
-                    jj bookmark move --from "$BOOKMARK" --to "$TARGET"
+                  text = /* nu */ ''
+                    def main [
+                      ...names: string # Move bookmarks matching the given name patterns
+                      --to (-t): string # Move bookmarks to this revision
+                    ] {
+                        # Mirror the defaults that `jj bookmark advance` would compute internally, so
+                        # that the revset used for `jj fix -s` below matches what advance will move.
+                        let target = $to | default (jj config get revsets.bookmark-advance-to)
+                        let bookmark = if ($names | is-empty) {
+                            $"heads\(::\(($target)\) & bookmarks\(\)\)"
+                        } else {
+                            let patterns = ($names | each {|n| $"bookmarks\(($n)\)" } | str join " | ")
+                            $"heads\(::\(($target)\) & \(($patterns)\)\)"
+                        }
+                        # Run fix if fix.tools are configured
+                        if (jj config get fix.tools | complete | get exit_code) == 0 {
+                            jj fix -s $"($bookmark)..\(($target)\) & mutable\(\)" # fix revisions after bookmark, up to and including target
+                        }
+                        jj bookmark advance ...$names --to $target
+                    }
                   '';
                 };
               in
@@ -273,8 +287,8 @@
             -- customize keys to be a little more like fugitive
             keys = {
               tree = {
-                toggle_file = { "-", "a" };
-              };
+                toggle_file = { "-", "a" },
+              },
               diff = {
                 toggle_hunk = { "-", "A" },
 
