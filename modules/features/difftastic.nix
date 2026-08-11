@@ -4,22 +4,38 @@
   nixpkgs.overlays = [
     (final: prev: {
       difftastic = final.writeShellApplication {
-        name = "difftastic";
-        runtimeInputs = [ prev.difftastic ];
+        name = "difft";
         text = ''
-          # jj provides a $width variable; fall back to the terminal width, or
-          # 80 columns if that can't be determined (e.g. no controlling tty)
-          width="''${width:-$(tput cols 2>/dev/null || echo 80)}"
-
+          width=""
           display_set=false
-          for arg in "$@"; do
-            case "$arg" in
+          args=()
+          while [[ $# -gt 0 ]]; do
+            case "$1" in
+              --width)
+                width="$2"
+                args+=("$1" "$2")
+                shift 2
+                ;;
+              --width=*)
+                width="''${1#--width=}"
+                args+=("$1")
+                shift
+                ;;
               --display | --display=*)
                 display_set=true
-                break
+                args+=("$1")
+                shift
+                ;;
+              *)
+                args+=("$1")
+                shift
                 ;;
             esac
           done
+
+          # fall back to the terminal width, or 80 columns if that can't be
+          # determined (e.g. no controlling tty), when --width wasn't given
+          width="''${width:-$(tput cols 2>/dev/null || echo 80)}"
 
           if [[ "$display_set" == false ]]; then
             if [[ "$width" -lt 140 ]]; then
@@ -27,10 +43,12 @@
             else
               mode=side-by-side
             fi
-            set -- --display "$mode" "$@"
+            echo "mode: $mode"
+            args=(--display "$mode" "''${args[@]}")
           fi
 
-          exec difft "$@"
+          echo "width: $width; ''${args[*]}"
+          exec "${final.lib.getExe prev.difftastic}" "''${args[@]}"
         '';
       };
     })

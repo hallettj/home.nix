@@ -72,6 +72,7 @@
             edit-args = [ ]; # not used for editing
             diff-args = [
               "--color=always"
+              "--width=$width"
               "$left"
               "$right"
             ];
