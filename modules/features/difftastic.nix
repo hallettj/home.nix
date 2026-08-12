@@ -43,11 +43,9 @@
             else
               mode=side-by-side
             fi
-            echo "mode: $mode"
             args=(--display "$mode" "''${args[@]}")
           fi
 
-          echo "width: $width; ''${args[*]}"
           exec "${final.lib.getExe prev.difftastic}" "''${args[@]}"
         '';
       };
