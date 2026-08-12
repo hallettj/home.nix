@@ -18,24 +18,36 @@ in
     }:
 
     let
+      # Out-of-store symlinks require absolute paths when using a flake config. This
+      # is because relative paths are expanded after the flake source is copied to
+      # a store path which would get us read-only store paths.
+      useOutOfStoreSymlinks =
+        if builtins.hasAttr "useOutOfStoreSymlinks" config.home then
+          config.home.useOutOfStoreSymlinks
+        else
+          false;
+
       nupkgs = pkgs;
       dir = "${flakePath}/modules/features/nushell";
       nu_scripts = nupkgs.nu_scripts;
       nuModule = nupkgs.callPackage ./_writeNushellModule.nix { };
+
+      env_nu = if useOutOfStoreSymlinks then "${dir}/env.nu" else ./env.nu;
+      config_nu = if useOutOfStoreSymlinks then "${dir}/config.nu" else ./config.nu;
+      eza_nu = if useOutOfStoreSymlinks then "${dir}/config.d/eza.nu" else ./config.d/eza.nu;
     in
     {
       programs.nushell = {
         enable = true;
         package = nupkgs.nushell;
-        envFile.text = "source ${dir}/env.nu";
+        envFile.text = "source ${env_nu}";
         configFile.text = /* nu */ ''
           use ${nu_scripts}/share/nu_scripts/modules/filesystem/expand.nu
           use ${nu_scripts}/share/nu_scripts/modules/nix/nix.nu *
-
           use ${nuModule ./nushell-modules/boot-to.nu}
           use ${nuModule ./nushell-modules/webcam-temp.nu}
-          source ${dir}/config.nu
-          source ${dir}/config.d/eza.nu
+          source ${config_nu}
+          source ${eza_nu}
           source ${inputs.catppuccin-nushell}/themes/catppuccin_macchiato.nu
         '';
 
