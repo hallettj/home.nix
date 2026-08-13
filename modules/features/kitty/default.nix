@@ -26,7 +26,7 @@ in
       programs.kitty = {
         enable = true;
         settings = {
-          include = if useOutOfStoreSymlinks then "${dir}/kitty.conf" else ./kitty.conf;
+          include = if useOutOfStoreSymlinks then "${dir}/kitty.conf" else "${./kitty.conf}";
         };
       };
 

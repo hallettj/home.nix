@@ -98,7 +98,7 @@
         shotcut # codespell:ignore shotcut
       ];
 
-      home.useOutOfStoreSymlinks = true;
+      home.useOutOfStoreSymlinks = false;
 
       home.stateVersion = "23.05"; # Please read the comment before changing.
     };

@@ -95,7 +95,7 @@ in
         includes = lib.mkAfter [
           # Changes made to this kdl file are hot-reloaded when using out-of-store
           # symlinks.
-          (if useOutOfStoreSymlinks then "${dir}/config.kdl" else ./config.kdl)
+          (if useOutOfStoreSymlinks then "${dir}/config.kdl" else "${./config.kdl}")
         ];
         xwayland-satellite.path = lib.getExe xwayland-satellite-with-logging;
       };
