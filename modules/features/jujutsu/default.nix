@@ -54,7 +54,7 @@
 
             # Closest revision that is mutable, non-private, has a description, is either non-empty or a merge
             "closest_pushable(to)" = ''
-              heads(::to & mutable() & ~private():: & ~description(exact:"") & (~empty() | merges()))
+              heads(::to & mutable() & ~(private() & mutable()):: & ~description(exact:"") & (~empty() | merges()))
             '';
           };
           git = {
