@@ -43,8 +43,6 @@
           radius = 0;
           shadow = false;
 
-          font_family = "Lexend";
-
           widget_spacing = 6;
 
           start = [
@@ -94,14 +92,17 @@
 
         widget.date.format = "{:%A, %B %-d}";
         widget.clock.format = "{:%H:%M}";
+        widget.clock.anchor = true;
 
         widget.icon_calendar = {
           glyph = "calendar-event";
           type = "custom_button";
+          actions.left = "panel-toggle control-center calendar";
         };
         widget.icon_clock = {
           glyph = "clock";
           type = "custom_button";
+          actions.left = "panel-toggle control-center calendar";
         };
 
         widget.media.hide_when_no_media = true;
@@ -118,7 +119,10 @@
 
         widget.volume = {
           show_label = false;
-          scroll_step = 1;
+          actions = {
+            scroll_up = "volume-up 1%";
+            scroll_down = "volume-down 1%";
+          };
         };
 
         widget.weather.show_condition = false;
@@ -159,12 +163,14 @@
           };
         };
 
+        shell.font_family = "Cantarell";
+
         shell.panel = {
           clipboard_placement = "attached";
           open_near_click_clipboard = true;
           open_near_click_control_center = true;
           open_near_click_session = true;
-          session_placement = "centered";
+          session_placement = "floating";
         };
 
         calendar = {
