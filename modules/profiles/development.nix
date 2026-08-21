@@ -27,6 +27,7 @@
         rust-analyzer
         clang
         nodejs
+        python315
 
         # Environment
         devenv
