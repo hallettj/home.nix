@@ -135,7 +135,7 @@
               };
             in
             {
-              doc = "Same as `jj advance`, but also runs `jj fix` on revisions added to bookmark history";
+              doc = "Same as `jj bookmark advance`, but also runs `jj fix` on revisions added to bookmark history";
               definition = [
                 "util"
                 "exec"
@@ -301,7 +301,7 @@
 
           -- Community alias for moving bookmarks
           vim.keymap.set("n", "<leader>jt", function()
-            cmd.j "tug"
+            cmd.j "fix-and-advance"
             cmd.log {}
           end, { desc = "JJ tug" })
         '';

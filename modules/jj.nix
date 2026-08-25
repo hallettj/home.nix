@@ -1,7 +1,7 @@
 # Manage repo-specific jj settings. This includes formatters to apply when running `jj fix`.
 #
-# Applies settings to the workspace config in case I use a workspace to adjust
-# jj settings.
+# Applies settings to the workspace config to leave the repo config available
+# for developers to customize their own setups.
 #
 # Takes over management of the workspace jj config. Anything written to that
 # file will be replaced!
