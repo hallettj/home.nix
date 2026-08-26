@@ -113,8 +113,8 @@
                 runtimeInputs = [ config.programs.jujutsu.package ];
                 text = /* nu */ ''
                   def main [
-                    ...names: string # Move bookmarks matching the given name patterns
-                    --to (-t): string # Move bookmarks to this revision
+                      ...names: string # Move bookmarks matching the given name patterns
+                      --to (-t): string # Move bookmarks to this revision
                   ] {
                       # Mirror the defaults that `jj bookmark advance` would compute internally, so
                       # that the revset used for `jj fix -s` below matches what advance will move.
@@ -126,8 +126,14 @@
                           $"heads\(::\(($target)\) & \(($patterns)\)\)"
                       }
                       # Run fix if fix.tools are configured
+                      let added_revs = $"($bookmark)..\(($target)\) & mutable\(\)"
                       if (jj config get fix.tools | complete | get exit_code) == 0 {
-                          jj fix -s $"($bookmark)..\(($target)\) & mutable\(\)"
+                          jj fix -s $added_revs
+                      }
+                      # Run other fixups if run.tools are configured
+                      let run_tools_output = jj config get run.tools | complete
+                      if (jj config get run.tools | complete | get exit_code) == 0 {
+                          jj run-all-tools --revision $added_revs # this is my custom alias
                       }
                       jj bookmark advance ...$names --to $target
                   }
@@ -144,6 +150,41 @@
               ];
             };
           aliases.ba = [ "fix-and-advance" ];
+
+          aliases.run-all-tools =
+            let
+              implementation = pkgs.writeNushellApplication {
+                name = "jj-fix-and-advance";
+                runtimeInputs = [ config.programs.jujutsu.package ];
+                text = /* nu */ ''
+                  def main [
+                      --revision (-r): string # The revisions to run the tools on
+                  ] {
+                      # jj gives inline table syntax, which isn't valid at the root document level.
+                      # Wrap with a key-value assignment to get a valid document.
+                      let run_tools = $"top = (jj config get run.tools)" | from toml | get top
+                      for tool in (
+                          $run_tools | transpose name entry | sort-by name | get entry
+                      ) {
+                          let ignore_changes = $tool | get ignore-changes? | default false
+                          let heads_only = $tool | get heads-only? | default false
+                          let revs = if $heads_only { $"heads\(($revision)\)" } else { $revision }
+                          print --stderr $"jj run -- ($tool.command | str join ' ')"
+                          jj run --revision $revs ...(if $ignore_changes { [--ignore-changes] } else { [] }) -- ...$tool.command
+                      }
+                  }
+                '';
+              };
+            in
+            {
+              doc = "Run tools configured in [run.tools]. This is my custom thing, not standard jj configuration";
+              definition = [
+                "util"
+                "exec"
+                "--"
+                (lib.getExe implementation)
+              ];
+            };
         };
       };
 
