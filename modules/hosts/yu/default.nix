@@ -96,6 +96,7 @@
         love # 2D game engine
         parted
         shotcut # codespell:ignore shotcut
+        libreoffice
       ];
 
       home.useOutOfStoreSymlinks = false;

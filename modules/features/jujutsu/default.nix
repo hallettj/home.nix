@@ -131,7 +131,6 @@
                           jj fix -s $added_revs
                       }
                       # Run other fixups if run.tools are configured
-                      let run_tools_output = jj config get run.tools | complete
                       if (jj config get run.tools | complete | get exit_code) == 0 {
                           jj run-all-tools --revision $added_revs # this is my custom alias
                       }
