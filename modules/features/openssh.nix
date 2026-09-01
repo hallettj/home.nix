@@ -49,7 +49,7 @@
             "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBHYDOAh9uJnuVsYEZHDORpMbLHPWUoNSFTA84/Q4U/d99rDp2LE4Kr+kHHpuR6IXOSpoiTAg500CX+Q6IWJybHE="
           ];
         };
-        "homeassistant" = {
+        "homeassistant.local" = {
           publicKeys = [
             "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG02b6lYr1EX3td0DXztqcxTRZYnz49gP+eDehx64R85"
             "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBED8eF1G8begDAXNLfKAy+vG1oG0Gfdhy4YvtKXJbwdoxUV4NyhFZlRQA7Ql3l1QKjZqsGlzNc27v3YKTfgr6Nk="
