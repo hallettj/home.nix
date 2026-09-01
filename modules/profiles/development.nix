@@ -4,6 +4,9 @@
     imports = with self.modules.nixos; [
       claude-anthropic
     ];
+
+    # Hardware-accelerated emulation
+    users.users.jesse.extraGroups = [ "kvm" ];
   };
 
   flake.modules.homeManager.development =
