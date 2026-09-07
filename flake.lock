@@ -566,7 +566,6 @@
         "sibling-swap-nvim": "sibling-swap-nvim",
         "sops-nix": "sops-nix",
         "systems": "systems_2",
-        "telepath-nvim": "telepath-nvim",
         "vim-mcfunction": "vim-mcfunction",
         "wrappers": "wrappers",
         "zen-browser": "zen-browser"
@@ -656,22 +655,6 @@
         "type": "github"
       }
     },
-    "telepath-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1713157094,
-        "narHash": "sha256-h1NILk/EAbhb9jONHAApFs9Z2f8oZsWy15Ici6+TLxw=",
-        "owner": "rasulomaroff",
-        "repo": "telepath.nvim",
-        "rev": "2879da05463db7bdc8824b13cccd8e8920c62a55",
-        "type": "github"
-      },
-      "original": {
-        "owner": "rasulomaroff",
-        "repo": "telepath.nvim",
-        "type": "github"
-      }
-    },
     "vim-mcfunction": {
       "flake": false,
       "locked": {
@@ -696,15 +679,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1787722691,
-        "narHash": "sha256-bWBt7v2FhgG6WTLgSi8nYGi1zXaTdA+vTdCRdvR2vcw=",
-        "owner": "BirdeeHub",
+        "lastModified": 1788744583,
+        "narHash": "sha256-oNMrijfyaoRjjWhxHNFSBYyEB4u/zb/AxoKewC56LvE=",
+        "owner": "nix-community",
         "repo": "nix-wrapper-modules",
-        "rev": "04ef216559b18214853879df862f493a9e6bb8cf",
+        "rev": "e88c449105c6aafa460196d3cbd16718655aee0f",
         "type": "github"
       },
       "original": {
-        "owner": "BirdeeHub",
+        "owner": "nix-community",
         "repo": "nix-wrapper-modules",
         "type": "github"
       }

@@ -67,16 +67,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     systems.url = "github:nix-systems/default";
-    telepath-nvim = {
-      url = "github:rasulomaroff/telepath.nvim";
-      flake = false;
-    };
     vim-mcfunction = {
       url = "github:RubixTheSlime/vim-mcfunction/f8ad1bfccb97f8f8e7ee0c52024eac3a8e491a85";
       flake = false;
     };
     wrappers = {
-      url = "github:BirdeeHub/nix-wrapper-modules";
+      url = "github:nix-community/nix-wrapper-modules";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     zen-browser = {

@@ -4,6 +4,7 @@
     {
       # extend and create a/i text objects
       specs.mini-ai = {
+        enable = false; # Causes problems with leap.nvim's visit feature - see https://codeberg.org/andyg/leap.nvim/issues/313
         data = pkgs.vimPlugins.mini-ai;
         after = [ "nvim-treesitter-textobjects" ];
         config = /* lua */ ''
@@ -48,6 +49,7 @@
 
       specs.mini-operators = {
         data = pkgs.vimPlugins.mini-operators;
+        enable = false; # disable because gs conflicts with leap.nvim binding
         config = /* lua */ ''
           require("mini.operators").setup {
             -- Evaluate text and replace with output
