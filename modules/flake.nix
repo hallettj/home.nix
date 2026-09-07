@@ -23,7 +23,9 @@
 
     # This inputs set is extended by other modules in this repo
     inputs = {
-      nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
+      # There may be an amd graphics regression in kernel 6.18.48 - pin to 6.18.47 for now
+      # nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
+      nixpkgs.url = "github:nixos/nixpkgs/cbaf3aba19c6b98e508dff913ad63e14c50ebc64";
       nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
       # Also see the 'unstable-packages' overlay at 'overlays/default.nix'.
     };
