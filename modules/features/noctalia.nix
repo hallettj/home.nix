@@ -49,9 +49,6 @@
             "taskbar"
             "space_l"
             "active_window"
-            "space_l"
-            "media"
-            "audio_visualizer"
           ];
           center = [
             "icon_calendar"
@@ -104,8 +101,6 @@
           type = "custom_button";
           actions.left = "panel-toggle control-center calendar";
         };
-
-        widget.media.hide_when_no_media = true;
 
         widget.privacy.hide_inactive = true;
 
