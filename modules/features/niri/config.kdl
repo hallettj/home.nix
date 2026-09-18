@@ -149,7 +149,7 @@ window-rule {
 window-rule {
     match app-id="steam" title="^notificationtoasts"
     open-focused false
-    default-floating-position x=8 y=8 relative-to="bottom-right"
+    default-floating-position x=0 y=0 relative-to="bottom-right"
     block-out-from "screencast"
 }
 
