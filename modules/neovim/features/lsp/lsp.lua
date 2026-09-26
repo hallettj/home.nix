@@ -1,16 +1,16 @@
 vim.diagnostic.config {
   signs = {
     text = {
-      [vim.diagnostic.severity.ERROR] = '◈',
-      [vim.diagnostic.severity.WARN] = '▲',
-      [vim.diagnostic.severity.HINT] = '⚑',
-      [vim.diagnostic.severity.INFO] = '»',
+      [vim.diagnostic.severity.ERROR] = "◈",
+      [vim.diagnostic.severity.WARN] = "▲",
+      [vim.diagnostic.severity.HINT] = "⚑",
+      [vim.diagnostic.severity.INFO] = "»",
     },
   },
 }
 
-local autocmd_group = vim.api.nvim_create_augroup('my-lsp-features', { clear = true })
-vim.api.nvim_create_autocmd('LspAttach', {
+local autocmd_group = vim.api.nvim_create_augroup("my-lsp-features", { clear = true })
+vim.api.nvim_create_autocmd("LspAttach", {
   group = autocmd_group,
   callback = function(args)
     local bufnr = args.buf
@@ -23,12 +23,12 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
     -- Highlight references to name under cursor.
     if client ~= nil and client.server_capabilities.documentHighlightProvider then
-      vim.api.nvim_create_autocmd('CursorHold', {
+      vim.api.nvim_create_autocmd("CursorHold", {
         buffer = bufnr,
         group = autocmd_group,
         callback = function() vim.lsp.buf.document_highlight() end,
       })
-      vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
+      vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
         buffer = bufnr,
         group = autocmd_group,
         callback = function() vim.lsp.buf.clear_references() end,
@@ -38,12 +38,12 @@ vim.api.nvim_create_autocmd('LspAttach', {
 })
 
 -- Filter inlay hints that are too long to be useful
-local orig_inlay_hint_handler = vim.lsp.handlers['textDocument/inlayHint']
-vim.lsp.handlers['textDocument/inlayHint'] = function(err, result, ctx, config)
+local orig_inlay_hint_handler = vim.lsp.handlers["textDocument/inlayHint"]
+vim.lsp.handlers["textDocument/inlayHint"] = function(err, result, ctx, config)
   if result then
     result = vim.tbl_filter(function(hint)
-      local label = type(hint.label) == 'string' and hint.label
-        or vim.iter(hint.label):map(function(p) return p.value end):join ''
+      local label = type(hint.label) == "string" and hint.label
+        or vim.iter(hint.label):map(function(p) return p.value end):join ""
       return #label <= 40
     end, result)
   end
@@ -54,21 +54,22 @@ end
 -- config. Some of these use stock configurations bundled with
 -- nvim-lspconfig. To see those configs run `:h lspconfig-all`
 vim.lsp.enable {
-  'bashls',
-  'jsonls',
-  'lua_ls',
-  'nil_ls', -- Nix
-  'nushell',
-  'uiua',
-  'yamlls',
+  "bashls",
+  "jsonls",
+  "lua_ls",
+  "nil_ls", -- Nix
+  "nushell",
+  "oxlint",
+  "uiua",
+  "yamlls",
 
   -- Python
-  'basedpyright', -- Python type checker
-  'ruff', -- Python linter & formatter
+  "basedpyright", -- Python type checker
+  "ruff", -- Python linter & formatter
 
   -- Javascript / Typescript
   -- 'denols',
-  'ts_ls',
+  "ts_ls",
 }
 
 -- The Rust LSP is not listed because it is configured by rustaceanvim
@@ -83,10 +84,10 @@ vim.lsp.config.basedpyright = {
       original_basedpyright_on_attach(client, bufnr)
     end
 
-    local buffer_dir = vim.fn.expand '%:p:h'
-    local home_dir = vim.fn.expand '~'
+    local buffer_dir = vim.fn.expand "%:p:h"
+    local home_dir = vim.fn.expand "~"
 
-    local repo_root = vim.fs.find({ '.git' }, { path = buffer_dir, upward = true, stop = home_dir, limit = 1 })[1]
+    local repo_root = vim.fs.find({ ".git" }, { path = buffer_dir, upward = true, stop = home_dir, limit = 1 })[1]
     local stop_dir
     if repo_root == nil then
       stop_dir = home_dir
@@ -94,14 +95,14 @@ vim.lsp.config.basedpyright = {
       stop_dir = repo_root
     end
 
-    local venv = vim.fs.find({ '.venv' }, { path = buffer_dir, upward = true, stop = stop_dir, limit = 1 })[1]
+    local venv = vim.fs.find({ ".venv" }, { path = buffer_dir, upward = true, stop = stop_dir, limit = 1 })[1]
 
     if venv ~= nil then
-      local python_path = vim.fs.joinpath(venv, 'bin/python')
+      local python_path = vim.fs.joinpath(venv, "bin/python")
       if vim.fn.filereadable(python_path) ~= 0 then
         client.config.settings.python =
-          vim.tbl_deep_extend('force', client.config.settings.python or {}, { pythonPath = python_path })
-        client.notify('workspace/didChangeConfiguration', { settings = { python = client.config.settings.python } })
+          vim.tbl_deep_extend("force", client.config.settings.python or {}, { pythonPath = python_path })
+        client.notify("workspace/didChangeConfiguration", { settings = { python = client.config.settings.python } })
       end
     end
   end,
@@ -111,7 +112,7 @@ vim.lsp.config.basedpyright = {
 vim.diagnostic.config {
   virtual_text = function()
     return {
-      format = function(diagnostic) return diagnostic.message:gsub('^• ', ''):gsub('%s+', ' ') end,
+      format = function(diagnostic) return diagnostic.message:gsub("^• ", ""):gsub("%s+", " ") end,
     }
   end,
 }
