@@ -15,14 +15,19 @@ vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(args)
     local bufnr = args.buf
     local client = vim.lsp.get_client_by_id(args.data.client_id)
-
-    -- Enable inlay hints
-    if client ~= nil and client.server_capabilities.inlayHintProvider then
-      vim.lsp.inlay_hint.enable(true, { bufnr = args.buf })
+    if client == nil then
+      return
     end
 
-    -- Highlight references to name under cursor.
-    if client ~= nil and client.server_capabilities.documentHighlightProvider then
+    -- Enable inlay hints. Nvim's implementation guards on server capability, so
+    -- no need to check the capability here.
+    vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+
+    -- Highlight references to name under cursor. Guarded on the buffer, not
+    -- just the capability: LspAttach fires once per client, and these
+    -- autocmds would otherwise be created once per attached client.
+    if client:supports_method("textDocument/documentHighlight", bufnr) and not vim.b[bufnr].lsp_document_highlight then
+      vim.b[bufnr].lsp_document_highlight = true
       vim.api.nvim_create_autocmd("CursorHold", {
         buffer = bufnr,
         group = autocmd_group,
@@ -50,9 +55,9 @@ vim.lsp.handlers["textDocument/inlayHint"] = function(err, result, ctx, config)
   orig_inlay_hint_handler(err, result, ctx, config)
 end
 
--- Custom LSP configurations are in the lsp/ directory in the root of the neovim
--- config. Some of these use stock configurations bundled with
--- nvim-lspconfig. To see those configs run `:h lspconfig-all`
+-- Custom LSP configurations are in the lsp/ or after/lsp/ directories in the
+-- root of the neovim config. Some of these use stock configurations bundled
+-- with nvim-lspconfig. To see those configs run `:h lspconfig-all`
 vim.lsp.enable {
   "bashls",
   "jsonls",
@@ -68,8 +73,7 @@ vim.lsp.enable {
   "ruff", -- Python linter & formatter
 
   -- Javascript / Typescript
-  -- 'denols',
-  "ts_ls",
+  "tsc",
 }
 
 -- The Rust LSP is not listed because it is configured by rustaceanvim

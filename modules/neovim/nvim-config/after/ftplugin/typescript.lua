@@ -1,10 +1,12 @@
+-- Find available LSP commands or code actions with with:
+--
+--     :lua for _, c in ipairs(vim.lsp.get_clients({ bufnr = 0 })) do vim.print(c.name, c.server_capabilities) end
+
 local function organize_imports()
-  local params = {
-    command = '_typescript.organizeImports',
-    arguments = { vim.api.nvim_buf_get_name(0) },
-    title = ''
+  vim.lsp.buf.code_action {
+    context = { only = { "source.organizeImports" } },
+    apply = true,
   }
-  vim.lsp.buf.execute_command(params)
 end
 
-vim.keymap.set({ 'n' }, 'gI', organize_imports, { desc = 'organize imports' })
+vim.keymap.set({ "n" }, "gI", organize_imports, { desc = "organize imports" })

@@ -3,7 +3,7 @@
     { pkgs, ... }:
     {
       specs.lspconfig = {
-        data = pkgs.vimPlugins.nvim-lspconfig;
+        data = pkgs.unstable.vimPlugins.nvim-lspconfig; # using unstable to get tsc config
         config = builtins.readFile ./lsp.lua;
       };
 
@@ -13,7 +13,6 @@
         lua-language-server
         nil # Nix LSP
         bash-language-server
-        typescript-language-server
         ruff # another Python LSP server that provides formatting
         shellcheck # called by bash-language-server
         vscode-langservers-extracted # html/css/json/eslint lsp servers extracted from vscode
