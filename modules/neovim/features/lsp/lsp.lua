@@ -64,7 +64,7 @@ vim.lsp.enable {
   "lua_ls",
   "nil_ls", -- Nix
   "nushell",
-  "oxlint",
+  -- "oxlint",
   "uiua",
   "yamlls",
 
