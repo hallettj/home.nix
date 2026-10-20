@@ -4,7 +4,7 @@ return {
     ["js/ts"] = {
       inlayHints = {
         parameterNames = {
-          enabled = "all", -- "literals" (default), "all", or "" for none
+          enabled = "literals", -- "literals" (default), "all", or "" for none
           suppressWhenArgumentMatchesName = true,
         },
         parameterTypes = { enabled = true },
