@@ -9,3 +9,7 @@ gutters = ["diagnostics", "spacer", "diff"]
 insert = "bar"
 normal = "block"
 select = "underline"
+
+[editor.lsp]
+display-inlay-hints = true
+inlay-hints-length-limit = 40
