@@ -12,11 +12,6 @@
       url = "github:clabby/difftastic.nvim";
       flake = false;
     };
-    oyui = {
-      # url = "github:emilien-jegou/oyui";
-      url = "github:hallettj/oyui/override-default-key-bindings";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   flake.modules.homeManager.jujutsu =
@@ -30,7 +25,6 @@
       difftastic = pkgs.difftastic;
       difft = lib.getExe difftastic;
       jj-starship = lib.getExe pkgs.jj-starship;
-      oyui = inputs.oyui.packages.${pkgs.stdenv.hostPlatform.system}.default;
     in
     {
       imports = with self.modules.homeManager; [
@@ -91,17 +85,6 @@
             edit-args = [
               "-c"
               "DiffEditor $left $right $output"
-            ];
-            diff-args = [ ]; # not used for diff display
-          };
-
-          # Standalone diff editor, designed for jj
-          merge-tools.oyui = {
-            program = lib.getExe' oyui "oyui";
-            edit-args = [
-              "diff"
-              "$left"
-              "$right"
             ];
             diff-args = [ ]; # not used for diff display
           };
@@ -229,28 +212,10 @@
         git_status.disabled = true;
       };
 
-      xdg.configFile."oyui/config.rn".text = /* rust */ ''
-        pub fn config() {
-          theme::set("catppuccin-macchiato");
-          keybind("c", || global::confirm());
-          keybind("enter", || global::unset());
-          keybind("j", || view::tree::directory::expand());
-          keybind("k", || view::tree::directory::collapse());
-          on_mode("file", || {
-            keybind("left", || view::file::close());
-            keybind("right", || view::file::scroll::left(0));
-            keybind("(", || view::file::nav::prev_hunk());
-            keybind(")", || view::file::nav::next_hunk());
-            keybind("-", || view::file::staging::toggle());
-          });
-        }
-      '';
-
       home.packages = [
         difftastic
         pkgs.jj-starship
         pkgs.mergiraf # headless, automatic conflict resolver
-        oyui # diff editor
       ];
     };
 

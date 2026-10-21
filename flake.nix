@@ -1,4 +1,4 @@
-# DO-NOT-EDIT. This file was auto-generated using github:vic/flake-file.
+# DO-NOT-EDIT. This file was auto-generated using github:denful/flake-file.
 # Use `nix run .#write-flake` to regenerate it.
 {
   description = "NixOS and Home Manager configuration for Jesse Hallett";
@@ -15,7 +15,7 @@
       url = "github:clabby/difftastic.nvim";
       flake = false;
     };
-    flake-file.url = "github:vic/flake-file";
+    flake-file.url = "github:denful/flake-file";
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
@@ -32,7 +32,7 @@
       url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    import-tree.url = "github:vic/import-tree";
+    import-tree.url = "github:denful/import-tree";
     jjui-themes = {
       url = "github:vic/tinted-jjui";
       flake = false;
@@ -52,10 +52,6 @@
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     noctalia = {
       url = "github:noctalia-dev/noctalia";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    oyui = {
-      url = "github:hallettj/oyui/override-default-key-bindings";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     sibling-swap-nvim = {
