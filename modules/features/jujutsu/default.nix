@@ -136,7 +136,7 @@
           aliases.run-all-tools =
             let
               implementation = pkgs.writeNushellApplication {
-                name = "jj-fix-and-advance";
+                name = "jj-run-all-tools";
                 runtimeInputs = [ config.programs.jujutsu.package ];
                 text = /* nu */ ''
                   def main [
