@@ -81,5 +81,14 @@
           }
         '';
       };
+
+      specs.mini-pairs = {
+        data = pkgs.vimPlugins.mini-pairs;
+        config = /* lua */ ''
+          -- NOTE: "<" is paired in TypeScript buffers only - see
+          -- after/ftplugin/typescript.lua
+          require("mini.pairs").setup {}
+        '';
+      };
     };
 }
