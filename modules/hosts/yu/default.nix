@@ -40,6 +40,7 @@
         gaming
         printing
         tailscale
+        tangled # requires tailscale
       ];
 
       networking.hostName = "yu"; # Define your hostname.

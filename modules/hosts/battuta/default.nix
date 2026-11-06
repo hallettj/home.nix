@@ -38,6 +38,7 @@
       gaming
       printing
       tailscale
+      tangled # requires tailscale
     ];
 
     networking.hostName = "battuta";
