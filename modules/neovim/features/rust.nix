@@ -73,7 +73,7 @@
       runtimePkgs = with pkgs; [
         lldb # debug adapter
         graphviz # to render crate graphs from rustaceanvim
-        vscode-extensions.vadimcn.vscode-lldb.adapter # Provides codelldb which rustaceanvim uses for debugging Rust targets
+        # vscode-extensions.vadimcn.vscode-lldb.adapter # Provides codelldb which rustaceanvim uses for debugging Rust targets
 
         python312Packages.pylatexenc # to get latex2text for render-markdown
       ];
