@@ -1,0 +1,16 @@
+when:
+  - event: pull_request
+    branch: main
+
+engine: microvm
+image: nixos
+
+steps:
+  # The spindle guest has limited RAM, and the default settings let nix run
+  # max-jobs builds at once with every build using every core, so the worst
+  # case is max-jobs × cores concurrent compilers. Evaluating this flake only
+  # costs about 2 GiB; it is the builds that run the guest out of memory. One
+  # build at a time with a capped core count keeps peak memory near the cost
+  # of a single derivation, at the price of a longer run.
+  - name: Flake Checks
+    command: nix flake check --max-jobs 1 --cores 4

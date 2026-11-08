@@ -1,0 +1,21 @@
+when:
+  - event: push
+    branch: main
+
+engine: microvm
+image: nixos-large
+
+dependencies:
+  - nix
+
+steps:
+  # See the note in check.yml for why parallelism is capped here.
+  - name: Flake Checks
+    command: nix flake check --max-jobs 1 --cores 4
+
+  # Build outputs are transferred to Attic at the host level
+  - name: Build
+    command: |
+      nix build --no-link --max-jobs 1 --cores 4 \
+        .#packages.x86_64-linux.cacheable \
+        .#devShells.x86_64-linux.default.inputDerivation
