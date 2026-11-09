@@ -5,9 +5,6 @@ when:
 engine: microvm
 image: nixos-large
 
-dependencies:
-  - nix
-
 steps:
   # See the note in check.yml for why parallelism is capped here.
   - name: Flake Checks

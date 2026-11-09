@@ -3,7 +3,7 @@ when:
     branch: main
 
 engine: microvm
-image: nixos
+image: nixos-large
 
 steps:
   # The spindle guest has limited RAM, and the default settings let nix run
