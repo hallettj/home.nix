@@ -70,7 +70,6 @@
         # features
         godot
         obs
-        vscode
         zen-browser
       ];
 
