@@ -36,7 +36,7 @@
     # Firefox needs special configuration to access local network resources. See
     # firefox.nix.
     networking.hosts = {
-      "2600:1702:8540:b350:9afe:3eff:fe5e:fe93" = [
+      "2600:1702:8540:b350:7a55:36ff:fe03:f1ad" = [
         "spindle.sitr.us"
       ];
       "100.121.254.8" = [
